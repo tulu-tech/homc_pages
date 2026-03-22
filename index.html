@@ -29,8 +29,8 @@
         :root {
             --bg: #ffffff;
             --surface: #f8fafc;
-            --dark: #0f172a;
-            --muted: #334155;
+            --dark: #000000;
+            --muted: #444444;
             --accent: #b38b4d;
             --accent-hover: #96723e;
             --border: #e2e8f0;
@@ -38,7 +38,7 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.7; font-size: 17px; font-weight: 500; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.75; font-size: 17px; font-weight: 500; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
         h1, h2, h3, h4 { color: var(--dark); line-height: 1.2; font-weight: 800; letter-spacing: -0.025em; }
 
@@ -58,20 +58,21 @@
         .nav-cta:hover { background: var(--accent); }
 
         /* BUTTONS */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--dark); color: #fff; padding: 1rem 2.5rem; font-size: 1.05rem; font-weight: 800; border-radius: 50px; text-decoration: none; transition: all 0.2s; border: 2px solid var(--dark); cursor: pointer; }
-        .btn:hover { background: transparent; color: var(--dark); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--dark); color: #fff; padding: 1rem 2.5rem; font-size: 1rem; font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.25s; border: 2px solid var(--dark); cursor: pointer; letter-spacing: 0.01em; }
+        .btn:hover { background: #222; border-color: #222; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .btn-outline { background: transparent; color: var(--dark); border: 2px solid var(--border); }
+        .btn-outline:hover { border-color: var(--dark); background: var(--surface); }
         .btn-gold { background: var(--accent); border-color: var(--accent); color: #fff; }
-        .btn-gold:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(179,139,77,0.3); }
+        .btn-gold:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(179,139,77,0.25); }
 
         /* HERO */
-        .hero { padding: 8rem 0 6rem; background: var(--surface); text-align: center; position: relative; }
-        .hero::after { content: ''; position: absolute; bottom: 0; width: 100%; height: 40%; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
-        .hero .container { position: relative; z-index: 2; }
-        .hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; font-weight: 900; }
-        .hero p { font-size: 1.35rem; color: var(--muted); max-width: 700px; margin: 0 auto 2.5rem; }
+        .hero { padding: 0; background: #000; text-align: center; position: relative; overflow: hidden; min-height: 85vh; display: flex; align-items: center; justify-content: center; }
+        .hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.6; }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%); z-index: 2; pointer-events: none; }
+        .hero .container { position: relative; z-index: 3; padding: 6rem 2rem; }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; font-weight: 900; color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.35rem; color: rgba(255,255,255,0.9); max-width: 700px; margin: 0 auto 2.5rem; }
         .hero-img { margin: 4rem auto 0; max-width: 900px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
-        .hero-video { margin: 4rem auto 0; max-width: 1000px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); overflow: hidden; }
-        .hero-video video { width: 100%; display: block; }
 
         /* TRUST */
         .trust-bar { display: flex; justify-content: center; gap: 4rem; padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; font-weight: 700; flex-wrap: wrap; background: #fff; }
@@ -79,10 +80,22 @@
         .trust-item svg { width: 22px; height: 22px; fill: var(--accent); }
 
         /* SECTION */
-        .section { padding: 6rem 0; }
+        .section { padding: 7rem 0; }
         .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-header h2 { font-size: 3rem; margin-bottom: 1rem; }
-        .section-header p { font-size: 1.2rem; color: var(--muted); max-width: 600px; margin: 0 auto; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .section-header h2::before { content: ''; display: block; width: 40px; height: 3px; background: var(--accent); margin: 0 auto 1.25rem; border-radius: 2px; }
+        .section-header p { font-size: 1.15rem; color: var(--muted); max-width: 680px; margin: 0 auto; line-height: 1.8; }
+
+        /* FAQ ACCORDION */
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 1.75rem 0; cursor: pointer; gap: 1rem; }
+        .faq-q h3 { font-size: 1.05rem; margin: 0; transition: color 0.2s; }
+        .faq-q:hover h3 { color: var(--accent); }
+        .faq-q .faq-icon { width: 24px; height: 24px; flex-shrink: 0; transition: transform 0.3s; fill: var(--muted); }
+        .faq-q.active .faq-icon { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+        .faq-a.open { max-height: 300px; }
+        .faq-a p { margin: 0; padding-bottom: 1.75rem; font-size: 0.95rem; line-height: 1.8; }
 
         /* PRODUCT GRID */
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
@@ -141,7 +154,7 @@
         .footer p, .footer a { color: #94a3b8; font-size: 0.9rem; }
         .footer a { display: block; margin-bottom: 0.75rem; transition: color 0.2s; }
         .footer a:hover { color: #fff; }
-        .footer-bottom { border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; color: #64748b; font-size: 0.85rem; }
+        .footer-bottom { border-top: 1px solid #333; padding-top: 2rem; text-align: center; color: #666; font-size: 0.85rem; }
         .footer-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; display: block; color: #fff; }
 
         @media (max-width: 900px) {
@@ -157,7 +170,7 @@
 
 <!-- NAV -->
 <nav>
-    <a href="/" class="nav-logo">House of Massage Chairs</a>
+    <a href="/" class="nav-logo"><img src="https://houseofmassagechairs.com/cdn/shop/files/hmc-logo.png?v=1772891968&width=480" alt="House of Massage Chairs" style="height:40px; width:auto;"></a>
     <div class="nav-links">
         <a href="https://houseofmassagechairs.com/collections/massage-chairs">Massage Chairs</a>
         <a href="https://houseofmassagechairs.com/collections/recliners">Recliners</a>
@@ -170,17 +183,15 @@
 
 <!-- HERO -->
 <section class="hero">
+    <video class="hero-bg-video" autoplay muted loop playsinline>
+        <source src="https://houseofmassagechairs.com/cdn/shop/videos/c/vp/e61476a8045443c9815c892cac4b3131/e61476a8045443c9815c892cac4b3131.HD-720p-4.5Mbps-77390510.mp4?v=0" type="video/mp4">
+    </video>
     <div class="container">
         <h1>The Only Place in California<br>to Compare the World's Best</h1>
         <p>Try 35+ massage chairs from 9 global brands side by side at our San Jose showroom. Expert-guided, zero pressure.</p>
         <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
             <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Book a Showroom Visit</a>
-            <a href="https://houseofmassagechairs.com/collections/massage-chairs" class="btn">Shop All Chairs</a>
-        </div>
-        <div class="hero-video">
-            <video autoplay muted loop playsinline>
-                <source src="https://houseofmassagechairs.com/cdn/shop/videos/c/vp/e61476a8045443c9815c892cac4b3131/e61476a8045443c9815c892cac4b3131.HD-720p-4.5Mbps-77390510.mp4?v=0" type="video/mp4">
-            </video>
+            <a href="https://houseofmassagechairs.com/collections/massage-chairs" class="btn" style="background:transparent; color:#fff; border-color:rgba(255,255,255,0.4);">Shop All Chairs</a>
         </div>
     </div>
 </section>
@@ -231,7 +242,7 @@
                 </div>
             </div>
         </div>
-        <img src="assets/showroom_compare.png" alt="Customers comparing premium massage chairs in a luxury showroom with expert guidance" style="width:100%; border-radius:20px; margin-top:4rem; box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+
     </div>
 </section>
 
@@ -360,95 +371,6 @@
                 </div>
             </div>
 
-            <!-- 7 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/cyber-relax-ai-black-massage-chair-full-body.webp?v=1772226257" alt="Fujiiryoki Cyber Relax Ai">
-                <div class="product-card-body">
-                    <h3>Fujiiryoki Cyber Relax Ai Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$12,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/fujiiryoki-cyber-relax-ai-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 8 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/b_01.webp?v=1772225246" alt="Osaki OS-Pro 4D DuoMax">
-                <div class="product-card-body">
-                    <h3>Osaki OS-Pro 4D DuoMax Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$12,999</span>
-                        <span class="price-compare">$14,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/osaki-os-pro-4d-duomax-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 9 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/DSC9296_2048x-1.webp?v=1772226173" alt="JP Medics Kozue">
-                <div class="product-card-body">
-                    <h3>JP Medics Kozue Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$15,999</span>
-                        <span class="price-compare">$19,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/kozue-massage-chair-jp-medics" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 10 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/Luminary_Hero_Black__600x600_iha7ly.webp?v=1772225165" alt="Infinity Luminary Syner-D">
-                <div class="product-card-body">
-                    <h3>Infinity Luminary Syner-D Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$12,999</span>
-                        <span class="price-compare">$15,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/infinity-luminary-syner-d-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 11 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/body.webp?v=1772225197" alt="Bodyfriend Leonardo DV">
-                <div class="product-card-body">
-                    <h3>Bodyfriend Leonardo DV Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$11,699</span>
-                        <span class="price-compare">$12,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/bodyfriend-leonardo-dv-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 12 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/PhantomRovo_thumbnail_1.webp?v=1772225211" alt="Bodyfriend Phantom Rovo">
-                <div class="product-card-body">
-                    <h3>Bodyfriend Phantom Rovo Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$10,799</span>
-                        <span class="price-compare">$13,999</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/bodyfriend-phantom-rovo-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
-
-            <!-- 13 -->
-            <div class="product-card">
-                <img class="product-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/PharaohQ-45ROvo.webp?v=1772226162" alt="Bodyfriend Pharaoh Q">
-                <div class="product-card-body">
-                    <h3>Bodyfriend Pharaoh Q Massage Chair</h3>
-                    <div class="product-prices">
-                        <span class="price-sale">$15,000</span>
-                        <span class="price-compare">$17,000</span>
-                    </div>
-                    <a href="https://houseofmassagechairs.com/products/bodyfriend-pharaoh-q-massage-chair" class="product-card-link">View Details</a>
-                </div>
-            </div>
 
         </div>
 
@@ -496,53 +418,16 @@
     </div>
 </section>
 
-<!-- SHOWROOM CTA -->
-<section class="section" style="padding-top:0;">
-    <div class="container">
-        <div class="showroom-cta">
-            <h2>Explore the Only Place<br>in California</h2>
-            <p>Where you can try and compare the world's best massage chairs — side by side, with expert guidance.</p>
-            <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Book a Showroom Visit</a>
-        </div>
-    </div>
-</section>
 
-<!-- BESTSELLERS -->
-<section class="section" style="background:var(--surface);">
-    <div class="container">
-        <div class="section-header">
-            <h2>Best Sellers</h2>
-            <p>Our best-selling massage chairs represent the perfect balance of innovation, comfort, and trusted performance.</p>
-        </div>
-        <div class="best-grid">
-            <a href="https://houseofmassagechairs.com/products/bodyfriend-leonardo-dv-massage-chair" class="best-card">
-                <img class="best-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/body.webp?v=1772225197" alt="Bodyfriend Leonardo DV">
-                <div class="best-card-body">
-                    <h4>Bodyfriend Leonardo DV</h4>
-                    <span class="price-sale">$11,699</span>
-                </div>
-            </a>
-            <a href="https://houseofmassagechairs.com/products/bodyfriend-phantom-rovo-massage-chair" class="best-card">
-                <img class="best-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/PhantomRovo_thumbnail_1.webp?v=1772225211" alt="Bodyfriend Phantom Rovo">
-                <div class="best-card-body">
-                    <h4>Bodyfriend Phantom Rovo</h4>
-                    <span class="price-sale">$10,799</span>
-                </div>
-            </a>
-            <a href="https://houseofmassagechairs.com/products/bodyfriend-falcon-sv-massage-chair" class="best-card">
-                <img class="best-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/f1-1.webp?v=1772225221" alt="Bodyfriend Falcon SV">
-                <div class="best-card-body">
-                    <h4>Bodyfriend Falcon SV</h4>
-                    <span class="price-sale">$9,499</span>
-                </div>
-            </a>
-            <a href="https://houseofmassagechairs.com/products/bodyfriend-pharaoh-q-massage-chair" class="best-card">
-                <img class="best-card-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/PharaohQ-45ROvo.webp?v=1772226162" alt="Bodyfriend Pharaoh Q">
-                <div class="best-card-body">
-                    <h4>Bodyfriend Pharaoh Q</h4>
-                    <span class="price-sale">$15,000</span>
-                </div>
-            </a>
+
+<!-- SHOWROOM BANNER -->
+<section style="position:relative; height:400px; overflow:hidden;">
+    <img src="https://houseofmassagechairs.com/cdn/shop/files/ban.webp?v=1772905245&width=1600" alt="House of Massage Chairs Showroom" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;">
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%); display:flex; align-items:center;">
+        <div class="container">
+            <h2 style="color:#fff; font-size:2.5rem; margin-bottom:0.75rem;">Experience It In Person</h2>
+            <p style="color:rgba(255,255,255,0.85); font-size:1.15rem; max-width:500px; margin:0 0 1.5rem;">Visit our San Jose showroom and try every chair before you decide.</p>
+            <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Book a Showroom Visit</a>
         </div>
     </div>
 </section>
@@ -612,6 +497,19 @@
     </div>
 </section>
 
+<!-- SHOWROOM BANNER -->
+<section style="position:relative; overflow:hidden; height:400px;">
+    <img src="https://houseofmassagechairs.com/cdn/shop/files/ban.webp?v=1772905245&width=1600" alt="House of Massage Chairs Showroom" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;">
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);"></div>
+    <div class="container" style="position:relative; z-index:2; height:100%; display:flex; align-items:center;">
+        <div style="max-width:500px;">
+            <h2 style="color:#fff; font-size:2.25rem; margin-bottom:0.75rem;">Visit Our San Jose Showroom</h2>
+            <p style="color:rgba(255,255,255,0.85); margin-bottom:1.5rem;">Experience 35+ massage chairs from the world's top brands, all in one place.</p>
+            <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Book a Visit</a>
+        </div>
+    </div>
+</section>
+
 <!-- BLOG -->
 <section class="section">
     <div class="container">
@@ -660,50 +558,9 @@
     </div>
 </section>
 
-<!-- LUXURY FEATURES -->
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <h2>Luxury Features That Actually Matter</h2>
-            <p>Premium chairs are better when the right features create a more comfortable, personalized experience at home.</p>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:2rem;">
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M22 12l-4-4v3H3v2h15v3l4-4z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">Zero Gravity Recline</h3>
-                <p style="font-size:0.9rem;margin:0;">A lighter, suspended seating position many find more comfortable and immersive.</p>
-            </div>
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">Full-Body Coverage</h3>
-                <p style="font-size:0.9rem;margin:0;">The best experience comes from how well the chair works across shoulders, back, hips, legs, and feet together.</p>
-            </div>
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">3D and 4D Roller Control</h3>
-                <p style="font-size:0.9rem;margin:0;">Affects how adjustable, nuanced, and personalized the massage feels.</p>
-            </div>
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">Stretching Programs</h3>
-                <p style="font-size:0.9rem;margin:0;">For buyers who want a chair that does more than basic rolling and compression.</p>
-            </div>
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.16-.28L11.5 2h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">Heat & Air Compression</h3>
-                <p style="font-size:0.9rem;margin:0;">Creates a fuller, more relaxing session when integrated well.</p>
-            </div>
-            <div style="background:var(--surface); padding:2.5rem; border-radius:16px; border:1px solid var(--border);">
-                <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:12px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-9h10v2H7z"/></svg>
-                <h3 style="font-size:1.1rem;margin-bottom:8px;">Body Scanning</h3>
-                <p style="font-size:0.9rem;margin:0;">The most important difference between average and premium chairs is how well they adapt to you.</p>
-            </div>
-        </div>
-        <div style="text-align:center; margin-top:3rem;">
-            <a href="https://houseofmassagechairs.com/collections/massage-chairs" class="btn">Compare Features Across Premium Chairs</a>
-        </div>
-    </div>
-</section>
+
+
+
 
 <!-- BUYING EXPERIENCE -->
 <section class="section" style="background:var(--surface);">
@@ -714,28 +571,28 @@
         </div>
         <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:2rem;">
             <div style="text-align:center; padding:2rem;">
-                <div style="width:56px;height:56px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">1</span></div>
+                <div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">1</span></div>
                 <h4 style="font-size:1rem;margin-bottom:8px;">Visit or Connect</h4>
                 <p style="font-size:0.9rem;margin:0;">Start with a showroom visit or a conversation about what you want.</p>
             </div>
             <div style="text-align:center; padding:2rem;">
-                <div style="width:56px;height:56px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">2</span></div>
+                <div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">2</span></div>
                 <h4 style="font-size:1rem;margin-bottom:8px;">Compare the Right Options</h4>
                 <p style="font-size:0.9rem;margin:0;">Narrow the field based on body fit, comfort, features, and home needs.</p>
             </div>
             <div style="text-align:center; padding:2rem;">
-                <div style="width:56px;height:56px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">3</span></div>
+                <div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">3</span></div>
                 <h4 style="font-size:1rem;margin-bottom:8px;">Choose With Clarity</h4>
                 <p style="font-size:0.9rem;margin:0;">Understand differences without unnecessary complexity.</p>
             </div>
             <div style="text-align:center; padding:2rem;">
-                <div style="width:56px;height:56px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">4</span></div>
+                <div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><span style="color:#fff;font-weight:900;font-size:1.25rem;">4</span></div>
                 <h4 style="font-size:1rem;margin-bottom:8px;">Enjoy Premium Ownership</h4>
                 <p style="font-size:0.9rem;margin:0;">Delivery, setup, warranty, and service are part of the equation.</p>
             </div>
         </div>
         <div style="text-align:center; margin-top:2rem;">
-            <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Start Your Search</a>
+            <a href="https://houseofmassagechairs.com/pages/our-store" class="btn">Start Your Search</a>
         </div>
     </div>
 </section>
@@ -748,14 +605,14 @@
                 <h2>Massage Chairs Near San Jose: Try Before You Decide</h2>
                 <p>For many buyers, the hardest part is not finding a massage chair online. It is knowing which one will actually feel right once it is in the home.</p>
                 <p><strong>House of Massage Chairs</strong> gives Bay Area shoppers a more confident way to buy. Located at <strong>Westfield Oakridge Mall in San Jose</strong>, the showroom offers the chance to compare premium massage chairs in person and make a more informed decision.</p>
-                <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold" style="margin-top:1rem;">Get Directions to the Showroom</a>
+                <a href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" class="btn" style="margin-top:1rem;">Get Directions to the Showroom</a>
             </div>
             <div style="background:var(--surface); padding:2.5rem; border-radius:20px; border:1px solid var(--border);">
                 <h3 style="margin-bottom:1.5rem;">Why visit in person?</h3>
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span style="font-weight:700;">San Jose showroom location</span></div>
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">35+ chairs on display</span></div>
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">9 top brands in one place</span></div>
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">White-glove delivery & setup</span></div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">White-glove delivery &amp; setup</span></div>
                 <div style="display:flex;align-items:center;gap:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">In-house service support</span></div>
             </div>
         </div>
@@ -780,50 +637,54 @@
     <div class="container-narrow">
         <div class="section-header"><h2>Frequently Asked Questions</h2></div>
         <div style="border-top:1px solid var(--border);">
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">Are massage chairs worth it?</h3><p style="margin:0;font-size:0.95rem;">A premium massage chair is worth it for buyers who want regular at-home comfort, relaxation, and a more convenient wellness routine. The real value depends on comfort, fit, feature quality, and the ownership experience around delivery, warranty, and support.</p></div>
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">What is the best massage chair for home use?</h3><p style="margin:0;font-size:0.95rem;">The best massage chair for home use depends on body fit, preferred massage feel, room compatibility, and feature priorities such as zero gravity, 3D or 4D rollers, stretching, heat, and full-body air compression.</p></div>
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">Where can I try massage chairs near me?</h3><p style="margin:0;font-size:0.95rem;">Buyers in San Jose and the Bay Area can compare premium massage chairs in person at House of Massage Chairs at Westfield Oakridge Mall, where multiple brands and models can be tested side by side.</p></div>
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">Is a zero gravity massage chair worth it?</h3><p style="margin:0;font-size:0.95rem;">For many buyers, zero gravity is one of the most noticeable comfort features because it creates a more reclined, floating position that can make the session feel more immersive and relaxing.</p></div>
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">How much does a good massage chair cost?</h3><p style="margin:0;font-size:0.95rem;">A good massage chair can vary widely in price depending on engineering, features, brand, fit, and support. Premium buyers should evaluate total ownership value, not price alone.</p></div>
-            <div style="padding:2rem 0; border-bottom:1px solid var(--border);"><h3 style="font-size:1.1rem;margin-bottom:8px;">Can I compare massage chairs in person in San Jose?</h3><p style="margin:0;font-size:0.95rem;">Yes. HOMC's San Jose showroom gives buyers the chance to compare multiple premium massage chairs and brands in one location before making a decision.</p></div>
-            <div style="padding:2rem 0;"><h3 style="font-size:1.1rem;margin-bottom:8px;">Do premium massage chairs come with delivery and warranty?</h3><p style="margin:0;font-size:0.95rem;">Premium purchases often include stronger ownership support. HOMC highlights white-glove delivery and setup, manufacturer-backed warranty, and in-house service as part of the buying experience.</p></div>
-        </div>
-    </div>
-</section>
-
-<!-- VALUE / TRUST -->
-<section class="section" style="background:var(--surface);">
-    <div class="container">
-        <div class="section-header">
-            <span style="display:inline-block;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7a6f62;margin-bottom:14px;font-weight:700;">Premium Buying Confidence</span>
-            <h2>What a Premium Massage Chair Purchase Should Include</h2>
-            <p>When buyers focus only on price, they often miss the bigger picture. A premium purchase should include confidence before, during, and after the decision.</p>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1.25rem;">
-            <div style="background:#fff; padding:2rem; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,0.05);">
-                <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M15 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9l-6-6zM5 19V5h9v5h5v9H5z"/></svg>
-                <h4 style="font-size:0.95rem;margin-bottom:6px;">In-Person Comparison</h4>
-                <p style="font-size:0.85rem;margin:0;color:var(--muted);">Try different models before you commit.</p>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>Are massage chairs worth it?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>A premium massage chair is worth it for buyers who want regular at-home comfort, relaxation, and a more convenient wellness routine. The real value depends on comfort, fit, feature quality, and the ownership experience around delivery, warranty, and support.</p></div>
             </div>
-            <div style="background:#fff; padding:2rem; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,0.05);">
-                <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                <h4 style="font-size:0.95rem;margin-bottom:6px;">Expert Guidance</h4>
-                <p style="font-size:0.85rem;margin:0;color:var(--muted);">Narrow choices based on real priorities.</p>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>What is the best massage chair for home use?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>The best massage chair for home use depends on body fit, preferred massage feel, room compatibility, and feature priorities such as zero gravity, 3D or 4D rollers, stretching, heat, and full-body air compression.</p></div>
             </div>
-            <div style="background:#fff; padding:2rem; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,0.05);">
-                <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                <h4 style="font-size:0.95rem;margin-bottom:6px;">White-Glove Delivery</h4>
-                <p style="font-size:0.85rem;margin:0;color:var(--muted);">A smoother path from showroom to home.</p>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>Where can I try massage chairs near me?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>Buyers in San Jose and the Bay Area can compare premium massage chairs in person at House of Massage Chairs at Westfield Oakridge Mall, where multiple brands and models can be tested side by side.</p></div>
             </div>
-            <div style="background:#fff; padding:2rem; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,0.05);">
-                <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                <h4 style="font-size:0.95rem;margin-bottom:6px;">Manufacturer Warranty</h4>
-                <p style="font-size:0.85rem;margin:0;color:var(--muted);">Stronger purchase confidence over time.</p>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>Is a zero gravity massage chair worth it?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>For many buyers, zero gravity is one of the most noticeable comfort features because it creates a more reclined, floating position that can make the session feel more immersive and relaxing.</p></div>
             </div>
-            <div style="background:#fff; padding:2rem; border-radius:18px; border:1px solid var(--border); box-shadow:0 10px 35px rgba(0,0,0,0.05);">
-                <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-                <h4 style="font-size:0.95rem;margin-bottom:6px;">In-House Service</h4>
-                <p style="font-size:0.85rem;margin:0;color:var(--muted);">Support that extends beyond the sale.</p>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>How much does a good massage chair cost?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>A good massage chair can vary widely in price depending on engineering, features, brand, fit, and support. Premium buyers should evaluate total ownership value, not price alone.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>Can I compare massage chairs in person in San Jose?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>Yes. HOMC's San Jose showroom gives buyers the chance to compare multiple premium massage chairs and brands in one location before making a decision.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <h3>Do premium massage chairs come with delivery and warranty?</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a"><p>Premium purchases often include stronger ownership support. HOMC highlights white-glove delivery and setup, manufacturer-backed warranty, and in-house service as part of the buying experience.</p></div>
             </div>
         </div>
     </div>
@@ -889,10 +750,23 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 House of Massage Chairs. All rights reserved.
+            &copy; 2026 House of Massage Chairs. All rights reserved.
         </div>
     </div>
 </footer>
+
+<script>
+function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('active'));
+    if (!isOpen) {
+        answer.classList.add('open');
+        el.classList.add('active');
+    }
+}
+</script>
 
 </body>
 </html>
