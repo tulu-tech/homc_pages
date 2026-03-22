@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget vs Premium Massage Chairs: Spend Smarter, Regret Less | HOMC</title>
+    <meta name="description" content="A comprehensive guide to help you evaluate your massage chair budget based on usage, comfort expectations, and risk. Spend smarter, regret less.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data Schemas -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      ...
+    }
+    </script>
+    
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #334155;
+            --accent: #b38b4d; /* Luxurious soft gold */
+            --accent-hover: #96723e;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            font-size: 19px;
+            font-weight: 500;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            padding-bottom: 80px; 
+        }
+
+        h1, h2, h3, h4 { color: var(--text-main); line-height: 1.25; font-weight: 800; letter-spacing: -0.025em; }
+
+        h1 { font-size: 4.5rem; margin-bottom: 1.5rem; text-align: center; font-weight: 900; }
+        h2 { font-size: 3rem; margin-bottom: 2rem; margin-top: 3rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+        p { color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 500; }
+        strong { font-weight: 800; color: var(--text-main); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .container-narrow { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Header */
+        header { padding: 1.25rem 2rem; display: flex; justify-content: center; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        header .logo { font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 800; color: var(--text-main); text-decoration: none; }
+
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: var(--text-main); color: #ffffff; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 800; border-radius: 50px; text-decoration: none; transition: all 0.2s ease; cursor: pointer; border: 2px solid var(--text-main); }
+        .btn:hover { background-color: transparent; color: var(--text-main); }
+        .btn-gold { background-color: var(--accent); border-color: var(--accent); color: #fff; }
+        .btn-gold:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(179, 139, 77, 0.3); }
+
+        /* Hero */
+        .hero { padding: 6rem 0 4rem 0; background-color: var(--surface-color); position: relative; }
+        .hero::after { content: ''; position: absolute; bottom: 0; width: 100%; height: 50%; background: linear-gradient(to bottom, transparent, var(--bg-color)); pointer-events: none; }
+        .hero .container { position: relative; z-index: 2; }
+        .hero p.subhead { font-size: 1.5rem; max-width: 800px; margin: 0 auto 3rem auto; text-align: center; color: var(--text-muted); line-height: 1.6; }
+        .hero-img { width: 100%; border-radius: 24px; margin-top: 4rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 1px solid rgba(255,255,255,0.6); }
+
+        /* Trust Bar */
+        .trust-bar { display: flex; justify-content: center; align-items: center; gap: 4rem; padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); font-size: 1rem; font-weight: 700; color: var(--text-main); background: #fff; flex-wrap: wrap; text-align: center; }
+        .trust-icon { fill: var(--accent); width: 24px; height: 24px; margin-right: 12px; vertical-align: middle; }
+
+        /* Split Sections */
+        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; margin: 8rem 0; }
+        .split.reverse { direction: rtl; }
+        .split.reverse > * { direction: ltr; }
+        .split img { width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* Pull Quote */
+        .pull-quote { font-size: 2.5rem; line-height: 1.3; text-align: center; font-weight: 300; color: var(--text-main); margin: 8rem auto; max-width: 900px; position: relative; padding: 0 2rem; }
+        .pull-quote::before { content: "“"; display: block; font-size: 6rem; color: var(--accent); line-height: 0.5; margin-bottom: 3rem; opacity: 0.2; font-family: Georgia, serif; }
+
+        /* Highlight Boxes */
+        .highlight-box { background: var(--surface-color); padding: 3rem; border-radius: 16px; border: 1px solid var(--border); margin: 3rem 0; }
+        ul.check-list { list-style: none; margin-bottom: 2rem; padding-left: 0; }
+        ul.check-list li { position: relative; padding-left: 2rem; margin-bottom: 1rem; color: var(--text-muted); font-size: 1.1rem; display: flex; align-items: flex-start; gap: 12px;}
+        ul.check-list li svg { fill: var(--accent); width: 20px; height: 20px; flex-shrink: 0; margin-top: 4px; }
+
+        /* Schema Box */
+        .schema-box { background-color: var(--surface-color); padding: 3rem; border-radius: 16px; border: 1px solid var(--border); margin: 4rem 0; }
+
+        /* 3-Column Specific Icon Grid for Budget Questions */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; margin-bottom: 4rem;}
+        .icon-card { background: #fff; padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
+        .icon-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .icon-wrapper { width: 56px; height: 56px; background: var(--surface-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid var(--border);}
+        .icon-wrapper svg { width: 28px; height: 28px; fill: var(--accent); }
+        .icon-card h3 { font-size: 1.25rem; margin-bottom: 1rem; line-height: 1.3;}
+        .icon-card p { font-size: 1.05rem; margin-bottom: 0; }
+
+        /* Feature Horizontal Cards */
+        .horiz-card { display: flex; gap: 24px; align-items: flex-start; background: #fff; padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
+        .horiz-card .icon-wrapper { flex-shrink: 0; margin-bottom: 0; }
+        .horiz-card h3 { font-size: 1.35rem; margin-bottom: 0.5rem; margin-top: 0; }
+        .horiz-card p { margin-bottom: 0; font-size: 1.05rem; }
+
+        /* Product Price Bands */
+        .band-section { padding: 6rem 0; background-color: #fff; border-top: 1px solid var(--border);}
+        .band-section h2 { text-align: center; margin-bottom: 1rem; margin-top: 0; }
+        .band-section > p { text-align: center; max-width: 700px; margin: 0 auto 4rem auto; font-size: 1.25rem; }
+
+        /* Coded Tier Overview */
+        .tier-overview { margin-bottom: 5rem; }
+        .tier-strip { display: flex; align-items: center; gap: 24px; padding: 2rem 2.5rem; border-radius: 16px; margin-bottom: 1.25rem; border: 1px solid var(--border); background: var(--surface-color); transition: all 0.3s ease; }
+        .tier-strip:hover { border-color: var(--accent); box-shadow: 0 12px 30px rgba(0,0,0,0.05); transform: translateX(8px); }
+        .tier-num { width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; flex-shrink: 0; }
+        .tier-info { flex: 1; }
+        .tier-info .tier-name { font-weight: 800; font-size: 1.25rem; color: var(--text-main); margin-bottom: 4px; display: block; }
+        .tier-info .tier-desc { font-size: 1rem; color: var(--text-muted); margin-bottom: 0; font-weight: 500; }
+        .tier-price-tag { background: #fff; border: 1px solid var(--border); padding: 8px 20px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+        .tier-bar-track { flex: 0 0 120px; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+        .tier-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: 999px; }
+
+        .grid-t { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+
+        .card { background: var(--surface-color); padding: 3.5rem 3rem; border-radius: 20px; border: 1px solid var(--border); transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
+        .card:hover::before { opacity: 1; }
+
+        .card-price { font-size: 1rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; display: block; }
+        .real-chair-img { width: 100%; height: 280px; object-fit: contain; margin: 2rem 0; mix-blend-mode: multiply; }
+
+        .card ul { list-style: none; margin-bottom: 2.5rem; flex-grow: 1; }
+        .card li { position: relative; padding-left: 2rem; margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; display: flex; align-items: flex-start; gap: 12px;}
+        .card li svg { flex-shrink:0; width: 20px; height: 20px; fill: var(--accent); margin-top: 4px; }
+
+        .featured-pick { background-color: #fff; padding: 1.5rem; border-radius: 12px; font-size: 1.05rem; text-align: center; border: 1px dashed var(--border); margin-bottom: 1.5rem; }
+
+        /* Decision Fast Grid */
+        .decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; margin-bottom: 4rem;}
+        .decision-card { background: var(--surface-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); }
+        .decision-card h4 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 12px;}
+        .decision-card h4 svg { width: 24px; height: 24px; fill: var(--accent); }
+        .decision-card .models { font-weight: 800; color: var(--accent); margin-bottom: 1rem; font-size: 1.05rem;}
+        
+        /* Table */
+        .table-responsive { overflow-x: auto; margin-top: 4rem; margin-bottom: 4rem; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; background: #fff; border: 1px solid var(--border); border-radius: 12px;}
+        th, td { padding: 1.5rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+        th { background: var(--surface-color); font-weight: 800; color: var(--text-main); font-size: 1.1rem; }
+        tr:hover { background: #fafafa; }
+        
+        /* FAQ Section */
+        .faq-item { border-bottom: 1px solid var(--border); padding: 2rem 0; }
+        .faq-item h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-main); margin-top: 0; display: flex; align-items: flex-start; gap: 12px;}
+        .faq-item h3 svg { width: 24px; height: 24px; fill: var(--accent); flex-shrink: 0; margin-top: 2px;}
+
+        /* Final CTA */
+        .final-cta { text-align: center; padding: 8rem 2rem; background-color: #000000; color: #fff; }
+        .final-cta h2 { color: #fff; margin-top: 0; }
+        .final-cta p { color: #9ca3af; font-size: 1.25rem; margin-bottom: 3rem; max-width: 600px; margin-inline: auto;}
+
+        /* Sticky Mobile CTA */
+        .sticky-mobile-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; padding: 1rem; border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(0,0,0,0.1); z-index: 999; text-align: center; }
+        .sticky-mobile-cta a { display: block; width: 100%; margin-bottom: 0.5rem; }
+        .sticky-mobile-cta span { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+
+        @media (max-width: 900px) {
+            .split, .grid-t, .grid-3, .decision-grid { grid-template-columns: 1fr; gap: 2rem; }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.25rem; }
+            .pull-quote { font-size: 1.75rem; padding: 0; }
+            .trust-bar { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+            .sticky-mobile-cta { display: block; }
+            .horiz-card { flex-direction: column; align-items: center; text-align: center;}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo">House of Massage Chairs</a>
+    </header>
+
+    <!-- SECTION 1: HERO -->
+    <div class="hero">
+        <div class="container">
+            <h1>Spend Smarter.<br>Regret Less.</h1>
+            <p class="subhead">A lower price is not always the smarter choice, and a higher price is not automatically the better one. This guide helps you evaluate your massage chair budget based on how often you will use it, how much comfort and customization you expect, and how much risk you want to remove from the decision.</p>
+            
+            <div class="highlight-box" style="background:#fff; text-align: center; max-width: 800px; margin: 0 auto 3rem auto; padding: 2rem;">
+                <p style="margin-bottom: 1rem;">When buying a massage chair, the real question is not:<br><strong>“What is the cheapest option?”</strong></p>
+                <p style="font-size: 1.25rem; color:var(--text-main); font-weight:800; margin-bottom: 1rem;">It is: “What level is right for me?”</p>
+                <p style="margin-bottom: 0;">The right chair is the one that fits your body, your home, your usage habits, and your comfort expectations — without leaving you feeling like you overspent or settled too low.</p>
+            </div>
+
+            <div style="text-align: center; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#bands" class="btn btn-gold">Find the Right Fit</a>
+                <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-outline" style="background:#fff; color:var(--text-main);">Visit a Showroom</a>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem; font-weight: 600;">Compare chairs side by side. Get expert guidance. Make a more confident decision.</p>
+
+            <img src="assets/guide_hero.png" alt="Premium massage chair in a highly realistic natural living room with panoramic nature views" class="hero-img">
+        </div>
+    </div>
+
+    <!-- STRIP -->
+    <div class="trust-bar">
+        <div><svg class="trust-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Compare 35+ chairs in person</div>
+        <div><svg class="trust-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>9 global brands</div>
+        <div><svg class="trust-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>White-glove delivery & setup</div>
+        <div><svg class="trust-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Manufacturer-backed warranty</div>
+    </div>
+
+    <!-- SECTION 2: WHY IT FEELS HARD -->
+    <div class="container-narrow" style="margin-top: 6rem; margin-bottom: 6rem;">
+        <h2 style="text-align: center;">Why This Decision Feels So Hard</h2>
+        <p>Buying a massage chair is not like buying a small home accessory. The price is meaningful. The feature lists are long. And most online content either oversimplifies the category or overwhelms you with too many choices.</p>
+        
+        <div class="highlight-box">
+            <p style="color:var(--text-main); font-weight:800; margin-bottom: 1rem; font-size:1.25rem;">Many shoppers feel all of this at once:</p>
+            <ul class="check-list">
+                <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>I do not want to overspend</li>
+                <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>I do not want to buy too cheap and regret it</li>
+                <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>I am not sure which features actually matter</li>
+                <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>I need to justify this purchase to my household</li>
+                <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>The more I research, the less clear the decision feels</li>
+            </ul>
+        </div>
+        
+        <p>That hesitation is normal. In fact, it usually means you are asking the right question.</p>
+        <p style="font-size: 1.5rem; color:var(--text-main); font-weight:800; text-align:center; margin: 3rem 0;">The real risk is not simply spending money.<br>The real risk is buying at the wrong level.</p>
+        <p>Some people spend more than they need and never fully feel the difference. Others try to save early, then realize a few weeks later that the chair is not comfortable enough, not refined enough, or simply not the right fit.</p>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#bands" class="btn">Compare Budget vs Premium Options</a>
+        </div>
+    </div>
+
+    <!-- SECTION 3: THINK ABOUT BUDGET (REDESIGNED ICON GRID) -->
+    <div class="container" style="border-top: 1px solid var(--border); padding-top: 6rem;">
+        <h2 style="text-align: center; max-width: 800px; margin: 0 auto 2rem auto;">How to Think About Massage Chair Budget the Right Way</h2>
+        
+        <div class="schema-box" style="text-align: center;">
+            <p style="font-size:1.25rem; font-weight:800; color:var(--text-main);">A massage chair budget is not just a number.<br>It is a decision about usage, comfort, fit, expectations, and long-term confidence.</p>
+            <p style="margin-bottom:0;">A better question than <em>“How little can I spend?”</em> is: <strong>“What level of experience do I actually need to feel good about this purchase?”</strong></p>
+        </div>
+
+        <div class="grid-3">
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+                </div>
+                <h3>1. How often will you use it?</h3>
+                <p>Using a chair a few times a week is very different from daily use. Frequency drastically impacts your need for quality.</p>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <h3>2. Comfort expectations?</h3>
+                <p>Some buyers are happy with a solid everyday experience. Others care deeply about how refined and tailored the massage feels.</p>
+            </div>
+
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <h3>3. Importance of body fit?</h3>
+                <p>Height, shoulder position, leg length, and pressure tolerance become much more precise as you move up in price.</p>
+            </div>
+
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                </div>
+                <h3>4. Features or outcomes?</h3>
+                <p>The real question is not how many features are on paper, but whether they create a more satisfying daily experience.</p>
+            </div>
+
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <h3>5. How long to keep it?</h3>
+                <p>A chair that feels “good enough” on day one may not feel right after months of use. Long term satisfaction matters.</p>
+            </div>
+
+            <div class="icon-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                </div>
+                <h3>6. Wrong-choice risk?</h3>
+                <p>Some want to reduce uncertainty before committing. In-person comparison and expert guidance lower that risk significantly.</p>
+            </div>
+        </div>
+
+        <div class="pull-quote" style="margin-top: 4rem;">
+            The best value massage chair is not always the lowest-priced one. It is the one you are least likely to outgrow, avoid using, or second-guess after it is in your home.
+        </div>
+    </div>
+
+    <!-- SECTION 4: THE PREFERRED CARD GRID FRAMEWORK -->
+    <div id="bands" class="band-section">
+        <div class="container">
+            <h2>A Simple Price Guide: What to Expect</h2>
+            <p>The goal here is to help you understand what tends to change as your investment increases — and when paying more is actually justified.</p>
+
+            <div class="tier-overview">
+                <div class="tier-strip">
+                    <div class="tier-num">1</div>
+                    <div class="tier-info">
+                        <span class="tier-name">Entry / Accessible</span>
+                        <span class="tier-desc">First-time buyers, lighter use, solid everyday comfort</span>
+                    </div>
+                    <div class="tier-bar-track"><div class="tier-bar-fill" style="width:25%"></div></div>
+                    <span class="tier-price-tag">$1,999 – $4,999</span>
+                </div>
+                <div class="tier-strip">
+                    <div class="tier-num">2</div>
+                    <div class="tier-info">
+                        <span class="tier-name">Best Value / Mid-Tier</span>
+                        <span class="tier-desc">Serious buyers wanting stronger long-term satisfaction</span>
+                    </div>
+                    <div class="tier-bar-track"><div class="tier-bar-fill" style="width:50%"></div></div>
+                    <span class="tier-price-tag">$7,000 – $10,999</span>
+                </div>
+                <div class="tier-strip">
+                    <div class="tier-num">3</div>
+                    <div class="tier-info">
+                        <span class="tier-name">Premium</span>
+                        <span class="tier-desc">Frequent users who feel the difference and want refinement</span>
+                    </div>
+                    <div class="tier-bar-track"><div class="tier-bar-fill" style="width:75%"></div></div>
+                    <span class="tier-price-tag">$12,999+</span>
+                </div>
+                <div class="tier-strip">
+                    <div class="tier-num">4</div>
+                    <div class="tier-info">
+                        <span class="tier-name">Ultra Premium</span>
+                        <span class="tier-desc">Flagship ownership confidence, top-end personalization</span>
+                    </div>
+                    <div class="tier-bar-track"><div class="tier-bar-fill" style="width:100%"></div></div>
+                    <span class="tier-price-tag">$15,999+</span>
+                </div>
+            </div>
+
+            <div class="grid-t">
+                
+                <!-- Card 1 -->
+                <div class="card">
+                    <span class="card-price">Entry / Accessible</span>
+                    <h3>The Foundation</h3>
+                    <p>Perfect for first-time buyers, lighter weekly use, and buyers who want comfort without chasing top-tier complexity.</p>
+                    <img class="real-chair-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/SV-395MidnightAngled_1024x1024_2x_ceded1ea-24a1-4f1b-baf2-6e75ef7c42a5.webp?v=1772226073" alt="Svago ZGR">
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Solid everyday massage programs</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Accessible comfort</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Meaningful step up from standard seating</li>
+                    </ul>
+                    <div class="featured-pick">
+                        <strong>Svago ZGR & Ogawa Active XL</strong>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <span class="card-price">Best Value / Mid-Tier</span>
+                    <h3>Smarter Long-Term Use</h3>
+                    <p>The sweet spot for targeted pain relief. Best for households that care more about satisfaction than minimum spend.</p>
+                    <img class="real-chair-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/Infinity_Smart_X3_Black_Hero_2000x2000600x600_dfezwj.webp?v=1772225181" alt="Infinity Smart Chair X3">
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Better body-fit performance</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>More advanced massage feel</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Stronger customization</li>
+                    </ul>
+                    <div class="featured-pick">
+                        <strong>Infinity Smart Chair X3 & Cozzia Zen Duo</strong>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <span class="card-price">Premium</span>
+                    <h3>Clinical-Grade Refinement</h3>
+                    <p>Frequent users and selective buyers who can clearly feel comfort nuance and want to "buy once and buy well".</p>
+                    <img class="real-chair-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/ogawa-master-drive-duo-black-and-burgundy-3q.webp?v=1772226039" alt="Ogawa Master Drive Duo">
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>More refined massage quality</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Better body-fit precision</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Better luxury materials and finish</li>
+                    </ul>
+                    <div class="featured-pick">
+                        <strong>Ogawa Master Drive Duo & Bodyfriend Falcon</strong>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <span class="card-price">Ultra Premium</span>
+                    <h3>Flagship Ownership</h3>
+                    <p>The absolute pinnacle. Buyers who want top-end ownership confidence or highly selective users replacing lower-quality purchases.</p>
+                    <img class="real-chair-img" src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/P1238025_1.webp?v=1772226196" alt="Cozzia Qi XE Pro Duo">
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Greater personalization & AI scanning</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Higher-end comfort and materials</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Unmatched flagship ownership experience</li>
+                    </ul>
+                    <div class="featured-pick">
+                        <strong>JP Medics Kozue & Kyota Nokori M980</strong>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: WHAT IMPROVES (REDESIGNED CARDS) -->
+    <div class="container" style="margin-top: 6rem;">
+        <div class="schema-box" style="background:#fff;">
+            <h2 style="text-align: center; margin-top:0;">What Actually Improves as Price Goes Up</h2>
+            <p style="text-align: center; max-width:800px; margin: 0 auto 3rem auto;">The market throws around terms like 3D, 4D, dual mechanism, AI, and premium engineering — but the real question is what those differences feel like in daily use.</p>
+
+            <div class="horiz-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M22 4h-2V2h-2v2H6V2H4v2H2v16h20V4zM4 18V6h16v12H4zm8-6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.33 0-4 .67-4 2v1h8v-1c0-1.33-2.67-2-4-2z"/></svg>
+                </div>
+                <div>
+                    <h3>1. Massage quality and natural feel</h3>
+                    <p>Higher-tier chairs often feel more nuanced, more controlled, and less generic. <br><em style="color:var(--accent); font-weight:600;">Buyer outcome: Less “impressive for five minutes,” more “this feels right for me.”</em></p>
+                </div>
+            </div>
+
+            <div class="horiz-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
+                <div>
+                    <h3>2. Body fit and precision</h3>
+                    <p>As price increases, chairs do a better job adapting to body shape and posture.<br><em style="color:var(--accent); font-weight:600;">Buyer outcome: Fewer moments where the chair feels slightly off.</em></p>
+                </div>
+            </div>
+
+            <div class="horiz-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.16-.28L11.5 2h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                </div>
+                <div>
+                    <h3>3. Comfort refinement</h3>
+                    <p>Better cushioning, smoother transitions, stronger recline comfort.<br><em style="color:var(--accent); font-weight:600;">Buyer outcome: More satisfaction with the chair as a whole.</em></p>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:3rem;">
+                <a href="#bands" class="btn btn-gold">Find the Right Fit by Budget</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6: WHAT DOES NOT MEAN -->
+    <div class="container">
+        <div class="split reverse">
+            <div>
+                <h2>What This Does Not Mean</h2>
+                <p>Here is the most trust-building truth on the page:</p>
+                <p style="font-size: 1.5rem; color:var(--text-main); font-weight:800;">The most expensive chair is not automatically the smartest choice.</p>
+                <p>For many buyers, an entry or mid-tier chair is more than enough. In fact, some shoppers move too far up and end up paying for refinement they do not actually need.</p>
+            </div>
+            <div class="highlight-box" style="margin-top: 0; padding: 2rem;">
+                <p style="font-size: 1.25rem; font-weight:800; color:var(--text-main);"><svg viewBox="0 0 24 24" style="width:28px; height:28px; fill:var(--accent); vertical-align:middle; margin-right:8px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg> The right question is not:<br>“Is premium better?”</p>
+                <p style="font-size: 1.25rem; font-weight:800; color:var(--text-main); margin-top:1.5rem;"><svg viewBox="0 0 24 24" style="width:28px; height:28px; fill:var(--accent); vertical-align:middle; margin-right:8px;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> It is:<br>“Will the premium difference matter enough for me to feel it, use it, and value it?”</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 7: QUICK DECISION BLOCK -->
+    <div class="container" style="margin-top: 6rem;">
+        <h2 style="text-align: center;">Quick Decision Help: What Level Makes Sense?</h2>
+        <div class="decision-grid">
+            <div class="decision-card">
+                <h4><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Want strong value?</h4>
+                <div class="models">Ogawa Active XL, Osaki Ziva</div>
+                <p>A good fit to get a meaningful upgrade without top-tier complexity.</p>
+            </div>
+            <div class="decision-card">
+                <h4><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Want better fit features?</h4>
+                <div class="models">Cozzia Zen Duo, Infinity Gen Max</div>
+                <p>A strong zone for buyers avoiding the “I bought too cheap” mistake.</p>
+            </div>
+            <div class="decision-card">
+                <h4><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg> Want premium logic?</h4>
+                <div class="models">Ogawa Master Drive Duo</div>
+                <p>A better fit for buyers prioritizing massage feel and luxury finish.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 8: FINANCING -->
+    <div class="container-narrow" style="margin-top: 6rem;">
+        <div class="schema-box" style="background:#fff;">
+            <h2 style="text-align: center; margin-top:0;">Financing Can Reduce Pressure — But It Should Not Replace Good Judgment</h2>
+            <p style="text-align: center; font-size:1.2rem; font-weight:800; color:var(--text-main);">Financing can make the right chair easier to reach.<br>It should not make the wrong chair easier to justify.</p>
+            <p>Monthly framing can help you reach the right fit more comfortably, but a lower monthly number should never become the whole decision. Buying too low because it is easier to justify can be just as costly as overspending.</p>
+        </div>
+    </div>
+
+    <!-- SECTION 9: IN PERSON -->
+    <div class="container" style="margin-top: 6rem;">
+        <div class="split">
+            <div>
+                <h2>Why Seeing These in Person Saves You Money</h2>
+                <p>Price is easy to compare online. Comfort, body fit, feel, and expectations are not.</p>
+                <p>HOMC’s showroom positioning is a real strategic advantage: compare 35+ massage chairs from 9 global brands in one place and test different massage styles side by side.</p>
+                <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold" style="margin-top: 1rem;">Book a Showroom Visit</a>
+            </div>
+            <div>
+                <img src="assets/guide_advisor.png" alt="Customer comparing massage chairs side by side in a luxury showroom">
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="container" style="margin-top: 8rem;">
+        <h2 style="text-align: center;">Budget Guide: Which Tier Makes Sense?</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:15%">Tier</th>
+                        <th style="width:25%">Best For</th>
+                        <th style="width:25%">What Usually Improves</th>
+                        <th style="width:15%">Possible Trade-Off</th>
+                        <th style="width:20%">Example HOMC Direction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Entry / Accessible</strong></td>
+                        <td>First-time buyers, lighter use, simpler expectations</td>
+                        <td>Everyday comfort, accessible features, easier entry into the category</td>
+                        <td>Less refinement, fit may feel less tailored</td>
+                        <td>Svago ZGR, Svago Newton, Ogawa Active XL 3D</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mid-Tier</strong></td>
+                        <td>Serious buyers who want stronger long-term value</td>
+                        <td>Better body fit, stronger massage feel, better satisfaction</td>
+                        <td>May not include flagship-level refinement</td>
+                        <td>Cozzia Zen Duo, Infinity Smart Chair X3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Premium</strong></td>
+                        <td>Frequent users, selective buyers, premium homes</td>
+                        <td>Better materials, refined massage quality, customization</td>
+                        <td>More spend than some buyers truly need</td>
+                        <td>Ogawa Master Drive Duo, Bodyfriend Falcon SV</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 11: FAQ -->
+    <div class="container-narrow" style="margin-top: 6rem; margin-bottom: 6rem;">
+        <h2 style="text-align: center;">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> How much should I spend on a massage chair?</h3>
+            <p>That depends on how often you will use it, how selective you are about comfort and fit, and how much wrong-choice risk you want to avoid. For some buyers, entry-level is enough. For others, mid-tier or premium is the smarter value.</p>
+        </div>
+        <div class="faq-item">
+            <h3><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Are expensive massage chairs worth it?</h3>
+            <p>Sometimes. They are worth it when better fit, refinement, and customization noticeably improve your daily experience. They are not automatically worth it simply because they cost more.</p>
+        </div>
+        <div class="faq-item">
+            <h3><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> What is the difference between budget and premium?</h3>
+            <p>In general, premium chairs tend to improve massage sophistication, body-fit precision, comfort refinement, materials, and personalization. But not every buyer needs that level.</p>
+        </div>
+        <div class="faq-item" style="border:none;">
+            <h3><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Can I compare chairs in person?</h3>
+            <p>Yes. HOMC says shoppers can compare 35+ massage chairs from 9 global brands side by side in the showroom.</p>
+        </div>
+    </div>
+
+    <!-- SECTION 12: CTA -->
+    <div class="final-cta">
+        <div class="container">
+            <h2>Choose the Right Chair With More Confidence</h2>
+            <p>Do not shop only by price. Compare by fit, comfort, expectations, and long-term value.<br>See the difference in person. Ask better questions. Narrow your shortlist faster.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold">Visit a Showroom</a>
+                <a href="https://houseofmassagechairs.com/pages/contact" class="btn" style="border-color:#fff;">Talk to an Expert</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY MOBILE CTA -->
+    <div class="sticky-mobile-cta">
+        <a href="https://houseofmassagechairs.com/pages/our-store" class="btn btn-gold" style="padding: 0.75rem 1rem;">Visit a Showroom</a>
+        <span>Need help choosing? <a href="https://houseofmassagechairs.com/pages/contact" style="color:var(--text-main); font-weight:800; text-decoration:underline;">Talk to an Expert</a></span>
+    </div>
+
+</body>
+</html>
