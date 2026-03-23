@@ -182,10 +182,10 @@
             <div style="display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;">
                 <span style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-right:0.5rem;">Price:</span>
                 <button class="filter-btn active" onclick="filterProducts(this,'all')">All</button>
-                <button class="filter-btn" onclick="filterProducts(this,0,5000)">Under $5K</button>
-                <button class="filter-btn" onclick="filterProducts(this,5000,8000)">$5K – $8K</button>
-                <button class="filter-btn" onclick="filterProducts(this,8000,10000)">$8K – $10K</button>
-                <button class="filter-btn" onclick="filterProducts(this,10000,99999)">$10K+</button>
+                <button class="filter-btn" onclick="filterProducts(this,0,5000)">Under $5,000</button>
+                <button class="filter-btn" onclick="filterProducts(this,5000,8000)">$5,000 – $7,999</button>
+                <button class="filter-btn" onclick="filterProducts(this,8000,11000)">$8,000 – $10,999</button>
+                <button class="filter-btn" onclick="filterProducts(this,11000,100000)">$11,000+</button>
             </div>
             <div style="display:flex;align-items:center;justify-content:center;gap:0.6rem;flex-wrap:wrap;">
                 <span style="font-size:0.85rem;font-weight:700;color:var(--muted);margin-right:0.5rem;">Brand:</span>
@@ -558,18 +558,7 @@ function filterByBrand(btn,brand){
     applyFilters();
 }
 
-function renderProducts(list){
-    const grid=document.getElementById('productGrid');
-    list.forEach(p=>{
-        const card=document.createElement('div');card.className='product-card';
-        card.innerHTML=`${p.badge?`<span class="product-badge">${p.badge}</span>`:''}
-            <a href="${p.u}"><img class="product-card-img" src="${p.i}" alt="${p.n}" loading="lazy"></a>
-            <div class="product-card-body"><h3><a href="${p.u}" style="color:inherit;">${p.n}</a></h3>
-            <div class="product-prices"><span class="price-sale">${p.p}</span>${p.cp?`<span class="price-compare">${p.cp}</span>`:''}</div>
-            <a href="${p.u}" class="product-card-link">View Details</a></div>`;
-        grid.appendChild(card);
-    });
-}
+
 
 let activeTier=null;
 function toggleTier(el,min,max){
