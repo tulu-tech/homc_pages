@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-kyota",
+      "settings": {
+        "hero_heading": "Kyota Massage Chairs<br>The Premium Brand Buying Guide",
+        "hero_subheading": "A premium massage chair brand with a clear and honest upgrade ladder — from practical daily-use comfort to AI-guided personalization and flagship-tier performance.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

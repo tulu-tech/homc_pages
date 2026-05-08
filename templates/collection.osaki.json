@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-osaki",
+      "settings": {
+        "hero_heading": "Osaki Massage Chairs<br>The Complete Buyer's Guide",
+        "hero_subheading": "One of the most researched premium massage chair brands in the U.S. — and one of the most misunderstood.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

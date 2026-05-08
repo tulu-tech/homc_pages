@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-jp-medics",
+      "settings": {
+        "hero_heading": "JP Medics Massage Chairs<br>The Precision Japanese Standard",
+        "hero_subheading": "A curated Japanese massage chair brand built around sensor-led precision, AI-guided personalization, and a refined premium feel — not a long feature list.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-cozzia",
+      "settings": {
+        "hero_heading": "Cozzia Massage Chairs<br>The Complete Buyer's Guide",
+        "hero_subheading": "Biometric AI, 5D precision massage, and real-time therapeutic adaptation — Cozzia pushes the technical ceiling of what a massage chair can do.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

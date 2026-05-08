@@ -1,0 +1,389 @@
+{% raw %}
+<style>
+.au2{--bg:#fff;--ink:#0a0a0a;--muted:#666;--subtle:#999;--accent:#b38b4d;--border:#e8e4df;--surface:#faf9f7;--deep:#0d0c0a;font-family:'Inter',sans-serif;color:var(--ink);line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+.au2 *{box-sizing:border-box}.au2 a{color:inherit;text-decoration:none}.au2 img{max-width:100%;display:block}
+.au2-wrap{max-width:1120px;margin:0 auto;padding:0 2rem}
+.au2-text{max-width:700px;margin:0 auto}
+.au2-label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:20px}
+/* Opening */
+.au2-open{padding:108px 0 72px;background:var(--bg)}
+.au2-open h1{font-size:clamp(34px,5.5vw,70px);font-weight:900;line-height:1.07;letter-spacing:-.035em;margin-bottom:36px}
+.au2-open h1 em{font-style:normal;color:var(--accent)}
+.au2-open p{font-size:clamp(16px,1.7vw,19px);color:var(--muted);line-height:1.9;max-width:660px;margin-bottom:18px}
+.au2-meta{display:flex;align-items:center;gap:14px;margin-top:44px;padding-top:44px;border-top:1px solid var(--border)}
+.au2-meta-line{width:36px;height:1px;background:var(--accent)}
+.au2-meta span{font-size:12px;color:var(--subtle);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+/* Full bleed */
+.au2-bleed{width:100%;height:580px;object-fit:cover;display:block}
+.au2-caption{font-size:13px;color:var(--subtle);padding:14px 0;border-bottom:1px solid var(--border);font-style:italic}
+/* Founder letter */
+.au2-letter{padding:88px 0;background:var(--bg)}
+.au2-letter-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.au2-letter-inner{border-left:3px solid var(--border);padding-left:44px}
+.au2-letter-img{border-radius:20px;overflow:hidden;height:520px}
+.au2-letter-img img{width:100%;height:100%;object-fit:cover;display:block}
+.au2-letter-inner p{font-size:17px;color:var(--muted);line-height:2;margin-bottom:22px}
+.au2-sig{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;gap:16px}
+.au2-sig-av{width:48px;height:48px;min-width:48px;background:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:17px}
+.au2-sig-name{font-size:15px;font-weight:700;color:var(--ink)}
+.au2-sig-role{font-size:13px;color:var(--subtle)}
+/* Facts */
+.au2-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 0 88px}
+.au2-fact{background:var(--bg);padding:32px 24px}
+.au2-fact-n{font-size:40px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
+.au2-fact-l{font-size:13px;color:var(--muted);font-weight:600;line-height:1.4}
+/* Pull quote */
+.au2-pull{border-left:3px solid var(--accent);padding:6px 0 6px 28px;margin:32px 0}
+.au2-pull p{font-size:clamp(19px,2.2vw,26px);font-weight:700;color:var(--ink);line-height:1.35;letter-spacing:-.015em;margin:0}
+/* Narrative */
+.au2-narrative{padding:80px 0;background:var(--bg)}
+.au2-narrative h2{font-size:clamp(24px,3vw,38px);font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:24px}
+.au2-narrative p{font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:18px}
+/* Two col */
+.au2-two{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.au2-two-center{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+/* Dark */
+.au2-dark{background:var(--deep);padding:96px 0}
+.au2-dark .au2-label{color:rgba(179,139,77,.75)}
+.au2-dark h2{font-size:clamp(26px,3.5vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.1;color:#fff;margin-bottom:28px}
+.au2-dark p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:18px}
+.au2-dark .au2-pull p{color:rgba(255,255,255,.9)}
+.au2-dark .au2-pull{border-left-color:rgba(179,139,77,.5)}
+.au2-dark-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:28px;margin-top:32px}
+.au2-dark-box-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:rgba(255,255,255,.35);margin-bottom:16px}
+.au2-dark-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.au2-dark-row:last-child{margin-bottom:0}
+.au2-dark-row span:first-child{color:#b38b4d;font-size:14px;margin-top:1px;flex-shrink:0}
+.au2-dark-row span:last-child{color:rgba(255,255,255,.6);font-size:15px;line-height:1.6}
+/* Surface */
+.au2-surface{background:var(--surface);padding:80px 0}
+/* Timeline */
+.au2-tl-row{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--border)}
+.au2-tl-row:first-child{border-top:1px solid var(--border)}
+.au2-tl-year{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.05em;padding-top:2px}
+.au2-tl-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.au2-tl-body p{font-size:14px;color:var(--muted);line-height:1.8;margin:0}
+/* Brand tags */
+.au2-brands{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.au2-brand{padding:7px 18px;border:1px solid var(--border);border-radius:50px;font-size:13px;font-weight:700;color:var(--muted)}
+/* Showroom full-bleed */
+.au2-showroom{position:relative;min-height:500px;overflow:hidden;display:flex;align-items:center}
+.au2-showroom-img{position:absolute;inset:0}
+.au2-showroom-img img{width:100%;height:100%;object-fit:cover;display:block}
+.au2-showroom-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.68) 0%,rgba(0,0,0,0.38) 50%,rgba(0,0,0,0.08) 100%)}
+.au2-showroom-info{position:relative;z-index:2;padding:72px 64px;max-width:560px}
+.au2-showroom-info .au2-label{color:rgba(179,139,77,.85)}
+.au2-showroom-info h2{font-size:clamp(22px,2.8vw,34px);font-weight:900;letter-spacing:-.03em;line-height:1.15;color:#fff;margin-bottom:16px}
+.au2-showroom-info p{font-size:15px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:0}
+.au2-showroom-detail{display:flex;align-items:flex-start;gap:10px;margin-top:22px;color:rgba(255,255,255,.75);font-size:14px;font-weight:600;line-height:1.5}
+.au2-showroom-detail svg{width:16px;height:16px;fill:#b38b4d;flex-shrink:0;margin-top:2px}
+/* Narrative fix */
+.au2-narr-layout{display:grid;grid-template-columns:2fr 3fr;gap:56px;align-items:start}
+/* Commitments */
+.au2-commit{padding:80px 0;background:var(--bg);border-top:1px solid var(--border)}
+/* Final CTA */
+.au2-final{background:var(--deep);padding:96px 0}
+.au2-final-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.au2-final h2{font-size:clamp(32px,4.5vw,58px);font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#fff;margin-bottom:16px}
+.au2-final-desc{font-size:16px;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:0}
+.au2-info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin-bottom:14px}
+.au2-info-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+.au2-info-row:last-child{margin-bottom:0}
+.au2-info-row svg{width:18px;height:18px;fill:#b38b4d;flex-shrink:0;margin-top:2px}
+.au2-info-row strong{display:block;font-size:14px;color:#fff;font-weight:700;margin-bottom:3px}
+.au2-info-row span{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5}
+.au2-final-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+.au2-final-stat{background:rgba(255,255,255,.025);padding:20px;text-align:center}
+.au2-final-stat-n{font-size:26px;font-weight:900;color:#fff;letter-spacing:-.03em;display:block;line-height:1}
+.au2-final-stat-l{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.3);font-weight:700;display:block;margin-top:6px}
+/* Animations */
+@keyframes au2-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.au2-open>div>*{animation:au2-up .75s ease both}
+.au2-open h1{animation-delay:.1s}
+.au2-open p{animation-delay:.3s}
+/* Mobile */
+@media(max-width:900px){
+  .au2-open{padding:68px 0 48px}
+  .au2-two,.au2-two-center,.au2-narr-layout,.au2-letter-grid,.au2-final-grid{grid-template-columns:1fr;gap:36px}
+  .au2-letter-img{height:260px;order:-1}
+  .au2-facts{grid-template-columns:1fr 1fr}
+  .au2-bleed{height:300px}
+  .au2-letter-inner{padding-left:24px}
+  .au2-dark,.au2-narrative,.au2-letter,.au2-surface,.au2-commit,.au2-final{padding:60px 0}
+  .au2-showroom{min-height:420px}
+  .au2-showroom-info{padding:48px 32px;max-width:100%}
+  .au2-showroom-ov{background:linear-gradient(to bottom,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.3) 100%)}
+}
+@media(max-width:480px){
+  .au2-letter-inner{border-left:none;padding-left:0;border-top:3px solid var(--border);padding-top:28px}
+  .au2-facts{grid-template-columns:1fr 1fr}
+  .au2-fact{padding:20px 16px}
+  .au2-fact-n{font-size:32px}
+  .au2-tl-row{grid-template-columns:56px 1fr;gap:12px}
+}
+</style>
+
+<div class="au2">
+
+<!-- OPENING -->
+<section class="au2-open">
+  <div class="au2-wrap">
+    <div>
+      <span class="au2-label">About House of Massage Chairs</span>
+      <h1>We don't sell<br>massage chairs.<br>We <em>end guesswork.</em></h1>
+      <p>Most people shopping for a premium massage chair have already spent weeks online. They've read specs, watched reviews, read threads. And they still don't know what they actually want — because they haven't felt the difference between a 3D and 4D roller. Between an SL-track and an L-track. Between a chair that relieves and one that restores.</p>
+      <p>That gap — between information and understanding — is why House of Massage Chairs exists. Not to show you more products. To show you fewer, and help you feel the right one.</p>
+      <div class="au2-meta">
+        <div class="au2-meta-line"></div>
+        <span>Founded by Henry &nbsp;·&nbsp; San Jose, California &nbsp;·&nbsp; Est. 2005</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOUNDER LETTER -->
+<section class="au2-letter">
+  <div class="au2-wrap">
+    <div class="au2-letter-grid">
+      <div class="au2-letter-inner">
+        <span class="au2-label">A note from our founder</span>
+        <p>I've worked in this industry for nearly twenty years. Long enough to watch the same mistake repeat itself at scale: retailers treating a deeply personal, expensive, physically intimate purchase the way they'd treat selling a laptop.</p>
+        <p>A massage chair is not a spec-sheet decision. Your spine is not average. Your tension pattern is not the same as anyone else's. The chair your neighbor loves might do nothing for you — or actively feel wrong. I've seen it happen hundreds of times. A customer buys online, the chair arrives, and within a week they know they chose wrong. By then there's a return fee, a white-glove pickup charge, lost time, and the lingering feeling that nobody actually helped them.</p>
+        <p>That's what we built against. Not a showroom for showroom's sake — but a place where the decision gets made correctly, the first time, with someone beside you who has no reason to steer you wrong.</p>
+        <div class="au2-sig">
+          <div class="au2-sig-av">H</div>
+          <div>
+            <div class="au2-sig-name">Henry</div>
+            <div class="au2-sig-role">Founder, House of Massage Chairs</div>
+          </div>
+        </div>
+      </div>
+      <div class="au2-letter-img">
+        <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/showroom_interior_wide.jpg?v=1774841433"
+          alt="House of Massage Chairs premium showroom interior">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<div class="au2-wrap">
+  <div class="au2-facts">
+    <div class="au2-fact"><div class="au2-fact-n">20</div><div class="au2-fact-l">Years in the massage chair industry</div></div>
+    <div class="au2-fact"><div class="au2-fact-n">35+</div><div class="au2-fact-l">Models available to try in person</div></div>
+    <div class="au2-fact"><div class="au2-fact-n">9</div><div class="au2-fact-l">Premium brands under one roof</div></div>
+    <div class="au2-fact"><div class="au2-fact-n">0</div><div class="au2-fact-l">Commission pressure on our advisors</div></div>
+  </div>
+</div>
+
+<!-- WHY IN-PERSON -->
+<section class="au2-narrative">
+  <div class="au2-wrap">
+    <span class="au2-label">The case for in-person</span>
+    <div class="au2-narr-layout">
+      <h2>Why the best massage chair decision can't be made online</h2>
+      <div>
+        <p>The massage chair market is full of excellent product pages. High-resolution images, spec tables, comparison charts, review aggregates. None of it tells you how a chair actually feels on your specific spine.</p>
+        <p>Two chairs priced identically can feel completely different. A 4D roller on a 5'4" frame behaves differently than on a 6'2" one. Zero gravity on a narrow track gives different pressure distribution than an SL-track that extends under the glutes. These things can only be known after sitting in both — back to back, unhurried.</p>
+        <div class="au2-pull">
+          <p>"The right chair is rarely the one with the best specs. It's the one your body stops noticing."</p>
+        </div>
+        <p>We carry nine brands not because of margin, but because the right chair for one person is the wrong one for another — and you can't discover which without genuine comparison.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK — PHILOSOPHY -->
+<section class="au2-dark">
+  <div class="au2-wrap">
+    <div class="au2-two">
+      <div>
+        <span class="au2-label">Our operating philosophy</span>
+        <h2>Listening is the skill most retailers forgot</h2>
+        <p>The standard retail model optimizes for throughput. Get customers in, move them through, close the sale, next customer. It works at volume. It fails completely when the product is personal.</p>
+        <p>We made a deliberate decision early on: our advisors would never be incentivized by margin or brand. Their job is to ask better questions than the customer thought to ask — about sleep patterns, body tension, home layout, how often they'd realistically use a chair, what they hope to feel differently in six months.</p>
+        <div class="au2-pull">
+          <p>"The customer who leaves without buying and returns is worth more than the one who buys wrong and never comes back."</p>
+        </div>
+      </div>
+      <div>
+        <p>That philosophy has meant occasionally telling someone that no chair in our showroom is right for them — and meaning it. It has meant longer visits, deeper conversation, fewer transactions per day. And more word-of-mouth than any campaign we've ever run.</p>
+        <p>We've operated this way for nearly two decades. It is not a feature we added for marketing. It's how this store was wired from the start, because Henry believed that an industry built on physical wellbeing shouldn't be sold through pressure.</p>
+        <div class="au2-dark-box">
+          <div class="au2-dark-box-label">What that looks like</div>
+          <div class="au2-dark-row"><span>→</span><span>No urgency tactics, ever. The chairs will still be here tomorrow.</span></div>
+          <div class="au2-dark-row"><span>→</span><span>We'll narrow to two or three options — not parade you through the floor.</span></div>
+          <div class="au2-dark-row"><span>→</span><span>If nothing fits, we'll say so. Better to leave right than stay wrong.</span></div>
+          <div class="au2-dark-row"><span>→</span><span>After the sale, we follow up because we want to — not because we want to sell you something else.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="au2-surface">
+  <div class="au2-wrap">
+    <div class="au2-two-center">
+      <div>
+        <span class="au2-label">How we got here</span>
+        <h2 style="font-size:clamp(22px,2.8vw,36px);font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:16px;">Two decades. The same instinct.</h2>
+        <p style="font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:0;">Henry has spent nearly twenty years building and refining massage chair showrooms across California. Each location taught what Bay Area buyers actually need — and what the industry kept getting wrong.</p>
+        <div class="au2-brands">
+          <span class="au2-brand">Osaki</span><span class="au2-brand">Bodyfriend</span><span class="au2-brand">Ogawa</span>
+          <span class="au2-brand">Infinity</span><span class="au2-brand">Cozzia</span><span class="au2-brand">Kyota</span>
+          <span class="au2-brand">Fujiiryoki</span><span class="au2-brand">JP Medics</span><span class="au2-brand">Svago</span>
+        </div>
+      </div>
+      <div>
+        <div class="au2-tl-row">
+          <div class="au2-tl-year">Early on</div>
+          <div class="au2-tl-body"><h4>First showroom</h4><p>Henry opened the first Bay Area massage chair showroom on the belief that customers needed to feel the product before deciding — a then-uncommon idea in a market moving toward online-only.</p></div>
+        </div>
+        <div class="au2-tl-row">
+          <div class="au2-tl-year">A few years in</div>
+          <div class="au2-tl-body"><h4>California expansion</h4><p>Multiple locations across Walnut Creek, Santa Clara, Daly City, and Roseville confirmed the pattern: comparison in person produced more confident buyers, fewer returns, and far more referrals.</p></div>
+        </div>
+        <div class="au2-tl-row">
+          <div class="au2-tl-year">After a decade</div>
+          <div class="au2-tl-body"><h4>House of Massage Chairs</h4><p>HOMC at Westfield Oakridge Mall was designed around the multi-brand comparison experience — nine global brands, 35+ models, curated to cover every body type, preference, and budget above $3,000.</p></div>
+        </div>
+        <div class="au2-tl-row">
+          <div class="au2-tl-year">Now</div>
+          <div class="au2-tl-body"><h4>Still the same first question</h4><p>Every visitor, walk-in or appointment, starts the same way: tell us about your body, your routine, and what you're hoping to feel differently. Everything follows from there.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWROOM FULL-BLEED -->
+<div class="au2-showroom">
+  <div class="au2-showroom-img">
+    <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/story_listening_showroom.jpg?v=1774841431"
+      alt="House of Massage Chairs showroom at Westfield Oakridge Mall San Jose">
+  </div>
+  <div class="au2-showroom-ov"></div>
+  <div class="au2-showroom-info">
+    <span class="au2-label">Visit the Showroom</span>
+    <h2>The Bay Area's most complete massage chair comparison</h2>
+    <p>35 chairs. 9 brands. One unhurried conversation. Walk-ins are always welcome — no appointment, no pressure.</p>
+    <div class="au2-showroom-detail">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+      <span>925 Blossom Hill Rd, Suite 1324<br>Westfield Oakridge Mall, San Jose CA 95123</span>
+    </div>
+    <div class="au2-showroom-detail">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span>+1 (669) 214-8889</span>
+    </div>
+    <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://maps.app.goo.gl/v1bTe9AZhz8ksK739" target="_blank" class="au2-btn au2-btn-gold" style="color:#fff;">Get Directions</a>
+      <a href="/pages/our-store" class="au2-btn" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.15);">Book a Visit</a>
+    </div>
+  </div>
+</div>
+
+<!-- COMMITMENTS -->
+<section class="au2-commit">
+  <div class="au2-wrap">
+    <div class="au2-text">
+      <span class="au2-label">What we promise</span>
+      <h2 style="font-size:clamp(24px,3vw,38px);font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:24px;">What we will never do — and what that costs us</h2>
+      <p style="font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:18px;">We carry manufacturer-backed warranties, full white-glove delivery, and in-house service technicians. Those are table stakes in this category. What sets us apart doesn't appear on a spec sheet.</p>
+      <div class="au2-pull">
+        <p>"We will never manufacture urgency. We will never steer based on margin. We will never disappear after delivery day."</p>
+      </div>
+      <p style="font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:18px;">We don't make vague claims about what massage can cure. The science is clear and limited — massage shows documented benefit for stress, certain musculoskeletal tension, and sleep quality at the margins. We help you find a chair that, used consistently, might meaningfully improve how your body feels after a long day. That's not a hedge. It's what honesty looks like in an industry that habitually oversells.</p>
+      <p style="font-size:16px;color:var(--muted);line-height:1.9;">Holding to these commitments has cost us transactions. We've had visitors choose a cheaper option elsewhere after a long conversation with one of our advisors. We've recommended against chairs with better margins. We've told people to go home and sleep on it — and meant it. That has never changed, because it's what built every referral we've ever received.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="au2-final">
+  <div class="au2-wrap">
+    <div class="au2-final-grid">
+      <div>
+        <span class="au2-label" style="color:rgba(179,139,77,.8)">The Showroom</span>
+        <h2>Come in and feel the difference yourself.</h2>
+        <p class="au2-final-desc">No appointment needed. No pressure to decide. Walk-ins welcome seven days a week. Our advisors have every reason to get it right — and none to rush you.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:36px;">
+          <a href="/pages/our-store" class="au2-btn au2-btn-gold">Book a Showroom Visit</a>
+          <a href="/collections/massage-chairs" class="au2-btn" style="background:rgba(255,255,255,.07);color:#fff;border-color:rgba(255,255,255,.14);">Browse All Chairs</a>
+        </div>
+      </div>
+      <div>
+        <div class="au2-info-card">
+          <div class="au2-info-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            <div>
+              <strong>Westfield Oakridge Mall</strong>
+              <span>925 Blossom Hill Rd, Suite 1324<br>San Jose, CA 95123</span>
+            </div>
+          </div>
+          <div class="au2-info-row">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <div>
+              <strong><a href="tel:+16692148889" style="color:#fff;">+1 (669) 214-8889</a></strong>
+              <span>Call or text anytime</span>
+            </div>
+          </div>
+          <div class="au2-info-row">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <div>
+              <strong><a href="mailto:info@houseofmassagechairs.com" style="color:#fff;">info@houseofmassagechairs.com</a></strong>
+              <span>We respond within one business day</span>
+            </div>
+          </div>
+        </div>
+        <div class="au2-final-stats">
+          <div class="au2-final-stat">
+            <span class="au2-final-stat-n">35+</span>
+            <span class="au2-final-stat-l">Models</span>
+          </div>
+          <div class="au2-final-stat">
+            <span class="au2-final-stat-n">9</span>
+            <span class="au2-final-stat-l">Brands</span>
+          </div>
+          <div class="au2-final-stat">
+            <span class="au2-final-stat-n">0</span>
+            <span class="au2-final-stat-l">Pressure</span>
+          </div>
+        </div>
+        <div style="margin-top:14px;text-align:center;">
+          <a href="https://maps.app.goo.gl/v1bTe9AZhz8ksK739" target="_blank" style="font-size:13px;color:rgba(255,255,255,.35);font-weight:600;text-decoration:underline;text-underline-offset:3px;">Open in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end .au2 -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "House of Massage Chairs",
+  "description": "San Jose's premier multi-brand massage chair showroom at Westfield Oakridge Mall. Try 35+ luxury massage chairs from 9 global brands.",
+  "url": "https://houseofmassagechairs.com",
+  "telephone": "+16692148889",
+  "email": "info@houseofmassagechairs.com",
+  "foundingDate": "2005",
+  "founder": { "@type": "Person", "name": "Henry" },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "925 Blossom Hill Rd, Suite 1324",
+    "addressLocality": "San Jose",
+    "addressRegion": "CA",
+    "postalCode": "95123",
+    "addressCountry": "US"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 37.2499, "longitude": -121.8612 },
+  "priceRange": "$$$$"
+}
+</script>
+{% endraw %}

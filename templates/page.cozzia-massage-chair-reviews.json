@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-cozzia-reviews",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

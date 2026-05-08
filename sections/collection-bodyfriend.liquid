@@ -1,0 +1,1136 @@
+{%- comment -%}
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SECTION: collection-bodyfriend.liquid                      ║
+  ║  Template: templates/collection.bodyfriend.json             ║
+  ║  Collection handle: bodyfriend                              ║
+  ║                                                              ║
+  ║  HOW TO INSTALL:                                             ║
+  ║  1. Upload this file to /sections/collection-bodyfriend.liquid║
+  ║  2. Upload templates/collection.bodyfriend.json             ║
+  ║  3. Go to Shopify Admin → Settings → Files and upload:      ║
+  ║     a) bodyfriend-hero-bg.jpg  (lifestyle photo)            ║
+  ║     b) bodyfriend-tech-visual.jpg  (X-ray tech image)       ║
+  ║  4. (Optional) Add metafields to products:                   ║
+  ║     - custom.badge         → string (e.g. "Flagship")       ║
+  ║     - custom.buyer_for     → string (e.g. "Ultimate Luxury") ║
+  ║     - custom.key_features  → list of strings (JSON array)   ║
+  ║     - custom.tradeoff      → string                         ║
+  ╚══════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+{%- paginate collection.products by 50 -%}
+
+{%- comment -%} ── SCHEMA MARKUP ── {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Bodyfriend Massage Chairs",
+    "description": "Compare Bodyfriend massage chairs at House of Massage Chairs — including the Pharaoh Q, Leonardo DV, Phantom Rovo, and Falcon SV. A Korean luxury massage chair brand featuring XD-Pro technology, massage mode options, gravity recline, and advanced personalization.",
+    "url": "{{ canonical_url }}",
+    "mainEntity": {
+      "@type": "Brand",
+      "name": "Bodyfriend",
+      "description": "Bodyfriend is a Korean luxury massage chair brand known for futuristic design, XD-Pro robotic massage technology, BIA body scanning, multiple massage mode options, and advanced personalization. The lineup spans from the Falcon SV to the flagship Pharaoh Q."
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs",
+    "url": "{{ shop.url }}",
+    "telephone": "+16692148889",
+    "email": "info@houseofmassagechairs.com",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+        "addressLocality": "San Jose",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "1 Stoneridge Mall, STE B108",
+        "addressLocality": "Pleasanton",
+        "addressRegion": "CA",
+        "postalCode": "94588",
+        "addressCountry": "US"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+      {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+      {"@type":"ListItem","position":3,"name":"Bodyfriend Massage Chairs","item":"{{ canonical_url }}"}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is the best Bodyfriend massage chair?","acceptedAnswer":{"@type":"Answer","text":"There is no single best model for every buyer. Falcon SV, Phantom Rovo, Leonardo DV, Pharaoh Q, and the broader lineup each fit different priorities such as price, massage mode, full body massage coverage, lower-body movement, design, and luxury features. Visit a House of Massage Chairs showroom in San Jose or Pleasanton to compare models in person."}},
+      {"@type":"Question","name":"What is the Bodyfriend massage chair price range?","acceptedAnswer":{"@type":"Answer","text":"Bodyfriend massage chair price varies by model and availability. Falcon SV is typically the most accessible premium model in the lineup, while Pharaoh Q sits in the higher premium range. Contact House of Massage Chairs for current pricing and purchasing options."}},
+      {"@type":"Question","name":"Where can I buy a Bodyfriend massage chair in the USA?","acceptedAnswer":{"@type":"Answer","text":"House of Massage Chairs offers Bodyfriend massage chairs in the USA through its San Jose and Pleasanton showroom locations, with support for model comparison, delivery, financing, and warranty questions."}},
+      {"@type":"Question","name":"Are Bodyfriend massage chairs ever on sale?","acceptedAnswer":{"@type":"Answer","text":"Bodyfriend massage chair sale pricing may vary by model, timing, availability, and manufacturer programs. Instead of buying only by sale price, compare fit, massage mode options, warranty, delivery, and showroom availability before deciding."}},
+      {"@type":"Question","name":"What should I check before purchasing a Bodyfriend massage chair?","acceptedAnswer":{"@type":"Answer","text":"Before purchasing, check model fit, massage mode options, heat therapy, gravity recline comfort, user weight guidance, area required for installation, delivery path, financing, and warranty coverage."}},
+      {"@type":"Question","name":"What is ROVO walking technology?","acceptedAnswer":{"@type":"Answer","text":"ROVO walking technology is associated with select models and should be evaluated by how the lower-body movement feels in person. Compare Falcon SV and Phantom Rovo if ROVO movement is important to you."}},
+      {"@type":"Question","name":"Does every Bodyfriend model offer full body massage?","acceptedAnswer":{"@type":"Answer","text":"Many models are designed for full body massage coverage, but the exact experience varies by model. Compare back, shoulder, hip, leg, calf, foot, heat, air compression, and recline features before choosing."}},
+      {"@type":"Question","name":"How do I check my nearest store for purchasing options?","acceptedAnswer":{"@type":"Answer","text":"Please check your nearest House of Massage Chairs showroom in San Jose or Pleasanton for current model availability, purchasing options, delivery guidance, financing, and showroom trial appointments."}},
+      {"@type":"Question","name":"Do Bodyfriend massage chairs come with a warranty?","acceptedAnswer":{"@type":"Answer","text":"All massage chairs sold through House of Massage Chairs include manufacturer-backed warranty coverage. Extended warranty options may be available on select models. Speak with our specialist team for the specific warranty terms on each model."}}
+    ]
+  }
+]
+</script>
+
+<style>
+  /* =====================================================
+     CRITICAL: ABSOLUTE px FONT OVERRIDES
+     Prevents Shopify theme root font-size scaling from
+     shrinking all text. Every font-size uses px — never rem.
+  ===================================================== */
+  .bf-wrap {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.75;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .bf-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Reset all inherited font-sizes so theme cannot override */
+  .bf-wrap p    { font-size: 15px; line-height: 1.8; }
+  .bf-wrap li   { font-size: 14px; line-height: 1.65; }
+  .bf-wrap a    { text-decoration: none; }
+  .bf-wrap h1   { font-size: clamp(38px, 5.5vw, 64px); line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; }
+  .bf-wrap h2   { font-size: clamp(26px, 3vw, 38px); line-height: 1.15; font-weight: 800; letter-spacing: -0.025em; }
+  .bf-wrap h3   { font-size: clamp(16px, 2vw, 20px); line-height: 1.3;  font-weight: 700; }
+  .bf-wrap h4   { font-size: 16px; line-height: 1.35; font-weight: 700; }
+  .bf-wrap img  { max-width: 100%; display: block; }
+
+  /* ── CSS VARIABLES ── */
+  .bf-wrap {
+    --bf-bg:          #ffffff;
+    --bf-surface:     #f6f4f0;
+    --bf-surface2:    #eeebe5;
+    --bf-dark:        #09090f;
+    --bf-dark2:       #0d0b14;
+    --bf-muted:       #555;
+    --bf-muted2:      #888;
+    --bf-accent:      #b8944f;
+    --bf-accent-h:    #9a7a3f;
+    --bf-accent-warm: #c8a85a;
+    --bf-accent-pale: rgba(184,148,79,0.10);
+    --bf-border:      #e2dfd8;
+    --bf-border2:     #ccc9c0;
+    --bf-radius:      20px;
+    --bf-radius-sm:   12px;
+    --bf-shadow:      0 8px 30px rgba(0,0,0,0.07);
+    --bf-shadow-lg:   0 20px 50px rgba(0,0,0,0.13);
+  }
+
+  /* ── LAYOUT ── */
+  .bf-container       { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .bf-container-sm    { max-width: 860px;  margin: 0 auto; padding: 0 2rem; }
+  .bf-section         { padding: 5rem 0; }
+  .bf-section-alt     { background: var(--bf-surface); }
+  .bf-section-sm      { padding: 3.5rem 0; }
+  .bf-section-dark    { background: linear-gradient(135deg,#07070e 0%,#0e0c18 50%,#090b10 100%); }
+
+  /* ── SUBNAV ── */
+  .bf-subnav { background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--bf-border); overflow-x: auto; scrollbar-width: none; position: sticky; top: 0; z-index: 90; }
+  .bf-subnav::-webkit-scrollbar { display: none; }
+  .bf-subnav-inner { display: flex; padding: 0 2rem; min-width: max-content; }
+  .bf-subnav-inner a { display: block; padding: .75rem 1rem; font-size: 12px; font-weight: 700; color: var(--bf-muted2); border-bottom: 2px solid transparent; white-space: nowrap; transition: all .2s; text-transform: uppercase; letter-spacing: .08em; }
+  .bf-subnav-inner a:hover, .bf-subnav-inner a.active { color: var(--bf-dark); border-bottom-color: var(--bf-accent); }
+
+  /* ── BUTTONS ── */
+  .bf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; background: var(--bf-dark); color: #fff !important; padding: .9rem 2rem; font-size: 15px; font-weight: 700; border-radius: 50px; transition: all .25s; border: 2px solid var(--bf-dark); cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: .01em; white-space: nowrap; text-decoration: none !important; }
+  .bf-btn:hover { background: #1a1a1a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.18); color: #fff !important; }
+  .bf-btn-gold  { background: var(--bf-accent) !important; border-color: var(--bf-accent) !important; color: #fff !important; }
+  .bf-btn-gold:hover { background: var(--bf-accent-h) !important; border-color: var(--bf-accent-h) !important; box-shadow: 0 8px 24px rgba(184,148,79,.3); color: #fff !important; }
+  .bf-btn-outline { background: transparent !important; color: var(--bf-dark) !important; border: 2px solid var(--bf-border2) !important; }
+  .bf-btn-outline:hover { border-color: var(--bf-dark) !important; background: var(--bf-surface) !important; color: var(--bf-dark) !important; }
+  .bf-btn-ghost { background: transparent !important; color: #fff !important; border: 2px solid rgba(255,255,255,.35) !important; }
+  .bf-btn-ghost:hover { background: rgba(255,255,255,.1) !important; border-color: rgba(255,255,255,.7) !important; color: #fff !important; }
+  .bf-btn-sm { padding: .6rem 1.5rem; font-size: 14px; }
+  /* Outline buttons on dark backgrounds (model cards, tech section, final CTA) */
+  .bf-model-copy .bf-btn-outline,
+  .bf-section-dark .bf-btn-outline,
+  .bf-final-cta .bf-btn-outline,
+  .bf-lifestyle-copy .bf-btn-outline { color: rgba(255,255,255,.85) !important; border-color: rgba(255,255,255,.3) !important; background: transparent !important; }
+  .bf-model-copy .bf-btn-outline:hover,
+  .bf-section-dark .bf-btn-outline:hover,
+  .bf-final-cta .bf-btn-outline:hover,
+  .bf-lifestyle-copy .bf-btn-outline:hover { color: #fff !important; border-color: rgba(255,255,255,.7) !important; background: rgba(255,255,255,.08) !important; }
+  /* Showroom body (white bg) outline buttons stay dark */
+
+  /* ── HERO ── */
+  .bf-hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: #09090f; }
+  .bf-hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .bf-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block; filter: brightness(0.52) saturate(0.88); }
+  .bf-hero-overlay { position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(to right,  rgba(5,5,10,0.85) 0%, rgba(5,5,10,0.55) 55%, rgba(5,5,10,0.18) 100%),
+      linear-gradient(to top,    rgba(5,5,10,0.78) 0%, transparent 50%);
+  }
+  .bf-hero-content { position: relative; z-index: 2; padding: 5rem 0 5.5rem; }
+  .bf-hero-bc { font-size: 12px; color: rgba(255,255,255,.38); margin-bottom: 1.5rem; }
+  .bf-hero-bc a { color: var(--bf-accent); transition: color .2s; }
+  .bf-hero-bc a:hover { color: #fff; }
+  .bf-hero-bc span { margin: 0 .4rem; }
+  .bf-hero-eye { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--bf-accent); margin-bottom: 1.25rem; }
+  .bf-hero-eye::before { content: ''; display: block; width: 28px; height: 2px; background: var(--bf-accent); border-radius: 2px; }
+  .bf-hero h1 { font-size: clamp(36px, 5vw, 62px); color: #fff; max-width: 820px; margin-bottom: 1.25rem; font-family: 'Playfair Display', serif; font-weight: 700; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
+  .bf-hero h1 span { color: var(--bf-accent-warm); font-style: italic; }
+  .bf-hero-lead { font-size: clamp(16px, 1.4vw, 19px); color: rgba(255,255,255,.8); max-width: 620px; margin-bottom: .75rem; font-weight: 600; line-height: 1.65; }
+  .bf-hero-sub  { font-size: 15px; color: rgba(255,255,255,.5); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75; }
+  .bf-hero-ctas { display: flex; gap: .875rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .bf-hero-stats { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,.1); padding-top: 2.5rem; flex-wrap: wrap; }
+  .bf-hero-stat  { padding: 0 2.5rem 0 0; border-right: 1px solid rgba(255,255,255,.1); margin-right: 2.5rem; }
+  .bf-hero-stat:last-child { border-right: none; margin-right: 0; }
+  .bf-hero-stat-n { font-size: 32px; font-weight: 900; color: #fff; display: block; line-height: 1; margin-bottom: 4px; letter-spacing: -.04em; font-family: 'Inter', sans-serif; }
+  .bf-hero-stat-l { font-size: 12px; color: rgba(255,255,255,.38); text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+
+  /* ── TRUST BAR ── */
+  .bf-trust-bar { display: flex; justify-content: center; gap: 3rem; padding: 1.25rem 2rem; border-bottom: 1px solid var(--bf-border); background: #fff; flex-wrap: wrap; }
+  .bf-trust-item { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: var(--bf-muted); }
+  .bf-trust-item svg { width: 16px; height: 16px; fill: var(--bf-accent); flex-shrink: 0; }
+
+  /* ── SECTION LABELS / HEADERS ── */
+  .bf-label { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--bf-accent); margin-bottom: .875rem; }
+  .bf-section-header { margin-bottom: 3rem; }
+  .bf-section-header.center { text-align: center; }
+  .bf-section-header.center .bf-label { display: block; }
+  .bf-section-header p { font-size: 17px; color: var(--bf-muted); max-width: 680px; line-height: 1.8; }
+  .bf-section-header.center p { margin: 0 auto; }
+  .bf-underline { position: relative; display: inline-block; }
+  .bf-underline::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 3px; background: var(--bf-accent); border-radius: 2px; }
+
+  /* ── PRODUCT GRID ── */
+  .bf-prod-header { background: linear-gradient(135deg,#07070e 0%,#12100a 60%,#09090f 100%); padding: 3rem 3rem 0; border-radius: var(--bf-radius) var(--bf-radius) 0 0; position: relative; overflow: hidden; }
+  .bf-prod-header::before { content: ''; position: absolute; top:-40%; right:-10%; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(184,148,79,.08) 0%,transparent 70%); pointer-events:none; }
+  .bf-prod-header-inner { position:relative; z-index:1; display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; padding-bottom:2.5rem; }
+  .bf-prod-header h2 { color:#fff; font-size: clamp(22px,2.5vw,30px); }
+  .bf-prod-header p  { color:rgba(255,255,255,.5); font-size:14px; max-width:560px; margin-top:.5rem; line-height:1.7; }
+  .bf-prod-grid-wrap { background: var(--bf-surface); border:1px solid var(--bf-border); border-top:none; border-radius:0 0 var(--bf-radius) var(--bf-radius); padding:2rem; }
+  .bf-prod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; }
+
+  /* ── PRODUCT CARD ── */
+  .bf-prod-card { background:#fff; border:1px solid var(--bf-border); border-radius: var(--bf-radius); overflow:hidden; transition:all .3s cubic-bezier(.25,.8,.25,1); position:relative; display:flex; flex-direction:column; }
+  .bf-prod-card:hover { transform:translateY(-7px); box-shadow: var(--bf-shadow-lg); border-color:transparent; outline:2px solid var(--bf-accent); }
+  .bf-prod-badge { position:absolute; top:10px; left:10px; background:linear-gradient(135deg,#1a0a00,#3d2000); border:1px solid rgba(184,148,79,.4); color:var(--bf-accent-warm); font-size:10px; font-weight:800; padding:3px 10px; border-radius:50px; text-transform:uppercase; letter-spacing:.1em; z-index:2; }
+  .bf-prod-img-wrap { height:220px; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:linear-gradient(145deg,#fafafa,#fff); position:relative; overflow:hidden; }
+  .bf-prod-img { width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; transition:transform .4s cubic-bezier(.25,.8,.25,1); }
+  .bf-prod-card:hover .bf-prod-img { transform:scale(1.07); }
+  .bf-prod-img-wrap a { display:block; width:100%; height:100%; position:absolute; inset:0; z-index:1; }
+  .bf-prod-body { padding: 1rem 1.25rem 1.25rem; flex:1; display:flex; flex-direction:column; }
+  .bf-prod-for  { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--bf-accent); background:var(--bf-accent-pale); display:inline-block; padding:3px 8px; border-radius:20px; margin-bottom:.6rem; }
+  .bf-prod-name { font-size:14px; font-weight:700; line-height:1.35; margin-bottom:.75rem; color:var(--bf-dark); }
+  .bf-prod-name a { color:inherit; text-decoration:none; }
+  .bf-prod-feats { list-style:none; padding:0; margin:0 0 .875rem; flex:1; }
+  .bf-prod-feats li { display:flex; align-items:flex-start; gap:5px; font-size:12px; color:var(--bf-muted); padding:2px 0; line-height:1.5; }
+  .bf-prod-feats li::before { content:'✓'; color:var(--bf-accent); font-weight:900; font-size:11px; flex-shrink:0; margin-top:2px; }
+  .bf-prod-prices { display:flex; align-items:baseline; gap:7px; margin-bottom:.875rem; flex-wrap:wrap; }
+  .bf-price-sale  { font-size:18px; font-weight:900; color:var(--bf-dark); letter-spacing:-.02em; }
+  .bf-price-was   { font-size:13px; color:#adb5bd; text-decoration:line-through; font-weight:500; }
+  .bf-prod-cta    { display:block; text-align:center; background:var(--bf-dark); color:#fff; padding:.65rem; border-radius:var(--bf-radius-sm); font-weight:700; font-size:13px; transition:background .2s; text-decoration:none; }
+  .bf-prod-cta:hover { background:var(--bf-accent); color:#fff; }
+
+  /* ── QUICK ANSWERS ── */
+  .bf-qa-wrap { background:linear-gradient(135deg,#050505 0%,#1a140a 100%); border-radius:24px; padding:3rem; border:1px solid rgba(184,148,79,.15); position:relative; overflow:hidden; }
+  .bf-qa-wrap::before { content:''; position:absolute; top:-30%; right:-5%; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(184,148,79,.06) 0%,transparent 70%); pointer-events:none; }
+  .bf-qa-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:2rem; position:relative; z-index:1; }
+  .bf-qa-item { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:1.5rem; transition:all .3s; }
+  .bf-qa-item:hover { background:rgba(255,255,255,.07); border-color:rgba(184,148,79,.25); }
+  .bf-qa-item h3 { font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--bf-accent); margin-bottom:.625rem; font-weight:800; }
+  .bf-qa-item p  { font-size:14px; color:rgba(255,255,255,.62); line-height:1.75; margin:0; }
+  .bf-qa-item a  { color:var(--bf-accent-warm); font-weight:700; }
+
+  /* ── PILLARS ── */
+  .bf-pillar-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .bf-pillar-card { background:#fff; border:1px solid var(--bf-border); border-radius:var(--bf-radius); padding:2rem; transition:all .3s; position:relative; overflow:hidden; }
+  .bf-pillar-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--bf-accent); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+  .bf-pillar-card:hover { transform:translateY(-5px); box-shadow:var(--bf-shadow); }
+  .bf-pillar-card:hover::before { transform:scaleX(1); }
+  .bf-pillar-icon { width:48px; height:48px; background:var(--bf-accent-pale); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1.125rem; }
+  .bf-pillar-icon svg { width:24px; height:24px; fill:var(--bf-accent); }
+  .bf-pillar-card h3 { font-size:16px; margin-bottom:.5rem; }
+  .bf-pillar-card p  { font-size:14px; color:var(--bf-muted); margin:0; line-height:1.7; }
+
+  /* ── TECHNOLOGY BANNER ── */
+  .bf-tech-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+  .bf-tech-img-wrap { position:relative; }
+  .bf-tech-img-wrap::before { content:''; position:absolute; inset:-30px; background:radial-gradient(ellipse at center,rgba(184,148,79,0.08) 0%,transparent 70%); pointer-events:none; }
+  .bf-tech-img-wrap img { width:100%; border-radius:var(--bf-radius); display:block; position:relative; z-index:1; box-shadow:0 40px 80px rgba(0,0,0,0.5); }
+  .bf-tech-feats { display:flex; flex-direction:column; gap:1rem; }
+  .bf-tech-feat { display:flex; align-items:flex-start; gap:1rem; }
+  .bf-tech-feat-icon { flex-shrink:0; width:42px; height:42px; background:rgba(184,148,79,0.12); border:1px solid rgba(184,148,79,0.25); border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  .bf-tech-feat-icon svg { width:18px; height:18px; fill:var(--bf-accent-warm); }
+  .bf-tech-feat-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
+  .bf-tech-feat-desc  { font-size:13px; color:rgba(255,255,255,.52); line-height:1.6; }
+
+  /* ── MODEL SPOTLIGHTS ── */
+  .bf-model-card { background: linear-gradient(135deg,#0a0912,#111020); border:1px solid rgba(184,148,79,.15); border-radius:24px; overflow:hidden; margin-bottom:2rem; display:grid; grid-template-columns:380px 1fr; transition:box-shadow .3s; }
+  .bf-model-card:hover { box-shadow:0 20px 60px rgba(0,0,0,.35); }
+  .bf-model-card.alt { grid-template-columns:1fr 380px; }
+  .bf-model-card.alt .bf-model-img-side { order:2; }
+  .bf-model-card.alt .bf-model-copy { order:1; }
+  .bf-model-img-side { background:linear-gradient(145deg,#0d0b16,#1a1630); display:flex; align-items:center; justify-content:center; padding:2.5rem 2rem; position:relative; overflow:hidden; }
+  .bf-model-img-side::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(184,148,79,.07) 0%,transparent 70%); }
+  .bf-model-img-side img { max-width:100%; max-height:320px; object-fit:contain; position:relative; z-index:1; transition:transform .5s ease; }
+  .bf-model-card:hover .bf-model-img-side img { transform:scale(1.05); }
+  .bf-model-copy { padding:3rem; display:flex; flex-direction:column; justify-content:center; }
+  .bf-model-tier { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.2em; color:var(--bf-accent); margin-bottom:.5rem; display:flex; align-items:center; gap:8px; }
+  .bf-model-tier::before { content:'—'; }
+  .bf-model-copy h3 { font-size: clamp(22px,2.5vw,30px); color:#fff; font-family:'Playfair Display',serif; margin-bottom:.5rem; line-height:1.2; }
+  .bf-model-best { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--bf-dark); background:var(--bf-accent); padding:4px 12px; border-radius:20px; margin-bottom:1.25rem; }
+  .bf-model-copy p { font-size:15px; color:rgba(255,255,255,.65); line-height:1.8; margin-bottom:1.25rem; }
+  .bf-model-traits { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.5rem; }
+  .bf-trait { font-size:11px; font-weight:700; padding:4px 11px; border-radius:20px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.55); }
+  .bf-model-tradeoff { font-size:13px; color:rgba(255,255,255,.42); line-height:1.65; padding:.875rem 1.125rem; background:rgba(255,255,255,.04); border-left:3px solid rgba(184,148,79,.4); border-radius:0 8px 8px 0; margin-bottom:1.5rem; }
+  .bf-model-ctas { display:flex; gap:.75rem; flex-wrap:wrap; }
+  .bf-model-price { font-size:22px; font-weight:900; color:var(--bf-accent-warm); letter-spacing:-.03em; margin-bottom:1.25rem; }
+  .bf-model-price-was { font-size:14px; color:rgba(255,255,255,.35); text-decoration:line-through; margin-left:8px; font-weight:500; }
+
+  /* ── COMPARE TABLE ── */
+  .bf-compare-wrap { overflow-x:auto; border-radius:14px; border:1px solid var(--bf-border); }
+  .bf-compare-table { width:100%; border-collapse:collapse; font-size:13px; min-width:700px; }
+  .bf-compare-table th { background:var(--bf-dark); color:#fff; padding:.875rem 1.125rem; text-align:left; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; }
+  .bf-compare-table td { padding:.8rem 1.125rem; border-bottom:1px solid var(--bf-border); color:var(--bf-muted); vertical-align:middle; }
+  .bf-compare-table tr:last-child td { border-bottom:none; }
+  .bf-compare-table tr:hover td { background:var(--bf-surface); }
+  .bf-col-feat { font-weight:800; color:var(--bf-dark) !important; white-space:nowrap; }
+  .bf-bf-col { background:rgba(184,148,79,.04) !important; }
+  thead .bf-bf-col { background:rgba(184,148,79,.14) !important; color:var(--bf-accent) !important; border-bottom:3px solid var(--bf-accent) !important; }
+  .bf-check { color:var(--bf-accent); font-weight:800; }
+
+  /* ── BUYER TYPES ── */
+  .bf-buyer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+  .bf-buyer-card { background:#fff; border:1px solid var(--bf-border); border-radius:var(--bf-radius); padding:1.75rem; transition:all .3s; position:relative; overflow:hidden; }
+  .bf-buyer-card:hover { border-color:var(--bf-accent); box-shadow:0 10px 30px rgba(184,148,79,.1); }
+  .bf-buyer-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--bf-accent),transparent); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+  .bf-buyer-card:hover::after { transform:scaleX(1); }
+  .bf-buyer-icon { width:42px; height:42px; background:var(--bf-accent-pale); border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:.875rem; }
+  .bf-buyer-icon svg { width:20px; height:20px; fill:var(--bf-accent); }
+  .bf-buyer-type { font-size:11px; font-weight:800; color:var(--bf-muted2); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.4rem; }
+  .bf-buyer-card h3 { font-size:14px; margin-bottom:.4rem; }
+  .bf-buyer-card p  { font-size:13px; color:var(--bf-muted); margin:0; line-height:1.7; }
+  .bf-buyer-rec { margin-top:.625rem; font-size:12px; font-weight:700; color:var(--bf-accent); }
+
+  /* ── BRAND COMPARISON ── */
+  .bf-vs-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  .bf-vs-card { background:#fff; border:1px solid var(--bf-border); border-radius:var(--bf-radius-sm); padding:1.5rem; transition:all .3s; }
+  .bf-vs-card:hover { border-color:var(--bf-border2); box-shadow:var(--bf-shadow); }
+  .bf-vs-card h3 { font-size:14px; margin-bottom:.5rem; }
+  .bf-vs-card p  { font-size:13px; color:var(--bf-muted); line-height:1.75; margin:0; }
+
+  /* ── PRICE LADDER ── */
+  .bf-price-ladder { border:1px solid var(--bf-border); border-radius:var(--bf-radius); overflow:hidden; margin-bottom:2rem; }
+  .bf-price-rung { display:grid; grid-template-columns:140px 1fr; border-bottom:1px solid var(--bf-border); transition:background .2s; }
+  .bf-price-rung:last-child { border-bottom:none; }
+  .bf-price-rung:hover { background:var(--bf-surface); }
+  .bf-price-label { background:var(--bf-dark); padding:1.5rem; display:flex; flex-direction:column; justify-content:center; border-right:1px solid rgba(255,255,255,.08); }
+  .bf-price-tier-name { font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.4); font-weight:700; margin-bottom:3px; }
+  .bf-price-amount { font-size:16px; font-weight:900; color:var(--bf-accent); letter-spacing:-.02em; }
+  .bf-price-body { padding:1.5rem 2rem; }
+  .bf-price-body h4 { font-size:14px; margin-bottom:.35rem; }
+  .bf-price-body p  { font-size:13px; color:var(--bf-muted); margin:0; line-height:1.65; }
+  .bf-price-tags { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.625rem; }
+  .bf-price-tag { font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; background:var(--bf-accent-pale); color:var(--bf-accent); }
+
+  /* ── TRUST CARDS ── */
+  .bf-trust-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .bf-trust-card { background:#fff; border:1px solid var(--bf-border); border-radius:var(--bf-radius); padding:1.75rem; transition:all .3s; }
+  .bf-trust-card:hover { transform:translateY(-4px); box-shadow:var(--bf-shadow); }
+  .bf-trust-card-icon { width:44px; height:44px; background:var(--bf-accent-pale); border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
+  .bf-trust-card-icon svg { width:22px; height:22px; fill:var(--bf-accent); }
+  .bf-trust-card h3 { font-size:15px; margin-bottom:.5rem; }
+  .bf-trust-card p  { font-size:14px; color:var(--bf-muted); margin:0; line-height:1.7; }
+
+  /* ── EXPERT CALLOUT ── */
+  .bf-expert { background:#fff; border:1px solid var(--bf-border); border-left:4px solid var(--bf-accent); border-radius:0 12px 12px 0; padding:1.5rem 1.75rem; display:flex; align-items:flex-start; gap:.875rem; }
+  .bf-expert svg { width:26px; height:26px; fill:var(--bf-accent); flex-shrink:0; margin-top:1px; }
+  .bf-expert p   { font-size:14px; color:var(--bf-muted); line-height:1.75; margin:0; }
+  .bf-expert strong { color:var(--bf-dark); }
+
+  /* ── SHOWROOM ── */
+  .bf-showroom-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.75rem; }
+  .bf-showroom-card { border:1px solid var(--bf-border); border-radius:var(--bf-radius); overflow:hidden; transition:all .3s; }
+  .bf-showroom-card:hover { transform:translateY(-4px); box-shadow:var(--bf-shadow-lg); }
+  .bf-showroom-head { background:linear-gradient(135deg,#07070e,#12100a); padding:2rem 2.25rem 1.75rem; }
+  .bf-showroom-pill { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; color:var(--bf-accent); background:rgba(184,148,79,.15); padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:.625rem; }
+  .bf-showroom-head h3 { color:#fff; font-size:17px; margin-bottom:.3rem; }
+  .bf-showroom-head p  { color:rgba(255,255,255,.5); font-size:13px; margin:0; }
+  .bf-showroom-body { background:#fff; padding:1.75rem 2.25rem; }
+  .bf-showroom-row { display:flex; align-items:flex-start; gap:8px; padding:.5rem 0; border-bottom:1px solid var(--bf-border); font-size:13px; color:var(--bf-muted); }
+  .bf-showroom-row:last-child { border-bottom:none; }
+  .bf-showroom-row svg { width:16px; height:16px; fill:var(--bf-accent); flex-shrink:0; margin-top:2px; }
+  .bf-showroom-btns { margin-top:1.25rem; display:flex; gap:.625rem; flex-wrap:wrap; }
+
+  /* ── FAQ ── */
+  .bf-faq-item { border-bottom:1px solid var(--bf-border); }
+  .bf-faq-q { display:flex; justify-content:space-between; align-items:center; padding:1.4rem 0; cursor:pointer; gap:1rem; }
+  .bf-faq-q h3 { font-size:16px; margin:0; font-weight:700; transition:color .2s; line-height:1.4; }
+  .bf-faq-q:hover h3 { color:var(--bf-accent); }
+  .bf-faq-icon { width:22px; height:22px; fill:var(--bf-muted2); flex-shrink:0; transition:transform .3s; }
+  .bf-faq-q.active .bf-faq-icon { transform:rotate(45deg); }
+  .bf-faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .bf-faq-a.open { max-height:600px; }
+  .bf-faq-a p { margin:0; padding-bottom:1.4rem; font-size:15px; color:var(--bf-muted); line-height:1.8; }
+  .bf-faq-a a { color:var(--bf-accent); font-weight:700; }
+
+  /* ── FINAL CTA ── */
+  .bf-final-cta { background:linear-gradient(135deg,#050505 0%,#1a110a 60%,#050505 100%); border-radius:28px; padding:4rem; position:relative; overflow:hidden; }
+  .bf-final-cta::before { content:''; position:absolute; top:-40%; right:-8%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(184,148,79,.1) 0%,transparent 70%); pointer-events:none; }
+  .bf-final-cta::after  { content:''; position:absolute; bottom:-30%; left:-5%; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(184,148,79,.06) 0%,transparent 70%); pointer-events:none; }
+  .bf-final-cta-inner { position:relative; z-index:1; }
+  .bf-final-cta h2 { color:#fff; font-size:clamp(28px,3vw,42px); margin-bottom:.875rem; line-height:1.12; font-family:'Playfair Display',serif; }
+  .bf-final-cta p  { color:rgba(255,255,255,.62); font-size:16px; max-width:640px; margin-bottom:2rem; line-height:1.75; }
+  .bf-final-cta-btns { display:flex; gap:.875rem; flex-wrap:wrap; }
+
+  /* ── LIFESTYLE IMAGE BANNER ── */
+  .bf-lifestyle-banner { position:relative; border-radius:var(--bf-radius); overflow:hidden; margin-bottom:3rem; box-shadow:0 24px 60px rgba(0,0,0,.13); }
+  .bf-lifestyle-banner img { width:100%; height:520px; object-fit:cover; object-position:center 30%; display:block; }
+  .bf-lifestyle-overlay { position:absolute; inset:0; background:linear-gradient(to right,rgba(9,9,15,.75) 0%,rgba(9,9,15,.2) 55%,transparent 100%); display:flex; align-items:center; }
+  .bf-lifestyle-copy { padding:3rem 3.5rem; max-width:520px; }
+  .bf-lifestyle-copy .bf-label { color:var(--bf-accent-warm); }
+  .bf-lifestyle-copy h2 { color:#fff; font-size:clamp(1.4rem,2.8vw,2.1rem); margin-bottom:1rem; line-height:1.2; font-family:'Playfair Display',serif; }
+  .bf-lifestyle-copy p { color:rgba(255,255,255,.72); font-size:15px; line-height:1.8; margin-bottom:1.75rem; }
+
+  /* ── GRAD DIVIDER ── */
+  .bf-divider { height:1px; background:linear-gradient(90deg,transparent,var(--bf-border),transparent); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1100px) {
+    .bf-prod-grid { grid-template-columns:repeat(2,1fr); }
+    .bf-pillar-grid { grid-template-columns:1fr 1fr; }
+    .bf-trust-grid { grid-template-columns:1fr 1fr; }
+    .bf-tech-grid { gap:2.5rem; }
+  }
+  @media(max-width:900px) {
+    .bf-hero { min-height:70vh; }
+    .bf-hero h1 { font-size:34px; }
+    .bf-model-card, .bf-model-card.alt { grid-template-columns:1fr; }
+    .bf-model-card.alt .bf-model-img-side, .bf-model-card.alt .bf-model-copy { order:unset; }
+    .bf-model-img-side { padding:2rem; }
+    .bf-model-img-side img { max-height:240px; }
+    .bf-tech-grid { grid-template-columns:1fr; }
+    .bf-qa-grid, .bf-vs-grid, .bf-showroom-grid { grid-template-columns:1fr; }
+    .bf-buyer-grid { grid-template-columns:1fr 1fr; }
+    .bf-pillar-grid, .bf-trust-grid { grid-template-columns:1fr; }
+    .bf-section { padding:3.5rem 0; }
+    .bf-final-cta { padding:2.5rem 2rem; }
+    .bf-lifestyle-banner img { height:380px; }
+  }
+  @media(max-width:640px) {
+    .bf-prod-grid { grid-template-columns:1fr; }
+    .bf-buyer-grid { grid-template-columns:1fr; }
+    .bf-hero h1 { font-size:28px; }
+    .bf-container { padding:0 1.25rem; }
+    .bf-prod-header { padding:2rem 1.5rem 0; }
+    .bf-prod-grid-wrap { padding:1.25rem; }
+    .bf-lifestyle-banner img { height:280px; }
+    .bf-lifestyle-copy { padding:2rem; }
+    .bf-hero-stats { flex-direction:column; gap:1rem; }
+    .bf-hero-stat { border-right:none; margin-right:0; padding:0; }
+  }
+</style>
+
+<div class="bf-wrap">
+
+  {%- comment -%} STICKY SUBNAV {%- endcomment -%}
+  <nav class="bf-subnav" aria-label="Page sections">
+    <div class="bf-subnav-inner">
+      <a href="#bf-shop">Shop</a>
+      <a href="#bf-brand">The Brand</a>
+      <a href="#bf-qa">Quick Answers</a>
+      <a href="#bf-why">Why Bodyfriend</a>
+      <a href="#bf-tech">Technology</a>
+      <a href="#bf-pharaoh-q">Pharaoh Q</a>
+      <a href="#bf-leonardo">Leonardo DV</a>
+      <a href="#bf-phantom">Phantom Rovo</a>
+      <a href="#bf-falcon">Falcon SV</a>
+      <a href="#bf-compare">Compare</a>
+      <a href="#bf-buyers">By Buyer Type</a>
+      <a href="#bf-vs">vs. Brands</a>
+      <a href="#bf-pricing">Price Guide</a>
+      <a href="#bf-showrooms">Showrooms</a>
+      <a href="#bf-usa">Where to Buy</a>
+      <a href="#bf-faq">FAQ</a>
+    </div>
+  </nav>
+
+  {%- comment -%} ══════════ HERO ══════════ {%- endcomment -%}
+  <section class="bf-hero" id="bf-top">
+    <div class="bf-hero-bg">
+      <img
+        src="{% if section.settings.hero_image %}{{ section.settings.hero_image | image_url: width: 2200 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/bodyfriend-hero-bg.jpg?v=1776369231{% endif %}"
+        alt=""
+        aria-hidden="true"
+        fetchpriority="high"
+      >
+    </div>
+    <div class="bf-hero-overlay"></div>
+    <div class="bf-container bf-hero-content">
+      <div class="bf-hero-bc">
+        <a href="{{ shop.url }}">Home</a><span>/</span>
+        <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+        Bodyfriend
+      </div>
+      <div class="bf-hero-eye">South Korea's Premium, Technology-Forward Massage Chair Brand &middot; Authorized Dealer</div>
+      {%- if section.settings.hero_heading != blank -%}
+        <h1>{{ section.settings.hero_heading }}</h1>
+      {%- else -%}
+        <h1>Bodyfriend Massage Chairs<br><span>Price, Reviews &amp; Showroom Guide</span></h1>
+      {%- endif -%}
+      {%- if section.settings.hero_subheading != blank -%}
+        <p class="bf-hero-lead">{{ section.settings.hero_subheading }}</p>
+      {%- else -%}
+        <p class="bf-hero-lead">Compare Bodyfriend massage chairs by model, price, features, massage mode, gravity recline, and showroom fit. House of Massage Chairs helps you choose the right chair with expert guidance and local showroom trials.</p>
+      {%- endif -%}
+      <p class="bf-hero-sub">Explore models including the Falcon SV, Phantom Rovo, Leonardo DV, Pharaoh Q, Pharaoh Neo, Palace Neo, and Familie — with delivery support, financing options, and warranty clarity. Also commonly searched as Body Friend massage chair or massage chair Bodyfriend.</p>
+      <div class="bf-hero-ctas">
+        <a href="#bf-shop" class="bf-btn bf-btn-gold">Shop All Bodyfriend Models</a>
+        <a href="#bf-pharaoh-q" class="bf-btn bf-btn-ghost">Explore the Models</a>
+        <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-ghost">Book Showroom Visit</a>
+      </div>
+      <div class="bf-hero-stats">
+        <div class="bf-hero-stat">
+          <span class="bf-hero-stat-n">7</span>
+          <span class="bf-hero-stat-l">Distinct Models</span>
+        </div>
+        <div class="bf-hero-stat">
+          <span class="bf-hero-stat-n">$5K–$15K</span>
+          <span class="bf-hero-stat-l">Price Range</span>
+        </div>
+        <div class="bf-hero-stat">
+          <span class="bf-hero-stat-n">XD-Pro</span>
+          <span class="bf-hero-stat-l">Proprietary Technology</span>
+        </div>
+        <div class="bf-hero-stat">
+          <span class="bf-hero-stat-n">2</span>
+          <span class="bf-hero-stat-l">Bay Area Showrooms</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOP COLLECTION ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-shop" style="padding-top:4rem;padding-bottom:4rem">
+    <div class="bf-container">
+      <div class="bf-prod-header">
+        <div class="bf-prod-header-inner">
+          <div>
+            <span class="bf-label">Bodyfriend Collection — Live Pricing</span>
+            <h2>Shop All Bodyfriend Models</h2>
+            <p>All models available to try in person at our San Jose &amp; Pleasanton showrooms. White-glove delivery nationwide.</p>
+          </div>
+          <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold bf-btn-sm" style="flex-shrink:0">Book Showroom</a>
+        </div>
+      </div>
+      <div class="bf-prod-grid-wrap">
+        <div class="bf-prod-grid">
+          {%- for product in collection.products -%}
+            {%- assign badge = product.metafields.custom.badge.value | default: '' -%}
+            {%- assign buyer_for = product.metafields.custom.buyer_for.value | default: 'Premium Buyers' -%}
+            {%- assign sale_price = product.price | money -%}
+            {%- assign compare_price = product.compare_at_price | money -%}
+            {%- assign img_url = product.featured_image | image_url: width: 600 -%}
+            <div class="bf-prod-card">
+              {%- if badge != '' -%}
+                <div class="bf-prod-badge">{{ badge }}</div>
+              {%- endif -%}
+              <div class="bf-prod-img-wrap">
+                <a href="{{ product.url }}"></a>
+                <img class="bf-prod-img" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+              </div>
+              <div class="bf-prod-body">
+                <span class="bf-prod-for">Best for: {{ buyer_for }}</span>
+                <h3 class="bf-prod-name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                {%- if product.metafields.custom.key_features.value != blank -%}
+                  <ul class="bf-prod-feats">
+                    {%- for feat in product.metafields.custom.key_features.value -%}
+                      <li>{{ feat }}</li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+                <div class="bf-prod-prices">
+                  <span class="bf-price-sale">{{ sale_price }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="bf-price-was">{{ compare_price }}</span>
+                  {%- endif -%}
+                </div>
+                <a href="{{ product.url }}" class="bf-prod-cta">Interested in This Product →</a>
+              </div>
+            </div>
+          {%- else -%}
+            <p style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--bf-muted)">No products found in this collection.</p>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <p style="font-size:13px;color:var(--bf-muted2);margin-bottom:1rem">Prices are verified as current. All models include manufacturer warranty and white-glove delivery.</p>
+        <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold">Try Any Model in Our Showroom &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST BAR {%- endcomment -%}
+  <div class="bf-trust-bar">
+    <div class="bf-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Authorized Dealer</div>
+    <div class="bf-trust-item"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Try Before You Buy</div>
+    <div class="bf-trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>White-Glove Delivery</div>
+    <div class="bf-trust-item"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>Financing Available</div>
+    <div class="bf-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Manufacturer Warranty</div>
+  </div>
+
+  {%- comment -%} ══════════ BRAND INTRO ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-brand">
+    <div class="bf-container">
+      <div class="bf-section-header">
+        <span class="bf-label">Understanding Bodyfriend</span>
+        <h2>What Is Bodyfriend &mdash; And Why Does It Stand Apart?</h2>
+      </div>
+
+      {%- comment -%} Lifestyle Image Banner {%- endcomment -%}
+      <div class="bf-lifestyle-banner">
+        <img
+          src="{% if section.settings.lifestyle_image %}{{ section.settings.lifestyle_image | image_url: width: 1600 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/bodyfriend-hero-bg.jpg?v=1776369231{% endif %}"
+          alt="Woman relaxing in a Bodyfriend luxury massage chair in a high-ceiling modern home — House of Massage Chairs"
+          loading="lazy"
+        >
+        <div class="bf-lifestyle-overlay">
+          <div class="bf-lifestyle-copy">
+            <span class="bf-label">The Bodyfriend Ownership Experience</span>
+            <h2>Where Premium Technology Meets Daily Life</h2>
+            <p>Bodyfriend chairs are designed to belong in a luxury home — not just perform in one. Every session is a reset. Every design decision is intentional.</p>
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold bf-btn-sm">Book a Showroom Visit &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:18px;color:var(--bf-dark);max-width:800px;margin-bottom:1.25rem;line-height:1.8;font-weight:600"><strong>Bodyfriend is a Korean luxury massage chair brand</strong> known for futuristic design, advanced control systems, and premium model differentiation.</p>
+      <p style="font-size:15px;color:var(--bf-muted);max-width:800px;margin-bottom:3rem;line-height:1.85">At House of Massage Chairs, we help buyers compare the lineup by comfort, price, massage mode, full body massage coverage, heat therapy, recline feel, room fit, and ownership support. Each model offers multi massage auto programs tailored to different body types and daily-use preferences.</p>
+
+      <div class="bf-pillar-grid">
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg></div>
+          <h3>Robotics-Level Engineering</h3>
+          <p>Bodyfriend's XD-Pro mechanism is not a standard roller system. It combines robotic movement precision with adaptive pressure profiling — the result feels qualitatively different from conventional massage chairs.</p>
+        </div>
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></div>
+          <h3>Intelligent Body Personalization</h3>
+          <p>Infrared body scanning reads shoulder width, spine length, and posture before each session. Programs adapt to your frame, not a generic profile. This results in noticeably more targeted pressure on tension points specific to your body.</p>
+        </div>
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>
+          <h3>Futuristic Design Language</h3>
+          <p>Bodyfriend engages Italdesign — the design house behind Ferrari and Volkswagen — for their Leonardo DV model. Every chair in the lineup reflects an aesthetic philosophy that belongs in a premium interior, not just a showroom floor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bf-divider"></div>
+
+  {%- comment -%} ══════════ QUICK ANSWERS ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt bf-section-sm" style="padding-top:0" id="bf-qa">
+    <div class="bf-container">
+      <div class="bf-qa-wrap">
+        <span class="bf-label" style="position:relative;z-index:1">Quick Answers</span>
+        <h2 style="color:#fff;font-size:clamp(22px,2.5vw,30px);margin-bottom:.4rem;position:relative;z-index:1">What You Need to Know About Bodyfriend</h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;position:relative;z-index:1">Whether you're researching for the first time or deciding between models — direct answers.</p>
+        <div class="bf-qa-grid">
+          <div class="bf-qa-item">
+            <h3>Are Bodyfriend massage chairs good?</h3>
+            <p>Yes — meaningfully so at their price tier. The XD-Pro mechanism delivers precision pressure targeting, the body scanning adapts to your frame, and the build quality reflects genuine engineering investment. Buyers who sit in one immediately notice the difference from generic 4D chairs.</p>
+          </div>
+          <div class="bf-qa-item">
+            <h3>Which Bodyfriend chair is best?</h3>
+            <p>It depends on your priorities. The <strong style="color:var(--bf-accent-warm)">Pharaoh Q</strong> is the no-compromise flagship. The <strong style="color:var(--bf-accent-warm)">Leonardo DV</strong> is best for design-conscious smart-wellness buyers. The <strong style="color:var(--bf-accent-warm)">Phantom Rovo</strong> excels for lower-body precision. The <strong style="color:var(--bf-accent-warm)">Falcon SV</strong> is the best entry point.</p>
+          </div>
+          <div class="bf-qa-item">
+            <h3>Are Bodyfriend chairs worth the money?</h3>
+            <p>For buyers spending $9,500–$15,000 on a massage chair, these premium models deliver genuine value: a more refined massage feel, premium materials, intelligent body adaptation, and a design that belongs in a high-end home. The question is whether your priorities match the brand.</p>
+          </div>
+          <div class="bf-qa-item">
+            <h3>Where can I buy authentic Bodyfriend chairs?</h3>
+            <p>House of Massage Chairs is an authorized Bodyfriend dealer with showrooms in <a href="{{ shop.url }}/pages/our-store">San Jose</a> (Westfield Oakridge Mall) and Pleasanton, California. Every chair comes with manufacturer warranty, white-glove delivery, and specialist post-purchase support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHY BODYFRIEND ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-why">
+    <div class="bf-container">
+      <div class="bf-section-header">
+        <span class="bf-label">The Case for Bodyfriend</span>
+        <h2>Why Discerning Buyers Shortlist <span class="bf-underline">Bodyfriend</span></h2>
+        <p>Bodyfriend earns its place on premium buyers' shortlists for specific, substantive reasons.</p>
+      </div>
+      <div class="bf-pillar-grid">
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>XD-Pro Precision Technology</h3><p>Bodyfriend's proprietary XD-Pro roller module delivers 1.25mm micro-precision targeting. The mechanism follows your spinal curvature with robotic-grade accuracy — not a generic track that approximates it.</p></div>
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><h3>Intelligent Body Adaptation</h3><p>Infrared body scanning maps your unique shoulder width, spine length, and posture deviations before each session. Programs adapt to your body — not a generic user profile.</p></div>
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>Design-Led Luxury Aesthetic</h3><p>Bodyfriend chairs are designed to belong in a luxury interior — not to look like medical equipment. The Leonardo DV carries Italdesign DNA; every model reflects a futuristic aesthetic philosophy.</p></div>
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25L9.4 10.5zm12.28 2.24H12.37l-2.68 4.63 4.77 8.26c2.6-.86 4.75-2.75 6.01-5.12L21.68 12.74zm-12.3.01L6.34 10H2.04C2.01 10.33 2 10.66 2 11c0 3.51 1.81 6.59 4.54 8.38L9.38 12.75z"/></svg></div><h3>Full-Body Coverage</h3><p>87 strategically placed air pockets, independent leg drives, and zoned heat therapy ensure every session covers your complete body — back, shoulders, hips, legs, and calves — in a coordinated sequence.</p></div>
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div><h3>Premium Material Quality</h3><p>Natural leather upholstery, precision-welded frames, and aerospace-grade internal mechanisms — the materials quality in a Bodyfriend chair is immediately apparent the first time you sit in one.</p></div>
+        <div class="bf-pillar-card"><div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><h3>Distinct Model Personalities</h3><p>Unlike many brands offering cosmetically different chair variations, each Bodyfriend model represents a genuinely different philosophy — from the robotics-driven Pharaoh Q to the movement-specialist Phantom Rovo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bf-divider"></div>
+
+  {%- comment -%} ══════════ TECHNOLOGY BANNER ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-dark" id="bf-tech">
+    <div class="bf-container">
+      <div class="bf-tech-grid">
+        <div class="bf-tech-img-wrap">
+          <img
+            src="{% if section.settings.tech_image %}{{ section.settings.tech_image | image_url: width: 900 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/bodyfriend-tech-visual.jpg?v=1776369231{% endif %}"
+            alt="Bodyfriend massage chair XD-Pro technology — body scanning, heat therapy and precision roller visualization"
+            loading="lazy"
+          >
+        </div>
+        <div>
+          <span class="bf-label" style="color:var(--bf-accent-warm)">Inside the Technology</span>
+          <h2 style="color:#fff;font-family:'Playfair Display',serif;margin-bottom:1rem">Massage Mode, Heat Therapy &amp; Recline Feel</h2>
+          <p style="color:rgba(255,255,255,.62);font-size:15px;line-height:1.85;margin-bottom:2rem">Each model includes different massage mode options and auto programs designed for different daily-use preferences. The XD-Pro mechanism, intelligent body scanning, and zoned heat therapy work together as a single system — delivering a coordinated full body massage experience that responds to your specific frame and tension profile.</p>
+          <div class="bf-tech-feats">
+            <div class="bf-tech-feat"><div class="bf-tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div><div><div class="bf-tech-feat-title">XD-Pro Precision Rollers</div><div class="bf-tech-feat-desc">1.25mm micro-precision roller heads trace your exact spinal curvature — not a generic track.</div></div></div>
+            <div class="bf-tech-feat"><div class="bf-tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div><div><div class="bf-tech-feat-title">87 Micro-Air Pockets</div><div class="bf-tech-feat-desc">87 air pockets designed to create coordinated full-body compression across a wide range of zones.</div></div></div>
+            <div class="bf-tech-feat"><div class="bf-tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div><div><div class="bf-tech-feat-title">Intelligent Body Adaptation</div><div class="bf-tech-feat-desc">Infrared scanning maps shoulder width, spine length, and posture deviations before each session.</div></div></div>
+            <div class="bf-tech-feat"><div class="bf-tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div><div><div class="bf-tech-feat-title">Deep Heat up to 131°F</div><div class="bf-tech-feat-desc">Zoned heat across lumbar, seat, and calf — designed to add soothing warmth during massage sessions.</div></div></div>
+          </div>
+          <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+            <a href="#bf-pharaoh-q" class="bf-btn bf-btn-gold">See the Models &rarr;</a>
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-ghost">Try in Showroom</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bf-divider"></div>
+
+  {%- comment -%} ══════════ MODEL SPOTLIGHTS ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-pharaoh-q">
+    <div class="bf-container">
+      <div class="bf-section-header">
+        <span class="bf-label">Model Intelligence &mdash; Bodyfriend Flagship</span>
+        <h2>The Four Bodyfriend Models, Explained</h2>
+        <p>Each Bodyfriend model represents a distinct philosophy. Here is what makes each one worth considering — and who each is truly built for.</p>
+      </div>
+
+      {%- comment -%} PHARAOH Q {%- endcomment -%}
+      <div class="bf-model-card">
+        <div class="bf-model-img-side">
+          {%- assign pharaoh = collection.products | where: 'handle', 'bodyfriend-pharaoh-q-massage-chair' | first -%}
+          {%- if pharaoh -%}
+            <a href="{{ pharaoh.url }}"><img src="{{ pharaoh.featured_image | image_url: width: 600 }}" alt="Bodyfriend Pharaoh Q Massage Chair" loading="lazy"></a>
+          {%- else -%}
+            <img src="https://houseofmassagechairs.com/cdn/shop/files/PharaohQ-45ROvo.webp?v=1772226162&width=600" alt="Bodyfriend Pharaoh Q Massage Chair" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="bf-model-copy">
+          <div class="bf-model-tier">Flagship &middot; Ultimate Luxury</div>
+          <h3>Bodyfriend Pharaoh Q Massage Chair</h3>
+          <div class="bf-model-best">Best for: No-Compromise Luxury Buyers</div>
+          <div class="bf-model-price">$15,000 <span class="bf-model-price-was">$17,000</span></div>
+          <p>The Bodyfriend at its most uncompromising. Robotics technology, Bang &amp; Olufsen integration, premium leather, and automatic firmware updates via over-the-air delivery — this chair is not designed to compete with other massage chairs. It's designed to be in a category of its own.</p>
+          <div class="bf-model-traits"><span class="bf-trait">Robotics Technology</span><span class="bf-trait">B&amp;O Sound</span><span class="bf-trait">XD-Pro</span><span class="bf-trait">OTA Updates</span><span class="bf-trait">Natural Leather</span></div>
+          <div class="bf-model-tradeoff"><strong>Honest tradeoff:</strong> The Pharaoh Q makes the most sense for buyers where budget is not the primary constraint — and where the ownership experience of a top-tier luxury chair matters as much as the massage itself.</div>
+          <div class="bf-model-ctas">
+            {%- if pharaoh -%}<a href="{{ pharaoh.url }}" class="bf-btn bf-btn-gold bf-btn-sm">View Full Details &rarr;</a>{%- else -%}<a href="{{ shop.url }}/collections/bodyfriend" class="bf-btn bf-btn-gold bf-btn-sm">View Details &rarr;</a>{%- endif -%}
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-outline bf-btn-sm">Try in Showroom</a>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} LEONARDO DV {%- endcomment -%}
+      <div class="bf-model-card alt" id="bf-leonardo">
+        <div class="bf-model-copy">
+          <div class="bf-model-tier">Smart Wellness &middot; Design-Led</div>
+          <h3>Bodyfriend Leonardo DV Massage Chair</h3>
+          <div class="bf-model-best">Best for: Design-Conscious Smart-Wellness Buyers</div>
+          <div class="bf-model-price">$11,699 <span class="bf-model-price-was">$12,999</span></div>
+          <p>The Leonardo DV was designed in collaboration with Italdesign — the studio behind some of the world's most iconic automotive design. That heritage shows in every curve. But beneath the aesthetic is also Bodyfriend's most data-driven wellness model, with BIA body composition measurement that tracks muscle mass, fat, and hydration.</p>
+          <div class="bf-model-traits"><span class="bf-trait">BIA Body Scanning</span><span class="bf-trait">Italdesign</span><span class="bf-trait">8.7" LCD</span><span class="bf-trait">XD-Pro</span><span class="bf-trait">60 Programs</span></div>
+          <div class="bf-model-tradeoff"><strong>Honest tradeoff:</strong> The Leonardo DV is the most design-forward Bodyfriend — buyers who prioritize raw massage power over aesthetics may prefer the Pharaoh Q or Phantom Rovo.</div>
+          <div class="bf-model-ctas">
+            {%- assign leonardo = collection.products | where: 'handle', 'bodyfriend-leonardo-dv-massage-chair' | first -%}
+            {%- if leonardo -%}<a href="{{ leonardo.url }}" class="bf-btn bf-btn-gold bf-btn-sm">View Full Details &rarr;</a>{%- else -%}<a href="{{ shop.url }}/collections/bodyfriend" class="bf-btn bf-btn-gold bf-btn-sm">View Details &rarr;</a>{%- endif -%}
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-outline bf-btn-sm">Try in Showroom</a>
+          </div>
+        </div>
+        <div class="bf-model-img-side">
+          {%- if leonardo -%}
+            <a href="{{ leonardo.url }}"><img src="{{ leonardo.featured_image | image_url: width: 600 }}" alt="Bodyfriend Leonardo DV Massage Chair" loading="lazy"></a>
+          {%- else -%}
+            <img src="https://houseofmassagechairs.com/cdn/shop/files/body.webp?v=1772225197&width=600" alt="Bodyfriend Leonardo DV Massage Chair" loading="lazy">
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} PHANTOM ROVO {%- endcomment -%}
+      <div class="bf-model-card" id="bf-phantom">
+        <div class="bf-model-img-side">
+          {%- assign phantom = collection.products | where: 'handle', 'bodyfriend-phantom-rovo-massage-chair' | first -%}
+          {%- if phantom -%}
+            <a href="{{ phantom.url }}"><img src="{{ phantom.featured_image | image_url: width: 600 }}" alt="Bodyfriend Phantom Rovo Massage Chair" loading="lazy"></a>
+          {%- else -%}
+            <img src="https://houseofmassagechairs.com/cdn/shop/files/PhantomRovo_thumbnail_1.webp?v=1772225211&width=600" alt="Bodyfriend Phantom Rovo Massage Chair" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="bf-model-copy">
+          <div class="bf-model-tier">Precision Athlete &middot; Movement Specialist</div>
+          <h3>Bodyfriend Phantom Rovo Massage Chair</h3>
+          <div class="bf-model-best">Best for: Lower Body &amp; Movement Precision</div>
+          <div class="bf-model-price">$10,799 <span class="bf-model-price-was">$13,999</span></div>
+          <p>The Phantom Rovo is the most mechanically sophisticated chair in the lineup for buyers who prioritize lower-body and movement-based precision. Its patented ROVO technology with independent leg drives moves left and right independently — the result feels more dynamic and coordinated than standard leg massage systems.</p>
+          <div class="bf-model-traits"><span class="bf-trait">Independent Leg Drives</span><span class="bf-trait">87 Air Pockets</span><span class="bf-trait">XD-Pro 1.25mm</span><span class="bf-trait">Heated Rollers</span><span class="bf-trait">Zoned Heat</span></div>
+          <div class="bf-model-tradeoff"><strong>Honest tradeoff:</strong> The Phantom Rovo is the most specialized model — buyers who want an all-rounder without the leg focus may prefer the Leonardo DV or Pharaoh Q.</div>
+          <div class="bf-model-ctas">
+            {%- if phantom -%}<a href="{{ phantom.url }}" class="bf-btn bf-btn-gold bf-btn-sm">View Full Details &rarr;</a>{%- else -%}<a href="{{ shop.url }}/collections/bodyfriend" class="bf-btn bf-btn-gold bf-btn-sm">View Details &rarr;</a>{%- endif -%}
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-outline bf-btn-sm">Try in Showroom</a>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} FALCON SV {%- endcomment -%}
+      <div class="bf-model-card alt" id="bf-falcon">
+        <div class="bf-model-copy">
+          <div class="bf-model-tier">Daily Recovery &middot; Entry Premium</div>
+          <h3>Bodyfriend Falcon SV Massage Chair</h3>
+          <div class="bf-model-best">Best for: Daily Use &amp; Recovery Buyers</div>
+          <div class="bf-model-price">$9,499 <span class="bf-model-price-was">$11,999</span></div>
+          <p>The Falcon SV is Bodyfriend's most accessible model — but "accessible" in this brand's vocabulary still means ROVO walking technology, heat up to 131°F, XD massage feel with quick dial control, and magnetic acupressure hand pads. For buyers new to the Body Friend lineup, this is the right starting point.</p>
+          <div class="bf-model-traits"><span class="bf-trait">ROVO Walking Tech</span><span class="bf-trait">131°F Heat</span><span class="bf-trait">XD Control</span><span class="bf-trait">Acupressure Pads</span><span class="bf-trait">Zero Gravity</span></div>
+          <div class="bf-model-tradeoff"><strong>Honest tradeoff:</strong> The Falcon SV doesn't include some premium features of the higher-tier models — no BIA scanning, no robotics premium. But it delivers the core Bodyfriend experience at the most accessible price point in the range.</div>
+          <div class="bf-model-ctas">
+            {%- assign falcon = collection.products | where: 'handle', 'bodyfriend-falcon-sv-massage-chair' | first -%}
+            {%- if falcon -%}<a href="{{ falcon.url }}" class="bf-btn bf-btn-gold bf-btn-sm">View Full Details &rarr;</a>{%- else -%}<a href="{{ shop.url }}/collections/bodyfriend" class="bf-btn bf-btn-gold bf-btn-sm">View Details &rarr;</a>{%- endif -%}
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-outline bf-btn-sm">Try in Showroom</a>
+          </div>
+        </div>
+        <div class="bf-model-img-side">
+          {%- if falcon -%}
+            <a href="{{ falcon.url }}"><img src="{{ falcon.featured_image | image_url: width: 600 }}" alt="Bodyfriend Falcon SV Massage Chair" loading="lazy"></a>
+          {%- else -%}
+            <img src="https://houseofmassagechairs.com/cdn/shop/files/f1-1.webp?v=1772225221&width=600" alt="Bodyfriend Falcon SV Massage Chair" loading="lazy">
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ COMPARISON TABLE ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt" id="bf-compare">
+    <div class="bf-container">
+      <div class="bf-section-header center">
+        <span class="bf-label">Side-by-Side</span>
+        <h2>Bodyfriend Model <span class="bf-underline">Comparison</span></h2>
+        <p>A direct comparison of all seven Bodyfriend models across the features that matter most to buyers at this tier.</p>
+      </div>
+      <div class="bf-compare-wrap" style="margin-bottom:2rem">
+        <table class="bf-compare-table">
+          <thead><tr><th>Feature</th><th class="bf-bf-col">Pharaoh Q</th><th>Pharaoh Neo</th><th>Palace Neo</th><th>Leonardo DV</th><th>Phantom Rovo</th><th>Falcon SV</th><th>Familie</th></tr></thead>
+          <tbody>
+            <tr><td class="bf-col-feat">Price</td><td class="bf-bf-col">$15,000</td><td>$14,990</td><td>$11,999</td><td>$11,699</td><td>$10,799</td><td>$9,499</td><td>$4,999</td></tr>
+            <tr><td class="bf-col-feat">XD-Pro Rollers</td><td class="bf-bf-col bf-check">✓ Flagship</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓ 1.25mm</td><td class="bf-check">✓</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Body Scanning</td><td class="bf-bf-col bf-check">✓ Infrared</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓ BIA + Infrared</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Leg Drive System</td><td class="bf-bf-col">Standard</td><td>Standard</td><td>Standard</td><td>Standard</td><td>Independent L/R</td><td>Standard</td><td>Standard</td></tr>
+            <tr><td class="bf-col-feat">Air Pockets</td><td class="bf-bf-col">Full body</td><td>Full body</td><td>Full body</td><td>Full body</td><td>87 pockets</td><td>Full body</td><td>Limited</td></tr>
+            <tr><td class="bf-col-feat">Heat Therapy</td><td class="bf-bf-col bf-check">✓ Zoned</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓ Zoned</td><td class="bf-check">✓ Heated rollers</td><td class="bf-check">✓ 131°F</td><td class="bf-check">✓ Basic</td></tr>
+            <tr><td class="bf-col-feat">Sound System</td><td class="bf-bf-col bf-check">✓ Bang &amp; Olufsen</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Design Collaboration</td><td class="bf-bf-col">—</td><td>—</td><td>—</td><td>Italdesign</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Zero Gravity</td><td class="bf-bf-col bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td></tr>
+            <tr><td class="bf-col-feat">OTA Updates</td><td class="bf-bf-col bf-check">✓</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Material</td><td class="bf-bf-col">Natural leather</td><td>Premium leather</td><td>Premium leather</td><td>Premium leather</td><td>Premium leather</td><td>Synthetic leather</td><td>Synthetic leather</td></tr>
+            <tr><td class="bf-col-feat">Massage Mode Options</td><td class="bf-bf-col">Multiple massage auto programs</td><td>Multiple massage auto programs</td><td>Multiple massage auto programs</td><td>Multiple massage auto programs</td><td>Multiple massage auto programs</td><td>Multiple massage auto programs</td><td>Multiple massage auto programs</td></tr>
+            <tr><td class="bf-col-feat">Gravity Recline</td><td class="bf-bf-col bf-check">✓ Multi-position</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td><td class="bf-check">✓</td></tr>
+            <tr><td class="bf-col-feat">Full Body Coverage</td><td class="bf-bf-col bf-check">✓ Comprehensive</td><td class="bf-check">✓ Comprehensive</td><td class="bf-check">✓</td><td class="bf-check">✓ Comprehensive</td><td class="bf-check">✓ 87-pocket</td><td class="bf-check">✓</td><td>Partial</td></tr>
+            <tr><td class="bf-col-feat">User Weight Guidance</td><td class="bf-bf-col">Up to 265 lbs</td><td>Up to 265 lbs</td><td>Up to 265 lbs</td><td>Up to 265 lbs</td><td>Up to 265 lbs</td><td>Up to 265 lbs</td><td>Up to 265 lbs</td></tr>
+            <tr><td class="bf-col-feat">Area for Installation</td><td class="bf-bf-col">Varies by model</td><td>Varies by model</td><td>Varies by model</td><td>Varies by model</td><td>Varies by model</td><td>Varies by model</td><td>Varies by model</td></tr>
+            <tr><td class="bf-col-feat">Firmware / App Updates</td><td class="bf-bf-col bf-check">✓ OTA wireless</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td class="bf-col-feat">Best For</td><td class="bf-bf-col">Flagship luxury buyers</td><td>Premium flagship</td><td>Style &amp; comfort</td><td>Design-focused wellness buyers</td><td>Lower-body movement focus</td><td>First Bodyfriend / daily-use buyers</td><td>Family / value</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bf-expert">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Specialist note:</strong> No single Bodyfriend model is objectively &ldquo;best.&rdquo; The Pharaoh Q is the ceiling of the lineup, but a buyer who needs independent leg movement will get more from the Phantom Rovo. A buyer who values design above all will prefer the Leonardo DV. Visiting our showroom lets you experience the difference in person before committing.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ BUYER TYPES ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-buyers">
+    <div class="bf-container">
+      <div class="bf-section-header center">
+        <span class="bf-label">Decision Support</span>
+        <h2>Which Bodyfriend Chair Is Right for <span class="bf-underline">You?</span></h2>
+        <p>The best Bodyfriend chair depends entirely on who is using it and for what purpose.</p>
+      </div>
+      <div class="bf-buyer-grid">
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="bf-buyer-type">No-Compromise Luxury</div><h3>You Want the Best, Period</h3><p>Budget is secondary. You want robotics, B&amp;O sound, natural leather, OTA updates, and the prestige of owning the most advanced chair in the lineup.</p><div class="bf-buyer-rec">&rarr; Pharaoh Q</div></div>
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-4-4 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 8z"/></svg></div><div class="bf-buyer-type">Design &amp; Wellness</div><h3>Design Matters as Much as Function</h3><p>Your home is a reflection of your taste. You want a chair that looks as premium as it performs — with smart wellness tracking to match.</p><div class="bf-buyer-rec">&rarr; Leonardo DV</div></div>
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg></div><div class="bf-buyer-type">Athletic Recovery</div><h3>You Need Lower Body Precision</h3><p>You're active. Your legs, hips, and calves take a beating. You need a chair that moves independently on each side and truly targets the areas that need it.</p><div class="bf-buyer-rec">&rarr; Phantom Rovo</div></div>
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg></div><div class="bf-buyer-type">Daily Use</div><h3>You'll Use It Every Day</h3><p>You want Bodyfriend quality for daily decompression and recovery — without overspending on features you won't use. The Falcon SV delivers the essential Bodyfriend experience.</p><div class="bf-buyer-rec">&rarr; Falcon SV</div></div>
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><div class="bf-buyer-type">First Bodyfriend</div><h3>You're New to the Brand</h3><p>You've researched, you're convinced by the brand — and you want to find the best entry point without compromising the core Bodyfriend experience.</p><div class="bf-buyer-rec">&rarr; Falcon SV or Phantom Rovo</div></div>
+        <div class="bf-buyer-card"><div class="bf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="bf-buyer-type">Technology First</div><h3>You Want the Most Advanced Technology</h3><p>BIA scanning, robotics, OTA firmware, B&amp;O audio — you want a chair that functions closer to a personal wellness device than a piece of furniture.</p><div class="bf-buyer-rec">&rarr; Pharaoh Q or Leonardo DV</div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ VS BRANDS ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt" id="bf-vs">
+    <div class="bf-container">
+      <div class="bf-section-header">
+        <span class="bf-label">Brand Comparison</span>
+        <h2>Bodyfriend vs. <span class="bf-underline">Other Premium Brands</span></h2>
+        <p>We carry multiple premium brands. That puts us in a unique position to offer honest, comparative guidance — not brand loyalty.</p>
+      </div>
+      <div class="bf-vs-grid">
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Osaki</h3><p>Osaki offers broader model variety and assertive massage intensity. Bodyfriend offers a more design-led aesthetic and higher personalization through XD-Pro technology. Osaki for feature breadth; Bodyfriend for crafted precision and luxury feel.</p></div>
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Infinity</h3><p>Infinity provides solid zero-gravity and comfortable massage at competitive pricing. Bodyfriend sits at a higher price tier but delivers a qualitatively different experience — more robotic precision, more design intention, more body adaptation intelligence.</p></div>
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Ogawa</h3><p>Ogawa brings a refined Japanese-influence aesthetic and dual-engine design with the Master Drive Duo. Bodyfriend leans more futuristic Korean technology. Both are premium design brands — the difference is aesthetic direction and mechanism philosophy.</p></div>
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Fujiiryoki</h3><p>Fujiiryoki delivers authentic Japanese shiatsu heritage with a conservative, furniture-grade form factor. Bodyfriend is the futuristic opposite: Korean, tech-dominant, robotics-driven. Two very different philosophies, both executed at high quality.</p></div>
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Kyota</h3><p>Kyota focuses on wellness and a calmer, meditative massage therapeutic approach. Bodyfriend is technology-dominant with precision robotics. Kyota for therapeutic calm; Bodyfriend for precision technology and design.</p></div>
+        <div class="bf-vs-card"><h3>Bodyfriend vs. Cozzia</h3><p>Cozzia offers a more accessible entry into premium massage with zero-gravity focus. Bodyfriend is distinctly premium-first, with a higher price floor and more advanced technology throughout the entire lineup.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ PRICE GUIDE ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-pricing">
+    <div class="bf-container">
+      <div class="bf-section-header">
+        <span class="bf-label">Investment Guide</span>
+        <h2>Bodyfriend Massage Chair Price: What Changes by <span class="bf-underline">Model?</span></h2>
+        <p>Bodyfriend massage chair price varies by model, technology level, design, massage mode options, gravity recline features, lower-body movement, materials, and control systems. Here is what you are paying for as budget increases.</p>
+      </div>
+      <div class="bf-price-ladder">
+        <div class="bf-price-rung"><div class="bf-price-label"><div class="bf-price-tier-name">Entry</div><div class="bf-price-amount">~$9.5K</div></div><div class="bf-price-body"><h4>Core Bodyfriend Experience</h4><p>ROVO walking technology, XD massage feel control, heat up to 131°F, zero gravity, and magnetic acupressure — the Falcon SV delivers the essential Bodyfriend experience at its most accessible price point.</p><div class="bf-price-tags"><span class="bf-price-tag">Falcon SV</span></div></div></div>
+        <div class="bf-price-rung"><div class="bf-price-label"><div class="bf-price-tier-name">Mid</div><div class="bf-price-amount">~$10.8K</div></div><div class="bf-price-body"><h4>Movement Specialist Precision</h4><p>Independent leg drives, 87 air pockets, 1.25mm XD-Pro precision rollers, and heated massage balls. The Phantom Rovo adds qualitatively different mechanical delivery over the Falcon SV.</p><div class="bf-price-tags"><span class="bf-price-tag">Phantom Rovo</span></div></div></div>
+        <div class="bf-price-rung"><div class="bf-price-label"><div class="bf-price-tier-name">Upper</div><div class="bf-price-amount">~$11.7K</div></div><div class="bf-price-body"><h4>Design Intelligence + BIA Wellness Tracking</h4><p>BIA body composition measurement, Italdesign aesthetics, 8.7" LCD display, and 60 auto programs — the Leonardo DV is where Bodyfriend's wellness data capabilities peak.</p><div class="bf-price-tags"><span class="bf-price-tag">Leonardo DV</span></div></div></div>
+        <div class="bf-price-rung"><div class="bf-price-label"><div class="bf-price-tier-name">Flagship</div><div class="bf-price-amount">~$15K</div></div><div class="bf-price-body"><h4>Robotics + B&amp;O + No Compromises</h4><p>Robotics technology, Bang &amp; Olufsen sound, natural leather, OTA firmware updates, and Bodyfriend's most advanced XD-Pro calibration. The Pharaoh Q operates at a different level entirely.</p><div class="bf-price-tags"><span class="bf-price-tag">Pharaoh Q</span></div></div></div>
+      </div>
+      <div class="bf-expert" style="margin-top:1.75rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Beyond the price tag:</strong> When evaluating value, consider the full ownership picture — delivery method, setup support, warranty coverage, purchasing options and contact with our specialist team after purchase. Buying from an authorized dealer like House of Massage Chairs ensures the complete ownership experience that premium pricing should include.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TRUST ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt" id="bf-trust">
+    <div class="bf-container">
+      <div class="bf-section-header center">
+        <span class="bf-label">Reviews &amp; Reliability</span>
+        <h2>Bodyfriend Massage Chair Reviews: What Buyers Should <span class="bf-underline">Evaluate</span></h2>
+        <p>An honest, expert-led framework for evaluating these chairs before purchasing. A useful review should go beyond whether a buyer "likes" the chair — evaluate fit, massage mode options, gravity recline comfort, lower-body feel, installation requirements, and whether the price makes sense for your intended daily use.</p>
+      </div>
+      <div class="bf-trust-grid">
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>How to Read Bodyfriend Reviews</h3><p>Reviews of these chairs are consistently positive at the premium tier. Look for model-specific reviews, patterns around massage quality and personalization, and verify the dealer is authorized.</p></div>
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div><h3>Why Buying from an Authorized Dealer Matters</h3><p>Chairs purchased through unauthorized sellers may not include manufacturer warranty coverage. House of Massage Chairs is an authorized dealer — ensuring full factory warranty and post-purchase support.</p></div>
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><h3>What Buyers Focus On</h3><p>Many buyers comparing premium models focus on massage feel, fit, build quality, and dealer support before deciding. For a high-ticket purchase, evaluate how the model fits your body, how the massage mode options feel, whether the gravity recline position is comfortable, how the chair handles legs and calves, and how much room is needed for installation.</p></div>
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Warranty &amp; Customer Service</h3><p>All massage chairs sold through House of Massage Chairs include manufacturer-backed warranty coverage. Extended warranty options may be available — speak with our specialist team for details specific to each model.</p></div>
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><h3>Financing Available</h3><p>These chairs represent a significant investment. Flexible financing options are available through House of Massage Chairs to help make premium wellness more accessible.</p></div>
+        <div class="bf-trust-card"><div class="bf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div><h3>White-Glove Delivery</h3><p>Every chair purchased through HOMC ships with full white-glove delivery — carried to your room of choice, assembled in place, and tested before the delivery team leaves. Available nationwide.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOWROOMS ══════════ {%- endcomment -%}
+  <section class="bf-section" id="bf-showrooms">
+    <div class="bf-container">
+      <div class="bf-section-header center">
+        <span class="bf-label">Try Before Purchasing</span>
+        <h2>Check Your Nearest Store Before Purchasing</h2>
+        <p>If you are comparing Bodyfriend massage chair prices or deciding between models, please check your nearest House of Massage Chairs showroom before purchasing. Our San Jose and Pleasanton locations let you compare massage mode, gravity recline, heat therapy, full body massage coverage, and model fit in person.</p>
+      </div>
+      <div class="bf-showroom-grid">
+        <div class="bf-showroom-card">
+          <div class="bf-showroom-head">
+            <div class="bf-showroom-pill">San Jose Showroom</div>
+            <h3>House of Massage Chairs &mdash; San Jose</h3>
+            <p>Westfield Oakridge Mall, San Jose, CA</p>
+          </div>
+          <div class="bf-showroom-body">
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>925 Blossom Hill Rd, Westfield Oakridge Mall, San Jose, CA 95123</div>
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>+1 (669) 214-8889</div>
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>info@houseofmassagechairs.com</div>
+            <div class="bf-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold bf-btn-sm">Book a Visit &rarr;</a>
+              <a href="tel:+16692148889" class="bf-btn bf-btn-outline bf-btn-sm">Call Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="bf-showroom-card">
+          <div class="bf-showroom-head">
+            <div class="bf-showroom-pill">Pleasanton Showroom</div>
+            <h3>House of Massage Chairs &mdash; Pleasanton</h3>
+            <p>Stoneridge Mall, Pleasanton, CA</p>
+          </div>
+          <div class="bf-showroom-body">
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>1 Stoneridge Mall, STE B108, Pleasanton, CA 94588</div>
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>+1 (669) 214-8889</div>
+            <div class="bf-showroom-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>info@houseofmassagechairs.com</div>
+            <div class="bf-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold bf-btn-sm">Book a Visit &rarr;</a>
+              <a href="tel:+16692148889" class="bf-btn bf-btn-outline bf-btn-sm">Call Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHERE TO BUY USA ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt" id="bf-usa">
+    <div class="bf-container">
+      <div class="bf-section-header center">
+        <span class="bf-label">USA Availability &amp; Purchasing</span>
+        <h2>Where to Buy a <span class="bf-underline">Bodyfriend Massage Chair</span> in the USA</h2>
+        <p>If you are searching for Bodyfriend massage chair USA availability, here are the most important considerations before purchasing — including delivery, installation space, sizing guidance, and how to evaluate sale pricing.</p>
+      </div>
+      <div class="bf-pillar-grid">
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+          <h3>Size &amp; Fit Considerations</h3>
+          <p>Most models in the lineup are designed for users up to approximately 265 lbs. Before purchasing, check the chair's recline clearance, seat width, and calf-rest extension range to ensure it fits your body and your intended room.</p>
+        </div>
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div>
+          <h3>Delivery &amp; Installation</h3>
+          <p>White-glove delivery is included with every purchase through House of Massage Chairs. The chair is delivered to your room of choice, assembled, and tested. Make sure your delivery path (doorways, stairs, hallways) can accommodate the chair's shipping dimensions.</p>
+        </div>
+        <div class="bf-pillar-card">
+          <div class="bf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div>
+          <h3>Purchasing Options &amp; Contact</h3>
+          <p>You can purchase online or in person at our San Jose and Pleasanton showrooms. Financing is available. For warranty or product questions, contact support@bodyfriend.com if you purchased directly, or reach our specialist team at <a href="tel:+16692148889" style="color:var(--bf-accent);font-weight:700">+1 (669) 214-8889</a> for store for purchasing options and guidance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FAQ ══════════ {%- endcomment -%}
+  <section class="bf-section bf-section-alt" id="bf-faq">
+    <div class="bf-container-sm">
+      <div class="bf-section-header center">
+        <span class="bf-label">Expert Answers</span>
+        <h2>Bodyfriend Massage Chairs — <span class="bf-underline">FAQ</span></h2>
+        <p>Answers to the questions buyers ask most when researching Bodyfriend.</p>
+      </div>
+      <div id="bfFaqList">
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>What is the best Bodyfriend massage chair?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>There is no single best model for every buyer. Falcon SV, Phantom Rovo, Leonardo DV, Pharaoh Q, Pharaoh Neo, Palace Neo, and Familie each fit different priorities such as price, massage mode, full body massage coverage, lower-body movement, design, and luxury features.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>What is the Bodyfriend massage chair price range?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>Bodyfriend massage chair price varies by model and availability. Falcon SV is typically the most accessible premium model, while Pharaoh Q sits in the higher premium range. Contact House of Massage Chairs for current pricing and purchasing options.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>Where can I buy a Bodyfriend massage chair in the USA?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>House of Massage Chairs offers Bodyfriend massage chairs in the USA through its San Jose and Pleasanton showroom locations, with support for model comparison, delivery, financing, and warranty questions.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>Are Bodyfriend massage chairs ever on sale?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>Bodyfriend massage chair sale pricing may vary by model, timing, availability, and manufacturer programs. Instead of buying only by sale price, compare fit, massage mode options, warranty, delivery, and showroom availability before deciding.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>What should I check before purchasing a Bodyfriend massage chair?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>Before purchasing, check model fit, massage mode options, heat therapy, gravity recline comfort, user weight guidance, area required for installation, delivery path, financing, and warranty coverage.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>What is ROVO walking technology?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>ROVO walking technology is associated with select models and should be evaluated by how the lower-body movement feels in person. Compare Falcon SV and Phantom Rovo if ROVO movement is important to you.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>Does every Bodyfriend model offer full body massage?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>Many models are designed for full body massage coverage, but the exact experience varies by model. Compare back, shoulder, hip, leg, calf, foot, heat, air compression, and recline features before choosing.</p></div></div>
+        <div class="bf-faq-item"><div class="bf-faq-q" onclick="bfFaq(this)"><h3>Do Bodyfriend massage chairs come with a warranty?</h3><svg class="bf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="bf-faq-a"><p>All massage chairs sold through House of Massage Chairs include manufacturer-backed warranty coverage. Extended warranty options may be available on select models. Speak with our specialist team for the specific warranty terms on each model.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FINAL CTA ══════════ {%- endcomment -%}
+  <section class="bf-section">
+    <div class="bf-container">
+      <div class="bf-final-cta">
+        <div class="bf-final-cta-inner">
+          <span class="bf-label" style="color:var(--bf-accent-warm)">Expert Guidance Available</span>
+          <h2>Ready to Compare Models? Let Our Specialists Help.</h2>
+          <p>Whether you are searching for Bodyfriend massage chair price, comparing massage mode options, checking gravity recline fit, or deciding which model suits your body and home — our showroom teams in San Jose and Pleasanton are here to help. Check your nearest store before purchasing.</p>
+          <div class="bf-final-cta-btns">
+            <a href="{{ shop.url }}/pages/our-store" class="bf-btn bf-btn-gold">Book a Showroom Visit &rarr;</a>
+            <a href="tel:+16692148889" class="bf-btn bf-btn-ghost">Call +1 (669) 214-8889</a>
+            <a href="#bf-shop" class="bf-btn bf-btn-ghost">Browse Collection</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /bf-wrap -->
+
+{%- comment -%} ── JAVASCRIPT ── {%- endcomment -%}
+<script>
+  /* FAQ accordion */
+  function bfFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.bf-faq-a');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.bf-faq-a.open').forEach(el => { el.classList.remove('open'); el.previousElementSibling.classList.remove('active'); });
+    if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
+  }
+
+  /* Sticky subnav active state */
+  (function() {
+    const links = document.querySelectorAll('.bf-subnav-inner a');
+    const sections = [];
+    links.forEach(l => { const id = l.getAttribute('href').replace('#',''); const el = document.getElementById(id); if(el) sections.push({el, l}); });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const link = sections.find(s => s.el === e.target);
+        if(link) { if(e.isIntersecting) link.l.classList.add('active'); else link.l.classList.remove('active'); }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => io.observe(s.el));
+  })();
+</script>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Bodyfriend Collection",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Upload bodyfriend-hero-bg.jpg (lifestyle photo). Recommended: 2200×1200px."
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Brand Intro Lifestyle Image",
+      "info": "Same lifestyle photo for the brand intro banner. Can be the same as hero image."
+    },
+    {
+      "type": "image_picker",
+      "id": "tech_image",
+      "label": "Technology Section Image",
+      "info": "Upload bodyfriend-tech-visual.jpg (X-ray/features visualization). Recommended: 900×900px."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Bodyfriend Massage Chairs"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "Technology-forward luxury for buyers who want more than a massage."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bodyfriend Collection"
+    }
+  ]
+}
+{% endschema %}

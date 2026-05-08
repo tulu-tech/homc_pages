@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-san-jose-showroom",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

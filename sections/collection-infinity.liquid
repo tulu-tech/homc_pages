@@ -1,0 +1,1252 @@
+{%- comment -%}
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SECTION: collection-infinity.liquid                        ║
+  ║  Template: templates/collection.infinity.json               ║
+  ║  Collection handle: infinity                                ║
+  ║                                                              ║
+  ║  HOW TO INSTALL:                                             ║
+  ║  1. Upload this file to /sections/collection-infinity.liquid ║
+  ║  2. Upload templates/collection.infinity.json                ║
+  ║  3. Upload assets/infinity-hero-bg.jpg to theme assets       ║
+  ║  4. (Optional) Add product metafields:                       ║
+  ║     - custom.badge         → string (e.g. "Syner-D")        ║
+  ║     - custom.badge_class   → string ("gold","flagship","")   ║
+  ║     - custom.buyer_for     → string                          ║
+  ║     - custom.key_features  → list of strings (JSON array)   ║
+  ║  5. Tag products with: synerd, 4d, flagship, entry           ║
+  ╚══════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+{%- paginate collection.products by 50 -%}
+
+{%- comment -%} ── SCHEMA MARKUP ── {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs",
+    "url": "https://houseofmassagechairs.com",
+    "telephone": "+16692148889",
+    "email": "info@houseofmassagechairs.com",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+        "addressLocality": "San Jose",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "1 Stoneridge Mall, STE B108",
+        "addressLocality": "Pleasanton",
+        "addressRegion": "CA",
+        "postalCode": "94588",
+        "addressCountry": "US"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+      {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+      {"@type":"ListItem","position":3,"name":"Infinity Massage Chairs","item":"{{ canonical_url }}"}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is the best Infinity massage chair?","acceptedAnswer":{"@type":"Answer","text":"The best Infinity massage chair depends on your budget and comfort preferences. The Circadian DualFlex is the flagship with dual Syner-D mechanisms. The Luminary Syner-D offers premium tandem-back feel. The Gen Max 4D is a strong starting point for many buyers comparing premium 4D Infinity models. Try select models in person at our San Jose or Pleasanton showroom."}},
+      {"@type":"Question","name":"What does Syner-D mean in Infinity massage chairs?","acceptedAnswer":{"@type":"Answer","text":"Syner-D is Infinity's proprietary tandem roller technology. Two independent massage mechanisms work simultaneously to create a coordinated, two-handed massage feel across the full back. Available in the Luminary Syner-D, Ultra Imperial Syner-D, and Circadian DualFlex models."}},
+      {"@type":"Question","name":"How much do Infinity massage chairs cost?","acceptedAnswer":{"@type":"Answer","text":"Infinity massage chairs range from $6,799 (Riage 4D) to $16,999 (Circadian DualFlex and Ultra Imperial Syner-D). Current pricing may vary by promotion and availability. Financing options are available through Affirm with 0% APR. Select models are available at House of Massage Chairs showrooms in San Jose and Pleasanton."}},
+      {"@type":"Question","name":"Can I try Infinity massage chairs in person?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs carries multiple Infinity models at our San Jose showroom at Westfield Oakridge Mall and our Pleasanton location at Stoneridge Shopping Center."}},
+      {"@type":"Question","name":"Which Infinity 4D massage chair should I compare first?","acceptedAnswer":{"@type":"Answer","text":"If you are comparing an Infinity 4D massage chair, start with Riage 4D, Gen Max 4D, Smart Chair X3, and Circadian DualFlex 4D. Riage 4D is a strong entry point, Gen Max 4D offers a broader premium feature set, Smart Chair X3 is useful for X3-specific shoppers, and Circadian DualFlex is positioned for buyers comparing Infinity's advanced flagship tier."}},
+      {"@type":"Question","name":"Do Infinity massage chairs offer shiatsu-style massage?","acceptedAnswer":{"@type":"Answer","text":"Yes. Many Infinity massage chairs include massage techniques inspired by shiatsu-style kneading, rolling, tapping, and pressure-based massage patterns. If you are searching for an Infinity shiatsu massager, compare full-size Infinity massage chairs carefully because they are very different from portable massagers in coverage, size, controls, and price."}},
+      {"@type":"Question","name":"What should I know about Infinity massage chair warranty and service?","acceptedAnswer":{"@type":"Answer","text":"Infinity massage chair warranty coverage can vary by model and warranty term. Some warranties may include parts, labor, or structural framework coverage, while service may require pre-approval. Coverage can also have exclusions for misuse, neglect, transportation damage, theft, power surges, or other conditions. Always confirm current warranty details before purchase."}},
+      {"@type":"Question","name":"Can House of Massage Chairs help with Infinity service questions?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs helps buyers understand Infinity massage chair service, warranty coordination, parts coverage, massage chair delivery and setup, and ownership expectations before and after purchase. Contact our team to discuss Infinity massage chair warranty and service support or financing options."}}
+    ]
+  }
+]
+</script>
+
+<style>
+  :root {
+    --inf-bg: #fff;
+    --inf-surface: #f8fafc;
+    --inf-surface2: #f1f5f9;
+    --inf-dark: #000;
+    --inf-muted: #555;
+    --inf-muted2: #888;
+    --inf-accent: #b38b4d;
+    --inf-accent-h: #96723e;
+    --inf-accent-pale: rgba(179,139,77,0.10);
+    --inf-accent-pale2: rgba(179,139,77,0.06);
+    --inf-border: #e5e9f0;
+    --inf-border2: #d0d8e4;
+    --inf-radius: 20px;
+    --inf-radius-sm: 12px;
+    --inf-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    --inf-shadow-hover: 0 20px 50px rgba(0,0,0,0.11);
+  }
+
+  .inf-wrap *{box-sizing:border-box;margin:0;padding:0}
+  /* ── CRITICAL: Forces correct 16px base regardless of Shopify theme root font-size (e.g. 62.5%) ── */
+  .inf-wrap{font-family:'Inter',sans-serif;color:var(--inf-dark);line-height:1.75;font-size:16px!important;-webkit-font-smoothing:antialiased}
+  .inf-wrap p{font-size:15px!important;color:var(--inf-muted);line-height:1.8}
+  .inf-wrap li{font-size:14px!important}
+  .inf-wrap h1{font-size:clamp(38px,5.5vw,64px)!important}
+  .inf-wrap h2{font-size:clamp(26px,3vw,38px)!important}
+  .inf-wrap h3{font-size:clamp(16px,2vw,20px)!important}
+  .inf-wrap h4{font-size:16px!important}
+  .inf-wrap h1,.inf-wrap h2,.inf-wrap h3,.inf-wrap h4{line-height:1.15;font-weight:800;letter-spacing:-0.03em}
+  .inf-wrap img{max-width:100%;display:block}
+
+  .inf-container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .inf-container-narrow{max-width:860px;margin:0 auto;padding:0 2rem}
+
+  /* SUBNAV */
+  .inf-subnav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--inf-border);overflow-x:auto;scrollbar-width:none}
+  .inf-subnav::-webkit-scrollbar{display:none}
+  .inf-subnav-inner{display:flex;padding:0 2rem;min-width:max-content}
+  .inf-subnav-inner a{display:block;padding:.75rem 1rem;font-size:12px!important;font-weight:700;color:var(--inf-muted2);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.08em;text-decoration:none}
+  .inf-subnav-inner a:hover,.inf-subnav-inner a.active{color:var(--inf-dark);border-bottom-color:var(--inf-accent)}
+
+  /* BUTTONS */
+  .inf-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--inf-dark);color:#fff;padding:.9rem 2rem;font-size:15px!important;font-weight:700;border-radius:50px;transition:all .25s;border:2px solid var(--inf-dark);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;white-space:nowrap;text-decoration:none}
+  .inf-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .inf-btn-gold{background:var(--inf-accent);border-color:var(--inf-accent);color:#fff!important}
+  .inf-btn-gold:hover{background:var(--inf-accent-h);border-color:var(--inf-accent-h);box-shadow:0 8px 24px rgba(179,139,77,.3)}
+  .inf-btn-outline{background:transparent;color:var(--inf-dark);border-color:var(--inf-border2)}
+  .inf-btn-outline:hover{border-color:var(--inf-dark);background:var(--inf-surface)}
+  .inf-btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+  .inf-btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+  .inf-btn-sm{padding:.6rem 1.5rem;font-size:14px!important}
+
+  /* HERO */
+  .inf-hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;background:#080808}
+  .inf-hero-bg{position:absolute;inset:0;background-image:url({% if section.settings.hero_image %}{{ section.settings.hero_image | image_url: width: 2000 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/infinity-features-hero.jpg?v=1776368241{% endif %});background-size:cover;background-position:center;opacity:.38;z-index:0;transform:scale(1.04)}
+  .inf-hero-grad{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,0,0,.92) 30%,rgba(0,0,0,.28) 100%),radial-gradient(ellipse 55% 75% at 100% 55%,rgba(179,139,77,.10) 0%,transparent 60%);z-index:1}
+  .inf-hero-accent-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,var(--inf-accent) 30%,#d4a95c 60%,transparent 100%);opacity:.85;z-index:3}
+  .inf-hero-content{position:relative;z-index:3;padding:5rem 0 5.5rem}
+  .inf-hero-bc{font-size:12px!important;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+  .inf-hero-bc a{color:var(--inf-accent);transition:color .2s;text-decoration:none}
+  .inf-hero-bc a:hover{color:#fff}
+  .inf-hero-bc span{margin:0 .4rem}
+  .inf-hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px!important;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--inf-accent);margin-bottom:1.25rem}
+  .inf-hero-eye::before{content:'';display:block;width:28px;height:2px;background:var(--inf-accent);border-radius:2px}
+  .inf-hero h1{font-size:clamp(38px,5.5vw,64px);color:#fff;max-width:800px;margin-bottom:1.25rem;text-shadow:0 4px 30px rgba(0,0,0,.4);line-height:1.08}
+  .inf-hero-lead{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.8);max-width:620px;margin-bottom:.75rem;font-weight:600;line-height:1.65}
+  .inf-hero-sub{font-size:16px!important;color:rgba(255,255,255,.52);max-width:580px;margin-bottom:2.5rem;line-height:1.75}
+  .inf-hero-ctas{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:3rem}
+  .inf-hero-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;flex-wrap:wrap}
+  .inf-hero-stat{padding:0 2.5rem 0 0;border-right:1px solid rgba(255,255,255,.1);margin-right:2.5rem}
+  .inf-hero-stat:last-child{border-right:none;margin-right:0}
+  .inf-hero-stat-n{font-size:32px!important;font-weight:900;color:#fff;display:block;line-height:1;margin-bottom:4px;letter-spacing:-.04em}
+  .inf-hero-stat-l{font-size:12px!important;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+
+  /* TRUST BAR */
+  .inf-trust-bar{display:flex;justify-content:center;gap:3rem;padding:1.25rem 2rem;border-bottom:1px solid var(--inf-border);background:#fff;font-size:14px!important;font-weight:700;flex-wrap:wrap}
+  .inf-trust-item{display:flex;align-items:center;gap:7px;color:var(--inf-muted)}
+  .inf-trust-item svg{width:16px;height:16px;fill:var(--inf-accent);flex-shrink:0}
+
+  /* SECTION */
+  .inf-section{padding:5.5rem 0}
+  .inf-section-alt{background:var(--inf-surface)}
+  .inf-section-sm{padding:3.5rem 0}
+  .inf-section-label{display:inline-block;font-size:11px!important;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--inf-accent);margin-bottom:.875rem}
+  .inf-section-header{margin-bottom:3rem}
+  .inf-section-header.center{text-align:center}
+  .inf-section-header.center .inf-section-label{display:block}
+  .inf-section-header h2{font-size:clamp(26px,3vw,38px);margin-bottom:.875rem}
+  .inf-underline{position:relative;display:inline-block}
+  .inf-underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--inf-accent);border-radius:2px}
+  .inf-section-header p{font-size:17px!important;color:var(--inf-muted);max-width:680px;line-height:1.8}
+  .inf-section-header.center p{margin:0 auto}
+
+  /* PRODUCT SECTION HEADER */
+  .inf-product-header{background:linear-gradient(135deg,#050505 0%,#14100a 60%,#0a0a0a 100%);padding:3rem 3rem 0;border-radius:var(--inf-radius) var(--inf-radius) 0 0;position:relative;overflow:hidden}
+  .inf-product-header::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.08) 0%,transparent 70%);pointer-events:none}
+  .inf-product-header-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;padding-bottom:2.5rem}
+  .inf-product-header h2{color:#fff;font-size:clamp(24px,2.5vw,32px)}
+  .inf-product-header p{color:rgba(255,255,255,.55);font-size:14px!important;max-width:560px;margin-top:.5rem;line-height:1.7}
+
+  /* FILTER BAR */
+  .inf-filter-bar{background:#fff;border:1px solid var(--inf-border);border-top:none;padding:1rem 1.5rem;display:flex;align-items:center;gap:.625rem;flex-wrap:wrap}
+  .inf-filter-label{font-size:11px!important;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--inf-muted2);white-space:nowrap}
+  .inf-filter-sep{width:1px;height:20px;background:var(--inf-border);flex-shrink:0}
+  .inf-filter-btn{padding:6px 14px;border:1.5px solid var(--inf-border);border-radius:50px;font-size:12px!important;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--inf-muted);font-family:'Inter',sans-serif;white-space:nowrap}
+  .inf-filter-btn:hover{border-color:var(--inf-accent);color:var(--inf-accent);background:var(--inf-accent-pale2)}
+  .inf-filter-btn.active{background:var(--inf-dark);color:#fff;border-color:var(--inf-dark)}
+  .inf-filter-count{margin-left:auto;font-size:13px!important;color:var(--inf-muted2);font-weight:600}
+
+  /* PRODUCT GRID */
+  .inf-product-grid-wrap{background:var(--inf-surface);border:1px solid var(--inf-border);border-top:none;border-radius:0 0 var(--inf-radius) var(--inf-radius);padding:2rem}
+  .inf-product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+  /* PRODUCT CARD */
+  .inf-product-card{background:#fff;border:1px solid var(--inf-border);border-radius:var(--inf-radius);overflow:hidden;transition:all .3s cubic-bezier(.25,.8,.25,1);position:relative;display:flex;flex-direction:column;cursor:pointer}
+  .inf-product-card:hover{transform:translateY(-7px);box-shadow:var(--inf-shadow-hover);border-color:transparent;outline:2px solid var(--inf-accent)}
+  .inf-product-badge{position:absolute;top:10px;left:10px;background:var(--inf-dark);color:#fff;font-size:10px!important;font-weight:800;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.1em;z-index:2}
+  .inf-product-badge.gold{background:var(--inf-accent)}
+  .inf-product-badge.flagship{background:linear-gradient(135deg,#1a0a00,#3d2000);border:1px solid rgba(179,139,77,.4)}
+  .inf-product-img-wrap{height:230px;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(145deg,#fafafa,#fff);position:relative;overflow:hidden}
+  .inf-product-img-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(248,250,252,.8),transparent);pointer-events:none}
+  .inf-product-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s cubic-bezier(.25,.8,.25,1)}
+  .inf-product-card:hover .inf-product-img{transform:scale(1.06)}
+  .inf-product-body{padding:1.1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column}
+  .inf-product-for{font-size:11px!important;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--inf-accent);background:var(--inf-accent-pale);display:inline-block;padding:3px 8px;border-radius:20px;margin-bottom:.6rem}
+  .inf-product-name{font-size:14px!important;font-weight:700;line-height:1.35;margin-bottom:.75rem;color:var(--inf-dark)}
+  .inf-product-name a{color:inherit;text-decoration:none}
+  .inf-product-feats{list-style:none;padding:0;margin:0 0 .875rem;flex:1}
+  .inf-product-feats li{display:flex;align-items:flex-start;gap:5px;font-size:13px!important;color:var(--inf-muted);padding:2.5px 0;line-height:1.5}
+  .inf-product-feats li::before{content:'✓';color:var(--inf-accent);font-weight:900;font-size:11px!important;flex-shrink:0;margin-top:2px}
+  .inf-product-prices{display:flex;align-items:baseline;gap:7px;margin-bottom:.875rem;flex-wrap:wrap}
+  .inf-price-sale{font-size:18px!important;font-weight:900;color:var(--inf-dark);letter-spacing:-.02em}
+  .inf-price-was{font-size:13px!important;color:#adb5bd;text-decoration:line-through;font-weight:500}
+  .inf-price-save{font-size:11px!important;font-weight:800;color:#16a34a;background:rgba(22,163,74,.08);padding:2px 7px;border-radius:20px}
+  .inf-product-cta{display:block;text-align:center;background:var(--inf-dark);color:#fff;padding:.65rem;border-radius:var(--inf-radius-sm);font-weight:700;font-size:13px!important;transition:background .2s;text-decoration:none}
+  .inf-product-cta:hover{background:var(--inf-accent);color:#fff}
+  .inf-no-results{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--inf-muted)}
+
+  /* QUICK ANSWER */
+  .inf-quick-answer{background:linear-gradient(135deg,#050505 0%,#1a140a 100%);border-radius:24px;padding:3rem;border:1px solid rgba(179,139,77,.15);position:relative;overflow:hidden}
+  .inf-quick-answer::before{content:'';position:absolute;top:-30%;right:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06) 0%,transparent 70%);pointer-events:none}
+  .inf-qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem;position:relative;z-index:1}
+  .inf-qa-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem;transition:all .3s}
+  .inf-qa-item:hover{background:rgba(255,255,255,.07);border-color:rgba(179,139,77,.25)}
+  .inf-qa-item h3{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--inf-accent);margin-bottom:.625rem;font-weight:800}
+  .inf-qa-item p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;margin:0}
+
+  /* PILLARS */
+  .inf-pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .inf-pillar-card{background:#fff;border:1px solid var(--inf-border);border-radius:var(--inf-radius);padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+  .inf-pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--inf-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .inf-pillar-card:hover{transform:translateY(-5px);box-shadow:var(--inf-shadow)}
+  .inf-pillar-card:hover::before{transform:scaleX(1)}
+  .inf-pillar-icon{width:48px;height:48px;background:var(--inf-accent-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+  .inf-pillar-icon svg{width:24px;height:24px;fill:var(--inf-accent)}
+  .inf-pillar-card h3{font-size:16px;margin-bottom:.5rem}
+  .inf-pillar-card p{font-size:14px;color:var(--inf-muted);margin:0;line-height:1.7}
+
+  /* AT A GLANCE */
+  .inf-glance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .inf-glance-table{width:100%;border-collapse:collapse}
+  .inf-glance-table tr{border-bottom:1px solid var(--inf-border)}
+  .inf-glance-table tr:last-child{border-bottom:none}
+  .inf-glance-table td{padding:.875rem .5rem;font-size:14px;vertical-align:top}
+  .inf-glance-table td:first-child{font-weight:800;color:var(--inf-dark);width:38%}
+  .inf-glance-table td:last-child{color:var(--inf-muted)}
+  .inf-glance-verdict{background:linear-gradient(145deg,#080808,#171208);border-radius:var(--inf-radius);padding:2.25rem;border:1px solid rgba(179,139,77,.12)}
+  .inf-glance-verdict h3{color:#fff;font-size:17px;margin-bottom:1.25rem}
+  .inf-verdict-item{display:flex;align-items:flex-start;gap:10px;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .inf-verdict-item:last-child{border-bottom:none;padding-bottom:0}
+  .inf-verdict-dot{width:7px;height:7px;border-radius:50%;background:var(--inf-accent);flex-shrink:0;margin-top:8px}
+  .inf-verdict-item p{font-size:13px;color:rgba(255,255,255,.62);margin:0;line-height:1.65}
+
+  /* WHO IT'S FOR */
+  .inf-for-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .inf-for-card{border-radius:var(--inf-radius);padding:2rem;border:1px solid var(--inf-border);background:#fff}
+  .inf-for-card.alt{background:var(--inf-surface)}
+  .inf-for-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:50px;display:inline-block;margin-bottom:1.125rem}
+  .inf-for-badge.yes{background:rgba(34,197,94,.1);color:#16a34a}
+  .inf-for-badge.no{background:rgba(239,68,68,.1);color:#dc2626}
+  .inf-for-list{list-style:none;padding:0}
+  .inf-for-list li{display:flex;align-items:flex-start;gap:8px;padding:.55rem 0;border-bottom:1px solid var(--inf-border);font-size:14px;color:var(--inf-muted);line-height:1.6}
+  .inf-for-list li:last-child{border-bottom:none}
+  .inf-for-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+  .inf-for-dot.yes{background:#16a34a}
+  .inf-for-dot.no{background:#dc2626}
+
+  /* MODEL ENTRIES */
+  .inf-model-entry{display:grid;grid-template-columns:280px 1fr;border-radius:var(--inf-radius);overflow:hidden;border:1px solid var(--inf-border);background:#fff;margin-bottom:1.75rem;transition:box-shadow .3s}
+  .inf-model-entry:hover{box-shadow:var(--inf-shadow-hover)}
+  .inf-model-side{background:#f8fafc;padding:2.25rem 1.75rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative;border-right:1px solid var(--inf-border)}
+  .inf-model-img-frame{width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;border:1px solid var(--inf-border);overflow:hidden;margin:.75rem 0 .5rem}
+  .inf-model-side-img{width:90%;height:90%;object-fit:contain;transition:transform .4s ease}
+  .inf-model-entry:hover .inf-model-side-img{transform:scale(1.08)}
+  .inf-model-tier{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--inf-accent);margin-bottom:.4rem}
+  .inf-model-side h3{color:var(--inf-dark);font-size:17px;line-height:1.3}
+  .inf-model-price-band{display:inline-flex;gap:5px;margin-top:1rem;font-size:12px;font-weight:700;color:var(--inf-muted2);background:var(--inf-surface2);padding:5px 11px;border-radius:20px;flex-wrap:wrap}
+  .inf-model-price-band span{color:var(--inf-accent)}
+  .inf-model-body{padding:2.25rem}
+  .inf-model-best{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--inf-accent);background:var(--inf-accent-pale);display:inline-block;padding:3px 10px;border-radius:20px;margin-bottom:.875rem}
+  .inf-model-body h4{font-size:16px;margin-bottom:.625rem}
+  .inf-model-body p{font-size:14px;color:var(--inf-muted);line-height:1.75;margin-bottom:.875rem}
+  .inf-model-traits{display:flex;gap:.4rem;flex-wrap:wrap;margin:.875rem 0}
+  .inf-trait{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--inf-surface2);border:1px solid var(--inf-border);color:var(--inf-muted2)}
+  .inf-model-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--inf-accent);margin-top:1.25rem;border-bottom:1px solid rgba(179,139,77,.3);padding-bottom:2px;transition:all .2s;text-decoration:none}
+  .inf-model-link:hover{gap:9px;border-bottom-color:var(--inf-accent)}
+
+  /* BUYER TYPES */
+  .inf-buyer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .inf-buyer-card{background:#fff;border:1px solid var(--inf-border);border-radius:var(--inf-radius);padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+  .inf-buyer-card:hover{border-color:var(--inf-accent);box-shadow:0 10px 30px rgba(179,139,77,.1)}
+  .inf-buyer-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--inf-accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .inf-buyer-card:hover::after{transform:scaleX(1)}
+  .inf-buyer-icon{width:42px;height:42px;background:var(--inf-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:.875rem}
+  .inf-buyer-icon svg{width:20px;height:20px;fill:var(--inf-accent)}
+  .inf-buyer-type{font-size:11px;font-weight:800;color:var(--inf-muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+  .inf-buyer-card h3{font-size:14px;margin-bottom:.4rem}
+  .inf-buyer-card p{font-size:13px;color:var(--inf-muted);margin:0;line-height:1.7}
+  .inf-buyer-rec{margin-top:.625rem;font-size:12px;font-weight:700;color:var(--inf-accent)}
+
+  /* COMPARE TABLE */
+  .inf-compare-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--inf-border)}
+  .inf-compare-table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+  .inf-compare-table th{background:var(--inf-dark);color:#fff;padding:.875rem 1.125rem;text-align:left;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+  .inf-compare-table td{padding:.8rem 1.125rem;border-bottom:1px solid var(--inf-border);color:var(--inf-muted);vertical-align:middle}
+  .inf-compare-table tr:last-child td{border-bottom:none}
+  .inf-compare-table tr:hover td{background:var(--inf-surface)}
+  .inf-col-feature{font-weight:800;color:var(--inf-dark)!important;white-space:nowrap}
+  .inf-inf-col{background:rgba(179,139,77,.025)!important}
+  .inf-check{color:var(--inf-accent);font-weight:800}
+
+  /* EXPERT CALLOUT */
+  .inf-expert-callout{background:#fff;border:1px solid var(--inf-border);border-left:4px solid var(--inf-accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;display:flex;align-items:flex-start;gap:.875rem}
+  .inf-expert-callout svg{width:26px;height:26px;fill:var(--inf-accent);flex-shrink:0;margin-top:1px}
+  .inf-expert-callout p{font-size:14px;color:var(--inf-muted);line-height:1.75;margin:0}
+  .inf-expert-callout strong{color:var(--inf-dark)}
+
+  /* PRICE LADDER */
+  .inf-price-ladder{border:1px solid var(--inf-border);border-radius:var(--inf-radius);overflow:hidden}
+  .inf-price-rung{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--inf-border);transition:background .2s}
+  .inf-price-rung:last-child{border-bottom:none}
+  .inf-price-rung:hover{background:var(--inf-surface)}
+  .inf-price-rung-label{background:var(--inf-dark);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,.08)}
+  .inf-price-tier-name{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:3px}
+  .inf-price-amount{font-size:16px;font-weight:900;color:var(--inf-accent);letter-spacing:-.02em}
+  .inf-price-rung-body{padding:1.5rem 2rem}
+  .inf-price-rung-body h4{font-size:14px;margin-bottom:.35rem}
+  .inf-price-rung-body p{font-size:13px;color:var(--inf-muted);margin:0;line-height:1.65}
+  .inf-price-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.625rem}
+  .inf-price-tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--inf-accent-pale);color:var(--inf-accent)}
+
+  /* TRUST & REVIEW CARDS */
+  .inf-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .inf-trust-card{background:#fff;border:1px solid var(--inf-border);border-radius:var(--inf-radius);padding:1.75rem;transition:all .3s}
+  .inf-trust-card:hover{transform:translateY(-4px);box-shadow:var(--inf-shadow)}
+  .inf-trust-card-icon{width:44px;height:44px;background:var(--inf-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .inf-trust-card-icon svg{width:22px;height:22px;fill:var(--inf-accent)}
+  .inf-trust-card h3{font-size:15px;margin-bottom:.5rem}
+  .inf-trust-card p{font-size:14px;color:var(--inf-muted);margin:0;line-height:1.7}
+  .inf-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .inf-review-card{background:#fff;border:1px solid var(--inf-border);border-radius:var(--inf-radius);padding:1.75rem;transition:all .3s;position:relative}
+  .inf-review-card:hover{transform:translateY(-3px);box-shadow:var(--inf-shadow)}
+  .inf-review-card::before{content:'"';position:absolute;top:1rem;right:1.25rem;font-size:64px;color:var(--inf-accent-pale);font-weight:900;line-height:1;pointer-events:none}
+  .inf-review-stars{color:var(--inf-accent);letter-spacing:2px;font-size:13px;margin-bottom:.625rem}
+  .inf-review-text{font-size:14px;color:var(--inf-muted);line-height:1.75;margin-bottom:1.125rem;font-style:italic}
+  .inf-review-author{display:flex;align-items:center;gap:9px}
+  .inf-review-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+  .inf-review-name{font-weight:700;font-size:14px}
+  .inf-review-meta{font-size:12px;color:var(--inf-muted2)}
+
+  /* SHOWROOM */
+  .inf-showroom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .inf-showroom-card{border:1px solid var(--inf-border);border-radius:var(--inf-radius);overflow:hidden;transition:all .3s}
+  .inf-showroom-card:hover{transform:translateY(-4px);box-shadow:var(--inf-shadow-hover)}
+  .inf-showroom-head{background:linear-gradient(135deg,#080808,#171208);padding:2rem 2.25rem 1.75rem}
+  .inf-showroom-pill{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--inf-accent);background:rgba(179,139,77,.15);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:.625rem}
+  .inf-showroom-head h3{color:#fff;font-size:17px;margin-bottom:.3rem}
+  .inf-showroom-head p{color:rgba(255,255,255,.5);font-size:13px;margin:0}
+  .inf-showroom-body{background:#fff;padding:1.75rem 2.25rem}
+  .inf-showroom-row{display:flex;align-items:flex-start;gap:8px;padding:.5rem 0;border-bottom:1px solid var(--inf-border);font-size:13px}
+  .inf-showroom-row:last-child{border-bottom:none}
+  .inf-showroom-row svg{width:16px;height:16px;fill:var(--inf-accent);flex-shrink:0;margin-top:2px}
+  .inf-showroom-btns{margin-top:1.25rem;display:flex;gap:.625rem;flex-wrap:wrap}
+
+  /* FINAL CTA */
+  .inf-final-cta{background:linear-gradient(135deg,#050505 0%,#1a110a 60%,#050505 100%);border-radius:28px;padding:4rem;position:relative;overflow:hidden}
+  .inf-final-cta::before{content:'';position:absolute;top:-40%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.1) 0%,transparent 70%);pointer-events:none}
+  .inf-final-cta::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06) 0%,transparent 70%);pointer-events:none}
+  .inf-final-cta-inner{position:relative;z-index:1}
+  .inf-final-cta h2{color:#fff;font-size:clamp(29px,3vw,42px);margin-bottom:.875rem;line-height:1.12}
+  .inf-final-cta p{color:rgba(255,255,255,.65);font-size:16px;max-width:640px;margin-bottom:2rem;line-height:1.75}
+  .inf-cta-points{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .inf-cta-point{display:flex;align-items:center;gap:7px}
+  .inf-cta-point svg{width:16px;height:16px;fill:var(--inf-accent);flex-shrink:0}
+  .inf-cta-point span{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+  .inf-final-cta-btns{display:flex;gap:.875rem;flex-wrap:wrap}
+
+  /* ANSWER BLOCKS */
+  .inf-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .inf-answer-block{background:#fff;border:1px solid var(--inf-border);border-radius:14px;padding:1.75rem;transition:all .3s}
+  .inf-answer-block:hover{border-color:var(--inf-border2);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+  .inf-answer-block h3{font-size:14px;margin-bottom:.5rem}
+  .inf-answer-block p{font-size:13px;color:var(--inf-muted);margin:0;line-height:1.75}
+
+  /* FAQ */
+  .inf-faq-item{border-bottom:1px solid var(--inf-border)}
+  .inf-faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;cursor:pointer;gap:1rem}
+  .inf-faq-q h3{font-size:16px;margin:0;font-weight:700;transition:color .2s;line-height:1.4}
+  .inf-faq-q:hover h3{color:var(--inf-accent)}
+  .inf-faq-icon{width:22px;height:22px;fill:var(--inf-muted2);flex-shrink:0;transition:transform .3s}
+  .inf-faq-q.active .inf-faq-icon{transform:rotate(45deg)}
+  .inf-faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .inf-faq-a.open{max-height:500px}
+  .inf-faq-a p{margin:0;padding-bottom:1.4rem;font-size:15px;color:var(--inf-muted);line-height:1.8}
+  .inf-faq-a a{color:var(--inf-accent);font-weight:700}
+
+  /* LINK PILLS */
+  .inf-link-pills{display:flex;flex-wrap:wrap;gap:.625rem;justify-content:center}
+  .inf-link-pill{padding:.55rem 1.25rem;border:1.5px solid var(--inf-border);border-radius:50px;font-size:13px;font-weight:700;color:var(--inf-dark);background:#fff;transition:all .3s;text-decoration:none}
+  .inf-link-pill:hover{border-color:var(--inf-accent);color:var(--inf-accent);background:var(--inf-accent-pale);transform:translateY(-2px)}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){
+    .inf-pillar-grid{grid-template-columns:1fr 1fr}
+    .inf-product-grid{grid-template-columns:1fr 1fr}
+    .inf-trust-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:900px){
+    .inf-hero{min-height:65vh}
+    .inf-hero h1{font-size:35px}
+    .inf-glance-grid,.inf-for-grid,.inf-model-entry,.inf-buyer-grid,.inf-showroom-grid,.inf-qa-grid,.inf-answer-grid{grid-template-columns:1fr}
+    .inf-pillar-grid,.inf-trust-grid,.inf-review-grid{grid-template-columns:1fr}
+    .inf-product-grid{grid-template-columns:1fr 1fr;gap:1rem}
+    .inf-section{padding:3.5rem 0}
+    .inf-final-cta{padding:2.5rem 2rem}
+    .inf-product-header-inner{flex-direction:column;align-items:flex-start}
+    .inf-price-rung{grid-template-columns:1fr}
+    .inf-price-rung-label{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  }
+  @media(max-width:600px){
+    .inf-product-grid{grid-template-columns:1fr}
+    .inf-hero h1{font-size:30px}
+    .inf-container{padding:0 1.25rem}
+    .inf-product-header{padding:2rem 1.5rem 0}
+    .inf-product-grid-wrap{padding:1.25rem}
+  }
+</style>
+
+<div class="inf-wrap">
+
+  {%- comment -%} SUBNAV {%- endcomment -%}
+  <nav class="inf-subnav" aria-label="Page sections">
+    <div class="inf-subnav-inner">
+      <a href="#inf-collection">Shop Models</a>
+      <a href="#inf-overview">Overview</a>
+      <a href="#inf-4d-options">4D Options</a>
+      <a href="#inf-why-infinity">Why Infinity</a>
+      <a href="#inf-model-guide">Model Guide</a>
+      <a href="#inf-buyer-types">By Buyer Type</a>
+      <a href="#inf-vs-brands">vs. Competitors</a>
+      <a href="#inf-pricing">Price Guide</a>
+      <a href="#inf-trust">Reviews</a>
+      <a href="#inf-warranty">Warranty</a>
+      <a href="#inf-showrooms">Showrooms</a>
+      <a href="#inf-faq">FAQ</a>
+    </div>
+  </nav>
+
+  {%- comment -%} ══════════ HERO ══════════ {%- endcomment -%}
+  <section class="inf-hero" id="inf-overview">
+    <div class="inf-hero-bg"></div>
+    <div class="inf-hero-grad"></div>
+    <div class="inf-hero-accent-bar"></div>
+    <div class="inf-container inf-hero-content">
+      <div class="inf-hero-bc">
+        <a href="{{ shop.url }}">Home</a><span>/</span>
+        <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+        {{ collection.title }}
+      </div>
+      <div class="inf-hero-eye">Authorized Infinity Dealer &middot; San Jose &amp; Pleasanton</div>
+      {%- if section.settings.hero_heading != blank -%}
+        <h1>{{ section.settings.hero_heading }}</h1>
+      {%- else -%}
+        <h1>Infinity Massage Chairs<br>The Complete Buyer&#8217;s Decision Hub</h1>
+      {%- endif -%}
+      {%- if section.settings.hero_subheading != blank -%}
+        <p class="inf-hero-lead">{{ section.settings.hero_subheading }}</p>
+      {%- else -%}
+        <p class="inf-hero-lead">From the entry-level Riage 4D to the flagship Circadian DualFlex &mdash; every Infinity model explained, compared, and matched to your body and budget.</p>
+      {%- endif -%}
+      <p class="inf-hero-sub">All {{ collection.products_count }} models in stock. Try them in person at our San Jose or Pleasanton showroom before you commit.</p>
+      <div class="inf-hero-ctas">
+        <a href="#inf-collection" class="inf-btn inf-btn-gold">Browse All Infinity Models</a>
+        <a href="#inf-model-guide" class="inf-btn inf-btn-ghost">Explore Model Guide</a>
+        <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-ghost">Book Showroom Visit</a>
+      </div>
+      <div class="inf-hero-stats">
+        <div class="inf-hero-stat">
+          <span class="inf-hero-stat-n">{{ collection.products_count }}</span>
+          <span class="inf-hero-stat-l">Infinity Models</span>
+        </div>
+        <div class="inf-hero-stat">
+          <span class="inf-hero-stat-n">$6.8K–$17K</span>
+          <span class="inf-hero-stat-l">Price Range</span>
+        </div>
+        <div class="inf-hero-stat">
+          <span class="inf-hero-stat-n">2</span>
+          <span class="inf-hero-stat-l">Bay Area Showrooms</span>
+        </div>
+        <div class="inf-hero-stat">
+          <span class="inf-hero-stat-n">5.0★</span>
+          <span class="inf-hero-stat-l">Google (95+ Reviews)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST BAR {%- endcomment -%}
+  <div class="inf-trust-bar">
+    <div class="inf-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Authorized Infinity Dealer</div>
+    <div class="inf-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Try Before You Buy</div>
+    <div class="inf-trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-5.5 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>White-Glove Delivery</div>
+    <div class="inf-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manufacturer Warranty</div>
+    <div class="inf-trust-item"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg>0% APR Financing</div>
+  </div>
+
+  {%- comment -%} ══════════ SHOP COLLECTION ══════════ {%- endcomment -%}
+  <section class="inf-section" id="inf-collection" style="padding-top:4rem">
+    <div class="inf-container">
+      <div class="inf-product-header">
+        <div class="inf-product-header-inner">
+          <div>
+            <span class="inf-section-label">Full Collection</span>
+            <h2>Shop All Infinity Massage Chairs</h2>
+            <p>Every model available at HOMC — authorized dealer, full warranty, white-glove delivery. Prices update automatically as inventory changes.</p>
+          </div>
+          <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-gold inf-btn-sm" style="flex-shrink:0">Book Showroom</a>
+        </div>
+      </div>
+
+      <div class="inf-filter-bar" id="infFilterBar">
+        <span class="inf-filter-label">Filter</span>
+        <button class="inf-filter-btn active" onclick="infFilter(this,'all','all')">All Models</button>
+        <div class="inf-filter-sep"></div>
+        <span class="inf-filter-label">Price</span>
+        <button class="inf-filter-btn" onclick="infFilter(this,'price','under8')">Under $8K</button>
+        <button class="inf-filter-btn" onclick="infFilter(this,'price','8to12')">$8K–$12K</button>
+        <button class="inf-filter-btn" onclick="infFilter(this,'price','over12')">$12K+</button>
+        <div class="inf-filter-sep"></div>
+        <span class="inf-filter-label">Technology</span>
+        <button class="inf-filter-btn" onclick="infFilter(this,'type','synerd')">Syner-D</button>
+        <button class="inf-filter-btn" onclick="infFilter(this,'type','4d')">4D Models</button>
+        <button class="inf-filter-btn" onclick="infFilter(this,'type','flagship')">Flagship</button>
+        <span class="inf-filter-count" id="infCount">{{ collection.products_count }} models</span>
+      </div>
+
+      <div class="inf-product-grid-wrap">
+        <div class="inf-product-grid" id="infGrid"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-gold">Try Any Infinity Chair at Our Showroom &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ QUICK ANSWERS ══════════ {%- endcomment -%}
+  <section class="inf-section inf-section-alt inf-section-sm" style="padding-top:0">
+    <div class="inf-container">
+      <div class="inf-quick-answer">
+        <span class="inf-section-label" style="position:relative;z-index:1">Quick Reference</span>
+        <h2 style="color:#fff;font-size:clamp(21px,2.5vw,29px);margin-bottom:.4rem;position:relative;z-index:1">What You Need to Know About Infinity Massage Chairs</h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;position:relative;z-index:1">Direct answers for buyers who want clarity quickly.</p>
+        <div class="inf-qa-grid">
+          <div class="inf-qa-item">
+            <h3>What are Infinity massage chairs?</h3>
+            <p>Infinity is a premium U.S.-market massage chair brand known for its proprietary Syner-D® tandem-back technology. Their lineup spans from well-equipped 4D entry models to flagship dual-mechanism systems with Harman/Kardon® audio and AI body scanning.</p>
+          </div>
+          <div class="inf-qa-item">
+            <h3>What makes Infinity different?</h3>
+            <p>Infinity's Syner-D® technology — two independent roller mechanisms that work in coordinated tandem — creates a genuinely distinct massage feel. It's not available from most competing brands. Their Flex-Track coverage path is also among the longest in the industry.</p>
+          </div>
+          <div class="inf-qa-item">
+            <h3>Who are Infinity chairs best for?</h3>
+            <p>Buyers who want a deeper, more enveloping back massage experience — particularly those interested in stretch-focused comfort and full-body coverage. Infinity suits daily users and those who value proprietary technology over generic feature lists.</p>
+          </div>
+          <div class="inf-qa-item">
+            <h3>Are Infinity chairs worth considering?</h3>
+            <p>Yes — particularly the Syner-D models. The Gen Max 4D is a strong starting point for many buyers comparing premium 4D Infinity models. The Circadian DualFlex justifies its flagship price through dual-mechanism genuinely unmatched by most competitors at any price.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ INFINITY 4D OPTIONS ══════════ {%- endcomment -%}
+  <section class="inf-section inf-section-sm" id="inf-4d-options">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">4D Model Comparison</span>
+        <h2>Infinity 4D Massage Chair Options: Which Model Fits You Best?</h2>
+        <p>Infinity offers several 4D massage chair options for buyers who want more control over massage intensity, speed, and overall feel. If you are comparing an Infinity 4D massage chair, the right model depends on how much feature depth you want, how often you plan to use the chair, and whether you prefer a balanced premium option or a more advanced flagship experience.</p>
+      </div>
+      <div class="inf-container-narrow">
+        <p>The <a href="{{ shop.url }}/products/infinity-riage-4d-massage-chair" style="color:var(--inf-accent);font-weight:700">Infinity Riage 4D massage chair</a> is a strong entry point for shoppers who want a premium 4D Infinity chair without moving into the highest price tier. The <a href="{{ shop.url }}/products/infinity-gen-max-4d-massage-chair" style="color:var(--inf-accent);font-weight:700">Infinity Gen Max 4D massage chair</a> adds a stronger feature set for buyers comparing comfort, lower-body coverage, and overall value. The <a href="{{ shop.url }}/products/infinity-circadian-4d-dualflex-dualflex-massage-chair" style="color:var(--inf-accent);font-weight:700">Infinity Circadian DualFlex 4D massage chair</a> is positioned for shoppers who want one of Infinity's most advanced massage chair experiences, while the <a href="{{ shop.url }}/products/infinity-smart-chair-x3-4d-massage-chair" style="color:var(--inf-accent);font-weight:700">Infinity Smart Chair X3 massage chair</a> may appeal to buyers comparing X3-specific comfort and convenience features.</p>
+        <p>The best way to choose is not by spec sheet alone. A showroom trial helps you compare massage feel, body fit, controls, recline comfort, and model size side by side before making a high-ticket decision. <a href="{{ shop.url }}/pages/our-store" style="color:var(--inf-accent);font-weight:700">Book an Infinity massage chair showroom visit</a> to try select models in person.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHY INFINITY ══════════ {%- endcomment -%}
+  <section class="inf-section" id="inf-why-infinity">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">The Case for Infinity</span>
+        <h2>Why Serious Buyers Shortlist <span class="inf-underline">Infinity</span></h2>
+        <p>Infinity earns a place on premium buyers' shortlists for specific, substantive reasons.</p>
+      </div>
+      <div class="inf-pillar-grid">
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Syner-D® Tandem Technology</h3><p>Infinity's proprietary dual-roller back system runs two mechanisms simultaneously in coordinated rhythm — creating a two-handed massage feel that most massage chair brands simply can't replicate.</p></div>
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>49" Flex-Track Coverage</h3><p>The longest coverage path in Infinity's flagship lineup extends from neck to gluteal — ensuring no part of your back goes untouched. Competing brands often cap out at 40–45" of effective coverage.</p></div>
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg></div><h3>TrueFit® Body Scanning</h3><p>Infinity's body scanning technology calibrates the chair's roller path precisely to your shoulder width and spinal curve — not an approximation. This matters significantly when the chair is used daily.</p></div>
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><h3>Complete Calf™ System</h3><p>Infinity's lower-leg system doesn't just compress — it kneads and oscillates. This level of calf coverage is rare in the sub-$10K range and genuinely distinguishes the Gen Max 4D from competing models at similar prices.</p></div>
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>Premium Sensory Integration</h3><p>Flagship Infinity models include Harman/Kardon® studio audio, chromotherapy lighting, air ionizers, and biometric health sensors — turning the chair into a full-spectrum wellness environment, not just a massage device.</p></div>
+        <div class="inf-pillar-card"><div class="inf-pillar-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><h3>Broad Buyer Range</h3><p>From the $6,799 Riage 4D (first-time premium buyer) to the $16,999 Circadian DualFlex (daily-use flagship), Infinity covers the full spectrum of serious buyers — each model meaningfully differentiated from the next.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TECHNOLOGY VISUAL BANNER ══════════ {%- endcomment -%}
+  <section style="padding:0;background:#0a0a0a;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,#f8fafc,transparent);z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,#0a0a0a,transparent);z-index:2;pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;">
+      <div style="text-align:center;padding:3.5rem 2rem 2rem;">
+        <span class="inf-section-label" style="color:#b38b4d;">Infinity Technology &mdash; Visualized</span>
+        <h2 style="font-size:clamp(22px,2.5vw,32px)!important;color:#fff;font-weight:800;letter-spacing:-.02em;margin:.5rem 0 0;line-height:1.2;">Four Technologies. One Chair. <span style="color:#b38b4d;">A Genuinely Different Experience.</span></h2>
+      </div>
+      <div style="position:relative;max-height:620px;overflow:hidden;">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/infinity-features-hero.jpg?v=1776368241"
+          alt="Infinity massage chair featuring Syner-D tandem rollers, 49-inch Flex-Track coverage, TrueFit body scanning and Complete Calf system"
+          style="width:100%;height:auto;display:block;object-fit:cover;max-height:620px;"
+          loading="lazy"
+          width="1920" height="1080"
+        >
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(10,10,10,.65) 100%);pointer-events:none;"></div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;padding:2.5rem 2rem 3.5rem;background:#0a0a0a;">
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(179,139,77,.08);border:1px solid rgba(179,139,77,.2);border-radius:50px;padding:.55rem 1.25rem;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#b38b4d;flex-shrink:0;"></span>
+          <span style="font-size:13px!important;font-weight:700;color:#fff;">Syner-D&reg; Tandem Rollers</span>
+          <span style="font-size:12px!important;color:rgba(255,255,255,.4);margin-left:2px;">Dual back mechanisms in coordinated rhythm</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(179,139,77,.08);border:1px solid rgba(179,139,77,.2);border-radius:50px;padding:.55rem 1.25rem;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#b38b4d;flex-shrink:0;"></span>
+          <span style="font-size:13px!important;font-weight:700;color:#fff;">49&Prime; Flex-Track</span>
+          <span style="font-size:12px!important;color:rgba(255,255,255,.4);margin-left:2px;">Longest coverage path in the lineup</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(179,139,77,.08);border:1px solid rgba(179,139,77,.2);border-radius:50px;padding:.55rem 1.25rem;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#b38b4d;flex-shrink:0;"></span>
+          <span style="font-size:13px!important;font-weight:700;color:#fff;">TrueFit&reg; Body Scanning</span>
+          <span style="font-size:12px!important;color:rgba(255,255,255,.4);margin-left:2px;">Calibrated to your exact body shape</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(179,139,77,.08);border:1px solid rgba(179,139,77,.2);border-radius:50px;padding:.55rem 1.25rem;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#b38b4d;flex-shrink:0;"></span>
+          <span style="font-size:13px!important;font-weight:700;color:#fff;">Complete Calf&#8482; System</span>
+          <span style="font-size:12px!important;color:rgba(255,255,255,.4);margin-left:2px;">Active kneading &mdash; not just compression</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ AT A GLANCE ══════════ {%- endcomment -%}
+  <section class="inf-section inf-section-alt">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Brand Intelligence</span>
+        <h2>Infinity Massage Chairs <span class="inf-underline">at a Glance</span></h2>
+        <p>A concise, honest profile — the kind of overview buyers need before going deeper.</p>
+      </div>
+      <div class="inf-glance-grid">
+        <div>
+          <table class="inf-glance-table">
+            <tr><td>Price Range</td><td>$6,799 – $16,999 depending on configuration</td></tr>
+            <tr><td>Signature Tech</td><td>Syner-D® tandem rollers, Flex-Track, TrueFit® body scanning</td></tr>
+            <tr><td>Massage Feel</td><td>Medium to deep; Syner-D models deliver a notably enveloping feel</td></tr>
+            <tr><td>Track System</td><td>SL-Track on most models; Flex-Track (extended SL) on flagship tier</td></tr>
+            <tr><td>Roller Technology</td><td>4D across most models; DualFlex (dual 4D) in Circadian</td></tr>
+            <tr><td>Body Scan / AI</td><td>TrueFit® available on Gen Max 4D and above; health sensors on flagships</td></tr>
+            <tr><td>Best Fit</td><td>Stretch seekers, daily users, Syner-D fans, value-conscious premium buyers</td></tr>
+            <tr><td>May Not Suit</td><td>Buyers prioritizing ultra-intense massage pressure above all else</td></tr>
+          </table>
+        </div>
+        <div class="inf-glance-verdict">
+          <h3>Specialist Assessment</h3>
+          <div class="inf-verdict-item"><div class="inf-verdict-dot"></div><p><strong>For Syner-D buyers</strong> — the tandem roller feel is distinctive. If you've tried it in person and connected with it, there's no direct competitor offering the same experience.</p></div>
+          <div class="inf-verdict-item"><div class="inf-verdict-dot"></div><p><strong>For stretch-focused comfort</strong> — Infinity's Flex-Track chairs, particularly the Smart Chair X3 and Circadian, offer stretch depth and full-back coverage that buyers who prefer stretch-focused sessions consistently value.</p></div>
+          <div class="inf-verdict-item"><div class="inf-verdict-dot"></div><p><strong>For value comparison</strong> — the Gen Max 4D at $8,999 is one of the most competitive offers in its tier across any brand.</p></div>
+          <div class="inf-verdict-item"><div class="inf-verdict-dot"></div><p><strong>For maximum intensity</strong> — Osaki's Duo models or Bodyfriend's XD Pro system may offer a more assertive pressure profile than Infinity's medium-to-deep range.</p></div>
+          <div class="inf-verdict-item"><div class="inf-verdict-dot"></div><p><strong>For Bay Area buyers</strong> — we carry a full Infinity selection at our San Jose and Pleasanton showrooms, available to try before you commit.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHO IT'S FOR ══════════ {%- endcomment -%}
+  <section class="inf-section">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Fit Guide</span>
+        <h2>Who Infinity Is For — <span class="inf-underline">and Who It May Not Be</span></h2>
+        <p>Honest, specific guidance. Knowing where a brand excels and where it does not is what separates a specialist from a catalogue.</p>
+      </div>
+      <div class="inf-for-grid">
+        <div class="inf-for-card">
+          <div class="inf-for-badge yes">✓ Infinity is a strong fit for</div>
+          <ul class="inf-for-list">
+            <li><div class="inf-for-dot yes"></div><span><strong>Syner-D seekers</strong> — the tandem roller feel is genuinely unique in the industry</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>Stretch-focused comfort buyers</strong> — Flex-Track chairs rank among the best for stretch depth and full-back coverage</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>Daily users</strong> — Infinity's build quality and TrueFit scanning reward consistent, long-term use</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>Value-focused buyers</strong> — the Gen Max 4D is a reference-standard offer at $8,999</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>Tall buyers (5'2"–6'6")</strong> — the Ultra Imperial and Circadian fit a wider height range than most competitors</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>Sensory wellness buyers</strong> — chromotherapy, Harman/Kardon audio, and health sensors on flagship models</span></li>
+            <li><div class="inf-for-dot yes"></div><span><strong>First-time premium buyers</strong> — the Riage 4D is a true 4D chair at an entry price that over-delivers</span></li>
+          </ul>
+        </div>
+        <div class="inf-for-card alt">
+          <div class="inf-for-badge no">Consider alternatives if</div>
+          <ul class="inf-for-list">
+            <li><div class="inf-for-dot no"></div><span><strong>Maximum pressure is the primary goal</strong> — Osaki Duo models or Bodyfriend XD Pro deliver more assertive intensity</span></li>
+            <li><div class="inf-for-dot no"></div><span><strong>Dual-engine simultaneity is essential</strong> — Osaki's Duo lineup covers back and legs truly simultaneously</span></li>
+            <li><div class="inf-for-dot no"></div><span><strong>Ultra-minimal design preferred</strong> — Ogawa and Bodyfriend skew more toward furniture-forward aesthetics</span></li>
+            <li><div class="inf-for-dot no"></div><span><strong>5D AI precision is required</strong> — Osaki's Pinnacle 5D or AI Grand Duo represent a different level of AI integration</span></li>
+            <li><div class="inf-for-dot no"></div><span><strong>Very small space</strong> — flagship Infinity models need adequate room to recline fully in zero gravity</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="inf-expert-callout" style="margin-top:1.75rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Specialist note:</strong> The right Infinity chair is entirely dependent on the buyer's body type, preferred massage intensity, and primary use case. A buyer who wants the Syner-D feel and uses the chair daily will have a completely different conversation than one prioritizing stretch-focused comfort. That's what our showroom visits are for.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ MODEL GUIDE ══════════ {%- endcomment -%}
+  {%- if section.settings.show_model_guide -%}
+  <section class="inf-section inf-section-alt" id="inf-model-guide">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Model Intelligence</span>
+        <h2>Every Infinity Model — <span class="inf-underline">Explained</span></h2>
+        <p>Not all Infinity chairs are the same. Each model has a distinct positioning, feel, and ideal buyer profile.</p>
+      </div>
+
+      {%- for product in collection.products -%}
+        {%- assign prod_tags = product.tags | join: ',' | downcase -%}
+        {%- assign is_flagship = false -%}
+        {%- if prod_tags contains 'featured-model' or prod_tags contains 'featured_model' or forloop.index <= 6 -%}
+          {%- if prod_tags contains 'flagship' %}{%- assign is_flagship = true -%}{%- endif -%}
+          {%- assign feat_img_url = product.featured_image | image_url: width: 400 -%}
+          {%- assign sale_price = product.price | money -%}
+          <div class="inf-model-entry">
+            <div class="inf-model-side">
+              <div>
+                <div class="inf-model-tier">{{ product.type | default: 'Premium Model' }}</div>
+                <h3>{{ product.title }}</h3>
+                <p style="font-size:13px;color:var(--inf-muted);margin-top:.5rem;line-height:1.6">{{ product.metafields.custom.short_description.value | default: product.description | strip_html | truncate: 100 }}</p>
+              </div>
+              <div class="inf-model-img-frame">
+                <img class="inf-model-side-img" src="{{ feat_img_url }}" alt="{{ product.title }}" loading="lazy">
+              </div>
+              <div class="inf-model-price-band">From <span>{{ sale_price }}</span></div>
+            </div>
+            <div class="inf-model-body">
+              <div class="inf-model-best">Best for: {{ product.metafields.custom.buyer_for.value | default: 'Premium massage buyers' }}</div>
+              <h4>{{ product.metafields.custom.model_headline.value | default: 'Why buyers choose this model' }}</h4>
+              <p>{{ product.metafields.custom.model_description.value | default: product.description | strip_html | truncate: 400 }}</p>
+              <div class="inf-model-traits">
+                {%- for tag in product.tags -%}
+                  {%- unless tag == 'synerd' or tag == '4d' or tag == 'flagship' or tag == 'entry' or tag == 'featured-model' -%}
+                    <span class="inf-trait">{{ tag }}</span>
+                  {%- endunless -%}
+                {%- endfor -%}
+              </div>
+              {%- if product.metafields.custom.tradeoff.value != blank -%}
+                <div style="margin-top:1rem;padding:.875rem 1.125rem;border-radius:10px;background:var(--inf-surface);border-left:3px solid var(--inf-border2);font-size:13px;color:var(--inf-muted2);line-height:1.65"><strong>Honest tradeoff:</strong> {{ product.metafields.custom.tradeoff.value }}</div>
+              {%- endif -%}
+              <a href="{{ product.url }}" class="inf-model-link">View {{ product.title | truncate: 30 }} Details &rarr;</a>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="inf-expert-callout" style="margin-top:1.25rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>Browse the full collection to see all {{ collection.products_count }} Infinity models available at HOMC. <a href="#inf-collection" style="color:var(--inf-accent);font-weight:700">See full collection above &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- comment -%} ══════════ BUYER TYPES ══════════ {%- endcomment -%}
+  {%- if section.settings.show_buyer_types -%}
+  <section class="inf-section" id="inf-buyer-types">
+    <div class="inf-container">
+      <div class="inf-section-header center">
+        <span class="inf-section-label">Decision Support</span>
+        <h2>Best Infinity Chair <span class="inf-underline">by Buyer Type</span></h2>
+        <p>The best Infinity chair depends entirely on who is using it and how.</p>
+      </div>
+      <div class="inf-buyer-grid">
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-4-4 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 8z"/></svg></div><div class="inf-buyer-type">Syner-D Seekers</div><h3>Best for the Tandem-Back Feel</h3><p>Buyers who've experienced or researched the dual-roller coordinated feel and want the Infinity version specifically.</p><div class="inf-buyer-rec">&rarr; Circadian DualFlex 4D or Luminary Syner-D</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg></div><div class="inf-buyer-type">Stretch-Focused Comfort</div><h3>Best for Stretch-Focused Sessions</h3><p>Buyers who prioritize stretch-dominant sessions and full-body comfort over pure massage pressure.</p><div class="inf-buyer-rec">&rarr; Smart Chair X3 4D (true inversion) or Ultra Imperial Syner-D</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="inf-buyer-type">Value-Focused Buyers</div><h3>Most Value in the Lineup</h3><p>Buyers who want the best combination of features and technology for a reasonable investment.</p><div class="inf-buyer-rec">&rarr; Gen Max 4D ($8,999 — our #1 recommendation for most buyers)</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="inf-buyer-type">Flagship Buyers</div><h3>Best Infinity Flagship Experience</h3><p>Buyers who want Infinity's most complete system with no compromises — the experience you use every single day.</p><div class="inf-buyer-rec">&rarr; Circadian DualFlex 4D (dual mechanisms, 49" track, Harman/Kardon audio)</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="inf-buyer-type">First-Time Premium Buyers</div><h3>Best Entry Into Premium</h3><p>Buyers making their first premium purchase who want genuine 4D massage quality without over-investing.</p><div class="inf-buyer-rec">&rarr; Riage 4D ($6,799 — true 4D at the most accessible price in the lineup)</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><div class="inf-buyer-type">Daily Comfort Users</div><h3>Best for Daily Home Comfort</h3><p>Buyers who plan to use their chair every single day for stretch, comfort, and tension management.</p><div class="inf-buyer-rec">&rarr; Gen Max 4D or Luminary Syner-D — both rated 5/5 by daily users</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25L9.4 10.5zm12.28 2.24H12.37l-2.68 4.63 4.77 8.26c2.6-.86 4.75-2.75 6.01-5.12L21.68 12.74zm-12.3.01L6.34 10H2.04C2.01 10.33 2 10.66 2 11c0 3.51 1.81 6.59 4.54 8.38L9.38 12.75zM20.45 7.63A9.97 9.97 0 0015.2 4.1l-3.04 5.25h6.81a9.99 9.99 0 001.48-1.72z"/></svg></div><div class="inf-buyer-type">Sensory Wellness Buyers</div><h3>Best for Full Sensory Experience</h3><p>Buyers who want more than massage — chromotherapy, studio audio, ionizer, and health biometrics built in.</p><div class="inf-buyer-rec">&rarr; Circadian DualFlex or Luminary Syner-D (both include full sensory stacks)</div></div>
+        <div class="inf-buyer-card"><div class="inf-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><div class="inf-buyer-type">Tall Users (5'2"–6'6")</div><h3>Best for Taller Body Types</h3><p>Buyers who need extended coverage and longer track travel to properly cover their full back and leg length.</p><div class="inf-buyer-rec">&rarr; Ultra Imperial Syner-D or Circadian DualFlex (both rated for 5'2"–6'6")</div></div>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- comment -%} ══════════ VS BRANDS ══════════ {%- endcomment -%}
+  {%- if section.settings.show_comparison -%}
+  <section class="inf-section inf-section-alt" id="inf-vs-brands">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Brand Comparison</span>
+        <h2>Infinity vs. <span class="inf-underline">Other Premium Brands</span></h2>
+        <p>We carry nine premium brands. This puts us in a unique position to offer honest, comparative guidance — not brand loyalty.</p>
+      </div>
+      <div class="inf-compare-wrap" style="margin-bottom:2rem">
+        <table class="inf-compare-table">
+          <thead><tr><th>Comparison Point</th><th class="inf-inf-col">Infinity</th><th>Osaki</th><th>Kyota</th><th>Ogawa</th><th>Bodyfriend</th></tr></thead>
+          <tbody>
+            <tr><td class="inf-col-feature">Signature Tech</td><td class="inf-inf-col inf-check">Syner-D® Tandem Rollers</td><td>Duo Mechanisms</td><td>Syner-D® (licensed)</td><td>Master Drive Duo</td><td>XD Pro Roller</td></tr>
+            <tr><td class="inf-col-feature">Massage Intensity</td><td class="inf-inf-col">Medium to deep</td><td>Assertive to strong</td><td>Medium, refined</td><td>Medium to strong</td><td>Medium, precision</td></tr>
+            <tr><td class="inf-col-feature">Feature Density per $</td><td class="inf-inf-col inf-check">Very high</td><td>Very high</td><td>High</td><td>High</td><td>Premium, curated</td></tr>
+            <tr><td class="inf-col-feature">Stretch Focus</td><td class="inf-inf-col inf-check">✓ Flex-Track + Inversion</td><td>SL-Track</td><td>SL-Track</td><td>SL-Track</td><td>SL-Track</td></tr>
+            <tr><td class="inf-col-feature">Model Range Width</td><td class="inf-inf-col">Wide ({{ collection.products_count }}+ models)</td><td>Very wide (20+)</td><td>Focused (5–7)</td><td>Moderate</td><td>Focused (4)</td></tr>
+            <tr><td class="inf-col-feature">Price Entry Point</td><td class="inf-inf-col">~$6.8K (Riage 4D)</td><td>~$3K (Oasis)</td><td>~$5K–$7K</td><td>~$5K–$7K</td><td>~$9K–$10K</td></tr>
+            <tr><td class="inf-col-feature">Try at HOMC</td><td class="inf-inf-col inf-check">✓ San Jose &amp; Pleasanton</td><td class="inf-check">✓ San Jose &amp; Pleasanton</td><td class="inf-check">✓ San Jose</td><td class="inf-check">✓ San Jose</td><td class="inf-check">✓ San Jose</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="inf-answer-grid">
+        <div class="inf-answer-block"><h3>Infinity vs. Osaki</h3><p>Osaki generally delivers more feature density and stronger massage intensity — particularly through their Duo dual-engine lineup. Infinity counters with the distinctive Syner-D tandem feel, longer Flex-Track coverage, and a more stretch-oriented massage profile. If you're comparing these two brands directly, an in-person test of both is essential.</p></div>
+        <div class="inf-answer-block"><h3>Infinity vs. Kyota</h3><p>Kyota is the consumer brand that originally developed Syner-D technology — Infinity licenses it. In practice, both deliver the tandem-roller feel, but Kyota applies it differently (Kyota M673 vs. Infinity Circadian, for example). HOMC carries both — we'll walk you through the exact differences in person.</p></div>
+        <div class="inf-answer-block"><h3>Infinity vs. Ogawa</h3><p>Ogawa prioritizes design integration and a refined luxury aesthetic — their Master Drive Duo is a beautifully engineered chair. Infinity counters with more aggressive feature specifications at comparable prices. Choose Ogawa if design is a primary driver; Infinity if you want more technology per dollar.</p></div>
+        <div class="inf-answer-block"><h3>Infinity vs. Bodyfriend</h3><p>Bodyfriend occupies a distinct premium position at $9K+ with their XD Pro roller module offering precision engineering. Infinity tends to pack more features at lower prices. Bodyfriend for design-led precision; Infinity for comprehensive features with proven Syner-D technology.</p></div>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- comment -%} ══════════ PRICE GUIDE ══════════ {%- endcomment -%}
+  <section class="inf-section" id="inf-pricing">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Investment Guide</span>
+        <h2>Infinity Prices, Value &amp; <span class="inf-underline">Ownership</span></h2>
+        <p>How much do Infinity chairs cost, what changes as you spend more, and what does ownership actually look like?</p>
+      </div>
+      <div class="inf-price-ladder" style="margin-bottom:2rem">
+        <div class="inf-price-rung"><div class="inf-price-rung-label"><div class="inf-price-tier-name">Entry 4D</div><div class="inf-price-amount">$6.8K–$8K</div></div><div class="inf-price-rung-body"><h4>True 4D Performance Without the Flagship Price</h4><p>The Riage 4D ($6,799) and Smart Chair X3 ($7,999) deliver genuine 4D back mechanisms, calf kneading, triple foot rollers, and zero gravity. The Smart Chair X3 also includes true inversion positioning — rare at this price.</p><div class="inf-price-tags"><span class="inf-price-tag">Riage 4D</span><span class="inf-price-tag">Smart Chair X3 4D</span></div></div></div>
+        <div class="inf-price-rung"><div class="inf-price-rung-label"><div class="inf-price-tier-name">Mid 4D</div><div class="inf-price-amount">$8K–$10K</div></div><div class="inf-price-rung-body"><h4>Where Many Buyers Find the Right Balance</h4><p>The Gen Max 4D at $8,999 is a strong starting point for many buyers comparing premium 4D Infinity models. TrueFit scanning, Complete Calf Kneading + Oscillation, triple foot rollers, and zero wall fit — current pricing may vary by promotion and availability.</p><div class="inf-price-tags"><span class="inf-price-tag">Gen Max 4D</span></div></div></div>
+        <div class="inf-price-rung"><div class="inf-price-rung-label"><div class="inf-price-tier-name">Syner-D</div><div class="inf-price-amount">$12K–$14K</div></div><div class="inf-price-rung-body"><h4>The Tandem-Back Experience — Accessible Tier</h4><p>The Luminary Syner-D ($12,999) brings the full Syner-D tandem-roller feel with 32 airbags, chromotherapy, ionizer, wireless charging, and voice control. The most popular Syner-D entry point for Infinity buyers. Current pricing may vary by promotion and availability.</p><div class="inf-price-tags"><span class="inf-price-tag">Luminary Syner-D</span></div></div></div>
+        <div class="inf-price-rung"><div class="inf-price-rung-label"><div class="inf-price-tier-name">Flagship</div><div class="inf-price-amount">$16,999</div></div><div class="inf-price-rung-body"><h4>Infinity's Engineering Ceiling — No Compromises</h4><p>The Circadian DualFlex 4D and Ultra Imperial Syner-D represent Infinity's premium tier. Dual independent mechanisms, 49" Flex-Track, Harman/Kardon audio, health sensors, and the full Infinity feature stack. Designed for daily life-rituals, not occasional use.</p><div class="inf-price-tags"><span class="inf-price-tag">Circadian DualFlex 4D</span><span class="inf-price-tag">Ultra Imperial Syner-D</span></div></div></div>
+      </div>
+      <div class="inf-expert-callout">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Beyond the price tag:</strong> Infinity chair ownership value comes from daily use consistency. A chair at $8,999 used every day for ten years costs $2.46/day. That framing consistently reframes the purchase decision for buyers who are on the fence. White-glove delivery and authorized dealer support are part of every HOMC purchase.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TRUST / REVIEWS ══════════ {%- endcomment -%}
+  <section class="inf-section inf-section-alt" id="inf-trust">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Reviews &amp; Reliability</span>
+        <h2>Are Infinity Massage Chairs Good? <span class="inf-underline">What Buyers Should Know</span></h2>
+        <p>Honest context on Infinity's reputation, how to read reviews intelligently, and what to verify before purchasing.</p>
+      </div>
+      <div class="inf-trust-grid" style="margin-bottom:2.5rem">
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>How to Read Infinity Reviews</h3><p>Infinity reviews vary by model. A disappointment with the Riage 4D's lower feature count tells you nothing about the Circadian DualFlex. Read model-specific feedback, look at patterns around the Syner-D feel, and always verify in person before trusting any single review.</p></div>
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><h3>Authorized Dealer Matters</h3><p>Buying from an authorized specialty retailer ensures genuine Infinity products with valid manufacturer warranties, full setup support, and legitimate customer service. Unauthorized marketplace sellers may not honor warranty claims or provide white-glove delivery.</p></div>
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><h3>Warranty &amp; Support</h3><p>Infinity massage chairs include manufacturer-backed warranties covering parts, labor, and frame. Coverage terms vary by model tier. HOMC handles warranty coordination on your behalf — you don't navigate that process alone.</p></div>
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Long-Term Reliability</h3><p>Infinity has been in the U.S. market for over a decade. The Gen Max 4D and Luminary Syner-D have multi-year field usage data, and owner communities around models like the Circadian consistently report high satisfaction from daily users.</p></div>
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>What to Verify Before Buying</h3><p>Confirm the model fits your height and body type. Confirm the track type and length match your problem areas. Confirm mechanism type (single vs. Syner-D tandem). Confirm delivery includes professional setup. Try the chair in person before committing.</p></div>
+        <div class="inf-trust-card"><div class="inf-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><h3>Why Buy from a Specialist</h3><p>A specialist retailer like HOMC brings product knowledge, in-person demonstration, impartial comparison across 9 brands, and post-sale support that online-only retailers simply cannot match. We've done this for thousands of Bay Area buyers.</p></div>
+      </div>
+      <div class="inf-section-header center" style="margin-bottom:1.75rem">
+        <h2 style="font-size:24px">What Our Customers Say About Infinity</h2>
+      </div>
+      <div class="inf-review-grid">
+        <div class="inf-review-card"><div class="inf-review-stars">★★★★★</div><p class="inf-review-text">"The Gen Max 4D is exactly what I needed. The calf kneading is unlike anything I tried anywhere else — and the price was genuinely unbeatable for what you get."</p><div class="inf-review-author"><div class="inf-review-avatar" style="background:var(--inf-accent)">M</div><div><div class="inf-review-name">Michael T.</div><div class="inf-review-meta">Verified Google Review · Infinity Gen Max 4D</div></div></div></div>
+        <div class="inf-review-card"><div class="inf-review-stars">★★★★★</div><p class="inf-review-text">"We tried the Circadian DualFlex at the showroom and knew immediately it was different. The dual mechanism feeling is hard to describe — you just have to try it. Worth every penny."</p><div class="inf-review-author"><div class="inf-review-avatar" style="background:#4285F4">J</div><div><div class="inf-review-name">Jennifer K.</div><div class="inf-review-meta">Verified Google Review · Circadian DualFlex</div></div></div></div>
+        <div class="inf-review-card"><div class="inf-review-stars">★★★★★</div><p class="inf-review-text">"Our specialist walked us through every Infinity model — no pressure, just honest guidance. We left with the Luminary Syner-D and are using it every day. Best purchase we've made in years."</p><div class="inf-review-author"><div class="inf-review-avatar" style="background:#0F9D58">A</div><div><div class="inf-review-name">Angela H.</div><div class="inf-review-meta">Verified Google Review · San Jose showroom</div></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" target="_blank" rel="noopener" class="inf-btn inf-btn-outline">Read All 95+ Google Reviews &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WARRANTY & SERVICE ══════════ {%- endcomment -%}
+  <section class="inf-section" id="inf-warranty">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Ownership Clarity</span>
+        <h2>Infinity Massage Chair Warranty, Service &amp; Ownership Support</h2>
+        <p>Buying an Infinity massage chair is a high-ticket decision, so warranty and service clarity matter as much as model features. House of Massage Chairs helps buyers understand manufacturer warranty terms, parts warranty coverage, service requirements, delivery expectations, and what to confirm before purchase.</p>
+      </div>
+      <div class="inf-container-narrow">
+        <p>Warranty coverage for Infinity massage chairs may vary by model and by residential limited warranty terms. Some warranty programs include parts, labor, and structural framework coverage for specific time periods, but exact coverage should always be confirmed on the product page or with a specialist before purchase.</p>
+        <p>Like most manufacturer warranties, service may require pre-approval before work begins. Coverage may also exclude damage caused by abuse, misuse, neglect, vandalism, transportation damage, theft, electrical power supply loss, power surges, fading, wear, rust, corrosion, sand, dirt, windstorm, hail, earthquake, fire, floods, or other environmental conditions. If a model is no longer manufactured, replacement parts and service options may depend on current manufacturer availability.</p>
+        <p>Our role is to help you understand the complete care process before you buy, not after a problem appears. If you have questions about service for Infinity massage chairs, warranty claims, parts coverage, or ownership support, <a href="{{ shop.url }}/pages/contact" style="color:var(--inf-accent);font-weight:700">speak with an Infinity massage chair specialist</a> before choosing your model.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOWROOMS ══════════ {%- endcomment -%}
+  <section class="inf-section" id="inf-showrooms">
+    <div class="inf-container">
+      <div class="inf-section-header">
+        <span class="inf-section-label">Try Infinity Near You</span>
+        <h2>Bay Area Infinity <span class="inf-underline">Showrooms</span></h2>
+        <p>If you are searching for where to try Infinity massage chairs near San Jose or Pleasanton, HOMC is the Bay Area's most comprehensive authorized Infinity dealer showroom.</p>
+      </div>
+      <div class="inf-showroom-grid">
+        <div class="inf-showroom-card">
+          <div class="inf-showroom-head">
+            <div class="inf-showroom-pill">San Jose Showroom</div>
+            <h3>Westfield Oakridge Mall &middot; San Jose, CA</h3>
+            <p>Our flagship Bay Area showroom — the largest massage chair showroom in the region.</p>
+          </div>
+          <div class="inf-showroom-body">
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span>{{ section.settings.sj_address | default: '925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123' }}</span></div>
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Multiple Infinity models available to try — including Syner-D and 4D tiers</span></div>
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--inf-dark);font-weight:700">{{ section.settings.phone | default: '+1 (669) 214-8889' }}</a></span></div>
+            <div class="inf-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-gold inf-btn-sm">Book Visit</a>
+              <a href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" target="_blank" rel="noopener" class="inf-btn inf-btn-outline inf-btn-sm">Get Directions</a>
+            </div>
+          </div>
+        </div>
+        <div class="inf-showroom-card">
+          <div class="inf-showroom-head">
+            <div class="inf-showroom-pill">Pleasanton Showroom</div>
+            <h3>Stoneridge Shopping Center &middot; Pleasanton, CA</h3>
+            <p>Serving the Tri-Valley, East Bay, and Livermore Valley areas.</p>
+          </div>
+          <div class="inf-showroom-body">
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span>{{ section.settings.pls_address | default: '1 Stoneridge Mall, STE B108, Pleasanton, CA 94588' }}</span></div>
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Infinity models available to try in person with specialist guidance</span></div>
+            <div class="inf-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--inf-dark);font-weight:700">{{ section.settings.phone | default: '+1 (669) 214-8889' }}</a></span></div>
+            <div class="inf-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-gold inf-btn-sm">Book Visit</a>
+              <a href="{{ shop.url }}/pages/contact" class="inf-btn inf-btn-outline inf-btn-sm">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FAQ ══════════ {%- endcomment -%}
+  <section class="inf-section inf-section-alt" id="inf-faq">
+    <div class="inf-container-narrow">
+      <div class="inf-section-header center">
+        <span class="inf-section-label">Frequently Asked</span>
+        <h2>Infinity Massage Chair <span class="inf-underline">FAQ</span></h2>
+      </div>
+      <div style="border-top:1px solid var(--inf-border)">
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Are Infinity massage chairs worth it?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Yes — particularly when matched to the right buyer. Infinity consistently delivers strong feature technology (especially the Syner-D tandem system) at competitive prices. The key is matching the model to your body type and use case, which is why in-person guidance matters.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>What is the best Infinity massage chair?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>The best Infinity massage chair depends on what you're optimizing for. The Gen Max 4D is a strong starting point for many buyers comparing premium 4D Infinity models. <strong>Best Syner-D entry:</strong> Luminary Syner-D. <strong>Best for stretch-focused comfort:</strong> Smart Chair X3 4D. <strong>Best flagship:</strong> Circadian DualFlex 4D. <strong>Best for tall users:</strong> Ultra Imperial Syner-D or Circadian. We recommend trying select models at our showroom before deciding.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>What does Syner-D mean in Infinity chairs?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Syner-D® is Infinity's proprietary tandem roller technology. Two independent massage mechanisms run simultaneously — one above the other — in coordinated rhythm. The result is a "two-handed" massage feel across the full back. It's genuinely different from a standard single-mechanism chair and is best understood by experiencing it in person.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>How much do Infinity massage chairs cost?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Infinity chairs range from $6,799 (Riage 4D) to $16,999 (Circadian DualFlex and Ultra Imperial Syner-D). Most buyers find the best feature-for-dollar value in the $8,000–$13,000 range. Financing is available starting at 0% APR through Affirm.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Can I try Infinity massage chairs in person near San Jose?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Yes. House of Massage Chairs carries multiple Infinity models at our San Jose showroom at Westfield Oakridge Mall and at our Pleasanton location at Stoneridge Shopping Center. We strongly recommend an in-person visit — the Syner-D feel in particular is impossible to understand from a spec sheet alone. <a href="{{ shop.url }}/pages/our-store">Book your visit here.</a></p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Is Infinity or Osaki better?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Neither brand is objectively "better" — they serve different buyer profiles. Osaki delivers more assertive massage intensity and dual-engine Duo designs. Infinity delivers the proprietary Syner-D tandem feel and stronger stretch-focused comfort. HOMC carries both — we'll walk you through a direct comparison in person.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Do Infinity chairs come with a warranty?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Yes. Infinity massage chairs include manufacturer-backed warranties covering parts, labor, and structural frame. Coverage terms vary by model tier. HOMC assists with all warranty coordination on your behalf.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>What is the difference between the Circadian and Ultra Imperial?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Both cost $16,999 and share the 49" Flex-Track. The key difference: the Circadian DualFlex uses <strong>two independent 4D mechanisms</strong> running simultaneously (DualFlex) — making it more intense and comprehensive. The Ultra Imperial uses a single premium Syner-D mechanism with more emphasis on stretch depth and an enveloping feel. The Circadian is "more intensive," the Ultra Imperial is "more enveloping." Try both in person to feel the difference.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Which Infinity 4D massage chair should I compare first?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>If you are comparing an Infinity 4D massage chair, start with Riage 4D, Gen Max 4D, Smart Chair X3, and Circadian DualFlex 4D. Riage 4D is a strong entry point, Gen Max 4D offers a broader premium feature set, Smart Chair X3 is useful for X3-specific shoppers, and Circadian DualFlex is positioned for buyers comparing Infinity's advanced flagship tier.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Do Infinity massage chairs offer shiatsu-style massage?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Yes. Many Infinity massage chairs include massage techniques inspired by shiatsu-style kneading, rolling, tapping, and pressure-based massage patterns. If you are searching for an Infinity shiatsu massager, compare full-size Infinity massage chairs carefully because they are very different from portable massagers in coverage, size, controls, and price.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>What should I know about Infinity massage chair warranty and service?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Infinity massage chair warranty coverage can vary by model and warranty term. Some warranties may include parts, labor, or structural framework coverage, while service may require pre-approval. Coverage can also have exclusions for misuse, neglect, transportation damage, theft, power surges, or other conditions. Always confirm current warranty details before purchase.</p></div></div>
+        <div class="inf-faq-item"><div class="inf-faq-q" onclick="infFaq(this)"><h3>Can House of Massage Chairs help with Infinity service questions?</h3><svg class="inf-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="inf-faq-a"><p>Yes. House of Massage Chairs helps buyers understand Infinity massage chair service, warranty coordination, parts coverage, massage chair delivery and setup, and ownership expectations before and after purchase. Contact our team to discuss Infinity massage chair warranty and service support or financing options.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FINAL CTA ══════════ {%- endcomment -%}
+  <section class="inf-section">
+    <div class="inf-container">
+      <div class="inf-final-cta">
+        <div class="inf-final-cta-inner">
+          <span style="display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:1rem">Authorized Infinity Dealer &middot; San Jose &amp; Pleasanton</span>
+          <h2>Try Every Infinity Chair.<br>Choose With Complete Confidence.</h2>
+          <p>The best way to discover which Infinity model suits your body, your preference, and your home is to feel the difference in person. Our specialists guide you through the entire lineup — without pressure, without rushing, and with genuine expertise.</p>
+          <div class="inf-cta-points">
+            <div class="inf-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Try all Infinity models side by side</span></div>
+            <div class="inf-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Compare with 8 other premium brands</span></div>
+            <div class="inf-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Expert guidance, zero pressure</span></div>
+            <div class="inf-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>White-glove delivery &amp; setup</span></div>
+          </div>
+          <div class="inf-final-cta-btns">
+            <a href="{{ shop.url }}/pages/our-store" class="inf-btn inf-btn-gold">Book a Showroom Visit</a>
+            <a href="{{ shop.url }}/pages/contact" class="inf-btn inf-btn-ghost">Speak With a Specialist</a>
+            <a href="tel:+16692148889" class="inf-btn inf-btn-ghost">Call {{ section.settings.phone | default: '+1 (669) 214-8889' }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} INTERNAL LINKS {%- endcomment -%}
+  <section style="padding:3rem 0;background:var(--inf-surface);border-top:1px solid var(--inf-border)">
+    <div class="inf-container">
+      <div style="text-align:center;margin-bottom:1.25rem"><span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--inf-muted2)">Explore More</span></div>
+      <div class="inf-link-pills">
+        <a href="{{ shop.url }}/collections/massage-chairs" class="inf-link-pill">All Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/osaki" class="inf-link-pill">Osaki</a>
+        <a href="{{ shop.url }}/collections/kyota" class="inf-link-pill">Kyota</a>
+        <a href="{{ shop.url }}/collections/ogawa" class="inf-link-pill">Ogawa</a>
+        <a href="{{ shop.url }}/collections/bodyfriend" class="inf-link-pill">Bodyfriend</a>
+        <a href="{{ shop.url }}/collections/cozzia" class="inf-link-pill">Cozzia</a>
+        <a href="{{ shop.url }}/pages/our-store" class="inf-link-pill">Our Showrooms</a>
+        <a href="{{ shop.url }}/pages/about-us" class="inf-link-pill">About HOMC</a>
+        <a href="{{ shop.url }}/blogs/news" class="inf-link-pill">Blog &amp; Guides</a>
+        <a href="{{ shop.url }}/pages/contact" class="inf-link-pill">Contact a Specialist</a>
+      </div>
+    </div>
+  </section>
+
+</div>{%- comment -%} .inf-wrap {%- endcomment -%}
+
+{%- comment -%} ══════════ JAVASCRIPT ══════════ {%- endcomment -%}
+<script>
+// ─── DYNAMIC PRODUCT DATA FROM LIQUID ───────────────────────────────────────
+var INF_PRODUCTS = [
+  {%- for product in collection.products -%}
+    {%- assign feat_img = product.featured_image | image_url: width: 600 -%}
+    {%- assign sale_price_cents = product.price -%}
+    {%- assign compare_price_cents = product.compare_at_price -%}
+
+    {%- comment -%} Build filter tags array {%- endcomment -%}
+    {%- assign filter_tags = "" -%}
+    {%- for tag in product.tags -%}
+      {%- assign tag_low = tag | downcase -%}
+      {%- if tag_low == "synerd" or tag_low == "4d" or tag_low == "flagship" or tag_low == "entry" -%}
+        {%- if filter_tags != "" -%}{%- assign filter_tags = filter_tags | append: "," -%}{%- endif -%}
+        {%- assign filter_tags = filter_tags | append: '"' | append: tag_low | append: '"' -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Auto-detect badge from tags {%- endcomment -%}
+    {%- assign auto_badge = "" -%}
+    {%- assign auto_badge_class = "" -%}
+    {%- if product.tags contains "flagship" -%}
+      {%- assign auto_badge = "Flagship" -%}
+      {%- assign auto_badge_class = "flagship" -%}
+    {%- elsif product.tags contains "synerd" -%}
+      {%- assign auto_badge = "Syner-D" -%}
+      {%- assign auto_badge_class = "gold" -%}
+    {%- elsif product.tags contains "4d" -%}
+      {%- assign auto_badge = "4D" -%}
+      {%- assign auto_badge_class = "" -%}
+    {%- endif -%}
+
+    {%- assign badge_val = product.metafields.custom.badge.value | default: auto_badge -%}
+    {%- assign badge_class_val = product.metafields.custom.badge_class.value | default: auto_badge_class -%}
+    {%- assign buyer_for_val = product.metafields.custom.buyer_for.value | default: product.type -%}
+
+    {%- assign feats_json = product.metafields.custom.key_features.value -%}
+    {%- if feats_json == blank -%}
+      {%- assign feats_json = '["Premium 4D massage technology","Zero gravity recline","Body scanning system","Air compression coverage"]' -%}
+    {%- endif -%}
+
+    {
+      n: {{ product.title | json }},
+      u: {{ product.url | prepend: shop.url | json }},
+      i: {{ feat_img | json }},
+      p: {{ product.price | money | json }},
+      cp: {% if compare_price_cents > sale_price_cents %}{{ product.compare_at_price | money | json }}{% else %}null{% endif %},
+      tags: [{{ filter_tags }}],
+      badge: {{ badge_val | json }},
+      badgeClass: {{ badge_class_val | json }},
+      for: {{ buyer_for_val | json }},
+      feats: {{ feats_json }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+];
+
+// ─── FILTER LOGIC ────────────────────────────────────────────────────────────
+var infCurrentFilter = {type:'all',value:'all'};
+
+function infFilter(btn,type,value){
+  document.querySelectorAll('#infFilterBar .inf-filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  infCurrentFilter = {type:type,value:value};
+  infRenderProducts();
+}
+
+function infFilteredProducts(){
+  return INF_PRODUCTS.filter(function(p){
+    if(infCurrentFilter.type==='all') return true;
+    if(infCurrentFilter.type==='price'){
+      var num = parseFloat(p.p.replace(/[^0-9.]/g,''));
+      if(infCurrentFilter.value==='under8') return num<8000;
+      if(infCurrentFilter.value==='8to12') return num>=8000&&num<12000;
+      if(infCurrentFilter.value==='over12') return num>=12000;
+    }
+    if(infCurrentFilter.type==='type') return p.tags.indexOf(infCurrentFilter.value)!==-1;
+    return true;
+  });
+}
+
+function infSaveCalc(p,cp){
+  if(!cp) return '';
+  var ps=parseFloat(p.replace(/[^0-9.]/g,'')),cs=parseFloat(cp.replace(/[^0-9.]/g,''));
+  if(cs<=ps) return '';
+  var save=Math.round(cs-ps);
+  return '<span class="inf-price-save">Save $'+save.toLocaleString()+'</span>';
+}
+
+function infRenderProducts(){
+  var grid=document.getElementById('infGrid');
+  var count=document.getElementById('infCount');
+  var prods=infFilteredProducts();
+  if(count) count.textContent=prods.length+' model'+(prods.length!==1?'s':'');
+  if(!grid) return;
+
+  if(prods.length===0){
+    grid.innerHTML='<div class="inf-no-results"><p>No models match this filter.</p></div>';
+    return;
+  }
+
+  grid.style.opacity='0';
+  grid.innerHTML='';
+
+  prods.forEach(function(p){
+    var saveHtml=infSaveCalc(p.p,p.cp);
+    var featsHtml=Array.isArray(p.feats)?p.feats.map(function(f){return '<li>'+f+'</li>';}).join(''):'' ;
+    var badgeHtml=p.badge?'<span class="inf-product-badge '+p.badgeClass+'">'+p.badge+'</span>':'';
+    var priceHtml='<span class="inf-price-sale">'+p.p+'</span>';
+    if(p.cp) priceHtml+=' <span class="inf-price-was">'+p.cp+'</span>';
+    if(saveHtml) priceHtml+=' '+saveHtml;
+
+    var card=document.createElement('article');
+    card.className='inf-product-card';
+    card.setAttribute('onclick','window.location="'+p.u+'"');
+    card.innerHTML=
+      badgeHtml+
+      '<a href="'+p.u+'" tabindex="-1"><div class="inf-product-img-wrap"><img class="inf-product-img" src="'+p.i+'" alt="'+p.n+'" loading="lazy"></div></a>'+
+      '<div class="inf-product-body">'+
+        '<div class="inf-product-for">'+(p.for||'Premium Massage Chair')+'</div>'+
+        '<div class="inf-product-name"><a href="'+p.u+'">'+p.n+'</a></div>'+
+        '<ul class="inf-product-feats">'+featsHtml+'</ul>'+
+        '<div class="inf-product-prices">'+priceHtml+'</div>'+
+        '<a href="'+p.u+'" class="inf-product-cta">View Details</a>'+
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  setTimeout(function(){grid.style.opacity='1';grid.style.transition='opacity .3s';},40);
+}
+
+// ─── FAQ ACCORDION ────────────────────────────────────────────────────────────
+function infFaq(el){
+  var a=el.nextElementSibling;
+  var isOpen=a.classList.contains('open');
+  document.querySelectorAll('.inf-faq-a').forEach(function(x){x.classList.remove('open')});
+  document.querySelectorAll('.inf-faq-q').forEach(function(x){x.classList.remove('active')});
+  if(!isOpen){a.classList.add('open');el.classList.add('active');}
+}
+
+// ─── SUBNAV ACTIVE STATE ──────────────────────────────────────────────────────
+(function(){
+  var links=document.querySelectorAll('.inf-subnav-inner a');
+  var ids=['inf-collection','inf-overview','inf-4d-options','inf-why-infinity','inf-model-guide','inf-buyer-types','inf-vs-brands','inf-pricing','inf-trust','inf-warranty','inf-showrooms','inf-faq'];
+  window.addEventListener('scroll',function(){
+    var pos=window.scrollY+140,active='';
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&pos>=el.offsetTop)active=id;});
+    links.forEach(function(l){l.classList.remove('active');if(l.getAttribute('href')==='#'+active)l.classList.add('active');});
+  });
+})();
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+infRenderProducts();
+</script>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Infinity Collection Page",
+  "tag": "section",
+  "class": "infinity-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Recommended: 1920x1080px. Upload 'infinity-hero-bg.jpg' to theme assets as fallback."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Infinity Massage Chairs<br>The Complete Buyer's Decision Hub"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "From the entry-level Riage 4D to the flagship Circadian DualFlex — every Infinity model explained, compared, and matched to your body and budget."
+    },
+    {
+      "type": "header",
+      "content": "Section Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_model_guide",
+      "label": "Show Model Guide Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buyer_types",
+      "label": "Show Buyer Types Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comparison",
+      "label": "Show Brand Comparison Table",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Showroom Settings"
+    },
+    {
+      "type": "text",
+      "id": "sj_address",
+      "label": "San Jose Address",
+      "default": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123"
+    },
+    {
+      "type": "text",
+      "id": "pls_address",
+      "label": "Pleasanton Address",
+      "default": "1 Stoneridge Mall, STE B108, Pleasanton, CA 94588"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+1 (669) 214-8889"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinity Collection Page"
+    }
+  ]
+}
+{% endschema %}

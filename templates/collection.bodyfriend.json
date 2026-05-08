@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-bodyfriend",
+      "settings": {
+        "hero_heading": "Bodyfriend Massage Chairs",
+        "hero_subheading": "South Korea's most advanced luxury massage chair brand — featuring XD-Pro precision technology, intelligent body scanning, and futuristic design."
+      }
+    }
+  },
+  "order": ["main"]
+}

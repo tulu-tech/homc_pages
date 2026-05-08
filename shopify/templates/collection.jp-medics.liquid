@@ -1,0 +1,1590 @@
+{% comment %}
+==========================================================================
+  FILE:    templates/collection.jp-medics.liquid
+  PURPOSE: Custom editorial landing page for the JP Medics collection.
+           Assign in Shopify Admin:
+           Online Store → Themes → Customize → Collections → jp-medics
+           → Template: collection.jp-medics
+  NOTES:
+  - Uses {% layout none %} for full-page control (own nav/footer/head).
+  - {{ content_for_header }} is REQUIRED for Shopify analytics, pixels etc.
+  - Product grid rendered natively via {% for product in collection.products %}.
+  - Feature bullets assigned per product handle (no metafields required).
+  - Prices: product.price | money (live from Shopify, always accurate).
+  - Images: product.featured_image | image_url (Shopify CDN).
+  - FONT SIZES: All in px (never rem/em) to prevent theme-level font scaling.
+
+  IMAGES TO UPLOAD TO SHOPIFY ASSETS (Admin → Online Store → Files):
+  ─────────────────────────────────────────────────────────────────
+  1. jp-medics-hero-bg.jpg
+     → Hero section background image.
+     → Recommended: lifestyle/showroom photo of a JP Medics chair.
+     → Suggested source: use the Kozue chair product image cropped wide,
+       or any high-res JP Medics lifestyle photo.
+     → Dimensions: 1920×1080 minimum. JPG, compressed to <400KB.
+
+  2. jp-medics-kozue-technology-visual.jpg
+     → The AI-generated feature visual (Kozue chair with holographic
+       sensor overlay, Japanese interior, gold+blue lighting).
+     → You already have this file saved as:
+       /Users/tulu/Desktop/homc_landing_page/assets/jp-medics-kozue-technology-visual.png
+     → Convert to JPG and upload to Shopify Files.
+     → Dimensions: 1920×1920 (square). JPG, compressed to <500KB.
+  ─────────────────────────────────────────────────────────────────
+  NOTE: Product images are served directly from the Shopify CDN via
+  product.featured_image — no manual upload needed for those.
+==========================================================================
+{% endcomment %}
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "{{ shop.name | escape }}",
+        "description": "Authorized JP Medics massage chair dealer with showrooms in San Jose and Pleasanton, CA.",
+        "url": "{{ shop.url }}",
+        "telephone": "+16692148889",
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+            "addressLocality": "San Jose",
+            "addressRegion": "CA",
+            "postalCode": "95123",
+            "addressCountry": "US"
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "1116 Stoneridge Mall Rd",
+            "addressLocality": "Pleasanton",
+            "addressRegion": "CA",
+            "postalCode": "94566",
+            "addressCountry": "US"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "JP Medics Massage Chairs",
+          "url": "{{ shop.url }}/collections/jp-medics"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+          {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+          {"@type":"ListItem","position":3,"name":"JP Medics Massage Chairs","item":"{{ shop.url }}/collections/jp-medics"}
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Brand",
+        "name": "JP Medics",
+        "description": "JP Medics is a premium Japanese massage chair brand known for fifth-generation 5D robotics, AI-guided Chair Doctor personalization, Li Flex Track coverage, and a curated lineup of flagship-tier models.",
+        "url": "{{ shop.url }}/collections/jp-medics"
+      }
+    ]
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Are JP Medics massage chairs good?","acceptedAnswer":{"@type":"Answer","text":"Yes. JP Medics is a premium Japanese massage chair brand known for fifth-generation 5D robotics, AI-guided Chair Doctor personalization, precision pressure sensing, and a refined full-body massage feel. Their chairs are designed for buyers who want precision and personalization over broad feature lists."}},
+        {"@type":"Question","name":"What is the best JP Medics massage chair?","acceptedAnswer":{"@type":"Answer","text":"The JP Medics Kozue is the brand's current flagship, featuring fifth-generation 5D Human-like Vario Motion with 27 pressure sensors and a Li Flex Track. The KaZe Duo is the premium dual-engine model with a 4D+3D Duo Vario Motion system and broader automation features. The best choice depends on whether you prioritize sensor-led precision (Kozue) or dual-engine coverage with smart automation (KaZe Duo)."}},
+        {"@type":"Question","name":"What is the difference between the JP Medics Kozue and KaZe Duo?","acceptedAnswer":{"@type":"Answer","text":"The Kozue uses a fifth-generation 5D mechanism with 27 live pressure sensors and a Li Flex Track with 170-degree recline — optimized for precision-led personalization. The KaZe Duo uses a dual 4D+3D engine with L-Track, voice control, wireless charging, and a 1-inch wall saver — optimized for daily home automation and convenience."}},
+        {"@type":"Question","name":"Where can I try JP Medics massage chairs in person?","acceptedAnswer":{"@type":"Answer","text":"House of Massage Chairs carries JP Medics massage chairs at showrooms in San Jose (Westfield Oakridge Mall) and Pleasanton (Stoneridge Mall). You can try and compare models in person with specialist guidance before purchasing."}},
+        {"@type":"Question","name":"Are JP Medics massage chairs worth the money?","acceptedAnswer":{"@type":"Answer","text":"JP Medics chairs are worth considering for buyers who prioritize Japanese-engineered precision, AI-guided body adaptation, and a refined massage feel. The Kozue and KaZe Duo compete at the upper end of the premium segment and deliver strong feature profiles at their price points."}}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "JP Medics Massage Chairs Collection",
+      "url": "{{ shop.url }}/collections/jp-medics",
+      "numberOfItems": {{ collection.products_count }},
+      "itemListElement": [
+        {% for product in collection.products %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "name": {{ product.title | json }},
+          "url": "{{ shop.url }}{{ product.url }}",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "{{ product.price | money_without_currency }}",
+            "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+          }
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        /* ============================================================
+           DESIGN TOKENS
+           ============================================================ */
+        :root {
+            --bg: #ffffff;
+            --surface: #f7f8fc;
+            --surface2: #f0f2f8;
+            --dark: #09090b;
+            --dark2: #18181b;
+            --muted: #52525b;
+            --muted-light: #71717a;
+            --accent: #c4954a;
+            --accent2: #e8b96a;
+            --accent-dark: #8a6232;
+            --accent-pale: rgba(196,149,74,0.10);
+            --accent-pale2: rgba(196,149,74,0.06);
+            --border: #e4e4e7;
+            --border-strong: #d4d4d8;
+            --white: #ffffff;
+            --radius-sm: 10px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+            --shadow-gold: 0 8px 32px rgba(196,149,74,0.22);
+        }
+
+        /* ============================================================
+           RESET — scoped to .jpm-wrap (does NOT affect theme footer)
+           All font-sizes in px to prevent Shopify rem scaling.
+           ============================================================ */
+        .jpm-wrap *, .jpm-wrap *::before, .jpm-wrap *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        .jpm-wrap {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 450;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        /* headings — all px, scoped */
+        .jpm-wrap h1, .jpm-wrap h2, .jpm-wrap h3, .jpm-wrap h4, .jpm-wrap h5, .jpm-wrap h6 {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            color: var(--dark);
+            margin: 0;
+        }
+        .jpm-wrap h1 { font-size: 52px; }
+        .jpm-wrap h2 { font-size: 38px; }
+        .jpm-wrap h3 { font-size: 22px; }
+        .jpm-wrap h4 { font-size: 18px; }
+        .jpm-wrap p  { font-size: 16px; line-height: 1.8; margin: 0; }
+        .jpm-wrap a  { color: inherit; text-decoration: none; }
+        .jpm-wrap img { max-width: 100%; display: block; }
+
+        /* ─── responsive heading sizes ─── */
+        @media(max-width:900px) {
+            .jpm-wrap h1 { font-size: 36px; }
+            .jpm-wrap h2 { font-size: 28px; }
+            .jpm-wrap h3 { font-size: 19px; }
+        }
+        @media(max-width:600px) {
+            .jpm-wrap h1 { font-size: 28px; }
+            .jpm-wrap h2 { font-size: 24px; }
+            .jpm-wrap h3 { font-size: 17px; }
+        }
+
+        /* ============================================================
+           LAYOUT
+           ============================================================ */
+        .jpm-wrap .container        { max-width: 1220px; margin: 0 auto; padding: 0 2rem; }
+        .jpm-wrap .container-narrow { max-width: 880px;  margin: 0 auto; padding: 0 2rem; }
+
+        /* ============================================================
+           ANIMATIONS
+           ============================================================ */
+        @keyframes fadeUp    { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes shimmer   { 0%,100% { opacity:.5; } 50% { opacity:1; } }
+        @keyframes pulseDot  { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(1.4); opacity:.7; } }
+        .fade-up   { animation: fadeUp .6s ease both; }
+        .fade-up-1 { animation-delay:.10s; }
+        .fade-up-2 { animation-delay:.20s; }
+        .fade-up-3 { animation-delay:.30s; }
+        .fade-up-4 { animation-delay:.40s; }
+
+        /* ============================================================
+           NAV
+           ============================================================ */
+        .site-nav {
+            padding: 14px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+        }
+        .nav-logo img { height: 38px; width: auto; display: block; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { font-size: 13px !important; font-weight: 600; color: var(--muted); transition: color .2s; letter-spacing: .01em; }
+        .nav-links a:hover { color: var(--dark); }
+        .nav-cta {
+            background: var(--dark);
+            color: #fff !important;
+            padding: 9px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 13px !important;
+            transition: all .25s;
+            letter-spacing: .02em;
+        }
+        .nav-cta:hover { background: var(--accent) !important; transform: translateY(-1px); box-shadow: var(--shadow-gold); }
+
+        /* ============================================================
+           STICKY SUBNAV
+           ============================================================ */
+        .jpm-wrap { margin-top: 0; padding-top: 0; }
+        .page-subnav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .page-subnav::-webkit-scrollbar { display: none; }
+        .page-subnav-inner { display: flex; padding: 0 32px; min-width: max-content; }
+        .page-subnav-inner a {
+            display: block;
+            padding: 13px 17px;
+            font-size: 11px !important;
+            font-weight: 700;
+            color: var(--muted);
+            border-bottom: 2.5px solid transparent;
+            white-space: nowrap;
+            transition: all .2s;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+        .page-subnav-inner a:hover { color: var(--dark); border-bottom-color: var(--accent); }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 36px;
+            font-size: 15px !important;
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all .25s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            letter-spacing: .02em;
+            text-decoration: none;
+            line-height: 1;
+        }
+        .btn-dark  { background: var(--dark); color: #fff !important; border-color: var(--dark); }
+        .btn-dark:hover  { background: #1a1a2e; border-color: #1a1a2e; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.2); }
+        .btn-gold  { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff !important; border-color: transparent; }
+        .btn-gold:hover  { transform: translateY(-2px); box-shadow: var(--shadow-gold); filter: brightness(1.08); }
+        .btn-ghost { background: transparent; color: #fff !important; border-color: rgba(255,255,255,.35); }
+        .btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.6); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--dark) !important; border-color: var(--border-strong); }
+        .btn-outline:hover { border-color: var(--dark); background: var(--surface); transform: translateY(-1px); }
+        .btn-sm { padding: 10px 26px; font-size: 13px !important; }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--dark);
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://cdn.shopify.com/s/files/1/0649/9516/4367/files/jp-medics-hero-bg.jpg?v=1776369580') center/cover no-repeat;
+            opacity: 0.32;
+            z-index: 0;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, rgba(5,5,15,0.94) 30%, rgba(15,10,5,0.55) 75%, rgba(196,149,74,0.06) 100%);
+            z-index: 1;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(196,149,74,0.12) 0%, transparent 70%);
+            right: -150px; top: -100px;
+            z-index: 1;
+            animation: shimmer 5s ease-in-out infinite;
+        }
+        .hero-content { position: relative; z-index: 2; padding: 88px 0 104px; }
+
+        .hero-bc { font-size: 12px !important; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+        .hero-bc a { color: var(--accent2); transition: color .2s; }
+        .hero-bc a:hover { color: #fff; }
+        .hero-bc span { margin: 0 6px; opacity: .5; }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px !important;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: rgba(196,149,74,.12);
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(196,149,74,.2);
+        }
+        .hero-eyebrow::before { content: '●'; font-size: 8px; animation: pulseDot 2s infinite; }
+        .hero h1 { color: #fff; max-width: 840px; margin-bottom: 24px; text-shadow: 0 4px 30px rgba(0,0,0,.4); }
+        .hero-tag {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-lead { font-size: 18px !important; color: rgba(255,255,255,.82); max-width: 660px; margin-bottom: 12px; font-weight: 600; line-height: 1.65; }
+        .hero-note { font-size: 15px !important; color: rgba(255,255,255,.5); max-width: 600px; margin-bottom: 40px; line-height: 1.75; }
+
+        .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+        .hero-stats { display: flex; gap: 0; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.10); flex-wrap: wrap; }
+        .hero-stat { padding-right: 40px; margin-right: 40px; border-right: 1px solid rgba(255,255,255,.10); }
+        .hero-stat:last-child { border-right: none; margin-right: 0; }
+        .hero-stat-num { font-size: 30px !important; font-weight: 900; color: #fff; display: block; line-height: 1; margin-bottom: 6px; letter-spacing: -.04em; }
+        .hero-stat-label { font-size: 11px !important; color: rgba(255,255,255,.42); text-transform: uppercase; letter-spacing: .13em; font-weight: 700; }
+
+        /* ============================================================
+           TRUST BAR
+           ============================================================ */
+        .trust-bar { display: flex; justify-content: center; background: linear-gradient(90deg,var(--dark),var(--dark2)); overflow-x: auto; scrollbar-width: none; }
+        .trust-bar::-webkit-scrollbar { display: none; }
+        .trust-bar-inner { display: flex; min-width: max-content; }
+        .trust-item { display: flex; align-items: center; gap: 8px; padding: 16px 28px; font-size: 13px !important; font-weight: 700; color: rgba(255,255,255,.72); letter-spacing: .03em; border-right: 1px solid rgba(255,255,255,.07); transition: all .2s; white-space: nowrap; }
+        .trust-item:last-child { border-right: none; }
+        .trust-item:hover { color: #fff; background: rgba(196,149,74,.1); }
+        .trust-item svg { width: 15px; height: 15px; fill: var(--accent2); flex-shrink: 0; }
+
+        /* ============================================================
+           SECTIONS
+           ============================================================ */
+        .section { padding: 96px 0; }
+        .section-alt { background: var(--surface); }
+        .section-dark { background: var(--dark); }
+        .section-sm { padding: 64px 0; }
+
+        .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px !important; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-bottom: 16px; }
+        .section-label::before { content: ''; width: 20px; height: 2px; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 2px; display: inline-block; }
+        .section-header { margin-bottom: 56px; }
+        .section-header.centered { text-align: center; }
+        .section-header.centered .section-label { display: inline-flex; }
+        .section-header h2 { margin-bottom: 16px; }
+        .section-header p { font-size: 17px !important; color: var(--muted); max-width: 700px; line-height: 1.8; }
+        .section-header.centered p { margin-left: auto; margin-right: auto; }
+        .underline { position: relative; display: inline-block; }
+        .underline::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 3px; background: var(--accent); border-radius: 2px; }
+        .accent-heading::after { content: ''; display: block; width: 48px; height: 3px; margin-top: 12px; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 4px; }
+        .section-header.centered .accent-heading::after { margin-left: auto; margin-right: auto; }
+
+        /* ============================================================
+           PRODUCT COLLECTION (Liquid-rendered)
+           ============================================================ */
+        .collection-section { background: var(--surface); padding: 80px 0; }
+        .collection-header { text-align: center; margin-bottom: 48px; }
+        .collection-intro-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px !important; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-bottom: 16px; }
+        .collection-intro-label span { width: 24px; height: 2px; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 2px; display: inline-block; }
+        .collection-header h2 { margin-bottom: 12px; }
+        .collection-header p { font-size: 17px !important; color: var(--muted); max-width: 580px; margin: 0 auto; }
+
+        .product-grid-main { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+
+        /* ── premium product card ── */
+        .pcard { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); transition: all .35s cubic-bezier(.4,0,.2,1); position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); }
+        .pcard:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(196,149,74,.35); }
+        .pcard-accent-line { height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent2)); opacity: 0; transition: opacity .3s; }
+        .pcard:hover .pcard-accent-line { opacity: 1; }
+
+        .pcard-img-zone { position: relative; background: #fafafa; padding: 40px 40px 32px; overflow: hidden; }
+        .pcard-img-zone::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(196,149,74,.05) 0%, transparent 70%); pointer-events: none; }
+        .pcard-img-zone img { width: 100%; height: 280px; object-fit: contain; mix-blend-mode: multiply; transition: transform .4s ease; }
+        .pcard:hover .pcard-img-zone img { transform: scale(1.04); }
+
+        .pcard-badge { position: absolute; top: 14px; left: 14px; font-size: 10px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; padding: 5px 12px; border-radius: 50px; z-index: 2; }
+        .pcard-badge.flagship { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: #fff; box-shadow: 0 4px 12px rgba(196,149,74,.4); }
+        .pcard-badge.premium  { background: var(--dark); color: #fff; }
+
+        .pcard-savings { position: absolute; top: 14px; right: 14px; font-size: 10px !important; font-weight: 800; background: rgba(16,185,129,.12); color: #059669; padding: 4px 10px; border-radius: 50px; z-index: 2; }
+
+        .pcard-body { padding: 24px 28px 28px; flex: 1; display: flex; flex-direction: column; }
+        .pcard-tier { font-size: 11px !important; text-transform: uppercase; letter-spacing: .15em; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+        .pcard-name { font-size: 16px !important; font-weight: 800; margin-bottom: 14px; line-height: 1.3; }
+        .pcard-name a { color: var(--dark); transition: color .2s; }
+        .pcard-name a:hover { color: var(--accent); }
+
+        .pcard-feats { list-style: none; padding: 0; margin: 0 0 20px; flex: 1; }
+        .pcard-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px !important; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+        .pcard-feats li:last-child { border-bottom: none; }
+        .pcard-feats li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg,var(--accent),var(--accent2)); flex-shrink: 0; margin-top: 5px; }
+
+        .pcard-pricing { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+        .pcard-price { font-size: 28px !important; font-weight: 900; color: var(--dark); letter-spacing: -.03em; }
+        .pcard-compare { font-size: 14px !important; color: #a1a1aa; text-decoration: line-through; font-weight: 500; }
+
+        .pcard-cta { display: block; text-align: center; background: var(--dark); color: #fff !important; padding: 13px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px !important; transition: all .25s; border: 2px solid var(--dark); letter-spacing: .02em; }
+        .pcard-cta:hover { background: transparent; color: var(--dark) !important; }
+
+        .collection-footer { text-align: center; margin-top: 40px; }
+
+        /* ============================================================
+           QUICK ANSWER
+           ============================================================ */
+        .quick-answer { background: linear-gradient(135deg,#09090f 0%,#1a1208 100%); border-radius: var(--radius-xl); padding: 56px; border: 1px solid rgba(196,149,74,.18); position: relative; overflow: hidden; }
+        .quick-answer::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle,rgba(196,149,74,.09) 0%,transparent 70%); right: -120px; bottom: -120px; pointer-events: none; }
+        .qa-heading { color: #fff; margin-bottom: 8px; font-size: 32px !important; position: relative; z-index: 1; }
+        .qa-intro { color: rgba(255,255,255,.52); font-size: 14px !important; max-width: 600px; margin-bottom: 40px; line-height: 1.75; position: relative; z-index: 1; }
+        .qa-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; position: relative; z-index: 1; }
+        .qa-item { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-md); padding: 28px; transition: all .3s; }
+        .qa-item:hover { background: rgba(196,149,74,.08); border-color: rgba(196,149,74,.2); transform: translateY(-2px); }
+        .qa-item h3 { color: var(--accent2); font-size: 11px !important; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 12px; font-weight: 800; }
+        .qa-item p { font-size: 14px !important; color: rgba(255,255,255,.68); line-height: 1.8; }
+
+        /* ============================================================
+           PILLARS
+           ============================================================ */
+        .pillar-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+        .pillar-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; transition: all .35s; position: relative; overflow: hidden; }
+        .pillar-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+        .pillar-card:hover::before { transform: scaleX(1); }
+        .pillar-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+        .pillar-icon { width: 54px; height: 54px; background: var(--accent-pale); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: all .3s; }
+        .pillar-card:hover .pillar-icon { background: linear-gradient(135deg,var(--accent),var(--accent2)); }
+        .pillar-icon svg { width: 26px; height: 26px; fill: var(--accent); transition: fill .3s; }
+        .pillar-card:hover .pillar-icon svg { fill: #fff; }
+        .pillar-card h3 { font-size: 16px !important; margin-bottom: 10px; }
+        .pillar-card p { font-size: 14px !important; color: var(--muted); line-height: 1.75; }
+
+        /* ============================================================
+           FEATURE VISUAL BLOCK
+           ============================================================ */
+        .feature-visual-wrap { border-radius: var(--radius-xl); overflow: hidden; position: relative; background: linear-gradient(135deg,#06060f 0%,#150f04 60%,#050510 100%); border: 1px solid rgba(196,149,74,.14); box-shadow: 0 40px 100px rgba(0,0,0,.22); }
+        .feature-visual-bar { display: flex; align-items: center; justify-content: space-between; padding: 28px 40px; border-bottom: 1px solid rgba(255,255,255,.06); gap: 2rem; }
+        .feature-visual-bar-label { font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .22em; color: var(--accent); }
+        .feature-visual-bar-sub { font-size: 13px !important; color: rgba(255,255,255,.38); margin-top: 4px; }
+        .feature-visual-imgbox { position: relative; overflow: hidden; }
+        .feature-visual-imgbox img { width: 100%; display: block; max-height: 680px; object-fit: cover; object-position: center 20%; }
+        .feature-visual-imgbox-overlay-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 45%; background: linear-gradient(to top,#080810 0%,transparent 100%); pointer-events: none; }
+        .feature-visual-imgbox-overlay-top    { position: absolute; top: 0; left: 0; right: 0; height: 15%; background: linear-gradient(to bottom,rgba(6,6,15,.6) 0%,transparent 100%); pointer-events: none; }
+        .feature-chips { padding: 24px 40px 36px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .feature-chip { display: flex; align-items: center; gap: 8px; background: rgba(196,149,74,.1); border: 1px solid rgba(196,149,74,.22); border-radius: 50px; padding: 7px 16px; }
+        .feature-chip-dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg,var(--accent),var(--accent2)); flex-shrink: 0; display: inline-block; }
+        .feature-chip span { font-size: 12px !important; font-weight: 800; color: var(--accent2); letter-spacing: .04em; }
+
+        /* ============================================================
+           AT A GLANCE
+           ============================================================ */
+        .glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+        .glance-table { width: 100%; border-collapse: collapse; }
+        .glance-table tr { border-bottom: 1px solid var(--border); transition: background .2s; }
+        .glance-table tr:hover { background: var(--surface); }
+        .glance-table tr:last-child { border-bottom: none; }
+        .glance-table td { padding: 14px 12px; font-size: 14px !important; vertical-align: top; }
+        .glance-table td:first-child { font-weight: 800; color: var(--dark); width: 40%; }
+        .glance-table td:last-child { color: var(--muted); }
+        .glance-verdict { background: linear-gradient(145deg,#09090f 0%,#1c1408 100%); border-radius: var(--radius-xl); padding: 44px; color: #fff; border: 1px solid rgba(196,149,74,.15); position: relative; overflow: hidden; }
+        .glance-verdict h3 { color: #fff; font-size: 17px !important; margin-bottom: 24px; }
+        .verdict-item { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+        .verdict-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .verdict-dot { width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg,var(--accent),var(--accent2)); flex-shrink: 0; margin-top: 9px; }
+        .verdict-item p { font-size: 14px !important; color: rgba(255,255,255,.68); line-height: 1.7; }
+
+        /* ============================================================
+           WHO IT'S FOR
+           ============================================================ */
+        .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .for-card { border-radius: var(--radius-lg); padding: 36px; border: 1px solid var(--border); transition: all .3s; }
+        .for-card.is-for { background: var(--white); }
+        .for-card.not-for { background: var(--surface2); }
+        .for-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .for-badge { font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; padding: 5px 14px; border-radius: 50px; display: inline-block; margin-bottom: 24px; }
+        .for-badge.yes { background: rgba(16,185,129,.1); color: #059669; border: 1px solid rgba(16,185,129,.2); }
+        .for-badge.no  { background: rgba(239,68,68,.08); color: #dc2626; border: 1px solid rgba(239,68,68,.15); }
+        .for-list { list-style: none; padding: 0; }
+        .for-list li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px !important; color: var(--muted); line-height: 1.6; }
+        .for-list li:last-child { border-bottom: none; }
+        .for-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+        .for-dot.yes { background: #10b981; }
+        .for-dot.no  { background: #ef4444; }
+
+        /* ============================================================
+           MODEL ENTRIES
+           ============================================================ */
+        .model-entry { border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); background: var(--white); margin-bottom: 40px; transition: box-shadow .35s; box-shadow: var(--shadow-sm); }
+        .model-entry:hover { box-shadow: var(--shadow-lg); }
+        .model-entry-body { display: grid; grid-template-columns: 360px 1fr; gap: 0; }
+        .model-entry-sidebar { background: linear-gradient(160deg,#09090f 0%,#1c1408 100%); padding: 40px 36px; display: flex; flex-direction: column; }
+        .model-tier-label { font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: var(--accent); margin-bottom: 8px; }
+        .model-entry-sidebar h3 { color: #fff; font-size: 20px !important; line-height: 1.3; margin-bottom: 8px; }
+        .model-sidebar-desc { color: rgba(255,255,255,.48); font-size: 13px !important; line-height: 1.65; margin-bottom: 24px; }
+        .model-sidebar-imgbox { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 24px; overflow: hidden; flex: 1; display: flex; align-items: center; justify-content: center; min-height: 220px; max-height: 280px; }
+        .model-sidebar-imgbox img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .4s ease; }
+        .model-entry:hover .model-sidebar-imgbox img { transform: scale(1.05); }
+        .model-price-display { padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
+        .model-price-main { font-size: 32px !important; font-weight: 900; color: #fff; letter-spacing: -.04em; }
+        .model-price-compare { font-size: 13px !important; color: rgba(255,255,255,.32); text-decoration: line-through; margin-top: 4px; }
+        .model-price-save { font-size: 11px !important; font-weight: 800; color: #10b981; background: rgba(16,185,129,.12); padding: 3px 9px; border-radius: 50px; display: inline-block; margin-top: 8px; }
+        .model-sidebar-cta { display: block; margin-top: 14px; text-align: center; background: linear-gradient(135deg,var(--accent),var(--accent2)); color: #fff !important; padding: 12px; border-radius: var(--radius-sm); font-size: 13px !important; font-weight: 700; transition: all .25s; letter-spacing: .03em; }
+        .model-sidebar-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); filter: brightness(1.08); }
+        .model-entry-content { padding: 40px; }
+        .model-best-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); background: var(--accent-pale); padding: 5px 14px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(196,149,74,.2); }
+        .model-entry-content h4 { font-size: 18px !important; margin-bottom: 12px; }
+        .model-entry-content p { font-size: 14px !important; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+        .model-traits { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .trait-pill { font-size: 11px !important; font-weight: 700; padding: 5px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); transition: all .2s; }
+        .trait-pill:hover { background: var(--accent-pale); border-color: var(--accent); color: var(--accent); }
+        .model-tradeoff { margin-top: 24px; padding: 18px 22px; border-radius: var(--radius-sm); background: var(--surface2); border-left: 3px solid var(--border-strong); font-size: 13px !important; color: var(--muted-light); line-height: 1.7; }
+        .model-tradeoff strong { color: var(--muted); }
+        .model-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13px !important; font-weight: 700; color: var(--accent); margin-top: 20px; border-bottom: 1px solid rgba(196,149,74,.3); padding-bottom: 2px; transition: all .2s; }
+        .model-link:hover { gap: 9px; border-bottom-color: var(--accent); }
+
+        /* ============================================================
+           COMPARE TABLE
+           ============================================================ */
+        .compare-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 13px !important; min-width: 700px; }
+        .compare-table th { background: var(--dark); color: #fff; padding: 14px 20px; text-align: left; font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+        .compare-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: middle; font-size: 13px !important; }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table tr:hover td { background: var(--surface); }
+        .col-feature { font-weight: 800; color: var(--dark) !important; white-space: nowrap; }
+        .kozue-col { background: rgba(196,149,74,.04) !important; }
+        .check  { color: var(--accent); font-weight: 800; }
+        .winner { color: #10b981; font-weight: 800; }
+
+        /* ============================================================
+           EXPERT CALLOUT
+           ============================================================ */
+        .expert-callout { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 24px 28px; display: flex; align-items: flex-start; gap: 14px; }
+        .expert-callout svg { width: 26px; height: 26px; fill: var(--accent); flex-shrink: 0; margin-top: 1px; }
+        .expert-callout p { font-size: 14px !important; color: var(--muted); line-height: 1.8; }
+        .expert-callout strong { color: var(--dark); }
+
+        /* ============================================================
+           BUYER TYPES
+           ============================================================ */
+        .buyer-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+        .buyer-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: all .3s; position: relative; overflow: hidden; }
+        .buyer-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,var(--accent),var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+        .buyer-card:hover::after { transform: scaleX(1); }
+        .buyer-card:hover { border-color: rgba(196,149,74,.3); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+        .buyer-icon { width: 46px; height: 46px; background: var(--accent-pale); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .buyer-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+        .buyer-type-label { font-size: 11px !important; font-weight: 800; color: var(--muted-light); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 6px; }
+        .buyer-card h3 { font-size: 15px !important; margin-bottom: 6px; }
+        .buyer-card p { font-size: 13px !important; color: var(--muted); margin: 0 0 12px; line-height: 1.7; }
+        .buyer-rec { font-size: 12px !important; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+        .buyer-rec::before { content: '→'; }
+
+        /* ============================================================
+           VS BRANDS
+           ============================================================ */
+        .brand-compare-grid { display: grid; gap: 16px; }
+        .brand-row { display: grid; grid-template-columns: 180px 1fr; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); transition: box-shadow .2s; }
+        .brand-row:hover { box-shadow: var(--shadow-md); }
+        .brand-label { background: var(--dark); padding: 20px 24px; display: flex; flex-direction: column; justify-content: center; }
+        .brand-name { font-size: 12px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin-bottom: 4px; }
+        .brand-vs   { font-size: 11px !important; color: rgba(255,255,255,.38); font-weight: 600; }
+        .brand-body { padding: 20px 28px; background: var(--white); }
+        .brand-body p { font-size: 14px !important; color: var(--muted); line-height: 1.7; }
+        .brand-verdict { display: inline-flex; align-items: center; gap: 5px; font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-top: 10px; }
+
+        /* ============================================================
+           PRICE LADDER
+           ============================================================ */
+        .price-ladder { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+        .price-rung { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+        .price-rung:last-child { border-bottom: none; }
+        .price-rung:hover { background: var(--surface); }
+        .price-rung-label { background: var(--dark); padding: 24px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(255,255,255,.07); }
+        .price-tier-name { font-size: 10px !important; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.42); font-weight: 700; margin-bottom: 4px; }
+        .price-amount { font-size: 17px !important; font-weight: 900; color: var(--accent); letter-spacing: -.02em; }
+        .price-rung-body { padding: 24px 32px; }
+        .price-rung-body h4 { font-size: 15px !important; margin-bottom: 6px; }
+        .price-rung-body p { font-size: 13px !important; color: var(--muted); line-height: 1.65; }
+        .price-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+        .price-tag { font-size: 10px !important; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: var(--accent-pale); color: var(--accent); }
+
+        /* ============================================================
+           TRUST CARDS
+           ============================================================ */
+        .trust-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+        .trust-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; transition: all .3s; }
+        .trust-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .trust-card-icon { width: 44px; height: 44px; background: var(--accent-pale); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .trust-card-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+        .trust-card h3 { font-size: 15px !important; margin-bottom: 8px; }
+        .trust-card p { font-size: 13px !important; color: var(--muted); line-height: 1.7; }
+
+        /* ============================================================
+           SHOWROOMS
+           ============================================================ */
+        .showroom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .showroom-card { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all .3s; }
+        .showroom-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .showroom-head { background: linear-gradient(135deg,#080808,#171208); padding: 32px 36px 28px; }
+        .showroom-pill { font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); background: rgba(196,149,74,.15); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+        .showroom-head h3 { color: #fff; font-size: 17px !important; margin-bottom: 5px; }
+        .showroom-head p { color: rgba(255,255,255,.48); font-size: 13px !important; }
+        .showroom-body { background: var(--white); padding: 28px 36px; }
+        .showroom-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px !important; }
+        .showroom-row:last-child { border-bottom: none; }
+        .showroom-row svg { width: 16px; height: 16px; fill: var(--accent); flex-shrink: 0; margin-top: 2px; }
+        .showroom-row strong { color: var(--dark); }
+        .showroom-btns { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+        /* ============================================================
+           FAQ
+           ============================================================ */
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; cursor: pointer; gap: 1rem; }
+        .faq-q h3 { font-size: 15px !important; margin: 0; font-weight: 700; transition: color .2s; line-height: 1.4; }
+        .faq-q:hover h3 { color: var(--accent); }
+        .faq-icon { width: 22px; height: 22px; fill: var(--muted-light); flex-shrink: 0; transition: transform .3s; }
+        .faq-q.active .faq-icon { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+        .faq-a.open { max-height: 600px; }
+        .faq-a p { margin: 0; padding-bottom: 22px; font-size: 14px !important; color: var(--muted); line-height: 1.85; }
+        .faq-a a { color: var(--accent); font-weight: 700; }
+
+        /* ============================================================
+           LINK PILLS
+           ============================================================ */
+        .link-pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .link-pill { padding: 9px 20px; border: 1.5px solid var(--border); border-radius: 50px; font-size: 13px !important; font-weight: 700; color: var(--dark); background: var(--white); transition: all .3s; }
+        .link-pill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-pale); transform: translateY(-2px); }
+
+        /* ============================================================
+           FINAL CTA
+           ============================================================ */
+        .final-cta { background: linear-gradient(135deg,#050505 0%,#1a110a 60%,#050505 100%); border-radius: var(--radius-xl); padding: 72px; position: relative; overflow: hidden; }
+        .final-cta::before { content: ''; position: absolute; top: -40%; right: -8%; width: 650px; height: 650px; border-radius: 50%; background: radial-gradient(circle,rgba(196,149,74,.09) 0%,transparent 70%); pointer-events: none; }
+        .final-cta-inner { position: relative; z-index: 1; }
+        .final-cta-eyebrow { font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .2em; color: var(--accent); margin-bottom: 16px; display: block; }
+        .final-cta h2 { color: #fff; font-size: 40px !important; margin-bottom: 14px; line-height: 1.12; }
+        .final-cta p { color: rgba(255,255,255,.62); font-size: 17px !important; max-width: 660px; margin-bottom: 36px; line-height: 1.75; }
+        .cta-points { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 36px; }
+        .cta-point { display: flex; align-items: center; gap: 7px; }
+        .cta-point svg { width: 16px; height: 16px; fill: var(--accent); flex-shrink: 0; }
+        .cta-point span { font-size: 13px !important; color: rgba(255,255,255,.6); font-weight: 600; }
+        .final-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media(max-width:1100px) {
+            .pillar-grid { grid-template-columns: 1fr 1fr; }
+            .trust-grid  { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .model-entry-body { grid-template-columns: 300px 1fr; }
+        }
+        @media(max-width:900px) {
+            .hero { min-height: 70vh; }
+            .product-grid-main { grid-template-columns: 1fr; }
+            .qa-grid, .glance-grid, .for-grid, .buyer-grid, .showroom-grid { grid-template-columns: 1fr; }
+            .pillar-grid, .trust-grid { grid-template-columns: 1fr; }
+            .model-entry-body { grid-template-columns: 1fr; }
+            .model-entry-sidebar { border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+            .price-rung { grid-template-columns: 1fr; }
+            .price-rung-label { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+            .brand-row { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+            .final-cta { padding: 44px 32px; }
+            .nav-links { display: none; }
+            .feature-visual-bar { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width:600px) {
+            .container { padding: 0 20px; }
+            .hero-ctas { flex-direction: column; }
+            .hero-stat { padding-right: 20px; margin-right: 20px; }
+            .quick-answer { padding: 32px 24px; }
+            .section { padding: 44px 0; }
+            .final-cta { padding: 36px 24px; }
+            .feature-chips { padding: 16px 24px 24px; }
+            .feature-visual-bar { padding: 20px 24px; }
+        }
+    </style>
+
+<div class="jpm-wrap">
+
+<!-- ── STICKY SUBNAV ── -->
+<div class="page-subnav">
+    <div class="page-subnav-inner">
+        <a href="#collection">Shop JP Medics</a>
+        <a href="#overview">Overview</a>
+        <a href="#why-jp-medics">Why JP Medics</a>
+        <a href="#models">Model Guide</a>
+        <a href="#buyer-types">By Buyer Type</a>
+        <a href="#vs-brands">vs. Competitors</a>
+        <a href="#pricing">Price Guide</a>
+        <a href="#trust">Reviews &amp; Trust</a>
+        <a href="#showrooms">Showrooms</a>
+        <a href="#faq">FAQ</a>
+    </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="overview">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+        <nav class="hero-bc" aria-label="Breadcrumb">
+            <a href="{{ shop.url }}">Home</a><span>/</span>
+            <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+            JP Medics
+        </nav>
+        <div class="hero-eyebrow fade-up">Authorized JP Medics Dealer · San Jose &amp; Pleasanton, CA</div>
+        <h1 class="fade-up fade-up-1">JP Medics Massage Chairs —<br><span class="hero-tag">The Precision Japanese Standard</span></h1>
+        <p class="hero-lead fade-up fade-up-2">A curated Japanese massage chair brand built around sensor-led precision, AI-guided personalization, and a refined premium feel — not a long feature list.</p>
+        <p class="hero-note fade-up fade-up-3">JP Medics offers two distinct flagship-tier models that serve different buyer needs. Understanding the difference — before you sit in either — makes the decision significantly easier.</p>
+        <div class="hero-ctas fade-up fade-up-4">
+            <a href="#collection" class="btn btn-gold">Shop JP Medics Chairs</a>
+            <a href="#models" class="btn btn-ghost">Explore Model Guide</a>
+            <a href="{{ shop.url }}/pages/our-store" class="btn btn-ghost">Book Showroom Visit</a>
+        </div>
+        <div class="hero-stats fade-up">
+            <div class="hero-stat">
+                <span class="hero-stat-num">{{ collection.products_count }}</span>
+                <span class="hero-stat-label">JP Medics Models</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-num">$13K–$16K</span>
+                <span class="hero-stat-label">Price Range</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-num">5th Gen</span>
+                <span class="hero-stat-label">5D Flagship Tech</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-num">2</span>
+                <span class="hero-stat-label">Bay Area Showrooms</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust-bar">
+    <div class="trust-bar-inner">
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Authorized JP Medics Dealer</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Try Before You Buy</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manufacturer Warranty</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>White-Glove Delivery</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg>Financing Available</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>HSA/FSA Eligible (with LMN)</div>
+    </div>
+</div>
+
+{% paginate collection.products by 50 %}
+<!-- ══════════ COLLECTION (LIQUID RENDERED) ══════════ -->
+<section class="collection-section" id="collection">
+    <div class="container">
+        <div class="collection-header">
+            <div class="collection-intro-label"><span></span>Live Collection<span></span></div>
+            <h2>Shop All JP Medics Massage Chairs</h2>
+            <p>{{ collection.products_count }} model{% if collection.products_count != 1 %}s{% endif %} — authorized dealer, full warranty, white-glove delivery included. Prices are live from Shopify.</p>
+        </div>
+
+        <div class="product-grid-main">
+
+            {% comment %}
+            ─── PRODUCT CARD LOOP ────────────────────────────────────────────
+            Badge & features assigned per product handle.
+            ─────────────────────────────────────────────────────────────────
+            {% endcomment %}
+
+            {% for product in collection.products %}
+
+                {%- comment %} ── Badge ── {% endcomment -%}
+                {%- assign prod_badge       = 'Premium' -%}
+                {%- assign prod_badge_class = 'premium' -%}
+
+                {%- if product.handle contains 'kozue' -%}
+                    {%- assign prod_badge       = '5D Flagship' -%}
+                    {%- assign prod_badge_class = 'flagship' -%}
+                {%- elsif product.handle contains 'kaze' or product.handle contains 'kaze-duo' -%}
+                    {%- assign prod_badge       = '4D+3D Dual Engine' -%}
+                    {%- assign prod_badge_class = 'premium' -%}
+                {%- endif -%}
+
+                {%- comment %} ── Tier label ── {% endcomment -%}
+                {%- assign prod_tier = '5D Precision · Li Flex Track' -%}
+                {%- if product.handle contains 'kaze' -%}
+                    {%- assign prod_tier = 'Dual-Engine Premium · Smart Automation' -%}
+                {%- endif -%}
+
+                {%- comment %} ── Feature bullets per handle ── {% endcomment -%}
+                {%- assign prod_features = '5th Gen 5D Human-like Vario Motion with 27 sensors|Li Flex Track — near lay-flat 170° recline|73 airbags + heat in legs, lumbar & seat|Chair Doctor Powered by AI biofeedback|Aromatherapy, chromotherapy & Monster Bluetooth|12.3" HD touchscreen + Smart Dial control' -%}
+                {%- if product.handle contains 'kaze' -%}
+                    {%- assign prod_features = 'Duo Vario Motion 4D+3D — layered dual-engine massage|L-Track coverage from neck to glutes|Chair Doctor Powered by AI + biofeedback|3 heat zones: lumbar, seat & calf|Voice control (Alexa/Google) + wireless charging|1-inch wall saver · 25 auto programs' -%}
+                {%- endif -%}
+                {%- assign feat_array = prod_features | split: '|' -%}
+
+                {%- comment %} ── Savings ── {% endcomment -%}
+                {%- assign prod_savings_pct = '' -%}
+                {%- if product.compare_at_price > product.price -%}
+                    {%- assign savings_amt = product.compare_at_price | minus: product.price -%}
+                    {%- assign savings_pct = savings_amt | times: 100 | divided_by: product.compare_at_price -%}
+                    {%- assign prod_savings_pct = savings_pct | append: '% off' -%}
+                {%- endif -%}
+
+                <div class="pcard">
+                    <div class="pcard-accent-line"></div>
+                    <div class="pcard-img-zone">
+                        <span class="pcard-badge {{ prod_badge_class }}">{{ prod_badge }}</span>
+                        {% if prod_savings_pct != '' %}
+                        <span class="pcard-savings">Save {{ prod_savings_pct }}</span>
+                        {% endif %}
+                        <a href="{{ product.url }}">
+                            {% if product.featured_image %}
+                            <img src="{{ product.featured_image | image_url: width: 800 }}"
+                                 alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                                 width="800" height="600">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="pcard-body">
+                        <div class="pcard-tier">{{ prod_tier }}</div>
+                        <div class="pcard-name"><a href="{{ product.url }}">{{ product.title }}</a></div>
+                        <ul class="pcard-feats">
+                            {% for feat in feat_array %}
+                            <li>{{ feat }}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="pcard-pricing">
+                            <span class="pcard-price">{{ product.price | money }}</span>
+                            {% if product.compare_at_price > product.price %}
+                            <span class="pcard-compare">{{ product.compare_at_price | money }}</span>
+                            {% endif %}
+                        </div>
+                        <a href="{{ product.url }}" class="pcard-cta">View Details &amp; Configure →</a>
+                    </div>
+                </div>
+
+            {% else %}
+                <p style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted);font-size:15px">No JP Medics chairs found in this collection.</p>
+            {% endfor %}
+
+        </div><!-- /product-grid-main -->
+
+        <div class="collection-footer">
+            <a href="{{ shop.url }}/pages/our-store" class="btn btn-gold">Try Any JP Medics Chair at Our Showroom →</a>
+        </div>
+    </div>
+</section>
+{% endpaginate %}
+
+<!-- ══════════ QUICK ANSWER ══════════ -->
+<section class="section section-alt section-sm">
+    <div class="container">
+        <div class="quick-answer">
+            <span class="section-label" style="position:relative;z-index:1">Quick Reference</span>
+            <h2 class="qa-heading">What You Need to Know About JP Medics Massage Chairs</h2>
+            <p class="qa-intro">Direct answers for buyers who want clarity before going deeper. Designed to be precise, honest, and immediately useful.</p>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <h3>What are JP Medics massage chairs?</h3>
+                    <p>JP Medics is a premium Japanese massage chair brand with a curated, flagship-tier lineup. They are known for fifth-generation 5D robotics, precision pressure sensing, AI-guided Chair Doctor personalization, and a refined Japanese feel. Their lineup is small by design — every model earns its place.</p>
+                </div>
+                <div class="qa-item">
+                    <h3>Who are JP Medics chairs best for?</h3>
+                    <p>Buyers who want precision over breadth — a chair that adapts to their body rather than running generic programs. JP Medics suits high-output professionals, daily wellness users, and buyers who want a more restrained, intelligent massage feel rather than maximum intensity or an overwhelming feature count.</p>
+                </div>
+                <div class="qa-item">
+                    <h3>What makes JP Medics stand out?</h3>
+                    <p>The Kozue is one of the only chairs in this price range using fifth-generation 5D robotics with 27 live pressure sensors — the massage actively reads and responds to your body in real time. The KaZe Duo offers a different intelligence: a dual 4D+3D engine with Chair Doctor biofeedback and strong daily-ownership conveniences.</p>
+                </div>
+                <div class="qa-item">
+                    <h3>Are JP Medics chairs worth considering?</h3>
+                    <p>Yes — for the right buyer. Buyers who value precision, Japanese engineering, and AI-guided personalization over raw feature lists or the widest model catalogue typically find strong value in JP Medics. Trying the chair in person at a specialist showroom like ours is strongly recommended before committing at this price tier.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ WHY JP MEDICS ══════════ -->
+<section class="section" id="why-jp-medics">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">The Case for JP Medics</span>
+            <h2>Why Serious Buyers Shortlist <span class="underline">JP Medics</span></h2>
+            <p>JP Medics earns a place on premium buyers' shortlists for specific, substantive reasons — not marketing language.</p>
+        </div>
+        <div class="pillar-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
+                <h3>Fifth-Generation 5D Precision (Kozue)</h3>
+                <p>The Kozue's 5D Human-like Vario Motion mechanism with 27 live pressure sensors is a meaningful technological distinction. The roller actively adjusts throughout the session — not just at the start based on a body scan. Few chairs in this segment offer real-time pressure adaptation at this level.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+                <h3>Chair Doctor AI Personalization</h3>
+                <p>Both JP Medics models feature Chair Doctor Powered by AI — a biofeedback-driven system that reads your body's current state (including stress and heart rate inputs) before tailoring the session. Meaningfully different from brands that simply run a body scan and execute a preset program.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/></svg></div>
+                <h3>Curated Lineup Over Broad Catalog</h3>
+                <p>JP Medics offers two flagship-tier models — not a ladder of 12 chairs designed to cover every price point. This restraint is a signal of quality. Each model is purpose-built for a distinct buyer profile, not created to fill a slot in a tiered catalog strategy.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div>
+                <h3>Japanese Premium Engineering Feel</h3>
+                <p>The JP Medics massage feel is quieter, more measured, and more precise than many brands that prioritize intensity and feature count. Buyers who find assertive rollers uncomfortable consistently respond well to the JP Medics approach in in-person sessions.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+                <h3>Meaningful Style and Ownership Detail</h3>
+                <p>JP Medics models include elevated ownership features: the Kozue offers aromatherapy, chromotherapy shoulder lighting, and Monster Bluetooth audio. The KaZe Duo includes voice control (Alexa/Google), wireless charging, and a 1-inch wall saver. Genuine differentiators at this price tier.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                <h3>Strong Fit for the Right Buyer Profile</h3>
+                <p>JP Medics is not a brand for everyone — and that is a strength. Their chairs are designed for buyers who understand what they want: Japanese precision, adaptive intelligence, and a massage that feels personal rather than programmatic. For that buyer, few brands compete as directly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ FEATURE VISUAL (Kozue Technology) ══════════ -->
+<section style="padding:0 0 80px;background:#fff">
+    <div class="container">
+        <div class="feature-visual-wrap">
+            <div class="feature-visual-bar">
+                <div>
+                    <div class="feature-visual-bar-label">Technology Visualization · JP Medics Kozue</div>
+                    <div class="feature-visual-bar-sub">5th Generation 5D Robotics &amp; Chair Doctor AI — Chair Doctor sensor mapping in a premium home environment</div>
+                </div>
+                <a href="{{ shop.url }}/products/kozue-massage-chair-jp-medics" class="btn btn-gold btn-sm" style="flex-shrink:0">View Kozue →</a>
+            </div>
+            <div class="feature-visual-imgbox">
+                <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/jp-medics-kozue-technology-visual.jpg?v=1776368241"
+                     alt="JP Medics Kozue Massage Chair — 5D sensor technology visualization with Chair Doctor AI holographic spine mapping in a luxury Japanese interior"
+                     loading="lazy">
+                <div class="feature-visual-imgbox-overlay-bottom"></div>
+                <div class="feature-visual-imgbox-overlay-top"></div>
+            </div>
+            <div class="feature-chips">
+                <div class="feature-chip"><span class="feature-chip-dot"></span><span>27 Live Pressure Sensors</span></div>
+                <div class="feature-chip"><span class="feature-chip-dot"></span><span>5th Gen 5D Vario Motion Robot</span></div>
+                <div class="feature-chip"><span class="feature-chip-dot"></span><span>Chair Doctor AI — Biofeedback Personalization</span></div>
+                <div class="feature-chip"><span class="feature-chip-dot"></span><span>Li Flex Track · 170° Lay-Flat</span></div>
+                <div class="feature-chip"><span class="feature-chip-dot"></span><span>73 Airbags · Full-Body Compression</span></div>
+                <div style="margin-left:auto">
+                    <a href="#kozue" style="font-size:13px;font-weight:700;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:5px;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,.38)'">Read full Kozue breakdown ↓</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ AT A GLANCE ══════════ -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Brand Intelligence</span>
+            <h2>JP Medics Massage Chairs <span class="underline">at a Glance</span></h2>
+            <p>A concise, honest profile of the brand — the kind of overview that saves hours of research.</p>
+        </div>
+        <div class="glance-grid">
+            <div>
+                <table class="glance-table">
+                    <tr><td>Price Range</td><td>~$12,999 (KaZe Duo) to $15,999 (Kozue)</td></tr>
+                    <tr><td>Feature Reputation</td><td>Precision-led; strong on AI personalization, sensor depth, and refined feel over raw feature breadth</td></tr>
+                    <tr><td>Massage Intensity</td><td>Measured, controlled, and adaptive — body-responsive rather than assertive intensity</td></tr>
+                    <tr><td>Roller Technology</td><td>5D fifth-generation (Kozue) and 4D+3D dual-engine (KaZe Duo)</td></tr>
+                    <tr><td>Track System</td><td>Li Flex Track (Kozue, 170°) and L-Track (KaZe Duo)</td></tr>
+                    <tr><td>AI / Body Scan</td><td>Chair Doctor Powered by AI in both models; biofeedback-driven</td></tr>
+                    <tr><td>Design Style</td><td>Premium, restrained, intentional — designed for high-end home environments</td></tr>
+                    <tr><td>Best Fit</td><td>Precision seekers, daily wellness users, personalization-focused buyers</td></tr>
+                    <tr><td>May Not Suit</td><td>Buyers wanting maximum intensity, a large model selection, or sub-$12K options</td></tr>
+                    <tr><td>Related Brand Feel</td><td>Closer to Fujiiryoki or Bodyfriend in philosophy than to Osaki or Infinity</td></tr>
+                </table>
+            </div>
+            <div class="glance-verdict">
+                <h3>Specialist Assessment</h3>
+                <div class="verdict-item"><div class="verdict-dot"></div><p><strong>For precision-first buyers</strong> — JP Medics' 5D sensor architecture gives the Kozue a genuine technical edge in real-time body adaptation that few chairs in this segment match.</p></div>
+                <div class="verdict-item"><div class="verdict-dot"></div><p><strong>For a refined Japanese feel</strong> — both JP Medics models deliver a more measured, nuanced massage than brands engineered for intensity. The feel is deliberate by design.</p></div>
+                <div class="verdict-item"><div class="verdict-dot"></div><p><strong>For smart daily ownership</strong> — the KaZe Duo's voice control, wireless charger, 1" wall saver, and broader heat coverage make it unusually practical at this price point.</p></div>
+                <div class="verdict-item"><div class="verdict-dot"></div><p><strong>For buyers who want more intensity</strong> — Osaki or Infinity models may deliver a stronger, more assertive feel that some buyers prefer over JP Medics' precision approach.</p></div>
+                <div class="verdict-item"><div class="verdict-dot"></div><p><strong>For Bay Area buyers</strong> — both JP Medics models are available to try in person at our San Jose and Pleasanton showrooms.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ WHO IT'S FOR ══════════ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Fit Guide</span>
+            <h2>Who JP Medics Is For — <span class="underline">and Who It May Not Be</span></h2>
+            <p>Honest, specific guidance. This is the kind of clarity that specialist retailers provide — and catalog browsing cannot replace.</p>
+        </div>
+        <div class="for-grid">
+            <div class="for-card is-for">
+                <div class="for-badge yes">✓ JP Medics is a strong fit for</div>
+                <ul class="for-list">
+                    <li><div class="for-dot yes"></div><span><strong>Precision-first buyers</strong> who want a massage chair that reads and responds to their body rather than executing generic programs</span></li>
+                    <li><div class="for-dot yes"></div><span><strong>Daily home wellness users</strong> who want a refined, sustainable daily practice — not an intense workout experience</span></li>
+                    <li><div class="for-dot yes"></div><span><strong>High-output professionals</strong> with chronic upper-back tension who want more targeted, sensor-led back work</span></li>
+                    <li><div class="for-dot yes"></div><span><strong>Japanese premium seekers</strong> who specifically value Japanese engineering philosophy, restraint, and refined build quality</span></li>
+                    <li><div class="for-dot yes"></div><span><strong>AI personalization buyers</strong> who want Chair Doctor biofeedback adaptation — responding to your current health state, not just body dimensions</span></li>
+                    <li><div class="for-dot yes"></div><span><strong>Design-conscious buyers</strong> who want a chair that lives elegantly in a premium home environment</span></li>
+                </ul>
+            </div>
+            <div class="for-card not-for">
+                <div class="for-badge no">Consider alternatives if</div>
+                <ul class="for-list">
+                    <li><div class="for-dot no"></div><span><strong>Maximum intensity is the priority</strong> — buyers who want aggressive, deep-tissue pressure often find brands like Osaki a better match</span></li>
+                    <li><div class="for-dot no"></div><span><strong>A wide model ladder is needed</strong> — if you want to compare 10+ distinct configurations, Osaki or Infinity offer broader selection</span></li>
+                    <li><div class="for-dot no"></div><span><strong>Budget is under $12,000</strong> — JP Medics does not currently offer a sub-$12K entry point; Cozzia, Infinity, or Osaki serve that tier</span></li>
+                    <li><div class="for-dot no"></div><span><strong>Brand familiarity drives confidence</strong> — buyers who specifically want the most recognized name may feel more comfortable with Osaki or Infinity</span></li>
+                    <li><div class="for-dot no"></div><span><strong>Dual simultaneous coverage is essential</strong> — brands with concurrent dual-mechanism designs cover back and legs at the same time</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="expert-callout" style="margin-top:28px">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <p><strong>Specialist note:</strong> The best way to understand whether JP Medics is right for you is to sit in one. The precision difference between the Kozue's 5D sensor system and a standard body-scan chair is tangible in the first five minutes of a session — and so is the feel difference between JP Medics' measured approach and more intensity-driven brands. Our showroom visits are specifically designed for this kind of comparison.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ MODEL GUIDE ══════════ -->
+<section class="section section-alt" id="models">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Model Intelligence</span>
+            <h2>Understanding JP Medics <span class="underline">Model Families</span></h2>
+            <p>Two distinctly different chairs that serve two clearly different buyer profiles. An honest, in-depth breakdown of what separates them — and which is right for you.</p>
+        </div>
+
+        <!-- KOZUE -->
+        <div class="model-entry" id="kozue">
+            <div class="model-entry-body">
+                <div class="model-entry-sidebar">
+                    <div class="model-tier-label">5D Flagship · Precision-Led</div>
+                    <h3>JP Medics Kozue Massage Chair</h3>
+                    <p class="model-sidebar-desc">The brand's newest flagship — built around fifth-generation 5D robotics and 27 live pressure sensors for real-time body adaptation.</p>
+                    <div class="model-sidebar-imgbox">
+                        {% assign kozue_product = collection.products | where: "handle", "kozue-massage-chair-jp-medics" | first %}
+                        {% if kozue_product and kozue_product.featured_image %}
+                        <img src="{{ kozue_product.featured_image | image_url: width: 600 }}" alt="JP Medics Kozue Massage Chair — 5D flagship" loading="lazy">
+                        {% else %}
+                        <img src="{{ 'jp-medics-kozue-chair.jpg' | asset_url }}" alt="JP Medics Kozue Massage Chair — 5D flagship" loading="lazy">
+                        {% endif %}
+                    </div>
+                    <div class="model-price-display">
+                        {% if kozue_product %}
+                        <div class="model-price-main">{{ kozue_product.price | money }}</div>
+                        {% if kozue_product.compare_at_price > kozue_product.price %}
+                        <div class="model-price-compare">Was {{ kozue_product.compare_at_price | money }}</div>
+                        {%- assign kozue_save = kozue_product.compare_at_price | minus: kozue_product.price | money -%}
+                        <div class="model-price-save">Save {{ kozue_save }}</div>
+                        {% endif %}
+                        {% else %}
+                        <div class="model-price-main">$15,999</div>
+                        <div class="model-price-compare">Was $19,999</div>
+                        <div class="model-price-save">Save $4,000</div>
+                        {% endif %}
+                        <a href="{{ shop.url }}/products/kozue-massage-chair-jp-medics" class="model-sidebar-cta">View Kozue Details →</a>
+                    </div>
+                </div>
+                <div class="model-entry-content">
+                    <div class="model-best-pill">Best for: Sensor-led precision and maximum personalization</div>
+                    <h4>What makes the Kozue genuinely different</h4>
+                    <p>The Kozue is described as the world's first massage chair with fifth-generation 5D robotics — a meaningful distinction. The 5D Human-like Vario Motion mechanism doesn't just scan your body at the start; it actively reads pressure through 27 sensors throughout the entire session. When your body tenses or relaxes, the chair responds. This is a fundamentally different ownership experience from a chair that runs a preset after an initial position scan.</p>
+                    <p>The Li Flex Track extends to a 170-degree near-lay-flat position — creating a different recline geometry that benefits buyers who want stretch-oriented sessions or deeper spinal decompression. Combined with 73 airbags delivering full-body compression and heat across the legs, lumbar, and seat, the Kozue creates a complete, wraparound session feel.</p>
+                    <p>The ownership experience extends to thoughtful details: aromatherapy with three scent options, chromotherapy shoulder lighting, a Monster Bluetooth speaker, and a 12.3" HD touchscreen alongside a Smart Dial for quick pressure adjustment without breaking your session.</p>
+                    <div class="model-traits">
+                        <span class="trait-pill">5th Generation 5D</span>
+                        <span class="trait-pill">27 Pressure Sensors</span>
+                        <span class="trait-pill">Li Flex Track 170°</span>
+                        <span class="trait-pill">73 Airbags</span>
+                        <span class="trait-pill">Chair Doctor AI</span>
+                        <span class="trait-pill">Aromatherapy</span>
+                        <span class="trait-pill">Chromotherapy</span>
+                        <span class="trait-pill">12.3" HD Touchscreen</span>
+                        <span class="trait-pill">60 Massage Techniques</span>
+                    </div>
+                    <div class="model-tradeoff"><strong>Honest tradeoff:</strong> The Kozue is precision-first, not intensity-first. Buyers who want a more assertive, deeply penetrating roller feel should try both models in-person before deciding — the feel difference is real and meaningful.</div>
+                    <a href="{{ shop.url }}/products/kozue-massage-chair-jp-medics" class="model-link">View Full Kozue Details →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- KAZE DUO -->
+        <div class="model-entry" id="kaze-duo">
+            <div class="model-entry-body">
+                <div class="model-entry-sidebar">
+                    <div class="model-tier-label">4D+3D Dual Engine · Automation-Led</div>
+                    <h3>JP Medics KaZe Duo Massage Chair</h3>
+                    <p class="model-sidebar-desc">The premium dual-engine JP Medics model — stronger automation, broader daily-ownership conveniences, and AI biofeedback at a lower entry point.</p>
+                    <div class="model-sidebar-imgbox">
+                        {% assign kaze_product = collection.products | where: "handle", "jp-medics-kaze-duo-massage-chair" | first %}
+                        {% if kaze_product and kaze_product.featured_image %}
+                        <img src="{{ kaze_product.featured_image | image_url: width: 600 }}" alt="JP Medics KaZe Duo Massage Chair — 4D+3D dual engine" loading="lazy">
+                        {% else %}
+                        <img src="{{ 'jp-medics-kaze-duo-chair.jpg' | asset_url }}" alt="JP Medics KaZe Duo Massage Chair" loading="lazy">
+                        {% endif %}
+                    </div>
+                    <div class="model-price-display">
+                        {% if kaze_product %}
+                        <div class="model-price-main">{{ kaze_product.price | money }}</div>
+                        {% if kaze_product.compare_at_price > kaze_product.price %}
+                        <div class="model-price-compare">Was {{ kaze_product.compare_at_price | money }}</div>
+                        {%- assign kaze_save = kaze_product.compare_at_price | minus: kaze_product.price | money -%}
+                        <div class="model-price-save">Save {{ kaze_save }}</div>
+                        {% endif %}
+                        {% else %}
+                        <div class="model-price-main">$12,999</div>
+                        <div class="model-price-compare">Was $15,999</div>
+                        <div class="model-price-save">Save $3,000</div>
+                        {% endif %}
+                        <a href="{{ shop.url }}/products/jp-medics-kaze-duo-massage-chair" class="model-sidebar-cta">View KaZe Duo Details →</a>
+                    </div>
+                </div>
+                <div class="model-entry-content">
+                    <div class="model-best-pill">Best for: Dual-engine automation, heat coverage, and smart ownership</div>
+                    <h4>Why buyers choose the KaZe Duo over the Kozue</h4>
+                    <p>The KaZe Duo uses a Duo Vario Motion 4D+3D system — a 4D roller from neck to mid-back and a 3D roller from mid-back to glutes. This split-engine architecture creates a more layered massage feel through the full back, where the upper and lower sections are handled with different roller mechanics.</p>
+                    <p>Where the KaZe Duo earns repeat attention from buyers is its daily-ownership intelligence. Voice control (Alexa and Google compatible), wireless charging, a 1-inch wall saver, Tri-Action Foot Rollers, and three heat zones covering lumbar, seat, and calves — these are features that make the chair easier and more enjoyable to live with every day.</p>
+                    <p>At $12,999 (from $15,999), the KaZe Duo positions as the accessible entry into JP Medics' premium engineering — without any sense that it is a compromise model. It is a fully realized, premium product with its own distinct identity.</p>
+                    <div class="model-traits">
+                        <span class="trait-pill">4D+3D Duo Engine</span>
+                        <span class="trait-pill">L-Track Coverage</span>
+                        <span class="trait-pill">Chair Doctor AI</span>
+                        <span class="trait-pill">3 Heat Zones</span>
+                        <span class="trait-pill">Tri-Action Foot Rollers</span>
+                        <span class="trait-pill">Voice Control</span>
+                        <span class="trait-pill">1" Wall Saver</span>
+                        <span class="trait-pill">Wireless Charging</span>
+                        <span class="trait-pill">25 Auto Programs</span>
+                    </div>
+                    <div class="model-tradeoff"><strong>Honest tradeoff:</strong> The KaZe Duo uses 4D and 3D roller technology rather than the Kozue's fifth-generation 5D system. Buyers who specifically want the most advanced roller precision in JP Medics' lineup should consider the Kozue. The KaZe Duo excels on automation richness, daily ownership practicality, and overall session balance.</div>
+                    <a href="{{ shop.url }}/products/jp-medics-kaze-duo-massage-chair" class="model-link">View Full KaZe Duo Details →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARE TABLE -->
+        <div class="compare-wrap" style="margin-top:16px">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Kozue (Flagship)</th>
+                        <th>KaZe Duo (Premium)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="col-feature">Best For</td><td class="kozue-col">5D sensor precision, maximum personalization</td><td>Dual-engine automation, smart ownership</td></tr>
+                    <tr><td class="col-feature">Roller System</td><td class="kozue-col winner">5th Gen 5D with 27 sensors</td><td>4D upper + 3D lower (Duo system)</td></tr>
+                    <tr><td class="col-feature">Track Type</td><td class="kozue-col winner">Li Flex Track (170° lay-flat)</td><td>L-Track (neck to glutes)</td></tr>
+                    <tr><td class="col-feature">AI System</td><td class="kozue-col check">✓ Chair Doctor + 27 sensors</td><td class="check">✓ Chair Doctor biofeedback</td></tr>
+                    <tr><td class="col-feature">Airbags</td><td class="kozue-col winner">73 airbags (full body)</td><td>Full-body air compression</td></tr>
+                    <tr><td class="col-feature">Heat Zones</td><td class="kozue-col">Leg, lumbar, seat</td><td>Lumbar, seat, calf</td></tr>
+                    <tr><td class="col-feature">Auto Programs</td><td class="kozue-col winner">24 auto + 8 stretch + 5 spa + spot</td><td>25 auto + spot + 3 custom</td></tr>
+                    <tr><td class="col-feature">Voice Control</td><td class="kozue-col">—</td><td class="winner">✓ Alexa + Google</td></tr>
+                    <tr><td class="col-feature">Wireless Charging</td><td class="kozue-col">—</td><td class="winner">✓ Built-in</td></tr>
+                    <tr><td class="col-feature">Wall Space</td><td class="kozue-col">Standard clearance</td><td class="winner">1-inch wall saver</td></tr>
+                    <tr><td class="col-feature">Aromatherapy</td><td class="kozue-col winner">✓ Three scent options</td><td>—</td></tr>
+                    <tr><td class="col-feature">Display</td><td class="kozue-col winner">12.3" HD Touchscreen + Smart Dial</td><td>LCD Touchscreen + Dynamic Dial</td></tr>
+                    <tr>
+                        <td class="col-feature">Price</td>
+                        <td class="kozue-col"><strong>{% if kozue_product %}{{ kozue_product.price | money }}{% else %}$15,999{% endif %}</strong></td>
+                        <td><strong>{% if kaze_product %}{{ kaze_product.price | money }}{% else %}$12,999{% endif %}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="expert-callout" style="margin-top:24px">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <p><strong>The clearest decision guide:</strong> If you want JP Medics' most advanced sensor architecture and the deepest body-adaptive precision, choose the <strong>Kozue</strong>. If you want a fully rounded daily-use premium chair with dual-engine coverage, voice/wireless convenience, and stronger heat over more body zones, the <strong>KaZe Duo</strong> is the more practical choice for most buyers. Both models can be tried in person at our San Jose and Pleasanton showrooms.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ BUYER TYPES ══════════ -->
+<section class="section" id="buyer-types">
+    <div class="container">
+        <div class="section-header centered">
+            <span class="section-label">Decision Support</span>
+            <h2 class="accent-heading">Best JP Medics Chair <span class="underline">By Buyer Type</span></h2>
+            <p>A structured guide to which JP Medics model best fits your specific needs and daily use pattern.</p>
+        </div>
+        <div class="buyer-grid">
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
+                <div class="buyer-type-label">Precision Seeker</div>
+                <h3>Buyers Who Want Maximum Body Adaptation</h3>
+                <p>If you want the chair to read your body throughout the session — not just at the start — the Kozue's 27 live pressure sensors and fifth-generation 5D mechanism offer a degree of real-time responsiveness that few chairs at any price deliver.</p>
+                <div class="buyer-rec">Recommended: JP Medics Kozue</div>
+            </div>
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+                <div class="buyer-type-label">AI Personalization Buyer</div>
+                <h3>Buyers Who Want Biofeedback-Driven Sessions</h3>
+                <p>Both JP Medics models feature Chair Doctor Powered by AI. For buyers who specifically want a chair that reads their stress and health signals before starting — not just their spine geometry — both models are strong choices. The Kozue adds deeper sensor precision on top.</p>
+                <div class="buyer-rec">Recommended: Either model — try both</div>
+            </div>
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+                <div class="buyer-type-label">Daily Wellness User</div>
+                <h3>Buyers Who Use Their Chair Every Day</h3>
+                <p>The KaZe Duo's voice control, wireless charging, 25 auto programs, and 3 heat zones make daily sessions lower-friction and more varied. The Kozue's 60 massage techniques and stretch programs also support daily use well.</p>
+                <div class="buyer-rec">Recommended: KaZe Duo for convenience; Kozue for session variety</div>
+            </div>
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/></svg></div>
+                <div class="buyer-type-label">Space-Conscious Buyer</div>
+                <h3>Buyers With Limited Wall Clearance</h3>
+                <p>The KaZe Duo's 1-inch wall saver design is a meaningful practical advantage in rooms where space is limited. The Kozue requires standard clearance for reclining. If space is a key consideration, the KaZe Duo has a built-in edge.</p>
+                <div class="buyer-rec">Recommended: JP Medics KaZe Duo</div>
+            </div>
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+                <div class="buyer-type-label">Flagship Experience Buyer</div>
+                <h3>Buyers Who Want the Very Best JP Medics Has</h3>
+                <p>If you want JP Medics' most advanced technology, the Kozue is the clear choice — fifth-generation 5D, 27 sensors, Li Flex Track, 73 airbags, aromatherapy, chromotherapy, 12.3" touchscreen, and a near-lay-flat 170-degree recline.</p>
+                <div class="buyer-rec">Recommended: JP Medics Kozue</div>
+            </div>
+            <div class="buyer-card">
+                <div class="buyer-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div>
+                <div class="buyer-type-label">Smart Value Buyer</div>
+                <h3>Buyers Who Want JP Medics Quality at a Lower Entry</h3>
+                <p>At $12,999 (from $15,999), the KaZe Duo delivers the full JP Medics philosophy — Chair Doctor AI, premium Japanese engineering, refined massage feel, and strong ownership features — without reaching the Kozue's flagship price.</p>
+                <div class="buyer-rec">Recommended: JP Medics KaZe Duo</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ VS BRANDS ══════════ -->
+<section class="section section-alt" id="vs-brands">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Brand Intelligence</span>
+            <h2>JP Medics vs. <span class="underline">Other Premium Brands</span></h2>
+            <p>An honest, directional comparison framework for buyers who are actively comparing JP Medics with alternatives.</p>
+        </div>
+        <div class="brand-compare-grid">
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Osaki</div></div>
+                <div class="brand-body"><p>Osaki offers a significantly broader model range with strong feature density at each tier. JP Medics is more curated and precision-focused. Osaki tends toward more assertive intensity and broader feature coverage; JP Medics leans toward measured, sensor-led personalization. Buyers who want a large selection or prefer stronger pressure often choose Osaki. Buyers who want a more refined, precise feel in a Japanese flagship tier often prefer JP Medics.</p><div class="brand-verdict">JP Medics: more precise · Osaki: more choice and intensity</div></div>
+            </div>
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Infinity</div></div>
+                <div class="brand-body"><p>Infinity competes well on technology breadth and value positioning. JP Medics competes on precision and Japanese positioning. Infinity tends to offer more features per dollar across a wider range; JP Medics delivers a more curated, refined experience at the flagship tier. Buyers who prioritize technology access at multiple price points often lean Infinity; buyers who want a more specialized, sensor-led Japanese approach tend toward JP Medics.</p><div class="brand-verdict">JP Medics: more curated · Infinity: broader technology access</div></div>
+            </div>
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Ogawa</div></div>
+                <div class="brand-body"><p>Ogawa competes directly with JP Medics in the premium Japanese-heritage segment. Their Master Drive Duo flagship is a strong competitor to the KaZe Duo in particular — both offer dual-engine approaches, AI personalization, and refined Japanese design philosophy. Ogawa's design identity leans more minimalist; JP Medics' Chair Doctor AI is a distinctive differentiator. Both are premium choices in the same buyer tier.</p><div class="brand-verdict">Very close competition — try both in person to decide</div></div>
+            </div>
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Fujiiryoki</div></div>
+                <div class="brand-body"><p>Fujiiryoki is the world's original massage chair manufacturer with over 70 years of Japanese engineering heritage. Both brands share a Japanese precision philosophy but express it differently: Fujiiryoki is more therapeutically focused (deep relief, quad heat, dual robots for coverage), while JP Medics is more sensor-driven and personalization-forward. Buyers who want the deepest therapeutic coverage often prefer Fujiiryoki; buyers who want more intelligent real-time adaptation often prefer JP Medics.</p><div class="brand-verdict">JP Medics: sensor-led AI · Fujiiryoki: therapeutic depth</div></div>
+            </div>
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Cozzia</div></div>
+                <div class="brand-body"><p>Cozzia offers a broader lineup including dual-mechanism Duo models with competitive technology at various price points. Cozzia tends to deliver stronger compression coverage (VarioMotion™, high airbag counts); JP Medics delivers stronger AI personalization and sensor precision. Both are solid choices in the $10K–$16K premium segment with distinct engineering approaches.</p><div class="brand-verdict">JP Medics: AI precision · Cozzia: compression and track coverage</div></div>
+            </div>
+            <div class="brand-row">
+                <div class="brand-label"><div class="brand-name">JP Medics</div><div class="brand-vs">vs. Bodyfriend</div></div>
+                <div class="brand-body"><p>Bodyfriend is a South Korean luxury brand known for exceptional design, premium materials, and sophisticated AI health monitoring. Both brands operate in the same premium segment and appeal to similar buyer profiles — design-conscious, technology-forward, health-committed. JP Medics positions with more session-adaptive precision; Bodyfriend with more premium design identity and enveloping comfort.</p><div class="brand-verdict">Both premium — different design and massage philosophies</div></div>
+            </div>
+        </div>
+        <div class="expert-callout" style="margin-top:28px">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <p><strong>The most useful brand comparison happens in person.</strong> Spec comparisons help narrow your shortlist. But the feel difference between JP Medics' sensor-led precision, Fujiiryoki's therapeutic depth, and Osaki's assertive intensity is only truly understood when you sit in each chair. At our San Jose and Pleasanton showrooms, we carry multiple premium brands side-by-side for this kind of guided comparison.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="section" id="pricing">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Price Intelligence</span>
+            <h2>JP Medics Pricing, Value &amp; <span class="underline">Ownership Expectations</span></h2>
+            <p>A transparent breakdown of what JP Medics chairs cost, what changes as you move up, and what premium-tier buyers should evaluate beyond price.</p>
+        </div>
+        <div class="price-ladder">
+            <div class="price-rung">
+                <div class="price-rung-label">
+                    <div class="price-tier-name">Premium Entry</div>
+                    <div class="price-amount">{% if kaze_product %}{{ kaze_product.price | money }}{% else %}$12,999{% endif %}</div>
+                </div>
+                <div class="price-rung-body">
+                    <h4>JP Medics KaZe Duo — Dual-Engine Premium</h4>
+                    <p>The KaZe Duo delivers the full JP Medics ownership philosophy: Chair Doctor AI, dual 4D+3D engineering, three heat zones, Tri-Action foot rollers, voice control, wireless charging, and 25 auto programs. HSA/FSA eligible with LMN; financing available through Affirm.</p>
+                    <div class="price-tags"><span class="price-tag">4D+3D Dual Engine</span><span class="price-tag">Chair Doctor AI</span><span class="price-tag">Voice Control</span><span class="price-tag">1" Wall Saver</span><span class="price-tag">3 Heat Zones</span></div>
+                </div>
+            </div>
+            <div class="price-rung">
+                <div class="price-rung-label">
+                    <div class="price-tier-name">5D Flagship</div>
+                    <div class="price-amount">{% if kozue_product %}{{ kozue_product.price | money }}{% else %}$15,999{% endif %}</div>
+                </div>
+                <div class="price-rung-body">
+                    <h4>JP Medics Kozue — Fifth-Generation Flagship</h4>
+                    <p>The Kozue represents JP Medics' most advanced technology — fifth-generation 5D robotics with 27 live pressure sensors, Li Flex Track with 170-degree recline, 73 airbags, aromatherapy, chromotherapy, and a 12.3" HD touchscreen. HSA/FSA eligible with LMN.</p>
+                    <div class="price-tags"><span class="price-tag">5th Gen 5D · 27 Sensors</span><span class="price-tag">Li Flex Track 170°</span><span class="price-tag">73 Airbags</span><span class="price-tag">Aromatherapy</span><span class="price-tag">Chromotherapy</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ TRUST ══════════ -->
+<section class="section section-alt" id="trust">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Trust &amp; Legitimacy</span>
+            <h2>Are JP Medics Massage Chairs <span class="underline">Good?</span></h2>
+            <p>What buyers should know about JP Medics quality, reviews, warranty expectations, and why the dealer matters as much as the chair.</p>
+        </div>
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+                <h3>How to Interpret JP Medics Reviews</h3>
+                <p>JP Medics is a precision-led Japanese brand with a specific buyer profile. Reviews from buyers who expected maximum intensity may rate it lower — not because the chair is bad, but because it doesn't match their expectations. For buyers who understand JP Medics' philosophy, reviews are consistently strong.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+                <h3>Warranty &amp; Support Expectations</h3>
+                <p>JP Medics massage chairs come with manufacturer warranty coverage. Extended factory warranty options are also available for both the Kozue and KaZe Duo. Buying from an authorized dealer ensures warranty coverage is valid and post-purchase support is accessible through a specialist who knows the brand.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div>
+                <h3>Why Buying from a Specialist Dealer Matters</h3>
+                <p>At this price tier, the dealer relationship matters significantly. A specialist retailer who carries JP Medics alongside competing brands can help you validate that JP Medics is the right choice — not just for their business. House of Massage Chairs carries multiple premium brands specifically to offer genuine comparison guidance.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                <h3>What to Verify Before Purchasing</h3>
+                <p>Before purchasing any JP Medics chair, verify: (1) the dealer is an authorized JP Medics retailer, (2) the warranty terms apply to your purchase, (3) you understand the return or exchange policy, and (4) financing options are clearly understood. All of these are standard practice at House of Massage Chairs.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div>
+                <h3>Are JP Medics Chairs Reliable?</h3>
+                <p>JP Medics chairs are built to premium engineering standards consistent with their price positioning. Both the Kozue and KaZe Duo are in-stock, actively supported products with available extended factory warranty. Reliability is best supported by purchasing from an authorized dealer and registering warranty coverage promptly.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg></div>
+                <h3>{{ shop.name }} as Your JP Medics Specialist</h3>
+                <p>House of Massage Chairs is rated 5.0 on Google with 95+ verified reviews. We carry JP Medics alongside 8+ other premium brands — Osaki, Fujiiryoki, Infinity, Bodyfriend, Ogawa, Cozzia, and others — specifically so we can offer genuine comparison guidance. Our specialists are trained on every model, without sales pressure.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ SHOWROOMS ══════════ -->
+<section class="section" id="showrooms">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Try Before You Buy</span>
+            <h2>Experience JP Medics Massage Chairs <span class="underline">In Person</span></h2>
+            <p>The difference between JP Medics' precision feel and an intensity-first approach is not something spec sheets communicate. It takes five minutes in the chair.</p>
+        </div>
+        <div class="expert-callout" style="margin-bottom:40px">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <p><strong>Why in-person trials matter for JP Medics specifically:</strong> The Chair Doctor AI adapts based on your body — not a generic mannequin. The 27 pressure sensors in the Kozue read your real muscle density and tension patterns. The Li Flex Track's 170-degree recline changes how your body opens up in ways a video cannot show. And the feel difference between JP Medics' measured precision and the more assertive profile of brands like Osaki only becomes clear when you compare them side by side.</p>
+        </div>
+        <div class="showroom-grid">
+            <div class="showroom-card">
+                <div class="showroom-head">
+                    <div class="showroom-pill">JP Medics Showroom · San Jose</div>
+                    <h3>Westfield Oakridge Mall</h3>
+                    <p>Bay Area's most complete massage chair showroom — 35+ models from 9 premium brands</p>
+                </div>
+                <div class="showroom-body">
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>925 Blossom Hill Road</strong>, San Jose, CA 95123</span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><strong>(669) 214-8889</strong></span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>JP Medics Kozue &amp; KaZe Duo available to try</span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg><span>Open 7 days a week — call ahead to confirm hours</span></div>
+                    <div class="showroom-btns">
+                        <a href="{{ shop.url }}/pages/our-store" class="btn btn-dark btn-sm">Book Appointment</a>
+                        <a href="tel:+16692148889" class="btn btn-outline btn-sm">Call Us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="showroom-card">
+                <div class="showroom-head">
+                    <div class="showroom-pill">JP Medics Showroom · Pleasanton</div>
+                    <h3>Stoneridge Shopping Center</h3>
+                    <p>East Bay's premium massage chair destination — multiple brands, specialist guidance</p>
+                </div>
+                <div class="showroom-body">
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>1116 Stoneridge Mall Rd</strong>, Pleasanton, CA 94566</span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><strong>(669) 214-8889</strong></span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>JP Medics models available — call to confirm availability</span></div>
+                    <div class="showroom-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span>Serving Pleasanton, Dublin, Livermore &amp; East Bay buyers</span></div>
+                    <div class="showroom-btns">
+                        <a href="{{ shop.url }}/pages/our-store" class="btn btn-dark btn-sm">Book Appointment</a>
+                        <a href="tel:+16692148889" class="btn btn-outline btn-sm">Call Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section section-alt" id="faq">
+    <div class="container-narrow">
+        <div class="section-header centered">
+            <span class="section-label">Frequently Asked Questions</span>
+            <h2 class="accent-heading">JP Medics Massage Chair <span class="underline">FAQ</span></h2>
+            <p>High-intent buyer questions, answered with precision.</p>
+        </div>
+        <div style="border-top:1px solid var(--border)">
+
+            {% assign faqs = "Are JP Medics massage chairs worth it?|What is the best JP Medics massage chair?|Are JP Medics massage chairs good?|Are JP Medics massage chairs reliable?|What is the difference between the Kozue and KaZe Duo?|Can I try JP Medics massage chairs in person?|Where can I buy authentic JP Medics massage chairs?|Do JP Medics chairs come with a warranty?|How much does a good JP Medics massage chair cost?|What is Chair Doctor Powered by AI in JP Medics chairs?" | split: "|" %}
+
+            {% assign answers = "For buyers who align with JP Medics' core proposition — precision, personalization, and a refined Japanese massage feel — yes. The Kozue and KaZe Duo both deliver features and engineering depth that justify their price in the premium segment. The value proposition is highest for daily wellness buyers, high-output professionals, and buyers who specifically want sensor-led AI personalization rather than a broad feature catalog. Financing is available through Affirm, and both models are HSA/FSA eligible with LMN.|If you want JP Medics' most advanced sensor technology and the deepest body-adaptive precision, the Kozue ($15,999) is the best JP Medics chair — fifth-generation 5D, 27 live pressure sensors, Li Flex Track, 73 airbags, and aromatherapy. If you want a more convenient daily driver with dual-engine engineering, voice control, wireless charging, and a 1-inch wall saver at a lower price point, the KaZe Duo ($12,999) is the better fit for most buyers. Both can be tried in person at our San Jose and Pleasanton showrooms.|Yes. JP Medics is a premium Japanese massage chair brand with a strong engineering foundation, genuine AI personalization through Chair Doctor, and a refined massage feel that serves its target buyer well. The brand is not designed for buyers who want maximum intensity or the widest model selection — it is designed for buyers who want precision, intelligent adaptation, and a curated Japanese premium experience.|JP Medics chairs are built to premium engineering standards consistent with their price positioning. Both the Kozue and KaZe Duo are in-stock, actively supported products with available extended factory warranty options. Long-term reliability is best supported by purchasing from an authorized dealer, registering warranty coverage, and following usage guidance. House of Massage Chairs provides post-purchase support and can facilitate warranty claims when needed.|The Kozue uses fifth-generation 5D robotics with 27 live pressure sensors and a Li Flex Track that reclines to 170 degrees. It is precision-first: the roller actively reads and responds to your body throughout the session. Features like aromatherapy, chromotherapy lighting, and a 12.3 HD touchscreen reflect its flagship positioning. The KaZe Duo uses a dual 4D+3D Duo Vario Motion system with an L-Track. It is automation-first: voice control, wireless charging, a 1-inch wall saver, three heat zones, and Tri-Action foot rollers make it a more practical daily-use choice. Chair Doctor AI is present in both. The Kozue starts at $15,999; the KaZe Duo at $12,999.|Yes. House of Massage Chairs has JP Medics models available at our San Jose showroom at Westfield Oakridge Mall and our Pleasanton showroom at Stoneridge Shopping Center. We recommend calling ahead to confirm availability and book an appointment so our team can prepare a guided session. Trying the Kozue and KaZe Duo side-by-side — and comparing them with other premium brands in the showroom — is the most effective way to make a confident decision at this price tier.|House of Massage Chairs is an authorized JP Medics dealer in the Bay Area, serving buyers in San Jose, Pleasanton, Fremont, Cupertino, Palo Alto, Campbell, Sunnyvale, Santa Clara, and surrounding areas. Purchasing from an authorized dealer ensures your warranty is valid, your purchase is supported, and your product is authentic. You can buy online through our site or visit either showroom in person. We also offer white-glove delivery with in-home setup.|Yes. Both the Kozue and KaZe Duo include manufacturer warranty coverage. Extended factory warranty options are also available for both models. House of Massage Chairs will help facilitate warranty registration and any post-purchase claims. For specific warranty terms and coverage details, contact our team directly or check the product pages.|JP Medics currently offers two flagship-tier models: the KaZe Duo at $12,999 (from $15,999) and the Kozue at $15,999 (from $19,999). Both represent genuine premium investments. Financing options through Affirm and HSA/FSA eligibility with LMN are available on both models, which can affect the effective cost.|Chair Doctor Powered by AI is JP Medics' proprietary biofeedback-driven personalization system, available in both the Kozue and KaZe Duo. Rather than simply scanning body geometry at the start of a session, Chair Doctor reads biofeedback inputs including stress markers and heart-rate related signals to understand your current physical state before tailoring the massage program. This is a meaningfully different approach from standard body-scan systems, which only map spine position and shoulder location. In the Kozue, Chair Doctor is combined with 27 live pressure sensors for additional real-time adaptation throughout the session." | split: "|" %}
+
+            {% for faq_q in faqs %}
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)" id="faq-q{{ forloop.index }}">
+                    <h3>{{ faq_q }}</h3>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="faq-a">
+                    <p>{{ answers[forloop.index0] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ INTERNAL LINKS ══════════ -->
+<section style="padding:56px 0;background:var(--surface);border-top:1px solid var(--border)">
+    <div class="container">
+        <div class="section-header centered" style="margin-bottom:28px">
+            <span class="section-label">Explore More</span>
+            <h2 style="font-size:28px!important">More from {{ shop.name }}</h2>
+        </div>
+        <div class="link-pills">
+            <a href="{{ shop.url }}/collections/massage-chairs" class="link-pill">All Massage Chairs</a>
+            <a href="{{ shop.url }}/collections/fujiiryoki" class="link-pill">Fujiiryoki Chairs</a>
+            <a href="{{ shop.url }}/collections/osaki" class="link-pill">Osaki Chairs</a>
+            <a href="{{ shop.url }}/collections/infinity" class="link-pill">Infinity Chairs</a>
+            <a href="{{ shop.url }}/collections/ogawa" class="link-pill">Ogawa Chairs</a>
+            <a href="{{ shop.url }}/collections/bodyfriend" class="link-pill">Bodyfriend Chairs</a>
+            <a href="{{ shop.url }}/collections/cozzia" class="link-pill">Cozzia Chairs</a>
+            <a href="{{ shop.url }}/pages/our-store" class="link-pill">Our Showrooms</a>
+            <a href="{{ shop.url }}/blogs/news" class="link-pill">Buying Guides</a>
+            <a href="{{ shop.url }}/pages/contact" class="link-pill">Contact a Specialist</a>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section class="section" style="background:var(--dark)">
+    <div class="container">
+        <div class="final-cta">
+            <div class="final-cta-inner">
+                <span class="final-cta-eyebrow">Specialist Guidance · San Jose &amp; Pleasanton</span>
+                <h2>Ready to Experience JP Medics in Person?</h2>
+                <p>The precision difference between the Kozue's 5D sensor system and a standard chair becomes clear in the first five minutes of a guided session. Our specialists can demonstrate both JP Medics models and help you compare them with other premium brands — without pressure or urgency.</p>
+                <div class="cta-points">
+                    <div class="cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Try Kozue &amp; KaZe Duo side by side</span></div>
+                    <div class="cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Compare JP Medics vs. other brands</span></div>
+                    <div class="cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>No pressure, expert-led guidance</span></div>
+                    <div class="cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Financing &amp; HSA/FSA available</span></div>
+                </div>
+                <div class="final-cta-btns">
+                    <a href="{{ shop.url }}/pages/our-store" class="btn btn-gold">Book a Showroom Visit</a>
+                    <a href="{{ shop.url }}/pages/contact" class="btn btn-ghost">Speak With a Specialist</a>
+                    <a href="#collection" class="btn btn-ghost">Browse JP Medics Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ══════════ JS ══════════ -->
+<script>
+/* ── FAQ Toggle ── */
+function toggleFaq(el) {
+    var ans = el.nextElementSibling;
+    var isOpen = ans.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(x){ x.classList.remove('open'); });
+    document.querySelectorAll('.faq-q').forEach(function(x){ x.classList.remove('active'); });
+    if (!isOpen) { ans.classList.add('open'); el.classList.add('active'); }
+}
+
+/* ── Subnav active state ── */
+(function(){
+    var subnav = document.querySelector('.page-subnav-inner');
+    if (!subnav) return;
+    var anchors = Array.prototype.slice.call(subnav.querySelectorAll('a[href^="#"]'));
+    var sections = anchors.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if (!sections.length) return;
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if (entry.isIntersecting) {
+                var id = '#' + entry.target.id;
+                anchors.forEach(function(a){
+                    a.style.borderBottomColor = a.getAttribute('href') === id ? 'var(--accent)' : 'transparent';
+                    a.style.color = a.getAttribute('href') === id ? 'var(--dark)' : '';
+                });
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
+</div><!-- /.jpm-wrap -->

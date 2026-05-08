@@ -1,0 +1,1761 @@
+{%- comment -%}
+  SECTION: page-pleasanton.liquid
+  Store:    House of Massage Chairs
+  Template: templates/page.pleasanton.json
+  Handle:   pleasanton-showroom
+
+  INSTALL:
+  1. Upload to /sections/page-pleasanton.liquid
+  2. Upload templates/page.pleasanton.json
+  3. In Shopify Admin → Pages → assign template "page.pleasanton"
+{%- endcomment -%}
+
+{%- comment -%} JSON-LD SCHEMA {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs — Pleasanton",
+    "url": "{{ shop.url }}/pages/pleasanton-showroom",
+    "telephone": "+16692148889",
+    "priceRange": "$$$$",
+    "hasMap": "https://maps.app.goo.gl/6Ss8326tYSKenV9T9",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1 Stoneridge Mall, STE B108",
+      "addressLocality": "Pleasanton",
+      "addressRegion": "CA",
+      "postalCode": "94588",
+      "addressCountry": "US"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 37.6955, "longitude": -121.9287 },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:00", "closes": "21:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "11:00", "closes": "19:00" }
+    ],
+    "areaServed": ["Pleasanton","San Ramon","Danville","Dublin","Livermore","Walnut Creek","East Bay","Tri-Valley"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Where can I try a massage chair in Pleasanton?","acceptedAnswer":{"@type":"Answer","text":"House of Massage Chairs is inside Stoneridge Mall, STE B108, Pleasanton CA 94588. All chairs are fully operational — walk-ins welcome."}},
+      {"@type":"Question","name":"Is there a massage chair showroom near me in the East Bay?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our Pleasanton showroom at Stoneridge Mall serves the East Bay and Tri-Valley — including San Ramon, Danville, Dublin, Livermore, and Walnut Creek."}},
+      {"@type":"Question","name":"Can I compare different massage chairs in person at your Pleasanton store?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Our multi-brand showroom lets you sit in and compare premium massage chairs side by side."}},
+      {"@type":"Question","name":"Do you carry luxury massage chairs at your Pleasanton location?","acceptedAnswer":{"@type":"Answer","text":"Yes. We carry a curated selection of luxury, premium, and therapeutic massage chairs across multiple top brands."}},
+      {"@type":"Question","name":"Is it better to try a massage chair before buying?","acceptedAnswer":{"@type":"Answer","text":"For a $3,000–$15,000+ purchase, trying before buying is essential. Our showroom gives you hands-on clarity before you commit."}},
+      {"@type":"Question","name":"Do you offer zero gravity massage chairs in Pleasanton?","acceptedAnswer":{"@type":"Answer","text":"Yes. We carry multiple zero gravity massage chair models — come try the recline in person."}},
+      {"@type":"Question","name":"Do you offer financing for massage chairs in Pleasanton?","acceptedAnswer":{"@type":"Answer","text":"Yes. Flexible financing options are available. Ask our team when you visit or call (669) 214-8889."}}
+    ]
+  }
+]
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap');
+
+/* ============================================================
+   SHOPIFY CONTAINER OVERRIDES
+   ============================================================ */
+.template-page main,
+.template-page #MainContent,
+.template-page .page-width,
+.template-page .container,
+.template-page .main-content { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+
+.template-page .site-footer,
+.template-page footer.footer,
+.template-page .footer:not(.plstn-footer),
+.template-page #shopify-section-footer,
+.template-page [id^="shopify-section"][id$="footer"],
+.template-page .site-footer__inner { display: none !important; }
+
+.template-page .content-for-layout { padding-top: 0 !important; margin-top: 0 !important; }
+
+/* Full-bleed for Shopify theme container */
+.plstn-hero,
+.plstn-statsbar,
+.plstn-section,
+.plstn-section-alt,
+.plstn-darkstrip,
+.plstn-ctaband,
+.plstn-finalcta,
+.plstn-footer {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* ============================================================
+   BASE STYLES — ABSOLUTE px UNITS (prevent theme inheritance)
+   ============================================================ */
+.plstn {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+
+  /* CSS Variables */
+  --gold:        #9a8050;
+  --gold-h:      #7d6840;
+  --gold-warm:   #c4a464;
+  --gold-pale:   rgba(154,128,80,0.10);
+  --ink:         #0d0d0d;
+  --surface:     #f4f1ed;
+  --muted:       #5c5c5c;
+  --muted2:      #909090;
+  --border:      #e4e0d8;
+  --radius:      18px;
+  --radius-sm:   10px;
+  --shadow:      0 6px 24px rgba(0,0,0,0.07);
+  --shadow-lg:   0 18px 48px rgba(0,0,0,0.13);
+  --ease:        cubic-bezier(0.25,0.8,0.25,1);
+  --trans:       all 0.28s cubic-bezier(0.25,0.8,0.25,1);
+}
+
+/* Hard reset scoped only to .plstn */
+.plstn *, .plstn *::before, .plstn *::after { box-sizing: border-box; }
+.plstn h1,.plstn h2,.plstn h3,.plstn h4,.plstn h5,.plstn h6,
+.plstn p,.plstn ul,.plstn ol,.plstn li,.plstn figure,.plstn blockquote {
+  margin: 0; padding: 0;
+}
+.plstn ul,.plstn ol { list-style: none; }
+.plstn a { text-decoration: none; color: inherit; }
+.plstn img { max-width: 100%; display: block; border: 0; }
+.plstn table { border-collapse: collapse; }
+
+/* Typography */
+.plstn h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+.plstn h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.plstn h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.plstn h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.plstn p { font-size: 15px; line-height: 1.8; color: var(--muted); }
+
+/* Layout helpers */
+.plstn-wrap    { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.plstn-wrap-sm { max-width: 880px;  margin: 0 auto; padding: 0 40px; }
+.plstn-section,
+.plstn-section-alt { padding: 80px 0; }
+.plstn-section-alt { background: var(--surface); }
+
+/* Eyebrow label */
+.plstn-eyebrow {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.plstn-eyebrow-light { color: var(--gold-warm); }
+
+/* Section heading block */
+.plstn-hd { margin-bottom: 48px; }
+.plstn-hd.ctr { text-align: center; }
+.plstn-hd p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-top: 12px; max-width: 680px; }
+.plstn-hd.ctr p { margin-left: auto; margin-right: auto; }
+
+/* ─── BUTTONS ─────────────────────────────────────────────── */
+.plstn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  text-decoration: none !important;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--trans);
+}
+.plstn-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+.plstn-btn-gold  { background: var(--gold);  color: #fff !important; border-color: var(--gold); }
+.plstn-btn-gold:hover { background: var(--gold-h); border-color: var(--gold-h); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(154,128,80,0.38); }
+
+.plstn-btn-dark  { background: var(--ink);   color: #fff !important; border-color: var(--ink); }
+.plstn-btn-dark:hover { background: #222; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.22); }
+
+.plstn-btn-ghost {
+  background: rgba(255,255,255,0.10);
+  color: #fff !important;
+  border: 2px solid rgba(255,255,255,0.60);
+}
+.plstn-btn-ghost:hover {
+  background: rgba(255,255,255,0.20);
+  border-color: rgba(255,255,255,0.95);
+  color: #fff !important;
+}
+
+/* ─── STICKY CTAs ─────────────────────────────────────────── */
+#plstn-sticky {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#plstn-sticky.visible { opacity: 1; pointer-events: all; }
+.plstn-sticky-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.30);
+  transition: var(--trans);
+  cursor: pointer;
+}
+.plstn-sticky-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+.plstn-sticky-call { background: var(--ink); color: #fff !important; }
+.plstn-sticky-call:hover { background: #222; transform: translateY(-2px); color: #fff !important; }
+.plstn-sticky-dir  { background: var(--gold); color: #fff !important; }
+.plstn-sticky-dir:hover { background: var(--gold-h); transform: translateY(-2px); color: #fff !important; }
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.plstn-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background: #06060e;
+  overflow: hidden;
+}
+.plstn-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.plstn-hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  filter: brightness(0.40) saturate(0.80);
+  animation: plstnZoom 14s ease-in-out infinite alternate;
+}
+@keyframes plstnZoom { from { transform: scale(1.00); } to { transform: scale(1.06); } }
+.plstn-hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(to right, rgba(2,2,10,0.94) 0%, rgba(2,2,10,0.60) 55%, rgba(2,2,10,0.10) 100%),
+    linear-gradient(to top,   rgba(2,2,10,0.85) 0%, transparent 55%);
+}
+.plstn-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 100px 40px 110px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.plstn-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.88);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+.plstn-hero-dot {
+  width: 7px; height: 7px;
+  background: #4ade80;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: plstnPulse 2.2s ease-in-out infinite;
+}
+@keyframes plstnPulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.plstn-hero h1 { color: #fff; max-width: 840px; margin-bottom: 20px; }
+.plstn-hero h1 em { color: var(--gold-warm); font-style: italic; }
+.plstn-hero-lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.75;
+  max-width: 580px;
+  margin-bottom: 40px;
+}
+.plstn-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.plstn-hero-trust {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+.plstn-hero-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+}
+.plstn-hero-trust-item svg { width: 14px; height: 14px; fill: var(--gold-warm); flex-shrink: 0; }
+
+/* ─── STATS BAR ───────────────────────────────────────────── */
+.plstn-statsbar { background: #0a0a0a; }
+.plstn-stats-inner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.plstn-stat {
+  flex: 1;
+  min-width: 160px;
+  padding: 28px 32px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.plstn-stat:last-child { border-right: none; }
+.plstn-stat-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.plstn-stat-num span { color: var(--gold-warm); }
+.plstn-stat-label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  margin-top: 8px;
+}
+
+/* ─── LOCATION CARD ───────────────────────────────────────── */
+.plstn-loccard {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.plstn-loccard-head {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1610 100%);
+  padding: 32px 40px;
+}
+.plstn-loc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--gold-warm);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+.plstn-loc-badge-dot { width: 6px; height: 6px; background: var(--gold-warm); border-radius: 50%; flex-shrink: 0; }
+.plstn-loccard-head-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+.plstn-loccard-head-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.50);
+  font-weight: 500;
+}
+.plstn-loccard-body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+.plstn-locinfo { padding: 32px 40px; }
+.plstn-locrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.plstn-locrow:last-child { border-bottom: none; }
+.plstn-locicon {
+  width: 40px; height: 40px;
+  background: var(--gold-pale);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.plstn-locicon svg { width: 18px; height: 18px; fill: var(--gold); }
+.plstn-loclabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  display: block;
+  margin-bottom: 4px;
+}
+.plstn-locval {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  display: block;
+  line-height: 1.55;
+}
+.plstn-locval a { color: var(--ink); font-weight: 600; }
+.plstn-locval a:hover { color: var(--gold); }
+.plstn-hourtbl { border-collapse: collapse; margin-top: 4px; }
+.plstn-hourtbl td {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  padding: 3px 0;
+}
+.plstn-hourtbl td:first-child { font-weight: 700; color: var(--ink); padding-right: 24px; white-space: nowrap; }
+.plstn-locsub {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  display: block;
+  margin-top: 3px;
+  line-height: 1.6;
+}
+.plstn-locmap { position: relative; }
+.plstn-locmap iframe { width: 100%; height: 100%; min-height: 360px; border: 0; display: block; }
+.plstn-loccta {
+  padding: 24px 40px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.plstn-loccta-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--ink);
+  color: #fff !important;
+  padding: 16px 24px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none !important;
+  transition: var(--trans);
+}
+.plstn-loccta-full svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
+.plstn-loccta-full:hover { background: #222; transform: translateY(-1px); color: #fff !important; }
+.plstn-loccta-row { display: flex; gap: 12px; }
+.plstn-loccta-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none !important;
+  border: 2px solid transparent;
+  transition: var(--trans);
+  cursor: pointer;
+}
+.plstn-loccta-half svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+.plstn-half-dir  { background: var(--gold);  color: #fff !important; border-color: var(--gold); }
+.plstn-half-dir:hover  { background: var(--gold-h); border-color: var(--gold-h); color: #fff !important; }
+.plstn-half-call { background: #fff; color: var(--ink) !important; border-color: #d8d4cc; }
+.plstn-half-call:hover { border-color: var(--ink); background: #f0ede8; color: var(--ink) !important; }
+
+/* ─── 2-COL GRID (Why Visit / VS Online) ─────────────────── */
+.plstn-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.plstn-img-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.plstn-img-wrap img {
+  width: 100%; height: 540px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.plstn-img-wrap:hover img { transform: scale(1.03); }
+.plstn-img-badge {
+  position: absolute;
+  bottom: 24px; left: 24px; right: 24px;
+  background: rgba(6,6,14,0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.plstn-img-badge-ico {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.plstn-img-badge-ico svg { width: 18px; height: 18px; fill: #fff; }
+.plstn-img-badge strong { display: block; font-family: 'Inter', sans-serif; font-size: 14px; color: #fff; font-weight: 700; }
+.plstn-img-badge span   { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.52); }
+
+/* Reason list cards */
+.plstn-reasons { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+.plstn-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: var(--trans);
+}
+.plstn-reason:hover { border-color: var(--gold); box-shadow: 0 4px 18px rgba(154,128,80,0.12); }
+.plstn-reason-ico {
+  width: 40px; height: 40px;
+  background: var(--gold-pale);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.plstn-reason-ico svg { width: 18px; height: 18px; fill: var(--gold); }
+.plstn-reason strong {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.plstn-reason span {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Check list */
+.plstn-checklist { display: flex; flex-direction: column; gap: 10px; margin: 20px 0 32px; }
+.plstn-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.plstn-checklist li::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── TRY BEFORE YOU BUY CARDS ───────────────────────────── */
+.plstn-3col { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.plstn-trycard {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--trans);
+}
+.plstn-trycard::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-warm));
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.plstn-trycard:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.plstn-trycard:hover::after { transform: translateY(0); }
+.plstn-trycard-ico { font-size: 32px; display: block; margin-bottom: 14px; }
+.plstn-trytag {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-pale);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.plstn-trycard h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.plstn-trycard p  { font-size: 13px; color: var(--muted); line-height: 1.85; }
+
+/* ─── DARK STRIP ──────────────────────────────────────────── */
+.plstn-darkstrip {
+  background: linear-gradient(135deg, #07070d 0%, #0e0b17 60%, #08090f 100%);
+  padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.plstn-darkstrip::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 72% 50%, rgba(154,128,80,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.plstn-darkinner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.plstn-darktext h2 { color: #fff; margin-bottom: 20px; }
+.plstn-darktext h2 em { color: var(--gold-warm); font-style: italic; }
+.plstn-darktext p  { color: rgba(255,255,255,0.60); font-size: 15px; line-height: 1.8; margin-bottom: 20px; }
+.plstn-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.plstn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.78);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 50px;
+}
+.plstn-pill::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.plstn-tiles { display: flex; flex-direction: column; gap: 14px; }
+.plstn-tile {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px 24px;
+  transition: var(--trans);
+}
+.plstn-tile:hover { border-color: rgba(154,128,80,0.38); background: rgba(154,128,80,0.06); }
+.plstn-tile-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.plstn-tile-note { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.6; }
+
+/* ─── VISIT STEPS ─────────────────────────────────────────── */
+.plstn-steps {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  background: var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.plstn-step {
+  padding: 36px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.plstn-step:last-child { border-right: none; }
+.plstn-step-circle {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+  transition: var(--trans);
+}
+.plstn-step:hover .plstn-step-circle { background: var(--gold); border-color: var(--gold); }
+.plstn-step h4 { font-size: 12px; color: #fff; margin-bottom: 8px; letter-spacing: 0.05em; }
+.plstn-step p  { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.75; }
+
+/* ─── LOCAL AREA & TRUST GRIDS ───────────────────────────── */
+.plstn-4col { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.plstn-localcard {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  transition: var(--trans);
+}
+.plstn-localcard:hover { border-color: var(--gold); box-shadow: var(--shadow); }
+.plstn-localcard h4 {
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  margin-bottom: 6px; text-transform: none; letter-spacing: 0;
+}
+.plstn-localcard p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.plstn-localcard-dist {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold); margin-top: 8px;
+}
+.plstn-trustcard {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px 24px;
+  text-align: center;
+  transition: var(--trans);
+}
+.plstn-trustcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+.plstn-trust-ico { font-size: 32px; display: block; margin-bottom: 14px; }
+.plstn-trustcard h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; text-transform: none; letter-spacing: 0; }
+.plstn-trustcard p  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ─── CTA BAND ────────────────────────────────────────────── */
+.plstn-ctaband { background: var(--gold); }
+.plstn-ctaband-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 52px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.plstn-ctaband h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px, 2.5vw, 30px);
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.plstn-ctaband p { font-size: 15px; color: rgba(255,255,255,0.80); }
+.plstn-ctaband-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.plstn-band-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--gold) !important;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: var(--trans);
+}
+.plstn-band-white:hover { background: #fdf8f2; transform: translateY(-2px); color: var(--gold) !important; }
+.plstn-band-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  color: #fff !important;
+  border: 2px solid rgba(255,255,255,0.75);
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none !important;
+  transition: var(--trans);
+}
+.plstn-band-outline:hover { background: rgba(255,255,255,0.25); border-color: #fff; color: #fff !important; }
+
+/* ─── FAQ ─────────────────────────────────────────────────── */
+.plstn-faq2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
+.plstn-faqitem { border-bottom: 1px solid var(--border); }
+.plstn-faqq {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  gap: 16px;
+  cursor: pointer;
+}
+.plstn-faqq h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.plstn-faqq:hover h3 { color: var(--gold); }
+.plstn-faqi {
+  width: 24px; height: 24px;
+  fill: var(--muted2);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.plstn-faqitem.is-open .plstn-faqi { transform: rotate(45deg); }
+.plstn-faqbody { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.plstn-faqbody p { font-size: 14px; color: var(--muted); line-height: 1.85; padding-bottom: 20px; }
+.plstn-faqbody a { color: var(--gold); text-decoration: underline; }
+
+/* ─── FINAL CTA ───────────────────────────────────────────── */
+.plstn-finalcta {
+  background: linear-gradient(135deg, #040408 0%, #160e06 60%, #040408 100%);
+  padding: 104px 0;
+  position: relative;
+  overflow: hidden;
+}
+.plstn-finalcta::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -8%;
+  width: 620px; height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(154,128,80,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.plstn-finalcta-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.plstn-finalcta h2 { color: #fff; margin-bottom: 16px; }
+.plstn-finalcta h2 em { color: var(--gold-warm); font-style: italic; }
+.plstn-finalcta > .plstn-finalcta-inner > p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+.plstn-finalbtns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.plstn-trustrow  { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.plstn-trustrow-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
+}
+.plstn-trustrow-item svg { width: 14px; height: 14px; fill: var(--gold-warm); flex-shrink: 0; }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+.plstn-footer { background: #0a0a0a; padding: 64px 0 32px; }
+.plstn-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  margin-bottom: 48px;
+}
+.plstn-footer-brand {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.plstn-footer-grid > div > p { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.8; }
+.plstn-footer-grid h4 { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.38); margin-bottom: 16px; }
+.plstn-footer-grid a { display: block; font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255,255,255,0.52); margin-bottom: 8px; transition: color 0.2s; }
+.plstn-footer-grid a:hover { color: #fff; }
+.plstn-footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.plstn-footer-bottom span { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.28); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .plstn-loccard-body { grid-template-columns: 1fr; }
+  .plstn-locmap iframe { min-height: 300px; }
+  .plstn-2col { grid-template-columns: 1fr; gap: 48px; }
+  .plstn-darkinner { grid-template-columns: 1fr; gap: 48px; }
+  .plstn-3col { grid-template-columns: 1fr 1fr; }
+  .plstn-4col { grid-template-columns: 1fr 1fr; }
+  .plstn-steps { grid-template-columns: repeat(3,1fr); }
+  .plstn-steps .plstn-step:nth-child(3) { border-right: none; }
+  .plstn-footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .plstn-wrap, .plstn-wrap-sm { padding: 0 24px; }
+  .plstn-hero-inner { padding: 80px 24px 90px; }
+  .plstn-darkinner { padding: 0 24px; }
+  .plstn-ctaband-inner { flex-direction: column; text-align: center; padding: 40px 24px; }
+  .plstn-faq2col { grid-template-columns: 1fr; }
+  .plstn-loccta-row { flex-direction: column; }
+}
+@media (max-width: 640px) {
+  .plstn-hero { min-height: auto; }
+  .plstn-hero-inner { padding: 72px 20px 80px; }
+  .plstn-wrap, .plstn-wrap-sm { padding: 0 20px; }
+  .plstn-darkinner { padding: 0 20px; }
+  .plstn-section, .plstn-section-alt { padding: 56px 0; }
+  .plstn-3col { grid-template-columns: 1fr; }
+  .plstn-4col { grid-template-columns: 1fr; }
+  .plstn-steps { grid-template-columns: 1fr 1fr; }
+  .plstn-steps .plstn-step:nth-child(2n) { border-right: none; }
+  .plstn-steps .plstn-step:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.07); }
+  .plstn-footer-grid { grid-template-columns: 1fr; padding: 0 20px; }
+  .plstn-footer-bottom { padding: 20px 20px 0; }
+  .plstn-loccard-head { padding: 24px; }
+  .plstn-locinfo { padding: 20px 24px; }
+  .plstn-loccta { padding: 20px 24px; }
+  #plstn-sticky { bottom: 16px; right: 16px; }
+  .plstn-finalcta-inner { padding: 0 20px; }
+}
+</style>
+
+<div class="plstn">
+
+  <!-- STICKY CTA BUTTONS -->
+  <div id="plstn-sticky">
+    <a href="tel:+16692148889" class="plstn-sticky-btn plstn-sticky-call" id="plstn-sticky-call-btn">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      Call Now
+    </a>
+    <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener" class="plstn-sticky-btn plstn-sticky-dir" id="plstn-sticky-dir-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Get Directions
+    </a>
+  </div>
+
+  <!-- ════════ HERO ════════ -->
+  <section class="plstn-hero" id="plstn-hero" aria-labelledby="plstn-h1">
+    <div class="plstn-hero-bg">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/Showroom.png?v=1776447326"
+        alt=""
+        aria-hidden="true"
+        fetchpriority="high"
+        width="2000" height="1200"
+      >
+    </div>
+    <div class="plstn-hero-overlay"></div>
+    <div class="plstn-hero-inner">
+      <div class="plstn-hero-badge">
+        <span class="plstn-hero-dot"></span>
+        New Showroom &nbsp;&middot;&nbsp; Pleasanton, CA &nbsp;&middot;&nbsp; Stoneridge Mall
+      </div>
+      <h1 id="plstn-h1">
+        Pleasanton&rsquo;s Premier<br>
+        <em>Massage Chair</em> Showroom
+      </h1>
+      <p class="plstn-hero-lead">
+        Try premium massage chairs in person before you buy &mdash; compare luxury brands side by side, guided by knowledgeable specialists. No guesswork. No pressure. Just the right chair for your body.
+      </p>
+      <div class="plstn-hero-btns">
+        <a href="#plstn-location" class="plstn-btn plstn-btn-gold" id="plstn-hero-visit-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Visit the Pleasanton Showroom
+        </a>
+        <a href="tel:+16692148889" class="plstn-btn plstn-btn-ghost" id="plstn-hero-call-btn">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          +1 (669) 214-8889
+        </a>
+      </div>
+      <div class="plstn-hero-trust">
+        <div class="plstn-hero-trust-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Try before you buy
+        </div>
+        <div class="plstn-hero-trust-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Multiple premium brands
+        </div>
+        <div class="plstn-hero-trust-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Flexible financing available
+        </div>
+        <div class="plstn-hero-trust-item">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Walk-ins welcome
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="plstn-statsbar" aria-label="Showroom highlights">
+    <div class="plstn-stats-inner">
+      <div class="plstn-stat">
+        <span class="plstn-stat-num">20<span>+</span></span>
+        <span class="plstn-stat-label">Live Demo Chairs</span>
+      </div>
+      <div class="plstn-stat">
+        <span class="plstn-stat-num">5<span>+</span></span>
+        <span class="plstn-stat-label">Premium Brands</span>
+      </div>
+      <div class="plstn-stat">
+        <span class="plstn-stat-num">15<span>+</span></span>
+        <span class="plstn-stat-label">Years of Expertise</span>
+      </div>
+      <div class="plstn-stat">
+        <span class="plstn-stat-num">5<span>&#9733;</span></span>
+        <span class="plstn-stat-label">Google Rating</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ LOCATION CARD ════════ -->
+  <section class="plstn-section" id="plstn-location" aria-labelledby="plstn-loc-h">
+    <div class="plstn-wrap">
+      <div class="plstn-hd ctr" style="margin-bottom:40px;">
+        <span class="plstn-eyebrow">Find Us</span>
+        <h2 id="plstn-loc-h">Visit the Pleasanton Showroom</h2>
+        <p>Inside Stoneridge Mall &mdash; easily accessible from I-580, with free parking throughout the mall.</p>
+      </div>
+      <div class="plstn-loccard">
+        <div class="plstn-loccard-head">
+          <div class="plstn-loc-badge">
+            <span class="plstn-loc-badge-dot"></span>
+            New Featured Showroom
+          </div>
+          <div class="plstn-loccard-head-title">Pleasanton</div>
+          <div class="plstn-loccard-head-sub">Stoneridge Mall &mdash; East Bay &amp; Tri-Valley</div>
+        </div>
+        <div class="plstn-loccard-body">
+          <div class="plstn-locinfo">
+            <div class="plstn-locrow">
+              <div class="plstn-locicon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+              <div>
+                <span class="plstn-loclabel">Address</span>
+                <span class="plstn-locval">
+                  <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener">
+                    1 Stoneridge Mall, STE B108<br>Pleasanton, CA 94588
+                  </a>
+                </span>
+              </div>
+            </div>
+            <div class="plstn-locrow">
+              <div class="plstn-locicon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
+              <div>
+                <span class="plstn-loclabel">Hours</span>
+                <table class="plstn-hourtbl">
+                  <tr><td>Mon &ndash; Sat</td><td>10:00 AM &ndash; 9:00 PM</td></tr>
+                  <tr><td>Sunday</td><td>11:00 AM &ndash; 7:00 PM</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="plstn-locrow">
+              <div class="plstn-locicon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+              <div>
+                <span class="plstn-loclabel">Phone</span>
+                <span class="plstn-locval"><a href="tel:+16692148889">+1 (669) 214-8889</a></span>
+              </div>
+            </div>
+            <div class="plstn-locrow">
+              <div class="plstn-locicon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+              <div>
+                <span class="plstn-loclabel">Serving</span>
+                <span class="plstn-locsub">Pleasanton &middot; San Ramon &middot; Danville &middot; Dublin &middot; Livermore &middot; Walnut Creek &middot; East Bay</span>
+              </div>
+            </div>
+          </div>
+          <div class="plstn-locmap">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3157.030067766631!2d-121.92866699999999!3d37.6954929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fede8c97a0471%3A0x117f7d39d246abab!2sHouse%20Of%20Massage%20Chairs!5e0!3m2!1sen!2str!4v1776674522565!5m2!1sen!2str"
+              title="House of Massage Chairs — Pleasanton at Stoneridge Mall"
+              allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+        <div class="plstn-loccta">
+          <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener" class="plstn-loccta-full" id="plstn-directions-btn">
+            <svg viewBox="0 0 24 24"><path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+            Get Directions to Pleasanton Showroom
+          </a>
+          <div class="plstn-loccta-row">
+            <a href="#plstn-try" class="plstn-loccta-half plstn-half-dir" id="plstn-visit-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Visit Showroom
+            </a>
+            <a href="tel:+16692148889" class="plstn-loccta-half plstn-half-call" id="plstn-call-btn">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              Call Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ WHY VISIT ════════ -->
+  <section class="plstn-section plstn-section-alt" id="plstn-why" aria-labelledby="plstn-why-h">
+    <div class="plstn-wrap">
+      <div class="plstn-2col">
+        <div class="plstn-img-wrap">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/pleasanton-customer-trial.jpg?v=1776685714"
+            alt="Customer experiencing a personalized massage chair trial at the Pleasanton showroom"
+            loading="lazy" width="800" height="900"
+          >
+          <div class="plstn-img-badge">
+            <div class="plstn-img-badge-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div>
+              <strong>Guided, no-pressure experience</strong>
+              <span>Try any chair for as long as you need</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="plstn-eyebrow">Why Visit In Person</span>
+          <h2 id="plstn-why-h">Why Visit Our Pleasanton Showroom in Person</h2>
+          <p style="font-size:17px;margin-top:14px;line-height:1.85;">A premium massage chair is a significant decision &mdash; and one that no spec sheet, review video, or product photo can fully resolve. The only way to know which chair is right for your body is to sit in it, feel the massage, and experience zero gravity firsthand.</p>
+          <p style="font-size:17px;margin-top:12px;line-height:1.85;">That&rsquo;s exactly what our Pleasanton showroom is designed for.</p>
+          <div class="plstn-reasons">
+            <div class="plstn-reason">
+              <div class="plstn-reason-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+              <div>
+                <strong>Real comfort validation &mdash; not estimated specs</strong>
+                <span>Experience roller depth, air compression, and zero gravity positioning on your own body before you commit.</span>
+              </div>
+            </div>
+            <div class="plstn-reason">
+              <div class="plstn-reason-ico"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+              <div>
+                <strong>Side-by-side brand comparison</strong>
+                <span>Compare multiple premium brands in a single visit — understanding the real differences, not just the marketing.</span>
+              </div>
+            </div>
+            <div class="plstn-reason">
+              <div class="plstn-reason-ico"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 100 10A5 5 0 0012 2zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4z"/></svg></div>
+              <div>
+                <strong>Knowledgeable guidance, not sales pressure</strong>
+                <span>Our team helps you find the right chair for your health goals &mdash; not to close a deal on whatever&rsquo;s in stock.</span>
+              </div>
+            </div>
+            <div class="plstn-reason">
+              <div class="plstn-reason-ico"><svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg></div>
+              <div>
+                <strong>Complete decision confidence</strong>
+                <span>One focused visit replaces weeks of online research and leaves you with genuine clarity instead of lingering doubt.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ TRY BEFORE YOU BUY ════════ -->
+  <section class="plstn-section" id="plstn-try" aria-labelledby="plstn-try-h">
+    <div class="plstn-wrap">
+      <div class="plstn-hd ctr">
+        <span class="plstn-eyebrow">Try Before You Buy</span>
+        <h2 id="plstn-try-h">Try Before You Buy &mdash; Your Showroom Experience</h2>
+        <p>Our Pleasanton showroom is a hands-on space designed for exactly one purpose: helping you discover the massage chair that&rsquo;s right for you.</p>
+      </div>
+      <div class="plstn-3col">
+        <div class="plstn-trycard" id="plstn-try-styles">
+          <span class="plstn-trycard-ico">&#129469;</span>
+          <span class="plstn-trytag">Massage Styles</span>
+          <h3>Experience Different Massage Techniques</h3>
+          <p>From deep kneading and shiatsu to rhythmic tapping and stretch programs &mdash; try them on multiple chairs and feel which technique addresses your tension patterns most effectively.</p>
+        </div>
+        <div class="plstn-trycard" id="plstn-try-fit">
+          <span class="plstn-trycard-ico">&#128207;</span>
+          <span class="plstn-trytag">Chair Fit</span>
+          <h3>Compare Chair Sizes and Body Fit</h3>
+          <p>Roller coverage, shoulder width, seat depth, and leg rest length vary between models. Trying chairs in person ensures the one you choose actually fits your body.</p>
+        </div>
+        <div class="plstn-trycard" id="plstn-try-zerog">
+          <span class="plstn-trycard-ico">&#127760;</span>
+          <span class="plstn-trytag">Zero Gravity</span>
+          <h3>Test Zero Gravity Positions</h3>
+          <p>Zero gravity recline decompresses the lumbar spine and amplifies every massage. The sensation is best understood by experiencing it &mdash; not reading about it.</p>
+        </div>
+        <div class="plstn-trycard" id="plstn-try-features">
+          <span class="plstn-trycard-ico">&#9734;</span>
+          <span class="plstn-trytag">Premium Features</span>
+          <h3>Understand Premium Features Firsthand</h3>
+          <p>4D rollers, body scanning, heated lumbar, full L-track coverage, air compression &mdash; each feels different in practice. Experience them before deciding what matters to you.</p>
+        </div>
+        <div class="plstn-trycard" id="plstn-try-guidance">
+          <span class="plstn-trycard-ico">&#128075;</span>
+          <span class="plstn-trytag">Expert Guidance</span>
+          <h3>Speak with Knowledgeable Specialists</h3>
+          <p>Our team knows the technical and therapeutic differences between every chair we carry. Ask anything about back pain relief, durability, or how brands compare.</p>
+        </div>
+        <div class="plstn-trycard" id="plstn-try-confidence">
+          <span class="plstn-trycard-ico">&#10024;</span>
+          <span class="plstn-trytag">Decision Confidence</span>
+          <h3>Make a More Confident Decision</h3>
+          <p>Customers who visit our Pleasanton showroom leave with clarity that online research cannot provide. You&rsquo;ve sat in the chair. You&rsquo;ve felt the difference. You know what&rsquo;s right.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND 1 -->
+  <div class="plstn-ctaband" id="plstn-cta1">
+    <div class="plstn-ctaband-inner">
+      <div>
+        <h2>Ready to Find Your Chair in Pleasanton?</h2>
+        <p>Walk in anytime during showroom hours &mdash; or call us to plan your visit.</p>
+      </div>
+      <div class="plstn-ctaband-btns">
+        <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener" class="plstn-band-white" id="plstn-cta1-dir-btn">Get Directions</a>
+        <a href="tel:+16692148889" class="plstn-band-outline" id="plstn-cta1-call-btn">Call the Pleasanton Showroom</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SHOWROOM VS ONLINE ════════ -->
+  <section class="plstn-section plstn-section-alt" id="plstn-vs" aria-labelledby="plstn-vs-h">
+    <div class="plstn-wrap">
+      <div class="plstn-2col">
+        <div class="plstn-img-wrap">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/Showroom.png?v=1776447326"
+            alt="Premium massage chair comparison at the Pleasanton showroom"
+            loading="lazy" width="800" height="700"
+          >
+        </div>
+        <div>
+          <span class="plstn-eyebrow">Showroom vs. Online</span>
+          <h2 id="plstn-vs-h">Why Shopping In a Showroom Beats Buying Sight Unseen Online</h2>
+          <p style="font-size:17px;margin-top:14px;line-height:1.85;">Buying a premium massage chair without experiencing it first is one of the most avoidable sources of buyer&rsquo;s remorse in the wellness category. Our Pleasanton showroom exists to close that gap entirely.</p>
+          <ul class="plstn-checklist" style="margin-top:20px;">
+            <li>Feel the actual massage quality &mdash; roller depth, precision, and pressure &mdash; not just read about it</li>
+            <li>Experience zero gravity recline on your own spine, not through a promotional video</li>
+            <li>Compare upholstery, build quality, and controls between brands in real time</li>
+            <li>Understand the genuine difference between 3D and 4D massage arm systems</li>
+            <li>Get matched to the right chair for your body type, not the highest-reviewed option online</li>
+            <li>Eliminate the risk of a $5,000&ndash;$12,000 purchase that doesn&rsquo;t fit as expected</li>
+          </ul>
+          <a href="#plstn-location" class="plstn-btn plstn-btn-gold" id="plstn-vs-visit-btn">Plan Your Pleasanton Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ MULTI-BRAND DARK STRIP ════════ -->
+  <div class="plstn-darkstrip" id="plstn-brands" aria-labelledby="plstn-brands-h">
+    <div class="plstn-darkinner">
+      <div class="plstn-darktext">
+        <span class="plstn-eyebrow plstn-eyebrow-light">Multi-Brand Advantage</span>
+        <h2 id="plstn-brands-h">One Showroom.<br><em>Multiple Premium Brands.</em><br>One Clear Decision.</h2>
+        <p>Most furniture stores carry one or two chairs from a single brand. Our Pleasanton showroom carries a curated selection of elite brands, all fully operational, allowing you to compare them directly and meaningfully.</p>
+        <p>This multi-brand approach is what sets House of Massage Chairs apart from every other massage chair retailer in the area. You&rsquo;re not choosing from a limited catalog &mdash; you&rsquo;re choosing the right chair from across the premium segment.</p>
+        <div class="plstn-pills">
+          <span class="plstn-pill">Side-by-side comparison</span>
+          <span class="plstn-pill">Multiple elite brands</span>
+          <span class="plstn-pill">Curated for quality</span>
+          <span class="plstn-pill">Full body chairs</span>
+          <span class="plstn-pill">Zero gravity models</span>
+          <span class="plstn-pill">Luxury &amp; performance tiers</span>
+        </div>
+        <a href="{{ shop.url }}/collections/massage-chairs" class="plstn-btn plstn-btn-gold" id="plstn-browse-btn">Browse All Massage Chairs</a>
+      </div>
+      <div class="plstn-tiles">
+        <div class="plstn-tile">
+          <div class="plstn-tile-name">Luxury Massage Chairs</div>
+          <div class="plstn-tile-note">Sculptural craftsmanship, immersive massage programs, and premium materials for those who refuse to compromise</div>
+        </div>
+        <div class="plstn-tile">
+          <div class="plstn-tile-name">Therapeutic Precision</div>
+          <div class="plstn-tile-note">Advanced body scan technology, deep tissue engineering, and clinically informed therapeutic performance</div>
+        </div>
+        <div class="plstn-tile">
+          <div class="plstn-tile-name">Zero Gravity Chairs</div>
+          <div class="plstn-tile-note">Multi-stage zero gravity recline &mdash; NASA-derived positioning that decompresses the spine and amplifies every massage</div>
+        </div>
+        <div class="plstn-tile">
+          <div class="plstn-tile-name">Daily Wellness</div>
+          <div class="plstn-tile-note">Premium quality chairs built for consistent daily use &mdash; intelligent programs, whisper-quiet air compression, heat therapy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ VISIT STEPS ════════ -->
+  <section class="plstn-section" id="plstn-steps" aria-labelledby="plstn-steps-h">
+    <div class="plstn-wrap">
+      <div class="plstn-hd ctr">
+        <span class="plstn-eyebrow">Your Showroom Visit</span>
+        <h2 id="plstn-steps-h">What to Expect When You Visit Our Pleasanton Showroom</h2>
+        <p>Every visit is guided, unhurried, and structured around one goal: finding the right chair for you.</p>
+      </div>
+      <div class="plstn-steps">
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#128075;</div>
+          <h4>Welcome &amp; Consult</h4>
+          <p>A specialist greets you and learns your comfort goals and what brought you in.</p>
+        </div>
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#127919;</div>
+          <h4>Goals Discussion</h4>
+          <p>We discuss back relief, daily stress release, recovery, or lifestyle comfort goals.</p>
+        </div>
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#128208;</div>
+          <h4>Brand Overview</h4>
+          <p>Your specialist walks you through the key differences between relevant models.</p>
+        </div>
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#10024;</div>
+          <h4>Chair Trials</h4>
+          <p>Sit in, experience, and compare chairs matching your profile. No time limits.</p>
+        </div>
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#9878;&#65039;</div>
+          <h4>Narrowing Down</h4>
+          <p>Together you narrow the field to the one or two chairs best matching your needs.</p>
+        </div>
+        <div class="plstn-step">
+          <div class="plstn-step-circle">&#128640;</div>
+          <h4>Next Steps</h4>
+          <p>We discuss financing, delivery, and setup &mdash; then help you move forward confidently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND 2 -->
+  <div class="plstn-ctaband" id="plstn-cta2">
+    <div class="plstn-ctaband-inner">
+      <div>
+        <h2>See the Difference Between Brands In Person</h2>
+        <p>One guided visit does what months of online research cannot. Come see us in Pleasanton.</p>
+      </div>
+      <div class="plstn-ctaband-btns">
+        <a href="tel:+16692148889" class="plstn-band-white" id="plstn-cta2-call-btn">Call the Pleasanton Showroom</a>
+        <a href="{{ shop.url }}/pages/our-stores" class="plstn-band-outline" id="plstn-cta2-stores-btn">View All Showroom Locations</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ LOCAL AREA ════════ -->
+  <section class="plstn-section plstn-section-alt" id="plstn-area" aria-labelledby="plstn-area-h">
+    <div class="plstn-wrap">
+      <div class="plstn-hd ctr">
+        <span class="plstn-eyebrow">East Bay &amp; Tri-Valley</span>
+        <h2 id="plstn-area-h">Serving Pleasanton and the Surrounding East Bay Communities</h2>
+        <p>Our Pleasanton showroom at Stoneridge Mall is the East Bay and Tri-Valley&rsquo;s destination for premium massage chair comparison. Customers come from across the region because there&rsquo;s no equivalent experience anywhere nearby.</p>
+      </div>
+      <div class="plstn-4col">
+        <div class="plstn-localcard">
+          <h4>&#128205; Pleasanton</h4>
+          <p>Our home location inside Stoneridge Mall. Premium massage chairs for Pleasanton&rsquo;s discerning buyers and wellness-minded households.</p>
+          <span class="plstn-localcard-dist">Home Showroom</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; San Ramon</h4>
+          <p>San Ramon buyers regularly make the short trip for the Tri-Valley&rsquo;s best curated selection of luxury massage chairs.</p>
+          <span class="plstn-localcard-dist">~15 min drive</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; Danville</h4>
+          <p>Premium massage chairs near Danville. Compare elite brands in person before making a high-consideration wellness investment.</p>
+          <span class="plstn-localcard-dist">~20 min drive</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; Dublin</h4>
+          <p>Dublin customers find our Pleasanton location the closest premium destination for trying massage chairs in person.</p>
+          <span class="plstn-localcard-dist">~10 min drive</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; Livermore</h4>
+          <p>Livermore residents experience the difference between premium massage chair brands with a single expertly guided showroom visit.</p>
+          <span class="plstn-localcard-dist">~15 min drive</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; Walnut Creek</h4>
+          <p>Walnut Creek buyers seeking luxury massage chairs in the East Bay find our Pleasanton showroom worth the drive.</p>
+          <span class="plstn-localcard-dist">~25 min drive</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; East Bay</h4>
+          <p>Customers from across the broader East Bay visit for the region&rsquo;s most complete premium massage chair comparison experience.</p>
+          <span class="plstn-localcard-dist">Bay Area destination</span>
+        </div>
+        <div class="plstn-localcard">
+          <h4>&#128205; Tri-Valley</h4>
+          <p>The Tri-Valley&rsquo;s home for premium massage chairs. The best place in the area to try zero gravity and luxury models in person.</p>
+          <span class="plstn-localcard-dist">Central location</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ TRUST ════════ -->
+  <section class="plstn-section" id="plstn-trust" aria-labelledby="plstn-trust-h">
+    <div class="plstn-wrap">
+      <div class="plstn-hd ctr">
+        <span class="plstn-eyebrow">Why Buy From Us</span>
+        <h2 id="plstn-trust-h">A Showroom Built for High-Consideration Purchases</h2>
+        <p>We understand what it means to invest in a premium massage chair. Our entire showroom experience is designed to give you comfort, clarity, and confidence.</p>
+      </div>
+      <div class="plstn-4col">
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#127968;</span>
+          <h4>Real Location, Real People</h4>
+          <p>We&rsquo;re at Stoneridge Mall in Pleasanton &mdash; walk in, meet our team, and experience our showroom in person.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#128591;</span>
+          <h4>Zero Sales Pressure</h4>
+          <p>Take your time, try multiple chairs, and leave without buying. We&rsquo;re here when you&rsquo;re ready &mdash; not before.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#127881;</span>
+          <h4>Premium Environment</h4>
+          <p>Our showroom is a thoughtfully designed, low-stimulus space where the chairs can speak for themselves.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#128269;</span>
+          <h4>Expert Guidance</h4>
+          <p>Our specialists are trained across multiple brands to match you to the chair that genuinely fits your body and life.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#128197;</span>
+          <h4>Flexible Financing</h4>
+          <p>Monthly payment options make premium massage chairs far more accessible than most customers expect.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#128666;</span>
+          <h4>White-Glove Delivery</h4>
+          <p>Professional in-home delivery and setup throughout the East Bay and Tri-Valley region.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#11088;</span>
+          <h4>Curated for Quality</h4>
+          <p>Every brand in our showroom was selected for long-term reliability, therapeutic value, and ownership satisfaction.</p>
+        </div>
+        <div class="plstn-trustcard">
+          <span class="plstn-trust-ico">&#128222;</span>
+          <h4>Ongoing Support</h4>
+          <p>Our relationship with customers doesn&rsquo;t end at purchase. We&rsquo;re available long after delivery and setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FAQ ════════ -->
+  <section class="plstn-section plstn-section-alt" id="plstn-faq" aria-labelledby="plstn-faq-h">
+    <div class="plstn-wrap-sm">
+      <div class="plstn-hd ctr">
+        <span class="plstn-eyebrow">Frequently Asked Questions</span>
+        <h2 id="plstn-faq-h">Massage Chair FAQs &mdash; Pleasanton Showroom</h2>
+        <p>Real questions from customers searching for a massage chair showroom near Pleasanton, answered honestly.</p>
+      </div>
+      <div class="plstn-faq2col">
+        <div>
+          <div class="plstn-faqitem" id="plstn-faq-1">
+            <div class="plstn-faqq">
+              <h3>Where can I try a massage chair in Pleasanton?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>House of Massage Chairs is located inside Stoneridge Mall at STE B108, Pleasanton, CA 94588. Our showroom features fully operational premium massage chairs you can sit in, compare, and experience with guidance from knowledgeable specialists. Walk-ins are welcome during showroom hours.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-2">
+            <div class="plstn-faqq">
+              <h3>Is there a massage chair showroom near me in the East Bay?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes. Our Pleasanton showroom at Stoneridge Mall is the East Bay and Tri-Valley&rsquo;s premier destination for trying premium massage chairs in person. We serve customers from San Ramon, Danville, Dublin, Livermore, Walnut Creek, and the broader East Bay area.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-3">
+            <div class="plstn-faqq">
+              <h3>Can I compare different massage chairs in person?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Absolutely. That&rsquo;s precisely what our Pleasanton showroom is designed for. You can sit in and compare multiple premium massage chair brands side by side &mdash; experiencing the real differences in massage quality, zero gravity positioning, roller coverage, and body scan accuracy.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-4">
+            <div class="plstn-faqq">
+              <h3>Do you carry luxury massage chairs at your Pleasanton location?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes. House of Massage Chairs carries a curated selection of <a href="{{ shop.url }}/collections/luxury-massage-chairs">luxury massage chairs</a>, full body massage chairs, and performance models from the most respected brands in the industry at our Pleasanton showroom.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-5">
+            <div class="plstn-faqq">
+              <h3>Is it better to try a massage chair before buying?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>For a purchase in the $3,000&ndash;$15,000+ range, trying before buying is essential. Every person&rsquo;s body responds differently to massage chair fit, roller depth, and pressure calibration. Our Pleasanton showroom gives you the hands-on experience that eliminates guesswork and buyer&rsquo;s remorse before you spend a dollar.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-6">
+            <div class="plstn-faqq">
+              <h3>What areas near Pleasanton do you serve?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Our Pleasanton showroom serves the entire East Bay and Tri-Valley region, including San Ramon, Danville, Dublin, Livermore, Walnut Creek, and beyond. See <a href="{{ shop.url }}/pages/our-stores">all our showroom locations</a> for other areas we serve.</p></div>
+          </div>
+        </div>
+        <div>
+          <div class="plstn-faqitem" id="plstn-faq-7">
+            <div class="plstn-faqq">
+              <h3>Do you offer zero gravity massage chairs in Pleasanton?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes. We carry multiple <a href="{{ shop.url }}/collections/zero-gravity-massage-chairs">zero gravity massage chair</a> models at our Pleasanton showroom. Zero gravity positioning elevates your legs above your heart, decompressing the lumbar spine and dramatically amplifying the massage experience. Come try it in person.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-8">
+            <div class="plstn-faqq">
+              <h3>Can I visit the showroom before making a decision?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes, and we encourage it. Walk-ins are welcome any time during showroom hours. Spend as much time as you need, try multiple chairs, ask every question, and leave without any pressure to purchase. Our team is here to help you make the right decision on your timeline.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-9">
+            <div class="plstn-faqq">
+              <h3>Do you have massage chairs for sale near Pleasanton?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes. House of Massage Chairs at Stoneridge Mall offers a premium selection of <a href="{{ shop.url }}/collections/massage-chairs">massage chairs for sale</a> across a range of price points &mdash; from accessible premium models to top-tier luxury flagships. Our team can guide you to the right fit in person.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-10">
+            <div class="plstn-faqq">
+              <h3>What makes your Pleasanton massage chair store different?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>We are a multi-brand premium showroom &mdash; not a single-brand retailer. You can compare elite massage chair brands in one visit, guided by specialists whose only goal is matching you to the right chair. No pressure, no gimmicks, no sight-unseen guesswork.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-11">
+            <div class="plstn-faqq">
+              <h3>Do you offer financing for massage chairs in Pleasanton?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Yes. <a href="{{ shop.url }}/pages/financing">Flexible financing options</a> are available to make premium wellness more accessible. Monthly payment plans can make a $6,000&ndash;$10,000+ chair far more attainable than customers expect. Ask our Pleasanton team when you visit or call (669) 214-8889.</p></div>
+          </div>
+          <div class="plstn-faqitem" id="plstn-faq-12">
+            <div class="plstn-faqq">
+              <h3>What makes buying in a showroom better than buying online?</h3>
+              <svg class="plstn-faqi" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="plstn-faqbody"><p>Online specs cannot tell you how a chair feels on your body. Roller depth, body scan accuracy, the weight of airbag compression, and zero gravity positioning vary significantly between models &mdash; and none of it comes through in product descriptions. Our Pleasanton showroom gives you complete hands-on clarity before you commit.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FINAL CTA ════════ -->
+  <section class="plstn-finalcta" id="plstn-final" aria-labelledby="plstn-final-h">
+    <div class="plstn-finalcta-inner">
+      <span class="plstn-eyebrow plstn-eyebrow-light">Ready to Find Your Chair?</span>
+      <h2 id="plstn-final-h">The Smartest Next Step Is<br><em>Sitting in the Chair</em></h2>
+      <p>Stop second-guessing. One visit to our Pleasanton showroom at Stoneridge Mall gives you the hands-on clarity that months of online research cannot. Come compare premium massage chairs in person &mdash; with expert guidance and zero pressure to decide.</p>
+      <div class="plstn-finalbtns">
+        <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener" class="plstn-btn plstn-btn-gold" id="plstn-final-dir-btn">
+          <svg viewBox="0 0 24 24"><path d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+          Get Directions to Pleasanton
+        </a>
+        <a href="tel:+16692148889" class="plstn-btn plstn-btn-ghost" id="plstn-final-call-btn">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          Call the Pleasanton Showroom
+        </a>
+        <a href="{{ shop.url }}/collections/massage-chairs" class="plstn-btn plstn-btn-dark" id="plstn-final-browse-btn">
+          Browse All Massage Chairs
+        </a>
+      </div>
+      <div class="plstn-trustrow">
+        <div class="plstn-trustrow-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Try before you buy
+        </div>
+        <div class="plstn-trustrow-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Zero sales pressure
+        </div>
+        <div class="plstn-trustrow-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Expert specialist guidance
+        </div>
+        <div class="plstn-trustrow-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Flexible financing available
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="plstn-footer" aria-label="Pleasanton showroom footer">
+    <div class="plstn-footer-grid">
+      <div>
+        <span class="plstn-footer-brand">House of Massage Chairs</span>
+        <p>The East Bay and Tri-Valley&rsquo;s destination for premium massage chair comparison. Inside Stoneridge Mall, Pleasanton &mdash; curated multi-brand selection, all fully operational for expert-guided, no-pressure in-person trials.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="{{ shop.url }}/collections/massage-chairs">All Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/luxury-massage-chairs">Luxury Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/zero-gravity-massage-chairs">Zero Gravity Chairs</a>
+        <a href="{{ shop.url }}/pages/financing">Financing Options</a>
+      </div>
+      <div>
+        <h4>Showrooms</h4>
+        <a href="{{ shop.url }}/pages/pleasanton-showroom">Pleasanton</a>
+        <a href="{{ shop.url }}/pages/santa-clara-showroom">Santa Clara</a>
+        <a href="{{ shop.url }}/pages/daly-city-showroom">Daly City</a>
+        <a href="{{ shop.url }}/pages/sacramento-showroom">Sacramento</a>
+        <a href="{{ shop.url }}/pages/our-stores">All Locations</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="https://maps.app.goo.gl/6Ss8326tYSKenV9T9" target="_blank" rel="noopener">1 Stoneridge Mall, STE B108<br>Pleasanton, CA 94588</a>
+        <a href="tel:+16692148889">+1 (669) 214-8889</a>
+        <a href="#plstn-faq">FAQ</a>
+        <a href="{{ shop.url }}/pages/contact">Contact Us</a>
+      </div>
+    </div>
+    <div class="plstn-footer-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} House of Massage Chairs. All rights reserved.</span>
+      <span>Pleasanton&rsquo;s Premier Luxury Massage Chair Showroom</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.plstn-faqitem').forEach(function(item) {
+    item.querySelector('.plstn-faqq').addEventListener('click', function() {
+      var isOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.plstn-faqitem.is-open').forEach(function(o) {
+        o.classList.remove('is-open');
+        o.querySelector('.plstn-faqbody').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        var body = item.querySelector('.plstn-faqbody');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Sticky CTA — show after hero passes
+  (function() {
+    var sticky = document.getElementById('plstn-sticky');
+    var hero   = document.getElementById('plstn-hero');
+    if (!sticky || !hero) return;
+    function check() {
+      if (hero.getBoundingClientRect().bottom < 0) {
+        sticky.classList.add('visible');
+      } else {
+        sticky.classList.remove('visible');
+      }
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Pleasanton Showroom",
+  "settings": []
+}
+{% endschema %}

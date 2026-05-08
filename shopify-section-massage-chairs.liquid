@@ -1,0 +1,523 @@
+<style>
+    .mc-landing { --bg:#fff; --surface:#f8fafc; --dark:#000; --muted:#444; --accent:#b38b4d; --accent-hover:#96723e; --border:#e2e8f0; font-family:'Inter',sans-serif;line-height:1.75;font-size:17px;font-weight:500;-webkit-font-smoothing:antialiased;color:#000; }
+    .mc-landing *{box-sizing:border-box}
+    .mc-landing h1,.mc-landing h2,.mc-landing h3,.mc-landing h4{color:var(--dark);line-height:1.2;font-weight:700;letter-spacing:-0.025em}
+    .mc-landing a{color:inherit;text-decoration:none} .mc-landing img{max-width:100%;display:block}
+    .mc-landing .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    .mc-landing .container-narrow{max-width:900px;margin:0 auto;padding:0 2rem}
+
+    .mc-landing .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--dark);color:#fff;padding:16px 40px;font-size:16px;font-weight:700;border-radius:50px;text-decoration:none;transition:all 0.25s;border:2px solid var(--dark);cursor:pointer}
+    .mc-landing .btn:hover{background:#222;border-color:#222;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+    .mc-landing .btn-gold{background:var(--accent);border-color:var(--accent);color:#fff}
+    .mc-landing .btn-gold:hover{background:var(--accent-hover);border-color:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 20px rgba(179,139,77,0.25)}
+
+    .mc-landing .col-hero{padding:6rem 0 5rem;background:#111 url('https://cdn.shopify.com/s/files/1/0649/9516/4367/files/collection-hero-bg.jpg?v=1774307227') center/cover no-repeat;position:relative;border-bottom:1px solid var(--border)}
+    .mc-landing .col-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.7) 100%);z-index:0}
+    .mc-landing .col-hero .container{position:relative;z-index:1}
+    .mc-landing .col-hero h1{font-size:48px;margin-bottom:16px;color:#fff}
+    .mc-landing .col-hero p{font-size:18px;color:rgba(255,255,255,0.8);max-width:750px;line-height:1.8;margin-bottom:24px}
+
+    .mc-landing .trust-bar{display:flex;justify-content:center;gap:48px;padding:24px;font-size:15px;font-weight:700;flex-wrap:wrap;background:#fff;border-bottom:1px solid var(--border)}
+    .mc-landing .trust-item{display:flex;align-items:center;gap:8px}
+    .mc-landing .trust-item svg{width:20px;height:20px;fill:var(--accent)}
+
+    .mc-landing .section{padding:5rem 0}
+    .mc-landing .section-header{text-align:center;margin-bottom:48px}
+    .mc-landing .section-header h2{font-size:36px;margin-bottom:12px}
+    .mc-landing .section-header h2::before{content:"";display:block;width:40px;height:3px;background:var(--accent);margin:0 auto 16px;border-radius:2px}
+    .mc-landing .section-header p{font-size:18px;color:var(--muted);max-width:680px;margin:0 auto;line-height:1.8}
+
+    .mc-landing .brand-pill{padding:12px 26px;border:1.5px solid var(--border);border-radius:50px;font-size:15px;font-weight:700;transition:all 0.3s;background:#fff;color:var(--dark)}
+    .mc-landing .brand-pill:hover{border-color:var(--accent);color:var(--accent);background:rgba(179,139,77,0.06);transform:translateY(-2px)}
+
+    .mc-landing .catalog-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 24px;background:#fff;border:1px solid var(--border);border-radius:60px;margin-bottom:32px}
+    .mc-landing .catalog-toolbar .label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;font-weight:800;color:var(--muted);white-space:nowrap}
+    .mc-landing .catalog-toolbar .divider{width:1px;height:24px;background:var(--border)}
+    .mc-landing .filter-btn{padding:8px 16px;border:1.5px solid transparent;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--muted)}
+    .mc-landing .filter-btn:hover{background:var(--surface);color:var(--dark)}
+    .mc-landing .filter-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .mc-landing .catalog-count{font-size:13px;color:var(--muted);margin-left:auto;font-weight:600}
+
+    .mc-landing .brand-section{margin-bottom:48px}
+    .mc-landing .brand-divider{display:flex;align-items:center;gap:24px;margin-bottom:28px}
+    .mc-landing .brand-divider::before,.mc-landing .brand-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+    .mc-landing .brand-divider h3{font-size:18px;font-weight:700;margin:0;white-space:nowrap}
+    .mc-landing .brand-divider .brand-count{font-size:12px;color:var(--muted);font-weight:600;background:var(--surface);padding:4px 12px;border-radius:20px}
+    .mc-landing .brand-products{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+
+    .mc-landing .product-card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;position:relative}
+    .mc-landing .product-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.08);border-color:var(--accent)}
+    .mc-landing .product-card-img{width:100%;height:280px;object-fit:contain;padding:24px;background:#fff}
+    .mc-landing .product-card-body{padding:20px 24px 24px}
+    .mc-landing .product-card-body h3{font-size:16px;margin-bottom:8px;line-height:1.3;font-weight:700}
+    .mc-landing .product-prices{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
+    .mc-landing .price-sale{font-size:20px;font-weight:800;color:var(--dark)}
+    .mc-landing .price-compare{font-size:15px;color:#999;text-decoration:line-through;font-weight:500}
+    .mc-landing .product-card-link{display:block;text-align:center;background:var(--dark);color:#fff;padding:12px;border-radius:10px;font-weight:700;font-size:15px;transition:background 0.2s}
+    .mc-landing .product-card-link:hover{background:var(--accent)}
+    .mc-landing .product-badge{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:6px 14px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;z-index:2}
+
+    .mc-landing .compare-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:16px}
+    .mc-landing .compare-table th{background:var(--dark);color:#fff;padding:14px 18px;text-align:left;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px}
+    .mc-landing .compare-table td{padding:14px 18px;border-bottom:1px solid var(--border);vertical-align:middle}
+    .mc-landing .compare-table tr:hover{background:var(--surface)}
+    .mc-landing .compare-table .check{color:var(--accent);font-weight:800}
+
+    .mc-landing .edu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+    .mc-landing .edu-card{background:var(--surface);padding:2rem;border-radius:16px;border:1px solid var(--border)}
+    .mc-landing .edu-card h3{font-size:18px;margin-bottom:8px}
+    .mc-landing .edu-card p{font-size:15px;color:var(--muted);margin:0;line-height:1.7}
+
+    .mc-landing .faq-item{border-bottom:1px solid var(--border)}
+    .mc-landing .faq-q{display:flex;justify-content:space-between;align-items:center;padding:24px 0;cursor:pointer;gap:16px}
+    .mc-landing .faq-q h3{font-size:17px;margin:0;transition:color 0.2s}
+    .mc-landing .faq-q:hover h3{color:var(--accent)}
+    .mc-landing .faq-q .faq-icon{width:24px;height:24px;flex-shrink:0;transition:transform 0.3s;fill:var(--muted)}
+    .mc-landing .faq-q.active .faq-icon{transform:rotate(45deg)}
+    .mc-landing .faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+    .mc-landing .faq-a.open{max-height:300px}
+    .mc-landing .faq-a p{margin:0;padding-bottom:24px;font-size:15px;line-height:1.8}
+
+    .mc-landing .review-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;transition:all 0.3s}
+    .mc-landing .review-card:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,0.06)}
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media(max-width:900px){
+        /* Hero */
+        .mc-landing .col-hero{padding:3rem 0 2.5rem}
+        .mc-landing .col-hero h1{font-size:28px}
+        .mc-landing .col-hero p{font-size:16px}
+        .mc-landing .container{padding:0 1.25rem}
+        .mc-landing .container-narrow{padding:0 1.25rem}
+        /* Trust bar */
+        .mc-landing .trust-bar{gap:12px 20px;padding:16px 1rem;font-size:13px}
+        /* Section spacing */
+        .mc-landing .section{padding:3rem 0}
+        .mc-landing .section-header h2{font-size:26px}
+        .mc-landing .section-header p{font-size:16px}
+        /* Filter toolbar - scrollable */
+        .mc-landing .catalog-toolbar{border-radius:16px;padding:12px 16px;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+        .mc-landing .catalog-toolbar .divider{display:none}
+        .mc-landing .catalog-toolbar .label{font-size:11px}
+        .mc-landing .filter-btn{padding:6px 12px;font-size:12px;white-space:nowrap}
+        .mc-landing .catalog-count{display:none}
+        /* Product cards */
+        .mc-landing .brand-products{grid-template-columns:1fr 1fr;gap:16px}
+        .mc-landing .product-card-img{height:180px;padding:12px}
+        .mc-landing .product-card-body{padding:14px 16px 16px}
+        .mc-landing .product-card-body h3{font-size:14px}
+        .mc-landing .price-sale{font-size:17px}
+        .mc-landing .price-compare{font-size:13px}
+        .mc-landing .product-card-link{padding:10px;font-size:14px}
+        .mc-landing .product-badge{font-size:10px;padding:4px 10px;top:8px;left:8px}
+        /* Edu grid */
+        .mc-landing .edu-grid{grid-template-columns:1fr}
+        /* Reviews grid */
+        .mc-landing div[style*="repeat(3,1fr)"][style*="gap:24px"]{grid-template-columns:1fr !important}
+        .mc-landing .review-card{padding:20px}
+        /* Tier cards (buying guide) */
+        .mc-landing div[style*="repeat(3,1fr)"][style*="gap:24px;margin-bottom:32px"]{grid-template-columns:1fr !important}
+        .mc-landing .mc-tier-card{padding:24px !important}
+        /* Tier filtered products */
+        #mcTierProductsInner{grid-template-columns:1fr 1fr !important;gap:16px !important}
+        /* Comparison table */
+        .mc-landing .compare-table{font-size:13px}
+        .mc-landing .compare-table th,.mc-landing .compare-table td{padding:8px 10px}
+        /* Pro tip box */
+        .mc-landing div[style*="border-left:4px solid #b38b4d"][style*="display:flex"]{flex-direction:column;gap:12px;padding:20px !important}
+        /* Final CTA */
+        .mc-landing div[style*="border-radius:26px"][style*="padding:64px"]{padding:32px 20px !important;border-radius:20px !important}
+        .mc-landing div[style*="border-radius:26px"] h2{font-size:24px !important}
+        .mc-landing div[style*="border-radius:26px"] p{font-size:16px !important}
+        .mc-landing div[style*="border-radius:26px"] div[style*="display:flex"]{flex-direction:column;gap:10px}
+        .mc-landing div[style*="border-radius:26px"] .btn{width:100%;text-align:center;justify-content:center}
+        /* Explore pills */
+        .mc-landing .brand-pill{padding:10px 20px;font-size:14px}
+        /* Buttons */
+        .mc-landing .btn{padding:14px 28px;font-size:15px}
+        /* Google review score */
+        .mc-landing div[style*="font-size:48px"]{font-size:40px !important}
+    }
+    @media(max-width:480px){
+        .mc-landing .col-hero h1{font-size:24px}
+        .mc-landing .col-hero p{font-size:15px}
+        .mc-landing .section-header h2{font-size:22px}
+        .mc-landing .trust-bar{flex-direction:column;align-items:center;gap:8px}
+        .mc-landing .brand-products{grid-template-columns:1fr}
+        .mc-landing .product-card-img{height:220px;padding:16px}
+        .mc-landing .product-card-body{padding:16px 20px 20px}
+        .mc-landing .product-card-body h3{font-size:15px}
+        #mcTierProductsInner{grid-template-columns:1fr !important}
+    }
+</style>
+
+<div class="mc-landing">
+
+<!-- HERO -->
+<section class="col-hero">
+    <div class="container">
+        <p style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:16px;"><a href="/" style="color:#b38b4d;">Home</a> &nbsp;/&nbsp; Massage Chairs</p>
+        <h1>Best Massage Chairs for Sale — Premium Full Body Massage Chairs</h1>
+        <p>Shop {{ collection.products_count }}+ premium massage chairs from the world's leading brands. Compare 4D, zero gravity, dual-engine, and AI-powered massage chairs side by side — online or at our San Jose showroom.</p>
+        <p style="font-size:17px;color:rgba(255,255,255,0.7);">Every chair in this collection is available to try in person at <strong style="color:#fff;">Westfield Oakridge Mall</strong>, where our specialists help you find the right fit for your body, your home, and your expectations.</p>
+    </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>35+ Models on Display</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>9 Premium Brands</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>White-Glove Delivery</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Manufacturer Warranty</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>In-House Service</div>
+</div>
+
+<!-- ALL MASSAGE CHAIRS — DYNAMIC FROM SHOPIFY -->
+<section class="section" id="products" style="padding-top:3rem;">
+    <div class="container">
+        <div class="section-header"><h2>All Massage Chairs</h2><p>{{ collection.products_count }} premium massage chairs from 9 brands. Every model available to try at our showroom.</p></div>
+
+        <!-- FILTER TOOLBAR -->
+        <div class="catalog-toolbar" id="mcFilterBar">
+            <span class="label">Price</span>
+            <button class="filter-btn active" onclick="mcFilter(this,'all')">All</button>
+            <button class="filter-btn" onclick="mcFilter(this,0,5000)">Under $5K</button>
+            <button class="filter-btn" onclick="mcFilter(this,5000,8000)">$5K–$8K</button>
+            <button class="filter-btn" onclick="mcFilter(this,8000,11000)">$8K–$11K</button>
+            <button class="filter-btn" onclick="mcFilter(this,11000,100000)">$11K+</button>
+            <span class="divider"></span>
+            <span class="label">Brand</span>
+            <button class="filter-btn brand-filter active" onclick="mcBrandFilter(this,'all')">All</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Osaki')">Osaki</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Bodyfriend')">Bodyfriend</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Ogawa')">Ogawa</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Infinity')">Infinity</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Cozzia')">Cozzia</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Kyota')">Kyota</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Fujiiryoki')">Fujiiryoki</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'JP Medics')">JP Medics</button>
+            <button class="filter-btn brand-filter" onclick="mcBrandFilter(this,'Svago')">Svago</button>
+            <span class="catalog-count" id="mcFilterCount">{{ collection.products_count }} chairs</span>
+        </div>
+
+        <!-- PRODUCT GRID — RENDERED BY JS FROM LIQUID DATA -->
+        <div id="mcProductGrid"></div>
+
+        <div style="text-align:center;margin-top:48px;">
+            <a href="/pages/our-store" class="btn btn-gold">Visit Our Showroom to Try Any Chair</a>
+        </div>
+    </div>
+</section>
+
+<!-- GOOGLE REVIEWS -->
+<section class="section" style="background:#f8fafc;">
+    <div class="container">
+        <div class="section-header"><h2>What Our Customers Say</h2><p>Real reviews from our Google Business profile.</p></div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:2rem;margin-bottom:40px;">
+            <div style="text-align:center;">
+                <div style="font-size:48px;font-weight:900;line-height:1;">5.0</div>
+                <div style="color:#b38b4d;font-size:22px;letter-spacing:2px;">★★★★★</div>
+                <div style="font-size:14px;color:#444;margin-top:4px;">95 reviews on Google</div>
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:32px;">
+            <div class="review-card">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:50%;background:#b38b4d;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;">S</div><div><strong style="font-size:15px;">Selena Protacio</strong><br><span style="font-size:13px;color:#444;">1 month ago</span></div></div>
+                <div style="color:#b38b4d;font-size:14px;margin-bottom:8px;">★★★★★</div>
+                <p style="font-size:14px;line-height:1.7;color:#444;margin:0;">We had a very wonderful experience purchasing an Osaki massage chair from the store. This experience trying out the different massage chairs was probably one of the best shopping experiences I've ever had.</p>
+            </div>
+            <div class="review-card">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:50%;background:#4285F4;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;">R</div><div><strong style="font-size:15px;">Richard Nakano</strong><br><span style="font-size:13px;color:#444;">2 weeks ago</span></div></div>
+                <div style="color:#b38b4d;font-size:14px;margin-bottom:8px;">★★★★★</div>
+                <p style="font-size:14px;line-height:1.7;color:#444;margin:0;">We started out not planning to purchase a new massage chair this past weekend… House of Massage Chairs was great because of Shawn. He was super helpful and knowledgeable.</p>
+            </div>
+            <div class="review-card">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"><div style="width:40px;height:40px;border-radius:50%;background:#0F9D58;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;">C</div><div><strong style="font-size:15px;">Charles Perng</strong><br><span style="font-size:13px;color:#444;">4 months ago</span></div></div>
+                <div style="color:#b38b4d;font-size:14px;margin-bottom:8px;">★★★★★</div>
+                <p style="font-size:14px;line-height:1.7;color:#444;margin:0;">My wife and I had a great experience at House of Massage Chairs in San Jose. Aaron was fantastic—patient, knowledgeable, and clear. Highly recommend visiting this showroom.</p>
+            </div>
+        </div>
+        <div style="text-align:center;"><a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" target="_blank" class="btn" style="background:transparent;border:1.5px solid #e2e8f0;color:#000;">Read All 95 Reviews on Google →</a></div>
+    </div>
+</section>
+
+<!-- FEATURE EDUCATION -->
+<section class="section">
+    <div class="container">
+        <div class="section-header"><h2>Understanding Massage Chair Features</h2><p>Premium massage chairs differ in the technology and engineering behind them.</p></div>
+        <div class="edu-grid">
+            <div class="edu-card"><h3>What Is 4D Massage?</h3><p>4D rollers move in four dimensions — up/down, left/right, in/out, and with variable speed. This creates a more human-like massage that adjusts pressure dynamically mid-stroke.</p></div>
+            <div class="edu-card"><h3>What Is Zero Gravity?</h3><p>Inspired by NASA seating, zero gravity positions the legs above the heart. This reduces spinal pressure and allows the massage to penetrate more deeply.</p></div>
+            <div class="edu-card"><h3>What Is Body Scanning?</h3><p>Advanced sensors map your spine's curvature and pressure points before each session. The chair adjusts roller position and intensity to match your body exactly.</p></div>
+            <div class="edu-card"><h3>SL-Track vs. L-Track</h3><p>An SL-Track follows the natural S-curve of your spine from neck to lower back and continues under the glutes. Both provide more complete coverage than basic straight tracks.</p></div>
+            <div class="edu-card"><h3>Heat Therapy</h3><p>Integrated heating elements warm muscles before and during massage. Heat improves circulation, loosens tension, and creates a deeper sense of relaxation.</p></div>
+            <div class="edu-card"><h3>Air Compression Massage</h3><p>Strategically placed airbags inflate around arms, legs, shoulders, and feet. This rhythmic compression improves circulation and complements roller massage.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- BUYING GUIDE -->
+<section class="section" style="background:#f8fafc;">
+    <div class="container">
+        <div class="section-header"><h2>How to Choose the Right Massage Chair</h2><p>Match your body's needs to the right technology.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:32px;">
+            <div class="mc-tier-card" onclick="mcToggleTier(this,200000,500000)" style="background:#fff;border:2px solid #e2e8f0;border-top:4px solid #94a3b8;border-radius:16px;padding:32px;cursor:pointer;transition:all 0.25s;">
+                <span style="display:inline-block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:800;color:#94a3b8;margin-bottom:8px;">Entry Premium</span>
+                <h4 style="font-size:24px;margin-bottom:12px;">$2K – $5K</h4>
+                <ul style="list-style:none;margin:0;padding:0;font-size:14px;line-height:2;color:#444;">
+                    <li>✓ &nbsp;3D roller technology</li><li>✓ &nbsp;Basic zero gravity</li><li>✓ &nbsp;L-track coverage</li><li>✓ &nbsp;Limited airbags</li>
+                </ul>
+                <div style="margin-top:16px;text-align:center;font-size:13px;font-weight:700;color:#b38b4d;">Click to see chairs →</div>
+            </div>
+            <div class="mc-tier-card" onclick="mcToggleTier(this,500000,1000000)" style="background:#fff;border:2px solid #b38b4d;border-top:4px solid #b38b4d;border-radius:16px;padding:32px;position:relative;cursor:pointer;transition:all 0.25s;">
+                <span style="position:absolute;top:-12px;right:20px;background:#b38b4d;color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:50px;">MOST POPULAR</span>
+                <span style="display:inline-block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:800;color:#b38b4d;margin-bottom:8px;">Mid Premium</span>
+                <h4 style="font-size:24px;margin-bottom:12px;">$5K – $10K</h4>
+                <ul style="list-style:none;margin:0;padding:0;font-size:14px;line-height:2;color:#444;">
+                    <li>✓ &nbsp;4D roller technology</li><li>✓ &nbsp;Dual zero gravity</li><li>✓ &nbsp;Body scanning + heat</li><li>✓ &nbsp;SL-track + full airbags</li>
+                </ul>
+                <div style="margin-top:16px;text-align:center;font-size:13px;font-weight:700;color:#b38b4d;">Click to see chairs →</div>
+            </div>
+            <div class="mc-tier-card" onclick="mcToggleTier(this,1000000,2000000)" style="background:#fff;border:2px solid #e2e8f0;border-top:4px solid #1a1a1a;border-radius:16px;padding:32px;cursor:pointer;transition:all 0.25s;">
+                <span style="display:inline-block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:800;color:#1a1a1a;margin-bottom:8px;">Flagship</span>
+                <h4 style="font-size:24px;margin-bottom:12px;">$10K – $17K</h4>
+                <ul style="list-style:none;margin:0;padding:0;font-size:14px;line-height:2;color:#444;">
+                    <li>✓ &nbsp;AI body mapping</li><li>✓ &nbsp;Dual engine system</li><li>✓ &nbsp;Medical-grade build</li><li>✓ &nbsp;Premium materials</li>
+                </ul>
+                <div style="margin-top:16px;text-align:center;font-size:13px;font-weight:700;color:#b38b4d;">Click to see chairs →</div>
+            </div>
+        </div>
+        <!-- Tier filtered products -->
+        <div id="mcTierProducts" style="max-height:0;overflow:hidden;transition:max-height 0.5s ease;margin-bottom:32px;">
+            <div id="mcTierProductsInner" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px 0;"></div>
+        </div>
+        <div style="background:#fff;border-left:4px solid #b38b4d;border-radius:12px;padding:24px 32px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.04);">
+            <svg width="28" height="28" fill="#b38b4d" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <p style="font-size:16px;margin:0;line-height:1.6;"><strong>Pro tip:</strong> Online specs only tell part of the story. A showroom visit gives you the clarity no product page can. <a href="/pages/our-store" style="color:#b38b4d;font-weight:700;">Book your visit →</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+    <div class="container-narrow">
+        <div class="section-header"><h2>Frequently Asked Questions About Massage Chairs</h2></div>
+        <div style="border-top:1px solid #e2e8f0;">
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>What is the best massage chair to buy?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>The best massage chair depends on your body type, use case, and budget. For most buyers, a 4D massage chair with zero gravity and SL-track provides the strongest balance of comfort, coverage, and long-term value.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>Are expensive massage chairs worth it?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Premium massage chairs use more advanced roller engineering, better body scanning, and more nuanced massage programs. Buyers who use their chair regularly tend to see stronger value from higher-tier models.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>What is the difference between 3D and 4D massage chairs?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>3D rollers move in three directions with adjustable depth. 4D adds variable speed control, allowing the massage to change pace and pressure mid-stroke for a more human-like feel.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>Can I try massage chairs before buying?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Yes. House of Massage Chairs has a San Jose showroom at Westfield Oakridge Mall where you can compare 35+ models from 9 brands side by side with expert guidance.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>What features should I look for in a massage chair?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>The most impactful features are 4D roller technology, zero gravity recline, SL-track coverage, body scanning, heat therapy, and air compression massage.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleMcFaq(this)"><h3>Do massage chairs come with a warranty?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Yes. All premium massage chairs sold by HOMC include a manufacturer-backed warranty. Coverage varies by brand and typically includes parts, labor, and structural frame.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SHOWROOM CTA -->
+<section class="section" style="padding-bottom:48px;">
+    <div class="container">
+        <div style="background:#000;border-radius:26px;padding:64px;color:#fff;">
+            <span style="display:inline-block;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;font-weight:700;">San Jose Massage Chair Showroom</span>
+            <h2 style="color:#fff;font-size:clamp(28px,3vw,42px);margin-bottom:12px;line-height:1.15;">Compare Premium Massage Chairs in Person</h2>
+            <p style="color:rgba(255,255,255,0.8);font-size:18px;max-width:700px;margin:0 0 32px;">Try every chair side by side, get expert guidance, and choose with confidence at Westfield Oakridge Mall.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;">
+                <a href="/pages/our-store" class="btn btn-gold">Visit the Showroom</a>
+                <a href="/pages/contact" class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.35);">Speak With a Specialist</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INTERNAL LINKS -->
+<section style="padding:48px 0;background:#f8fafc;border-top:1px solid #e2e8f0;">
+    <div class="container">
+        <div class="section-header" style="margin-bottom:24px;"><h2>Explore More</h2></div>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+            <a href="/collections/recliners" class="brand-pill">Massage Recliners</a>
+            <a href="/collections/portable-massager" class="brand-pill">Portable Massagers</a>
+            <a href="/pages/our-store" class="brand-pill">Our Showroom</a>
+            <a href="/pages/brand-history" class="brand-pill">Brand History</a>
+            <a href="/blogs/news" class="brand-pill">Buying Guides &amp; Blog</a>
+            <a href="/pages/shipping-policy" class="brand-pill">Shipping &amp; Delivery</a>
+            <a href="/pages/contact" class="brand-pill">Contact a Specialist</a>
+        </div>
+    </div>
+</section>
+
+</div><!-- end .mc-landing -->
+
+<!-- PRODUCT DATA FROM SHOPIFY LIQUID — ALWAYS LIVE -->
+<script>
+var mcProducts = [
+  {% paginate collection.products by 250 %}
+  {% for product in collection.products %}
+  {
+    n: {{ product.title | json }},
+    u: "{{ product.url }}",
+    i: "{{ product.featured_image | image_url: width: 600 }}",
+    p: {{ product.price }},
+    cp: {{ product.compare_at_price | default: 0 }},
+    b: {{ product.vendor | json }},
+    tags: {{ product.tags | json }},
+    type: {{ product.type | json }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  {% endpaginate %}
+];
+
+var mcBrandOrder = ["Osaki","Bodyfriend","Ogawa","Infinity","Cozzia","Kyota","Fujiiryoki","JP Medics","Svago"];
+var mcPriceFilter = {type:'all'};
+var mcBrand = 'all';
+
+function mcFormatPrice(cents){
+  return '$' + (cents/100).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+}
+
+function mcApplyFilters(){
+  var filtered = mcProducts;
+  if(mcPriceFilter.type!=='all'){
+    filtered = filtered.filter(function(p){var v=p.p/100;return v>=mcPriceFilter.min && v<mcPriceFilter.max;});
+  }
+  if(mcBrand!=='all'){
+    filtered = filtered.filter(function(p){return p.b===mcBrand;});
+  }
+  var grid = document.getElementById('mcProductGrid');
+  grid.style.opacity='0';
+  setTimeout(function(){
+    grid.innerHTML='';
+    mcRenderProducts(filtered);
+    document.getElementById('mcFilterCount').textContent = filtered.length + ' chair' + (filtered.length!==1?'s':'');
+    grid.style.opacity='1';
+  },200);
+}
+
+function mcFilter(btn,minOrAll,max){
+  document.querySelectorAll('#mcFilterBar .filter-btn:not(.brand-filter)').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  if(minOrAll==='all'){mcPriceFilter={type:'all'};}
+  else{mcPriceFilter={type:'range',min:minOrAll,max:max};}
+  mcApplyFilters();
+}
+
+function mcBrandFilter(btn,brand){
+  document.querySelectorAll('.mc-landing .brand-filter').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  mcBrand=brand;
+  mcApplyFilters();
+}
+
+function mcGetBadge(p){
+  var t=p.tags||[];var tl=t.map(function(x){return x.toLowerCase();});
+  if(tl.indexOf('duo')!==-1||p.n.toLowerCase().indexOf('duo')!==-1) return 'Duo';
+  if(tl.indexOf('5d')!==-1||p.n.toLowerCase().indexOf('5d')!==-1) return '5D';
+  if(tl.indexOf('ai')!==-1||p.n.toLowerCase().indexOf('ai ')!==-1||p.n.toLowerCase().indexOf(' ai')!==-1) return 'AI';
+  if(tl.indexOf('4d')!==-1||p.n.toLowerCase().indexOf('4d')!==-1) return '4D';
+  if(tl.indexOf('3d')!==-1||p.n.toLowerCase().indexOf('3d')!==-1) return '3D';
+  if(tl.indexOf('syner-d')!==-1||p.n.toLowerCase().indexOf('syner')!==-1) return 'Syner-D';
+  if(tl.indexOf('zero gravity')!==-1) return 'ZG';
+  if(p.p<500000) return 'Value';
+  if(p.p>=1000000) return 'Premium';
+  return '';
+}
+
+function mcGetFeatures(p){
+  var feats=[];
+  var nl=p.n.toLowerCase();var tl=(p.tags||[]).map(function(x){return x.toLowerCase();});
+  if(nl.indexOf('duo')!==-1||nl.indexOf('dual')!==-1) feats.push('Dual engine system');
+  if(nl.indexOf('5d')!==-1) feats.push('5D roller technology');
+  else if(nl.indexOf('4d')!==-1) feats.push('4D roller technology');
+  else if(nl.indexOf('3d')!==-1) feats.push('3D roller technology');
+  if(nl.indexOf('syner')!==-1) feats.push('Syner-D dual rollers');
+  if(tl.indexOf('zero gravity')!==-1||nl.indexOf('zero gravity')!==-1) feats.push('Zero gravity recline');
+  else feats.push('Zero gravity recline');
+  if(tl.indexOf('heat')!==-1||tl.indexOf('heat therapy')!==-1) feats.push('Heat therapy');
+  if(tl.indexOf('sl-track')!==-1||tl.indexOf('sl track')!==-1) feats.push('SL-track massage');
+  if(tl.indexOf('body scan')!==-1||tl.indexOf('body scanning')!==-1) feats.push('AI body scanning');
+  if(nl.indexOf('ai')!==-1) feats.push('AI-powered programs');
+  if(feats.length<3) feats.push('Full body air compression');
+  if(feats.length<3) feats.push('Space-saving design');
+  return feats.slice(0,3);
+}
+
+function mcRenderProducts(list){
+  var grid=document.getElementById('mcProductGrid');
+  var brands=mcBrandOrder.filter(function(b){return list.some(function(p){return p.b===b;});});
+  var otherBrands=[];
+  list.forEach(function(p){if(mcBrandOrder.indexOf(p.b)===-1 && otherBrands.indexOf(p.b)===-1) otherBrands.push(p.b);});
+  brands=brands.concat(otherBrands);
+
+  if(brands.length===0){
+    grid.innerHTML='<div style="text-align:center;padding:64px 0;"><p style="font-size:18px;color:#444;margin-bottom:8px;">No chairs match your filters.</p><p style="font-size:15px;color:#444;">Try adjusting your price range or brand selection.</p></div>';
+    return;
+  }
+
+  brands.forEach(function(brand){
+    var bp=list.filter(function(p){return p.b===brand;});
+    var sec=document.createElement('div');sec.className='brand-section';
+    sec.innerHTML='<div class="brand-divider"><h3>'+brand+' Massage Chairs</h3><span class="brand-count">'+bp.length+'</span></div>';
+    var g=document.createElement('div');g.className='brand-products';
+    bp.forEach(function(p){
+      var card=document.createElement('div');card.className='product-card';
+      var badge=mcGetBadge(p);
+      var feats=mcGetFeatures(p);
+      var featHtml=feats.map(function(f){return '<li style="display:flex;align-items:center;gap:6px;"><span style="color:#b38b4d;font-size:12px;">✓</span> '+f+'</li>';}).join('');
+      var priceHtml='<span class="price-sale">'+mcFormatPrice(p.p)+'</span>';
+      if(p.cp && p.cp>p.p){priceHtml+='<span class="price-compare">'+mcFormatPrice(p.cp)+'</span>';}
+      card.innerHTML=(badge?'<span class="product-badge">'+badge+'</span>':'')
+        +'<a href="'+p.u+'"><img class="product-card-img" src="'+p.i+'" alt="'+p.n+'" loading="lazy"></a>'
+        +'<div class="product-card-body"><h3><a href="'+p.u+'" style="color:inherit;">'+p.n+'</a></h3>'
+        +'<ul style="list-style:none;padding:0;margin:0 0 12px;font-size:13px;color:#444;line-height:1.9;">'+featHtml+'</ul>'
+        +'<div class="product-prices">'+priceHtml+'</div>'
+        +'<a href="'+p.u+'" class="product-card-link">View Details</a></div>';
+      g.appendChild(card);
+    });
+    sec.appendChild(g);grid.appendChild(sec);
+  });
+}
+
+mcRenderProducts(mcProducts);
+
+var mcActiveTier=null;
+function mcToggleTier(el,min,max){
+  var wrap=document.getElementById('mcTierProducts');
+  var inner=document.getElementById('mcTierProductsInner');
+  var cards=document.querySelectorAll('.mc-tier-card');
+  if(mcActiveTier===el){wrap.style.maxHeight='0';el.style.boxShadow='';el.style.transform='';cards.forEach(function(c){c.style.opacity='1';});mcActiveTier=null;return;}
+  mcActiveTier=el;
+  cards.forEach(function(c){c.style.opacity='0.5';c.style.boxShadow='';c.style.transform='';});
+  el.style.opacity='1';el.style.transform='translateY(-4px)';el.style.boxShadow='0 12px 28px rgba(179,139,77,0.2)';
+  var filtered=mcProducts.filter(function(p){return p.p>=min && p.p<max;});
+  inner.innerHTML='';
+  if(filtered.length===0){inner.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#444;padding:32px;">No chairs found in this range.</p>';}
+  else{filtered.forEach(function(p){
+    var card=document.createElement('div');
+    card.style.cssText='background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;transition:all 0.3s;';
+    card.onmouseover=function(){card.style.transform='translateY(-4px)';card.style.boxShadow='0 12px 24px rgba(0,0,0,0.08)';};
+    card.onmouseout=function(){card.style.transform='';card.style.boxShadow='';};
+    var priceHtml='<span style="font-size:18px;font-weight:800;">'+mcFormatPrice(p.p)+'</span>';
+    if(p.cp&&p.cp>p.p){priceHtml+='<span style="font-size:14px;color:#999;text-decoration:line-through;margin-left:6px;">'+mcFormatPrice(p.cp)+'</span>';}
+    card.innerHTML='<a href="'+p.u+'"><img src="'+p.i+'" alt="'+p.n+'" style="width:100%;height:200px;object-fit:contain;padding:16px;background:#fff;" loading="lazy"></a>'
+      +'<div style="padding:16px 20px 20px;"><h4 style="font-size:15px;margin-bottom:6px;line-height:1.3;font-weight:700;"><a href="'+p.u+'" style="color:inherit;">'+p.n+'</a></h4>'
+      +'<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:12px;">'+priceHtml+'</div>'
+      +'<a href="'+p.u+'" style="display:block;text-align:center;background:#000;color:#fff;padding:10px;border-radius:10px;font-weight:700;font-size:14px;transition:background 0.2s;" onmouseover="this.style.background=\'#b38b4d\'" onmouseout="this.style.background=\'#000\'">View Details</a></div>';
+    inner.appendChild(card);
+  });}
+  wrap.style.maxHeight=inner.scrollHeight+40+'px';
+  setTimeout(function(){wrap.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+
+function toggleMcFaq(el){var a=el.nextElementSibling;var o=a.classList.contains('open');document.querySelectorAll('.mc-landing .faq-a').forEach(function(x){x.classList.remove('open');});document.querySelectorAll('.mc-landing .faq-q').forEach(function(x){x.classList.remove('active');});if(!o){a.classList.add('open');el.classList.add('active');}}
+</script>
+
+{% raw %}<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the best massage chair to buy?","acceptedAnswer":{"@type":"Answer","text":"The best massage chair depends on your body type, use case, and budget. A 4D massage chair with zero gravity and SL-track provides the strongest balance."}},
+{"@type":"Question","name":"Are expensive massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"Premium massage chairs use more advanced roller engineering and body scanning. Regular users see stronger value from higher-tier models."}},
+{"@type":"Question","name":"What is the difference between 3D and 4D?","acceptedAnswer":{"@type":"Answer","text":"3D rollers offer adjustable depth. 4D adds variable speed control for a more human-like massage feel."}},
+{"@type":"Question","name":"Can I try massage chairs before buying?","acceptedAnswer":{"@type":"Answer","text":"Yes. HOMC has a San Jose showroom at Westfield Oakridge Mall with 35+ models from 9 brands."}},
+{"@type":"Question","name":"What features should I look for?","acceptedAnswer":{"@type":"Answer","text":"4D roller technology, zero gravity recline, SL-track coverage, body scanning, heat therapy, and air compression."}},
+{"@type":"Question","name":"Do massage chairs come with a warranty?","acceptedAnswer":{"@type":"Answer","text":"Yes. All HOMC massage chairs include manufacturer-backed warranty covering parts, labor, and structural frame."}}
+]}
+</script>{% endraw %}
+
+

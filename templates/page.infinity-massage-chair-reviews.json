@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-infinity-reviews",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

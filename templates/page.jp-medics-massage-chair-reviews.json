@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-jp-medics-reviews",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

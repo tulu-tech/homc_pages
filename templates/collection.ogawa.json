@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-ogawa",
+      "settings": {
+        "hero_heading": "Ogawa Massage Chairs<br>The Expert Buyer's Guide",
+        "hero_subheading": "A refined premium brand that rewards buyers who take the time to understand it — and rewards them well.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

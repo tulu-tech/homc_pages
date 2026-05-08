@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-kyota-reviews",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

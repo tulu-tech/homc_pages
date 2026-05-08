@@ -1,0 +1,1173 @@
+{%- comment -%}
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SECTION: collection-cozzia.liquid                          ║
+  ║  Template: templates/collection.cozzia.json                 ║
+  ║  Collection handle: cozzia                                   ║
+  ║                                                              ║
+  ║  HOW TO INSTALL:                                             ║
+  ║  1. Upload this file to /sections/collection-cozzia.liquid   ║
+  ║  2. Upload templates/collection.cozzia.json                  ║
+  ║  3. (Optional) Add metafields to products:                   ║
+  ║     - custom.badge         → string (e.g. "5D", "Flagship")  ║
+  ║     - custom.badge_class   → string ("gold","flagship","")   ║
+  ║     - custom.buyer_for     → string (e.g. "Best AI Value")   ║
+  ║     - custom.key_features  → list of strings (JSON array)    ║
+  ║  4. Tag products with: quantum, qi, zen, flagship, ai        ║
+  ╚══════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+{%- paginate collection.products by 50 -%}
+
+{%- comment -%} ── SCHEMA MARKUP ── {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs",
+    "url": "https://houseofmassagechairs.com",
+    "telephone": "+16692148889",
+    "email": "info@houseofmassagechairs.com",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+        "addressLocality": "San Jose",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "1116 Stoneridge Mall Rd",
+        "addressLocality": "Pleasanton",
+        "addressRegion": "CA",
+        "postalCode": "94566",
+        "addressCountry": "US"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+      {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+      {"@type":"ListItem","position":3,"name":"Cozzia Massage Chairs","item":"{{ canonical_url }}"}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Are Cozzia massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"Yes — Cozzia consistently delivers premium biometric AI technology and 5D massage precision at competitive price points. The Quantum and Qi XE Pro are among the most technically sophisticated chairs available."}},
+      {"@type":"Question","name":"What is the best Cozzia massage chair?","acceptedAnswer":{"@type":"Answer","text":"The best Cozzia chair depends on your goals. No-compromise flagship: Cozzia Quantum (CZ-800) with 5D massage and Chair Doctor AI. Best 4D AI value: Cozzia Qi XE Pro Duo. Best for versatility: Cozzia Zen 3D Pro."}},
+      {"@type":"Question","name":"Can I try Cozzia massage chairs in San Jose?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs carries multiple Cozzia models at our San Jose showroom at Westfield Oakridge Mall and our Pleasanton location. We strongly recommend trying them in person before purchase."}},
+      {"@type":"Question","name":"What makes the Cozzia Quantum unique?","acceptedAnswer":{"@type":"Answer","text":"The Cozzia Quantum features 5D massage technology with 27 real-time pressure sensors, the Chair Doctor AI biometric scanner (GSR, heart-rate, SpO2), and the Li Flex Track for a near-flat 170-degree massage position — capabilities that set it apart in the premium segment."}}
+    ]
+  }
+]
+</script>
+
+<style>
+  /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --czz-bg: #fff;
+    --czz-surface: #f8fafc;
+    --czz-surface2: #f1f5f9;
+    --czz-dark: #0d0d12;
+    --czz-muted: #52565e;
+    --czz-muted2: #8a8f9a;
+    --czz-accent: #b38b4d;        /* HOMC gold — matches Osaki, Kyota, Infinity */
+    --czz-accent-h: #9a7540;
+    --czz-accent2: #d4aa6b;       /* lighter gold */
+    --czz-accent-pale: rgba(179,139,77,0.10);
+    --czz-accent-pale2: rgba(179,139,77,0.06);
+    --czz-border: #e5e9f0;
+    --czz-border2: #c8d4e8;
+    --czz-radius: 20px;
+    --czz-radius-sm: 12px;
+    --czz-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    --czz-shadow-hover: 0 20px 50px rgba(0,0,0,0.11);
+  }
+
+  /* ── BASE RESET (scoped) ───────────────────────────────────────── */
+  /* All font-sizes are in px to prevent Shopify theme rem inheritance */
+  .czz-wrap *{box-sizing:border-box;margin:0;padding:0}
+  .czz-wrap{font-family:'Inter',sans-serif;color:var(--czz-dark);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+
+  /* Override Shopify theme root font-size — ALL px, NO rem */
+  .czz-wrap p{font-size:15px;color:var(--czz-muted);line-height:1.8}
+  .czz-wrap li{font-size:14px;line-height:1.6}
+  .czz-wrap h2{font-size:clamp(26px,3vw,38px);line-height:1.15;font-weight:800;letter-spacing:-0.03em}
+  .czz-wrap h3{font-size:clamp(16px,2vw,20px);line-height:1.15;font-weight:800;letter-spacing:-0.02em}
+  .czz-wrap h4{font-size:16px;line-height:1.2;font-weight:700}
+  .czz-wrap h1{font-size:clamp(38px,5.5vw,64px);line-height:1.08;font-weight:900;letter-spacing:-0.03em}
+  .czz-wrap a{text-decoration:none}
+  .czz-wrap img{max-width:100%;display:block}
+  .czz-wrap button{font-family:'Inter',sans-serif}
+  .czz-wrap strong{font-weight:700}
+
+  .czz-container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .czz-container-narrow{max-width:860px;margin:0 auto;padding:0 2rem}
+
+  /* ── SUBNAV ────────────────────────────────────────────────────── */
+  .czz-subnav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--czz-border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:100}
+  .czz-subnav::-webkit-scrollbar{display:none}
+  .czz-subnav-inner{display:flex;padding:0 2rem;min-width:max-content}
+  .czz-subnav-inner a{display:block;padding:.75rem 1rem;font-size:12px;font-weight:700;color:var(--czz-muted2);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.08em}
+  .czz-subnav-inner a:hover,.czz-subnav-inner a.active{color:var(--czz-dark);border-bottom-color:var(--czz-accent)}
+
+  /* ── BUTTONS ───────────────────────────────────────────────────── */
+  .czz-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--czz-dark);color:#fff;padding:.9rem 2rem;font-size:15px;font-weight:700;border-radius:50px;transition:all .25s;border:2px solid var(--czz-dark);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;white-space:nowrap;text-decoration:none}
+  .czz-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .czz-btn-green{background:var(--czz-accent);border-color:var(--czz-accent);color:#fff!important}
+  .czz-btn-green:hover{background:var(--czz-accent-h);border-color:var(--czz-accent-h);box-shadow:0 8px 24px rgba(179,139,77,.35)}
+  .czz-btn-outline{background:transparent;color:var(--czz-dark);border-color:var(--czz-border2)}
+  .czz-btn-outline:hover{border-color:var(--czz-dark);background:var(--czz-surface)}
+  .czz-btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+  .czz-btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+  .czz-btn-sm{padding:.6rem 1.5rem;font-size:14px}
+
+  /* ── HERO ──────────────────────────────────────────────────────── */
+  .czz-hero{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden;background:#06080f}
+  .czz-hero-bg{position:absolute;inset:0;z-index:0}
+  .czz-hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.32;mix-blend-mode:luminosity}
+  .czz-hero-grad{position:absolute;inset:0;background:linear-gradient(108deg,rgba(6,8,15,.96) 0%,rgba(6,8,15,.72) 55%,rgba(6,8,15,.45) 100%);z-index:1}
+  .czz-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");z-index:2;pointer-events:none}
+  .czz-hero-content{position:relative;z-index:3;padding:5.5rem 0 6rem;width:100%}
+  .czz-hero-bc{font-size:12px;color:rgba(255,255,255,.38);margin-bottom:1.5rem}
+  .czz-hero-bc a{color:var(--czz-accent2);transition:opacity .2s}
+  .czz-hero-bc a:hover{color:#fff}
+  .czz-hero-bc span{margin:0 .4rem}
+  .czz-hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--czz-accent2);margin-bottom:1.25rem;background:rgba(179,139,77,.1);padding:6px 16px;border-radius:50px;border:1px solid rgba(179,139,77,.22)}
+  .czz-hero-eye::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--czz-accent2)}
+  .czz-hero h1{color:#fff;max-width:800px;margin-bottom:1.25rem;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+  .czz-hero-lead{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.8);max-width:620px;margin-bottom:.75rem;font-weight:600;line-height:1.65}
+  .czz-hero-sub{font-size:16px;color:rgba(255,255,255,.52);max-width:580px;margin-bottom:2.5rem;line-height:1.75}
+  .czz-hero-ctas{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:3rem}
+  .czz-hero-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;flex-wrap:wrap}
+  .czz-hero-stat{padding:0 2.5rem 0 0;border-right:1px solid rgba(255,255,255,.1);margin-right:2.5rem}
+  .czz-hero-stat:last-child{border-right:none;margin-right:0}
+  .czz-hero-stat-n{font-size:32px;font-weight:900;color:#fff;display:block;line-height:1;margin-bottom:4px;letter-spacing:-.04em}
+  .czz-hero-stat-l{font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+
+  /* ── TRUST BAR ─────────────────────────────────────────────────── */
+  .czz-trust-bar{display:flex;justify-content:center;gap:3rem;padding:1.25rem 2rem;border-bottom:1px solid var(--czz-border);background:#fff;font-size:14px;font-weight:700;flex-wrap:wrap}
+  .czz-trust-item{display:flex;align-items:center;gap:7px;color:var(--czz-muted)}
+  .czz-trust-item svg{width:16px;height:16px;fill:var(--czz-accent);flex-shrink:0}
+
+  /* ── SECTION ───────────────────────────────────────────────────── */
+  .czz-section{padding:5.5rem 0}
+  .czz-section-alt{background:var(--czz-surface)}
+  .czz-section-sm{padding:3.5rem 0}
+  .czz-section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--czz-accent);margin-bottom:.875rem}
+  .czz-section-header{margin-bottom:3rem}
+  .czz-section-header.center{text-align:center}
+  .czz-section-header.center .czz-section-label{display:block}
+  .czz-section-header h2{margin-bottom:.875rem}
+  .czz-underline{position:relative;display:inline-block}
+  .czz-underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--czz-accent);border-radius:2px}
+  .czz-section-header p{font-size:17px;color:var(--czz-muted);max-width:680px;line-height:1.8}
+  .czz-section-header.center p{margin:0 auto}
+
+  /* ── PRODUCT HEADER ────────────────────────────────────────────── */
+  .czz-product-header{background:linear-gradient(135deg,#0d0b07 0%,#1c1508 60%,#0d0b07 100%);padding:3rem 3rem 0;border-radius:var(--czz-radius) var(--czz-radius) 0 0;position:relative;overflow:hidden}
+  .czz-product-header::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.08) 0%,transparent 70%);pointer-events:none}
+  .czz-product-header-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;padding-bottom:2.5rem}
+  .czz-product-header h2{color:#fff;font-size:clamp(24px,2.5vw,32px)}
+  .czz-product-header p{color:rgba(255,255,255,.55);font-size:14px;max-width:560px;margin-top:.5rem;line-height:1.7}
+
+  /* ── FILTER BAR ────────────────────────────────────────────────── */
+  .czz-filter-bar{background:#fff;border:1px solid var(--czz-border);border-top:none;padding:1rem 1.5rem;display:flex;align-items:center;gap:.625rem;flex-wrap:wrap}
+  .czz-filter-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--czz-muted2);white-space:nowrap}
+  .czz-filter-sep{width:1px;height:20px;background:var(--czz-border);flex-shrink:0}
+  .czz-filter-btn{padding:6px 14px;border:1.5px solid var(--czz-border);border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--czz-muted);font-family:'Inter',sans-serif;white-space:nowrap}
+  .czz-filter-btn:hover{border-color:var(--czz-accent);color:var(--czz-accent);background:var(--czz-accent-pale2)}
+  .czz-filter-btn.active{background:var(--czz-dark);color:#fff;border-color:var(--czz-dark)}
+  .czz-filter-count{margin-left:auto;font-size:13px;color:var(--czz-muted2);font-weight:600}
+
+  /* ── PRODUCT GRID ──────────────────────────────────────────────── */
+  .czz-product-grid-wrap{background:var(--czz-surface);border:1px solid var(--czz-border);border-top:none;border-radius:0 0 var(--czz-radius) var(--czz-radius);padding:2rem}
+  .czz-product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+  /* ── PRODUCT CARD ──────────────────────────────────────────────── */
+  .czz-product-card{background:#fff;border:1px solid var(--czz-border);border-radius:var(--czz-radius);overflow:hidden;transition:all .3s cubic-bezier(.25,.8,.25,1);position:relative;display:flex;flex-direction:column;cursor:pointer}
+  .czz-product-card:hover{transform:translateY(-7px);box-shadow:var(--czz-shadow-hover);border-color:transparent;outline:2px solid var(--czz-accent)}
+  .czz-product-badge{position:absolute;top:10px;left:10px;background:var(--czz-dark);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.1em;z-index:2}
+  .czz-product-badge.gold{background:var(--czz-accent)}
+  .czz-product-badge.flagship{background:linear-gradient(135deg,#0d0b07,#1c1508);border:1px solid rgba(179,139,77,.4)}
+  .czz-product-img-wrap{height:230px;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(145deg,#fafafa,#fff);position:relative;overflow:hidden}
+  .czz-product-img-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(248,250,252,.8),transparent);pointer-events:none}
+  .czz-product-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s cubic-bezier(.25,.8,.25,1)}
+  .czz-product-card:hover .czz-product-img{transform:scale(1.06)}
+  .czz-product-body{padding:1.1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column}
+  .czz-product-for{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--czz-accent);background:var(--czz-accent-pale);display:inline-block;padding:3px 8px;border-radius:20px;margin-bottom:.6rem}
+  .czz-product-name{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:.75rem;color:var(--czz-dark)}
+  .czz-product-name a{color:inherit;text-decoration:none}
+  .czz-product-feats{list-style:none;padding:0;margin:0 0 .875rem;flex:1}
+  .czz-product-feats li{display:flex;align-items:flex-start;gap:5px;font-size:13px;color:var(--czz-muted);padding:2.5px 0;line-height:1.5}
+  .czz-product-feats li::before{content:'✓';color:var(--czz-accent);font-weight:900;font-size:11px;flex-shrink:0;margin-top:2px}
+  .czz-product-prices{display:flex;align-items:baseline;gap:7px;margin-bottom:.875rem;flex-wrap:wrap}
+  .czz-price-sale{font-size:18px;font-weight:900;color:var(--czz-dark);letter-spacing:-.02em}
+  .czz-price-was{font-size:13px;color:#adb5bd;text-decoration:line-through;font-weight:500}
+  .czz-price-save{font-size:11px;font-weight:800;color:#16a34a;background:rgba(22,163,74,.08);padding:2px 7px;border-radius:20px}
+  .czz-product-cta{display:block;text-align:center;background:var(--czz-dark);color:#fff;padding:.65rem;border-radius:var(--czz-radius-sm);font-weight:700;font-size:13px;transition:background .2s;text-decoration:none}
+  .czz-product-cta:hover{background:var(--czz-accent);color:#fff}
+  .czz-no-results{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--czz-muted)}
+
+  /* ── QUICK ANSWER ──────────────────────────────────────────────── */
+  .czz-quick-answer{background:linear-gradient(135deg,#0d0b07 0%,#1c1508 100%);border-radius:24px;padding:3rem;border:1px solid rgba(179,139,77,.18);position:relative;overflow:hidden}
+  .czz-quick-answer::before{content:'';position:absolute;top:-30%;right:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.07) 0%,transparent 70%);pointer-events:none}
+  .czz-qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem;position:relative;z-index:1}
+  .czz-qa-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem;transition:all .3s}
+  .czz-qa-item:hover{background:rgba(255,255,255,.07);border-color:rgba(179,139,77,.28)}
+  .czz-qa-item h3{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--czz-accent2);margin-bottom:.625rem;font-weight:800}
+  .czz-qa-item p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;margin:0}
+
+  /* ── PILLARS ───────────────────────────────────────────────────── */
+  .czz-pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .czz-pillar-card{background:#fff;border:1px solid var(--czz-border);border-radius:var(--czz-radius);padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+  .czz-pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--czz-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .czz-pillar-card:hover{transform:translateY(-5px);box-shadow:var(--czz-shadow)}
+  .czz-pillar-card:hover::before{transform:scaleX(1)}
+  .czz-pillar-icon{width:48px;height:48px;background:var(--czz-accent-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+  .czz-pillar-icon svg{width:24px;height:24px;fill:var(--czz-accent)}
+  .czz-pillar-card h3{font-size:16px;margin-bottom:.5rem}
+  .czz-pillar-card p{font-size:14px;color:var(--czz-muted);margin:0;line-height:1.7}
+
+  /* ── AT A GLANCE ───────────────────────────────────────────────── */
+  .czz-glance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .czz-glance-table{width:100%;border-collapse:collapse}
+  .czz-glance-table tr{border-bottom:1px solid var(--czz-border)}
+  .czz-glance-table tr:last-child{border-bottom:none}
+  .czz-glance-table td{padding:.875rem .5rem;font-size:14px;vertical-align:top}
+  .czz-glance-table td:first-child{font-weight:800;color:var(--czz-dark);width:38%}
+  .czz-glance-table td:last-child{color:var(--czz-muted)}
+  .czz-glance-verdict{background:linear-gradient(145deg,#0d0b07,#1c1508);border-radius:var(--czz-radius);padding:2.25rem;border:1px solid rgba(179,139,77,.15)}
+  .czz-glance-verdict h3{color:#fff;font-size:17px;margin-bottom:1.25rem}
+  .czz-verdict-item{display:flex;align-items:flex-start;gap:10px;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .czz-verdict-item:last-child{border-bottom:none;padding-bottom:0}
+  .czz-verdict-dot{width:7px;height:7px;border-radius:50%;background:var(--czz-accent2);flex-shrink:0;margin-top:8px}
+  .czz-verdict-item p{font-size:13px;color:rgba(255,255,255,.62);margin:0;line-height:1.65}
+
+  /* ── WHO IT'S FOR ──────────────────────────────────────────────── */
+  .czz-for-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .czz-for-card{border-radius:var(--czz-radius);padding:2rem;border:1px solid var(--czz-border);background:#fff}
+  .czz-for-card.alt{background:var(--czz-surface)}
+  .czz-for-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:50px;display:inline-block;margin-bottom:1.125rem}
+  .czz-for-badge.yes{background:rgba(34,197,94,.1);color:#16a34a}
+  .czz-for-badge.no{background:rgba(239,68,68,.1);color:#dc2626}
+  .czz-for-list{list-style:none;padding:0}
+  .czz-for-list li{display:flex;align-items:flex-start;gap:8px;padding:.55rem 0;border-bottom:1px solid var(--czz-border);font-size:14px;color:var(--czz-muted);line-height:1.6}
+  .czz-for-list li:last-child{border-bottom:none}
+  .czz-for-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+  .czz-for-dot.yes{background:#16a34a}
+  .czz-for-dot.no{background:#dc2626}
+
+  /* ── MODEL ENTRIES ─────────────────────────────────────────────── */
+  .czz-model-entry{display:grid;grid-template-columns:260px 1fr;border-radius:var(--czz-radius);overflow:hidden;border:1px solid var(--czz-border);background:#fff;margin-bottom:1.75rem;transition:box-shadow .3s}
+  .czz-model-entry:hover{box-shadow:var(--czz-shadow-hover)}
+  .czz-model-side{background:linear-gradient(160deg,#0d0b07,#1c1508);padding:2.25rem 1.75rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+  .czz-model-side-img{width:100%;height:180px;object-fit:contain;margin:.75rem 0 .5rem;transition:transform .4s ease}
+  .czz-model-entry:hover .czz-model-side-img{transform:scale(1.08)}
+  .czz-model-side a{display:block;cursor:pointer}
+  .czz-model-tier{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--czz-accent2);margin-bottom:.4rem}
+  .czz-model-side h3{color:#fff;font-size:17px;line-height:1.3}
+  .czz-model-price-band{display:inline-flex;gap:5px;margin-top:1rem;font-size:12px;font-weight:700;color:rgba(255,255,255,.45);background:rgba(255,255,255,.05);padding:5px 11px;border-radius:20px;flex-wrap:wrap}
+  .czz-model-price-band span{color:var(--czz-accent2)}
+  .czz-model-body{padding:2.25rem}
+  .czz-model-best{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--czz-accent);background:var(--czz-accent-pale);display:inline-block;padding:3px 10px;border-radius:20px;margin-bottom:.875rem}
+  .czz-model-body h4{font-size:16px;margin-bottom:.625rem}
+  .czz-model-body p{font-size:14px;color:var(--czz-muted);line-height:1.75;margin-bottom:.875rem}
+  .czz-model-traits{display:flex;gap:.4rem;flex-wrap:wrap;margin:.875rem 0}
+  .czz-trait{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--czz-surface2);border:1px solid var(--czz-border);color:var(--czz-muted2)}
+  .czz-model-tradeoff{margin-top:1rem;padding:.875rem 1.125rem;border-radius:10px;background:var(--czz-surface);border-left:3px solid var(--czz-border2);font-size:13px;color:var(--czz-muted2);line-height:1.65}
+  .czz-model-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--czz-accent);margin-top:1.25rem;border-bottom:1px solid rgba(26,107,74,.3);padding-bottom:2px;transition:all .2s;text-decoration:none}
+  .czz-model-link:hover{gap:9px;border-bottom-color:var(--czz-accent)}
+
+  /* ── BUYER TYPES ───────────────────────────────────────────────── */
+  .czz-buyer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .czz-buyer-card{background:#fff;border:1px solid var(--czz-border);border-radius:var(--czz-radius);padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+  .czz-buyer-card:hover{border-color:var(--czz-accent);box-shadow:0 10px 30px rgba(26,107,74,.1)}
+  .czz-buyer-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--czz-accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .czz-buyer-card:hover::after{transform:scaleX(1)}
+  .czz-buyer-icon{width:42px;height:42px;background:var(--czz-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:.875rem}
+  .czz-buyer-icon svg{width:20px;height:20px;fill:var(--czz-accent)}
+  .czz-buyer-type{font-size:11px;font-weight:800;color:var(--czz-muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+  .czz-buyer-card h3{font-size:14px;margin-bottom:.4rem}
+  .czz-buyer-card p{font-size:13px;color:var(--czz-muted);margin:0;line-height:1.7}
+  .czz-buyer-rec{margin-top:.625rem;font-size:12px;font-weight:700;color:var(--czz-accent)}
+
+  /* ── COMPARE TABLE ─────────────────────────────────────────────── */
+  .czz-compare-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--czz-border)}
+  .czz-compare-table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+  .czz-compare-table th{background:var(--czz-dark);color:#fff;padding:.875rem 1.125rem;text-align:left;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+  .czz-compare-table td{padding:.8rem 1.125rem;border-bottom:1px solid var(--czz-border);color:var(--czz-muted);vertical-align:middle}
+  .czz-compare-table tr:last-child td{border-bottom:none}
+  .czz-compare-table tr:hover td{background:var(--czz-surface)}
+  .czz-col-feature{font-weight:800;color:var(--czz-dark)!important;white-space:nowrap}
+  .czz-czz-col{background:rgba(179,139,77,.04)!important}
+  thead .czz-czz-col{background:rgba(179,139,77,.14)!important;color:var(--czz-accent2)!important;border-bottom:3px solid var(--czz-accent)!important}
+  .czz-check{color:var(--czz-accent);font-weight:800}
+
+  /* ── EXPERT CALLOUT ────────────────────────────────────────────── */
+  .czz-expert-callout{background:#fff;border:1px solid var(--czz-border);border-left:4px solid var(--czz-accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;display:flex;align-items:flex-start;gap:.875rem}
+  .czz-expert-callout svg{width:26px;height:26px;fill:var(--czz-accent);flex-shrink:0;margin-top:1px}
+  .czz-expert-callout p{font-size:14px;color:var(--czz-muted);line-height:1.75;margin:0}
+  .czz-expert-callout strong{color:var(--czz-dark)}
+
+  /* ── PRICE LADDER ──────────────────────────────────────────────── */
+  .czz-price-ladder{border:1px solid var(--czz-border);border-radius:var(--czz-radius);overflow:hidden}
+  .czz-price-rung{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--czz-border);transition:background .2s}
+  .czz-price-rung:last-child{border-bottom:none}
+  .czz-price-rung:hover{background:var(--czz-surface)}
+  .czz-price-rung-label{background:var(--czz-dark);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,.08)}
+  .czz-price-tier-name{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:3px}
+  .czz-price-amount{font-size:16px;font-weight:900;color:var(--czz-accent2);letter-spacing:-.02em}
+  .czz-price-rung-body{padding:1.5rem 2rem}
+  .czz-price-rung-body h4{font-size:14px;margin-bottom:.35rem}
+  .czz-price-rung-body p{font-size:13px;color:var(--czz-muted);margin:0;line-height:1.65}
+  .czz-price-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.625rem}
+  .czz-price-tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--czz-accent-pale);color:var(--czz-accent)}
+
+  /* ── TRUST & REVIEW CARDS ──────────────────────────────────────── */
+  .czz-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .czz-trust-card{background:#fff;border:1px solid var(--czz-border);border-radius:var(--czz-radius);padding:1.75rem;transition:all .3s}
+  .czz-trust-card:hover{transform:translateY(-4px);box-shadow:var(--czz-shadow)}
+  .czz-trust-card-icon{width:44px;height:44px;background:var(--czz-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .czz-trust-card-icon svg{width:22px;height:22px;fill:var(--czz-accent)}
+  .czz-trust-card h3{font-size:15px;margin-bottom:.5rem}
+  .czz-trust-card p{font-size:14px;color:var(--czz-muted);margin:0;line-height:1.7}
+  .czz-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .czz-review-card{background:#fff;border:1px solid var(--czz-border);border-radius:var(--czz-radius);padding:1.75rem;transition:all .3s;position:relative}
+  .czz-review-card:hover{transform:translateY(-3px);box-shadow:var(--czz-shadow)}
+  .czz-review-card::before{content:'"';position:absolute;top:1rem;right:1.25rem;font-size:64px;color:var(--czz-accent-pale);font-weight:900;line-height:1;pointer-events:none}
+  .czz-review-stars{color:var(--czz-accent);letter-spacing:2px;font-size:13px;margin-bottom:.625rem}
+  .czz-review-text{font-size:14px;color:var(--czz-muted);line-height:1.75;margin-bottom:1.125rem;font-style:italic}
+  .czz-review-author{display:flex;align-items:center;gap:9px}
+  .czz-review-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+  .czz-review-name{font-weight:700;font-size:14px}
+  .czz-review-meta{font-size:12px;color:var(--czz-muted2)}
+
+  /* ── SHOWROOM ──────────────────────────────────────────────────── */
+  .czz-showroom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .czz-showroom-card{border:1px solid var(--czz-border);border-radius:var(--czz-radius);overflow:hidden;transition:all .3s}
+  .czz-showroom-card:hover{transform:translateY(-4px);box-shadow:var(--czz-shadow-hover)}
+  .czz-showroom-head{background:linear-gradient(135deg,#0d0b07,#1c1508);padding:2rem 2.25rem 1.75rem}
+  .czz-showroom-pill{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--czz-accent2);background:rgba(179,139,77,.18);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:.625rem}
+  .czz-showroom-head h3{color:#fff;font-size:17px;margin-bottom:.3rem}
+  .czz-showroom-head p{color:rgba(255,255,255,.5);font-size:13px;margin:0}
+  .czz-showroom-body{background:#fff;padding:1.75rem 2.25rem}
+  .czz-showroom-row{display:flex;align-items:flex-start;gap:8px;padding:.5rem 0;border-bottom:1px solid var(--czz-border);font-size:13px}
+  .czz-showroom-row:last-child{border-bottom:none}
+  .czz-showroom-row svg{width:16px;height:16px;fill:var(--czz-accent);flex-shrink:0;margin-top:2px}
+  .czz-showroom-btns{margin-top:1.25rem;display:flex;gap:.625rem;flex-wrap:wrap}
+
+  /* ── FINAL CTA ─────────────────────────────────────────────────── */
+  .czz-final-cta{background:linear-gradient(135deg,#0d0b07 0%,#1c1508 60%,#0d0b07 100%);border-radius:28px;padding:4rem;position:relative;overflow:hidden}
+  .czz-final-cta::before{content:'';position:absolute;top:-40%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.1) 0%,transparent 70%);pointer-events:none}
+  .czz-final-cta::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06) 0%,transparent 70%);pointer-events:none}
+  .czz-final-cta-inner{position:relative;z-index:1}
+  .czz-final-cta h2{color:#fff;font-size:clamp(29px,3vw,42px);margin-bottom:.875rem;line-height:1.12}
+  .czz-final-cta p{color:rgba(255,255,255,.65);font-size:16px;max-width:640px;margin-bottom:2rem;line-height:1.75}
+  .czz-cta-points{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .czz-cta-point{display:flex;align-items:center;gap:7px}
+  .czz-cta-point svg{width:16px;height:16px;fill:var(--czz-accent2);flex-shrink:0}
+  .czz-cta-point span{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+  .czz-final-cta-btns{display:flex;gap:.875rem;flex-wrap:wrap}
+
+  /* ── ANSWER BLOCKS ─────────────────────────────────────────────── */
+  .czz-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .czz-answer-block{background:#fff;border:1px solid var(--czz-border);border-radius:14px;padding:1.75rem;transition:all .3s}
+  .czz-answer-block:hover{border-color:var(--czz-border2);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+  .czz-answer-block h3{font-size:14px;margin-bottom:.5rem}
+  .czz-answer-block p{font-size:13px;color:var(--czz-muted);margin:0;line-height:1.75}
+
+  /* ── FAQ ───────────────────────────────────────────────────────── */
+  .czz-faq-item{border-bottom:1px solid var(--czz-border)}
+  .czz-faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;cursor:pointer;gap:1rem}
+  .czz-faq-q h3{font-size:16px;margin:0;font-weight:700;transition:color .2s;line-height:1.4}
+  .czz-faq-q:hover h3{color:var(--czz-accent)}
+  .czz-faq-icon{width:22px;height:22px;fill:var(--czz-muted2);flex-shrink:0;transition:transform .3s}
+  .czz-faq-q.active .czz-faq-icon{transform:rotate(45deg)}
+  .czz-faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .czz-faq-a.open{max-height:500px}
+  .czz-faq-a p{margin:0;padding-bottom:1.4rem;font-size:15px;color:var(--czz-muted);line-height:1.8}
+  .czz-faq-a a{color:var(--czz-accent);font-weight:700}
+
+  /* ── LINK PILLS ────────────────────────────────────────────────── */
+  .czz-link-pills{display:flex;flex-wrap:wrap;gap:.625rem;justify-content:center}
+  .czz-link-pill{padding:.55rem 1.25rem;border:1.5px solid var(--czz-border);border-radius:50px;font-size:13px;font-weight:700;color:var(--czz-dark);background:#fff;transition:all .3s;text-decoration:none}
+  .czz-link-pill:hover{border-color:var(--czz-accent);color:var(--czz-accent);background:var(--czz-accent-pale);transform:translateY(-2px)}
+
+  /* ── RESPONSIVE ────────────────────────────────────────────────── */
+  @media(max-width:1024px){
+    .czz-pillar-grid{grid-template-columns:1fr 1fr}
+    .czz-product-grid{grid-template-columns:1fr 1fr}
+    .czz-trust-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:900px){
+    .czz-hero{min-height:65vh}
+    .czz-hero h1{font-size:35px}
+    .czz-glance-grid,.czz-for-grid,.czz-model-entry,.czz-buyer-grid,.czz-showroom-grid,.czz-qa-grid,.czz-answer-grid{grid-template-columns:1fr}
+    .czz-pillar-grid,.czz-trust-grid,.czz-review-grid{grid-template-columns:1fr}
+    .czz-product-grid{grid-template-columns:1fr 1fr;gap:1rem}
+    .czz-section{padding:3.5rem 0}
+    .czz-final-cta{padding:2.5rem 2rem}
+    .czz-product-header-inner{flex-direction:column;align-items:flex-start}
+    .czz-price-rung{grid-template-columns:1fr}
+    .czz-price-rung-label{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  }
+  @media(max-width:600px){
+    .czz-product-grid{grid-template-columns:1fr}
+    .czz-hero h1{font-size:30px}
+    .czz-container{padding:0 1.25rem}
+    .czz-product-header{padding:2rem 1.5rem 0}
+    .czz-product-grid-wrap{padding:1.25rem}
+  }
+</style>
+
+<div class="czz-wrap">
+
+  {%- comment -%} SUBNAV {%- endcomment -%}
+  <nav class="czz-subnav" aria-label="Page sections">
+    <div class="czz-subnav-inner">
+      <a href="#czz-collection">Shop Collection</a>
+      <a href="#czz-overview">Overview</a>
+      <a href="#czz-why-cozzia">Why Cozzia</a>
+      <a href="#czz-model-guide">Model Guide</a>
+      <a href="#czz-buyer-types">By Buyer Type</a>
+      <a href="#czz-vs-brands">vs. Competitors</a>
+      <a href="#czz-pricing">Price Guide</a>
+      <a href="#czz-trust">Reviews</a>
+      <a href="#czz-showrooms">Showrooms</a>
+      <a href="#czz-faq">FAQ</a>
+    </div>
+  </nav>
+
+  {%- comment -%} ══════════ HERO ══════════ {%- endcomment -%}
+  <section class="czz-hero" id="czz-overview">
+    <div class="czz-hero-bg">
+      <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/1_cozzia_luxury_home.jpg?v=1776368954" alt="Cozzia massage chair in luxury home setting" loading="eager">
+    </div>
+    <div class="czz-hero-grad"></div>
+    <div class="czz-hero-grain"></div>
+    <div class="czz-container czz-hero-content">
+      <div class="czz-hero-bc">
+        <a href="{{ shop.url }}">Home</a><span>/</span>
+        <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+        {{ collection.title }}
+      </div>
+      <div class="czz-hero-eye">Authorized Cozzia Dealer &middot; San Jose &amp; Pleasanton</div>
+      {%- if section.settings.hero_heading != blank -%}
+        <h1>{{ section.settings.hero_heading }}</h1>
+      {%- else -%}
+        <h1>Cozzia Massage Chairs<br>The Complete Buyer&#8217;s Guide</h1>
+      {%- endif -%}
+      {%- if section.settings.hero_subheading != blank -%}
+        <p class="czz-hero-lead">{{ section.settings.hero_subheading }}</p>
+      {%- else -%}
+        <p class="czz-hero-lead">Biometric AI, 5D precision massage, and real-time therapeutic adaptation &mdash; Cozzia pushes the technical ceiling of what a massage chair can do.</p>
+      {%- endif -%}
+      <p class="czz-hero-sub">Cozzia's lineup ranges from capable 3D models to the Quantum's groundbreaking Chair Doctor&trade; AI system. This guide helps you understand the technology, navigate the models, and choose with clarity.</p>
+      <div class="czz-hero-ctas">
+        <a href="#czz-collection" class="czz-btn czz-btn-green">Shop All Cozzia Models</a>
+        <a href="#czz-model-guide" class="czz-btn czz-btn-ghost">Explore Model Guide</a>
+        <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-ghost">Book Showroom Visit</a>
+      </div>
+
+
+      <div class="czz-hero-stats">
+        <div class="czz-hero-stat">
+          <span class="czz-hero-stat-n">{{ collection.products_count }}+</span>
+          <span class="czz-hero-stat-l">Cozzia Models</span>
+        </div>
+        <div class="czz-hero-stat">
+          <span class="czz-hero-stat-n">$3K–$12K</span>
+          <span class="czz-hero-stat-l">Price Range</span>
+        </div>
+        <div class="czz-hero-stat">
+          <span class="czz-hero-stat-n">2</span>
+          <span class="czz-hero-stat-l">Bay Area Showrooms</span>
+        </div>
+        <div class="czz-hero-stat">
+          <span class="czz-hero-stat-n">5.0★</span>
+          <span class="czz-hero-stat-l">Google (95+ Reviews)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST BAR {%- endcomment -%}
+  <div class="czz-trust-bar">
+    <div class="czz-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Authorized Cozzia Dealer</div>
+    <div class="czz-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Try Before You Buy</div>
+    <div class="czz-trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-5.5 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>White-Glove Delivery</div>
+    <div class="czz-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manufacturer Warranty</div>
+    <div class="czz-trust-item"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg>Financing Available</div>
+  </div>
+
+
+  {%- comment -%} ══════════ MODEL GUIDE ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt" id="czz-model-guide">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Model Intelligence</span>
+        <h2>Understanding Cozzia <span class="czz-underline">Model Families</span></h2>
+        <p>Cozzia's lineup is focused and purposeful. Each model family occupies a specific therapeutic niche.</p>
+      </div>
+
+      {%- for product in collection.products -%}
+        {%- assign prod_tags = product.tags | join: ',' | downcase -%}
+        {%- if prod_tags contains 'featured-model' or prod_tags contains 'featured_model' or forloop.index <= 4 -%}
+          {%- assign feat_img_url = product.featured_image | image_url: width: 400 -%}
+          {%- assign sale_price = product.price | money -%}
+          <div class="czz-model-entry">
+            <div class="czz-model-side">
+              <div>
+                <div class="czz-model-tier">{{ product.type | default: 'Premium Model' }}</div>
+                <h3>{{ product.title }}</h3>
+                <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:.5rem;line-height:1.6">{{ product.metafields.custom.short_description.value | default: product.description | strip_html | truncate: 120 }}</p>
+                <a href="{{ product.url }}"><img class="czz-model-side-img" src="{{ feat_img_url }}" alt="{{ product.title }}" loading="lazy"></a>
+              </div>
+              <div class="czz-model-price-band">From <span>{{ sale_price }}</span></div>
+            </div>
+            <div class="czz-model-body">
+              <div class="czz-model-best">Best for: {{ product.metafields.custom.buyer_for.value | default: 'Premium massage buyers' }}</div>
+              <h4>{{ product.metafields.custom.model_headline.value | default: 'Why buyers choose this model' }}</h4>
+              <p>{{ product.metafields.custom.model_description.value | default: product.description | strip_html | truncate: 400 }}</p>
+              <div class="czz-model-traits">
+                {%- for tag in product.tags -%}
+                  {%- unless tag == 'quantum' or tag == 'qi' or tag == 'zen' or tag == 'flagship' or tag == 'featured-model' -%}
+                    <span class="czz-trait">{{ tag }}</span>
+                  {%- endunless -%}
+                {%- endfor -%}
+              </div>
+              {%- if product.metafields.custom.tradeoff.value != blank -%}
+                <div class="czz-model-tradeoff"><strong>Honest tradeoff:</strong> {{ product.metafields.custom.tradeoff.value }}</div>
+              {%- endif -%}
+              <a href="{{ product.url }}" class="czz-model-link">View {{ product.title | truncate: 30 }} Details &rarr;</a>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="czz-expert-callout" style="margin-top:1.25rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>Browse the full collection to see all {{ collection.products_count }} Cozzia models available at HOMC. <a href="#czz-collection" style="color:var(--czz-accent);font-weight:700">See full collection below &darr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOP COLLECTION ══════════ {%- endcomment -%}
+  <section class="czz-section" id="czz-collection" style="padding-top:4rem">
+    <div class="czz-container">
+      <div class="czz-product-header">
+        <div class="czz-product-header-inner">
+          <div>
+            <span class="czz-section-label">Full Collection</span>
+            <h2>Shop All Cozzia Massage Chairs</h2>
+            <p>Every model available at HOMC — authorized dealer, full warranty, white-glove delivery. Prices update automatically as inventory changes.</p>
+          </div>
+          <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-green czz-btn-sm" style="flex-shrink:0">Book Showroom</a>
+        </div>
+      </div>
+
+      <div class="czz-filter-bar" id="czzFilterBar">
+        <span class="czz-filter-label">Filter</span>
+        <button class="czz-filter-btn active" onclick="czzFilter(this,'all','all')">All Models</button>
+        <div class="czz-filter-sep"></div>
+        <span class="czz-filter-label">Price</span>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'price','under5')">Under $5K</button>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'price','5to8')">$5K–$8K</button>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'price','over8')">$8K+</button>
+        <div class="czz-filter-sep"></div>
+        <span class="czz-filter-label">Series</span>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'type','quantum')">Quantum</button>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'type','qi')">Qi Series</button>
+        <button class="czz-filter-btn" onclick="czzFilter(this,'type','zen')">Zen Series</button>
+        <span class="czz-filter-count" id="czzCount">{{ collection.products_count }} models</span>
+      </div>
+
+      <div class="czz-product-grid-wrap">
+        <div class="czz-product-grid" id="czzGrid"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-green">Try Any Cozzia Chair at Our Showroom &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ QUICK ANSWERS ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt czz-section-sm" style="padding-top:0">
+    <div class="czz-container">
+      <div class="czz-quick-answer">
+        <span class="czz-section-label" style="position:relative;z-index:1">Quick Reference</span>
+        <h2 style="color:#fff;font-size:clamp(21px,2.5vw,29px);margin-bottom:.4rem;position:relative;z-index:1">What You Need to Know About Cozzia Massage Chairs</h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;position:relative;z-index:1">Direct answers for buyers who want clarity quickly.</p>
+        <div class="czz-qa-grid">
+          <div class="czz-qa-item">
+            <h3>What are Cozzia massage chairs?</h3>
+            <p>Cozzia is a premium massage chair brand known for pioneering biometric AI technology in consumer chairs. Their flagship Quantum features the Chair Doctor&trade; system — using GSR, heart-rate, and SpO2 sensors to adapt massage in real time to your physiological stress levels.</p>
+          </div>
+          <div class="czz-qa-item">
+            <h3>Who are Cozzia chairs best for?</h3>
+            <p>Cozzia suits buyers who want advanced therapeutic technology, real-time biometric adaptation, and a softer — yet deeply effective — massage experience. Particularly well-suited to wellness-focused buyers, professionals seeking recovery, and those who want a chair that responds intelligently to their body.</p>
+          </div>
+          <div class="czz-qa-item">
+            <h3>What makes Cozzia stand out?</h3>
+            <p>Biometric intelligence. The Chair Doctor&trade; AI system found in the Quantum and Qi XE Pro actually reads your body's stress markers and customizes the session accordingly. Combined with 5D roller precision and the Li Flex Track's near-flat positioning, Cozzia delivers a medically-informed massage experience.</p>
+          </div>
+          <div class="czz-qa-item">
+            <h3>Are Cozzia chairs worth considering?</h3>
+            <p>Yes — especially for buyers who prioritize intelligent therapeutic performance over sheer feature count. The Quantum is genuinely in a class of its own for biometric AI integration. Trying it in person at a specialist showroom is essential to appreciate how it responds to your body.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHY COZZIA ══════════ {%- endcomment -%}
+  <section class="czz-section" id="czz-why-cozzia">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">The Case for Cozzia</span>
+        <h2>Why Serious Buyers Shortlist <span class="czz-underline">Cozzia</span></h2>
+        <p>Cozzia earns a place on discerning buyers' shortlists for specific, substantive reasons rooted in technology leadership.</p>
+      </div>
+
+      <div style="margin: 3rem 0; width: 100%; text-align: center;">
+        <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/2_cozzia_ai_tech.jpg?v=1776368954" alt="Cozzia Chair Doctor AI Biometric Technology" 
+             style="max-width: 100%; max-height: 500px; object-fit: cover; border-radius: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.25);">
+      </div>
+      <div class="czz-pillar-grid">
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><h3>Chair Doctor&trade; Biometric AI</h3><p>The Quantum and Qi XE Pro feature real-time physiological monitoring — GSR stress sensors, heart-rate (PPG), and blood oxygen (SpO2) — to dynamically adapt the massage to what your body actually needs in the moment.</p></div>
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>5D Massage Precision</h3><p>The Quantum's 5D system uses 27 real-time pressure sensors to monitor and continuously adjust roller force. This goes beyond standard 4D by responding to resistance changes as you breathe, shift, or tense — delivering a nuanced, body-responsive massage.</p></div>
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><h3>Li Flex Track Architecture</h3><p>The Quantum's two-stage Li Flex Track allows a near-flat 170-degree recline position — enabling true spinal decompression stretching and a more thorough lumbar-to-glute massage path than standard SL-track designs.</p></div>
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg></div><h3>Hands-Free Voice Control</h3><p>Built-in voice command compatibility lets you adjust programs, intensity, and position without reaching for a controller — a thoughtful quality-of-life feature that elevates the daily ownership experience.</p></div>
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>Comprehensive Air &amp; Heat Therapy</h3><p>The Quantum's 73-airbag system covers the full body from shoulders to calves. Tri-zone heat therapy in the Qi XE Pro targets the lumbar, glutes, knees, and calves simultaneously — enhancing circulation and muscle recovery beyond what most competitors offer.</p></div>
+        <div class="czz-pillar-card"><div class="czz-pillar-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><h3>Thoughtfully Designed Lineup</h3><p>From the accessible Zen 3D Pro to the cutting-edge Quantum, Cozzia's range is focused rather than sprawling — each model occupies a distinct position with a clear purpose, making the buying decision cleaner than with broader lineups.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ AT A GLANCE ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Brand Intelligence</span>
+        <h2>Cozzia Massage Chairs <span class="czz-underline">at a Glance</span></h2>
+        <p>A concise, honest profile — the kind of overview buyers need before going deeper.</p>
+      </div>
+      <div class="czz-glance-grid">
+        <div>
+          <table class="czz-glance-table">
+            <tr><td>Price Range</td><td>~$3,000 – $12,000 depending on model and configuration</td></tr>
+            <tr><td>Technology Reputation</td><td>Pioneer of biometric AI massage; highest physiological intelligence in the segment</td></tr>
+            <tr><td>Massage Intensity</td><td>Medium to assertive; highly adaptive — adjusts based on real-time body feedback</td></tr>
+            <tr><td>Track System</td><td>SL-track (Zen series); L-track (Qi series); Li Flex two-stage track (Quantum only)</td></tr>
+            <tr><td>Roller Technology</td><td>3D (Zen), 4D (Qi XE Pro), 5D with 27 pressure sensors (Quantum)</td></tr>
+            <tr><td>AI / Biometric Scanning</td><td>Chair Doctor&trade; AI in Quantum and Qi XE Pro: GSR, PPG heart-rate, SpO2 sensors</td></tr>
+            <tr><td>Best Fit</td><td>Wellness-focused buyers, stress-recovery seekers, intelligent tech enthusiasts</td></tr>
+            <tr><td>May Not Suit</td><td>Buyers who prioritize raw intensity over adaptive intelligence; very large lineups</td></tr>
+          </table>
+        </div>
+        <div class="czz-glance-verdict">
+          <h3>Specialist Assessment</h3>
+          <div class="czz-verdict-item"><div class="czz-verdict-dot"></div><p><strong>For biometric AI seekers</strong> — No other consumer massage chair monitors your heart rate, blood oxygen, and galvanic skin response to adapt the session. Cozzia's Chair Doctor&trade; is genuinely unique.</p></div>
+          <div class="czz-verdict-item"><div class="czz-verdict-dot"></div><p><strong>For intelligent adaption</strong> — The Quantum's 5D system doesn't just move in 5 axes; it senses resistance and adjusts force in real time. This is meaningfully different from standard multi-dimensional roller systems.</p></div>
+          <div class="czz-verdict-item"><div class="czz-verdict-dot"></div><p><strong>For therapeutic positioning</strong> — The Li Flex Track's 170-degree flat recline enables a level of spinal decompression that standard chairs cannot achieve, particularly valuable for disc and lower back recovery.</p></div>
+          <div class="czz-verdict-item"><div class="czz-verdict-dot"></div><p><strong>For a focused lineup</strong> — Buyers who find broad 20+ model ranges overwhelming will appreciate Cozzia's clarity: each model has a clear purpose and a distinct buyer profile.</p></div>
+          <div class="czz-verdict-item"><div class="czz-verdict-dot"></div><p><strong>For Bay Area buyers</strong> — we carry Cozzia models at our San Jose and Pleasanton showrooms, available to try before you commit.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHO IT'S FOR ══════════ {%- endcomment -%}
+  <section class="czz-section">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Fit Guide</span>
+        <h2>Who Cozzia Is For — <span class="czz-underline">and Who It May Not Be</span></h2>
+        <p>Honest, specific guidance. Knowing where a brand excels and where it does not is what separates a specialist from a catalogue.</p>
+      </div>
+      <div class="czz-for-grid">
+        <div class="czz-for-card">
+          <div class="czz-for-badge yes">✓ Cozzia is a strong fit for</div>
+          <ul class="czz-for-list">
+            <li><div class="czz-for-dot yes"></div><span><strong>Biometric AI seekers</strong> who want a chair that monitors their physiology and genuinely adapts</span></li>
+            <li><div class="czz-for-dot yes"></div><span><strong>Stress and recovery focused buyers</strong> — professionals, athletes, or anyone dealing with chronic tension</span></li>
+            <li><div class="czz-for-dot yes"></div><span><strong>Wellness-oriented buyers</strong> who prefer intelligent therapeutic precision over maximum raw intensity</span></li>
+            <li><div class="czz-for-dot yes"></div><span><strong>Daily users who want the chair to think for them</strong> — automatic program adjustment means less manual configuration</span></li>
+            <li><div class="czz-for-dot yes"></div><span><strong>Lower back and disc recovery</strong> — the Li Flex Track's 170-degree flat position provides superior spinal decompression</span></li>
+            <li><div class="czz-for-dot yes"></div><span><strong>Technology-first buyers</strong> who want the most advanced physiological intelligence available in a massage chair</span></li>
+          </ul>
+        </div>
+        <div class="czz-for-card alt">
+          <div class="czz-for-badge no">Consider alternatives if</div>
+          <ul class="czz-for-list">
+            <li><div class="czz-for-dot no"></div><span><strong>Maximum raw intensity is the primary driver</strong> — Osaki Duo models may deliver more assertive pressure throughout</span></li>
+            <li><div class="czz-for-dot no"></div><span><strong>Dual-engine simultaneous back + leg massage</strong> — Cozzia does not have a concurrent dual-mechanism model</span></li>
+            <li><div class="czz-for-dot no"></div><span><strong>Widest possible model selection</strong> — Osaki or Infinity offer broader lineups across more price points</span></li>
+            <li><div class="czz-for-dot no"></div><span><strong>Very large body frames (6'4"+)</strong> — confirm fit in person, as track length varies by model</span></li>
+            <li><div class="czz-for-dot no"></div><span><strong>Ultra-luxury interior design priority</strong> — Bodyfriend or Ogawa may suit furniture-forward aesthetics better</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="czz-expert-callout" style="margin-top:1.75rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Specialist note:</strong> The Chair Doctor&trade; AI system is best appreciated after a full 20-minute session — not a 2-minute showroom demo. We schedule dedicated Cozzia trials so you can experience the biometric adaptation as it actually happens. This is what sets an HOMC visit apart from a generic showroom.</p>
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══════════ BUYER TYPES ══════════ {%- endcomment -%}
+  <section class="czz-section" id="czz-buyer-types">
+    <div class="czz-container">
+      <div class="czz-section-header center">
+        <span class="czz-section-label">Decision Support</span>
+        <h2>Best Cozzia Chair <span class="czz-underline">by Buyer Type</span></h2>
+        <p>The best Cozzia chair depends entirely on what therapeutic outcome you are seeking.</p>
+      </div>
+      <div class="czz-buyer-grid">
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="czz-buyer-type">AI &amp; Biometric Seekers</div><h3>Best for Intelligent Therapeutic Adaptation</h3><p>Buyers who want a chair that monitors their physiology and adjusts automatically — not a fixed program.</p><div class="czz-buyer-rec">&rarr; Cozzia Quantum (CZ-800) — Chair Doctor&trade; AI, 5D, Li Flex Track</div></div>
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><div class="czz-buyer-type">Daily Recovery Users</div><h3>Best for Stress Recovery &amp; Daily Decompression</h3><p>Professionals or athletes who plan to use their chair every day for genuine stress measurement and relief.</p><div class="czz-buyer-rec">&rarr; Quantum or Qi XE Pro Duo — real-time biometric recovery programs</div></div>
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><div class="czz-buyer-type">Lower Back Focus</div><h3>Best for Disc &amp; Lumbar Recovery</h3><p>Buyers with disc issues, lumbar pain, or who want genuine spinal decompression through full flat recline.</p><div class="czz-buyer-rec">&rarr; Cozzia Quantum — Li Flex Track, 170° flat position, targeted lumbar AI</div></div>
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><div class="czz-buyer-type">4D Performance Buyers</div><h3>Best 4D AI Experience Under $8K</h3><p>Buyers who want Chair Doctor&trade; AI and deep 4D massage technology at a more accessible price point.</p><div class="czz-buyer-rec">&rarr; Cozzia Qi XE Pro Duo — 4D L-track, Chair Doctor&trade;, Tri-Zone heat</div></div>
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-4-4 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 8z"/></svg></div><div class="czz-buyer-type">First-Time Premium Buyers</div><h3>Best Entry into the Cozzia Range</h3><p>Buyers making their first premium massage chair purchase who want genuine technology without the flagship price.</p><div class="czz-buyer-rec">&rarr; Cozzia Zen 3D Pro — 3D rollers, 11 programs, touch screen, up to 350 lbs</div></div>
+        <div class="czz-buyer-card"><div class="czz-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="czz-buyer-type">No-Compromise Flagship Buyers</div><h3>Best Cozzia Flagship Experience</h3><p>Buyers who want Cozzia's most sophisticated system — the most technically advanced chair in the lineup.</p><div class="czz-buyer-rec">&rarr; Cozzia Quantum (CZ-800) — 5D, Chair Doctor&trade; AI, 73-airbag, Monster&trade; sound</div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ VS BRANDS ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt" id="czz-vs-brands">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Brand Comparison</span>
+        <h2>Cozzia vs. <span class="czz-underline">Other Premium Brands</span></h2>
+        <p>We carry nine premium brands. This puts us in a unique position to offer honest, comparative guidance — not brand loyalty.</p>
+      </div>
+      <div class="czz-compare-wrap" style="margin-bottom:2rem">
+        <table class="czz-compare-table">
+          <thead><tr><th>Comparison Point</th><th class="czz-czz-col">Cozzia ★</th><th>Osaki</th><th>Kyota</th><th>Infinity</th><th>Bodyfriend</th></tr></thead>
+          <tbody>
+            <tr><td class="czz-col-feature">Biometric AI</td><td class="czz-czz-col czz-check">✓ Chair Doctor&trade; (GSR + HR + SpO2)</td><td>Selected models</td><td>None</td><td>Selected</td><td>BIA (Pharaoh Q)</td></tr>
+            <tr><td class="czz-col-feature">Massage Intensity</td><td class="czz-czz-col">Adaptive medium–strong</td><td>Assertive to strong</td><td>Medium–strong</td><td>Medium</td><td>Medium, refined</td></tr>
+            <tr><td class="czz-col-feature">Roller Technology</td><td class="czz-czz-col czz-check">3D / 4D / 5D (27 sensors)</td><td>4D / 5D</td><td>Syner-D dual</td><td>4D</td><td>XD Pro roller module</td></tr>
+            <tr><td class="czz-col-feature">Track Design</td><td class="czz-czz-col">SL / L-track / Li Flex</td><td>SL / L-track</td><td>SL-track</td><td>SL / L-track</td><td>S-track</td></tr>
+            <tr><td class="czz-col-feature">Model Range</td><td class="czz-czz-col">Focused ({{ collection.products_count }})</td><td>Very wide (20+)</td><td>Focused (5–7)</td><td>Wide (10+)</td><td>Focused (4)</td></tr>
+            <tr><td class="czz-col-feature">Price Entry Point</td><td class="czz-czz-col">~$3K–$4K (Zen)</td><td>~$3K (Oasis)</td><td>~$5K–$7K</td><td>~$3K–$5K</td><td>~$9K–$10K</td></tr>
+            <tr><td class="czz-col-feature">Try at HOMC</td><td class="czz-czz-col czz-check">✓ San Jose &amp; Pleasanton</td><td class="czz-check">✓ San Jose &amp; Pleasanton</td><td class="czz-check">✓ San Jose</td><td class="czz-check">✓ San Jose</td><td class="czz-check">✓ San Jose</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="czz-answer-grid">
+        <div class="czz-answer-block"><h3>Cozzia vs. Osaki</h3><p>Osaki prioritizes feature density and assertive massage intensity across a broad range. Cozzia prioritizes biometric intelligence and physiological adaptation — doing less, but more precisely. If raw intensity and feature volume matter most, Osaki. If intelligent therapeutic response is your goal, Cozzia — particularly the Quantum or Qi XE Pro.</p></div>
+        <div class="czz-answer-block"><h3>Cozzia vs. Kyota</h3><p>Kyota's Syner-D dual-roller technology delivers a distinctive, refined massage feel. Cozzia differentiates through biometric AI — the ability to read your body's stress markers and adapt. Both deliver a more moderate intensity profile than Osaki. The Quantum's Chair Doctor&trade; has no direct equivalent in Kyota's lineup.</p></div>
+        <div class="czz-answer-block"><h3>Cozzia vs. Infinity</h3><p>Infinity offers competitive pricing and solid 4D performance with a comfortable, accessible feel. Cozzia's Quantum and Qi XE Pro add a biometric intelligence layer that Infinity's lineup does not replicate. For pure value at accessible prices, Infinity is strong. For AI-driven therapeutic precision, Cozzia is ahead.</p></div>
+        <div class="czz-answer-block"><h3>Cozzia vs. Bodyfriend</h3><p>Bodyfriend competes at the luxury design and craftsmanship tier. Their XD Pro roller module delivers a sophisticated, precision-engineered feel. Cozzia's edge is biometric adaptation — Bodyfriend's BIA system is limited to the Pharaoh Q. If interior aesthetics and crafted materials drive the decision, Bodyfriend; if physiological AI adaptation is the priority, Cozzia Quantum.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ PRICE GUIDE ══════════ {%- endcomment -%}
+  <section class="czz-section" id="czz-pricing">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Investment Guide</span>
+        <h2>Cozzia Prices, Value &amp; <span class="czz-underline">Ownership</span></h2>
+        <p>How much do Cozzia chairs cost, what changes as you spend more, and what does ownership actually look like?</p>
+      </div>
+      <div class="czz-price-ladder" style="margin-bottom:2rem">
+        <div class="czz-price-rung"><div class="czz-price-rung-label"><div class="czz-price-tier-name">Entry</div><div class="czz-price-amount">$3K–$5K</div></div><div class="czz-price-rung-body"><h4>3D Performance with Broad Program Variety</h4><p>The Zen 3D Pro delivers genuine 3D deep-tissue massage, 11 preset programs (Swedish, Thai, Japanese, and more), a 7-inch touchscreen, and accommodates up to 350 lbs with automatic leg extension. A capable entry for buyers not yet ready for AI integration.</p><div class="czz-price-tags"><span class="czz-price-tag">Zen 3D Pro</span></div></div></div>
+        <div class="czz-price-rung"><div class="czz-price-rung-label"><div class="czz-price-tier-name">Mid</div><div class="czz-price-amount">$5K–$8K</div></div><div class="czz-price-rung-body"><h4>4D AI + Chair Doctor&trade; Integration</h4><p>The Qi XE Pro Duo is the gateway to Cozzia's biometric AI experience at an accessible price point. Deep 4D L-track massage, Tri-Zone heat therapy (lumbar, glutes, knees, calves), Chair Doctor&trade; physiological adaptation, and hands-free voice control.</p><div class="czz-price-tags"><span class="czz-price-tag">Qi XE Pro Duo</span><span class="czz-price-tag">Qi SE</span></div></div></div>
+        <div class="czz-price-rung"><div class="czz-price-rung-label"><div class="czz-price-tier-name">Flagship</div><div class="czz-price-amount">$9K–$12K</div></div><div class="czz-price-rung-body"><h4>5D Biometric AI — The Cozzia Quantum</h4><p>The Quantum (CZ-800) represents the full realization of Cozzia's engineering vision: 5D massage with 27 real-time pressure sensors, Chair Doctor&trade; AI (GSR + heart-rate + SpO2), Li Flex Track with 170° flat recline, 73-airbag system, Monster&trade; 3D sound, and Cloud Lift positioning support. No other chair reads your body like this.</p><div class="czz-price-tags"><span class="czz-price-tag">Quantum CZ-800</span></div></div></div>
+      </div>
+      <div class="czz-expert-callout">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Beyond the price tag:</strong> With any Cozzia chair, the Chair Doctor&trade; AI system improves over repeated sessions as it builds a profile of your physiological patterns. This means the long-term therapeutic value of the Quantum or Qi XE Pro increases with use — making them more valuable investments for daily users than a one-time price comparison suggests. Buying from an authorized dealer like HOMC ensures full warranty coverage and setup support.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TRUST / REVIEWS ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt" id="czz-trust">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Reviews &amp; Reliability</span>
+        <h2>Are Cozzia Massage Chairs Good? <span class="czz-underline">What Buyers Should Know</span></h2>
+        <p>Honest context on Cozzia's reputation, how to evaluate the technology claims, and what to verify before purchasing.</p>
+      </div>
+      <div class="czz-trust-grid" style="margin-bottom:2.5rem">
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>How to Evaluate Cozzia's AI Claims</h3><p>The Chair Doctor&trade; system is the most sophisticated biometric massage AI in the consumer segment. To evaluate it meaningfully, you need a full 20-minute session — not a brief sit-down. The adaptation is subtle at first and becomes more apparent as the chair reads your response patterns. We schedule dedicated evaluation sessions at HOMC for exactly this reason.</p></div>
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><h3>Authorized Dealer Matters</h3><p>Buying from an authorized Cozzia specialty retailer ensures genuine products with valid manufacturer warranties, proper Chair Doctor&trade; calibration support, and legitimate post-purchase service. Unauthorized marketplace sellers may void biometric system warranties.</p></div>
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><h3>Warranty &amp; Support</h3><p>Cozzia massage chairs include manufacturer-backed warranties covering parts, labor, and frame. The biometric sensor systems carry their own coverage terms. HOMC handles all warranty coordination on your behalf.</p></div>
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Long-Term Reliability</h3><p>Cozzia has been in the U.S. premium market for over a decade. Their focus on a smaller, refined lineup means engineering resources are concentrated — models like the Quantum represent years of iterative development, not rushed market entries.</p></div>
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>What to Verify Before Buying</h3><p>Confirm the biometric AI features (Chair Doctor&trade;) are included in your specific model variant. Confirm height and body weight compatibility with the chosen track system. Confirm that the in-home session you're buying is for your specific daily therapeutic need.</p></div>
+        <div class="czz-trust-card"><div class="czz-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><h3>Why Buy from a Specialist</h3><p>A specialist like HOMC brings the training to explain Chair Doctor&trade; biometric output accurately, the showroom space for a proper evaluation session, and the post-sale support that a technology this sophisticated deserves.</p></div>
+      </div>
+      <div class="czz-section-header center" style="margin-bottom:1.75rem">
+        <h2 style="font-size:24px">What Our Customers Say About Cozzia</h2>
+      </div>
+      <div class="czz-review-grid">
+        <div class="czz-review-card"><div class="czz-review-stars">★★★★★</div><p class="czz-review-text">"We had a very wonderful experience purchasing our Cozzia Quantum. The specialist at HOMC actually explained how the Chair Doctor reads your stress levels — something we never would have understood from a product page."</p><div class="czz-review-author"><div class="czz-review-avatar" style="background:var(--czz-accent)">M</div><div><div class="czz-review-name">Michelle Tanaka</div><div class="czz-review-meta">Verified Google Review · Cozzia Quantum purchase</div></div></div></div>
+        <div class="czz-review-card"><div class="czz-review-stars">★★★★★</div><p class="czz-review-text">"We came in looking at Osaki but our specialist suggested we try the Cozzia Qi XE Pro for my lower back issues. The biometric AI noticed exactly where I was tense after about 10 minutes. Left with the Cozzia — it was the right call."</p><div class="czz-review-author"><div class="czz-review-avatar" style="background:#1a6b4a">D</div><div><div class="czz-review-name">David Park</div><div class="czz-review-meta">Verified Google Review · 3 weeks ago</div></div></div></div>
+        <div class="czz-review-card"><div class="czz-review-stars">★★★★★</div><p class="czz-review-text">"Our HOMC specialist was patient and genuinely knowledgeable about the Chair Doctor technology. They scheduled us a proper 20-minute trial, not just a 2-minute sit-down. That's what made the difference."</p><div class="czz-review-author"><div class="czz-review-avatar" style="background:#0F9D58">L</div><div><div class="czz-review-name">Linda Reyes</div><div class="czz-review-meta">Verified Google Review · San Jose showroom</div></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" target="_blank" rel="noopener" class="czz-btn czz-btn-outline">Read All 95+ Google Reviews &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOWROOMS ══════════ {%- endcomment -%}
+  <section class="czz-section" id="czz-showrooms">
+    <div class="czz-container">
+      <div class="czz-section-header">
+        <span class="czz-section-label">Try Cozzia Near You</span>
+        <h2>Bay Area Cozzia <span class="czz-underline">Showrooms</span></h2>
+        <p>If you are searching for where to try Cozzia massage chairs near San Jose or Pleasanton, HOMC is the Bay Area's most comprehensive authorized Cozzia dealer showroom. We schedule dedicated Chair Doctor&trade; evaluation sessions — not just brief demos.</p>
+      </div>
+      <div class="czz-showroom-grid">
+        <div class="czz-showroom-card">
+          <div class="czz-showroom-head">
+            <div class="czz-showroom-pill">San Jose Showroom</div>
+            <h3>Westfield Oakridge Mall &middot; San Jose, CA</h3>
+            <p>Our flagship Bay Area showroom — the largest massage chair showroom in the region.</p>
+          </div>
+          <div class="czz-showroom-body">
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>925 Blossom Hill Road</strong>, Westfield Oakridge, San Jose, CA 95123</span></div>
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Multiple Cozzia models including the Quantum available to try in person</span></div>
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--czz-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="czz-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-green czz-btn-sm">Book Visit</a>
+              <a href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" target="_blank" rel="noopener" class="czz-btn czz-btn-outline czz-btn-sm">Get Directions</a>
+            </div>
+          </div>
+        </div>
+        <div class="czz-showroom-card">
+          <div class="czz-showroom-head">
+            <div class="czz-showroom-pill">Pleasanton Showroom</div>
+            <h3>Stoneridge Shopping Center &middot; Pleasanton, CA</h3>
+            <p>Serving the Tri-Valley, East Bay, and Livermore Valley areas.</p>
+          </div>
+          <div class="czz-showroom-body">
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>1116 Stoneridge Mall Rd</strong>, Pleasanton, CA 94566</span></div>
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Cozzia models available with specialist guidance and Chair Doctor&trade; demonstrations</span></div>
+            <div class="czz-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--czz-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="czz-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-green czz-btn-sm">Book Visit</a>
+              <a href="{{ shop.url }}/pages/contact" class="czz-btn czz-btn-outline czz-btn-sm">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FAQ ══════════ {%- endcomment -%}
+  <section class="czz-section czz-section-alt" id="czz-faq">
+    <div class="czz-container-narrow">
+      <div class="czz-section-header center">
+        <span class="czz-section-label">Frequently Asked</span>
+        <h2>Cozzia Massage Chair <span class="czz-underline">FAQ</span></h2>
+      </div>
+      <div style="border-top:1px solid var(--czz-border)">
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>Are Cozzia massage chairs worth it?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>Yes — for buyers who match the right model to their therapeutic need. Cozzia is the only brand in the premium segment with a consumer-level biometric AI system (Chair Doctor&trade;) that reads GSR stress markers, heart rate, and blood oxygen to adapt the massage in real time. For buyers who want intelligent therapeutic response, there is currently no direct competitor.</p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>What is the best Cozzia massage chair?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>The "best" Cozzia chair depends on your goals. No-compromise flagship: the Quantum (CZ-800) with 5D massage, Chair Doctor&trade; AI, Li Flex Track, and 73-airbag system. Best 4D AI value: the Qi XE Pro Duo. Best versatile entry: the Zen 3D Pro. We recommend a showroom consultation to identify which suits your therapeutic goals and body type best.</p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>What is the Chair Doctor&trade; AI system?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>Chair Doctor&trade; is Cozzia's proprietary biometric monitoring system built into the Quantum and Qi XE Pro. It uses a galvanic skin response (GSR) sensor to measure stress levels, a PPG sensor for heart rate, and an SpO2 sensor for blood oxygen — then adjusts the massage program intensity, rhythm, and focus zones in real time based on your physiological data. No other consumer massage chair offers this level of biometric integration.</p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>What is the Cozzia Quantum CZ-800?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>The Cozzia Quantum (CZ-800) is Cozzia's top-tier flagship — featuring 5D massage technology with 27 real-time pressure sensors, Chair Doctor&trade; AI biometric monitoring, a Li Flex two-stage track system (170-degree flat recline), 73-airbag full-body coverage, Monster&trade; 3D surround sound, Cloud Lift positioning support, and a pivoting footrest with stretching capability. It is the most technically advanced chair Cozzia produces.</p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>Can I try Cozzia massage chairs in San Jose?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>Yes. House of Massage Chairs carries multiple Cozzia models at our San Jose showroom at Westfield Oakridge Mall and at our Pleasanton location. We schedule dedicated Chair Doctor&trade; evaluation sessions — not just brief sit-downs — so you can experience how the biometric AI adapts to your body over a proper session. <a href="{{ shop.url }}/pages/our-store">Book your visit here.</a></p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>How does Cozzia compare to Osaki?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>Osaki leads on model range breadth, feature density, and typically more assertive massage intensity. Cozzia leads on biometric AI intelligence — specifically the Chair Doctor&trade; real-time physiological adaptation. Both are credible premium brands. The right choice depends on whether you prioritize maximum intensity and features (Osaki) or adaptive therapeutic intelligence (Cozzia). Our specialists can walk you through a live comparison at our showroom.</p></div></div>
+        <div class="czz-faq-item"><div class="czz-faq-q" onclick="czzFaq(this)"><h3>Do Cozzia chairs come with a warranty?</h3><svg class="czz-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="czz-faq-a"><p>Yes. Cozzia massage chairs include manufacturer-backed warranties covering parts, labor, and frame. The biometric sensor systems carry their own coverage. Coverage terms vary by model tier. HOMC coordinates all warranty claims on your behalf — you never deal with the manufacturer directly.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FINAL CTA ══════════ {%- endcomment -%}
+  <section class="czz-section">
+    <div class="czz-container">
+      <div class="czz-final-cta">
+        <div class="czz-final-cta-inner">
+          <span style="display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:1rem">Authorized Cozzia Dealer &middot; San Jose &amp; Pleasanton</span>
+          <h2>Experience the Chair Doctor&trade;.<br>Choose With Complete Confidence.</h2>
+          <p>The only way to truly understand what Cozzia's biometric AI does is to experience a full session. Our specialists schedule dedicated Chair Doctor&trade; evaluations — so you feel what intelligent therapeutic adaptation actually feels like in person.</p>
+          <div class="czz-cta-points">
+            <div class="czz-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Dedicated Chair Doctor&trade; evaluation session</span></div>
+            <div class="czz-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Compare with 8 other premium brands</span></div>
+            <div class="czz-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Expert guidance, zero pressure</span></div>
+            <div class="czz-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>White-glove delivery &amp; setup</span></div>
+          </div>
+          <div class="czz-final-cta-btns">
+            <a href="{{ shop.url }}/pages/our-store" class="czz-btn czz-btn-green">Book a Showroom Visit</a>
+            <a href="{{ shop.url }}/pages/contact" class="czz-btn czz-btn-ghost">Speak With a Specialist</a>
+            <a href="tel:+16692148889" class="czz-btn czz-btn-ghost">Call +1 (669) 214-8889</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} INTERNAL LINKS {%- endcomment -%}
+  <section style="padding:3rem 0;background:var(--czz-surface);border-top:1px solid var(--czz-border)">
+    <div class="czz-container">
+      <div style="text-align:center;margin-bottom:1.25rem"><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--czz-muted2)">Explore More</span></div>
+      <div class="czz-link-pills">
+        <a href="{{ shop.url }}/collections/massage-chairs" class="czz-link-pill">All Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/osaki" class="czz-link-pill">Osaki</a>
+        <a href="{{ shop.url }}/collections/bodyfriend" class="czz-link-pill">Bodyfriend</a>
+        <a href="{{ shop.url }}/collections/ogawa" class="czz-link-pill">Ogawa</a>
+        <a href="{{ shop.url }}/collections/infinity" class="czz-link-pill">Infinity</a>
+        <a href="{{ shop.url }}/collections/kyota" class="czz-link-pill">Kyota</a>
+        <a href="{{ shop.url }}/pages/our-store" class="czz-link-pill">Our Showrooms</a>
+        <a href="{{ shop.url }}/pages/about-us" class="czz-link-pill">About HOMC</a>
+        <a href="{{ shop.url }}/pages/contact" class="czz-link-pill">Contact a Specialist</a>
+      </div>
+    </div>
+  </section>
+
+</div>{%- comment -%} .czz-wrap {%- endcomment -%}
+
+{%- comment -%} ══════════ JAVASCRIPT ══════════ {%- endcomment -%}
+<script>
+// ─── DYNAMIC PRODUCT DATA FROM LIQUID ───────────────────────────────────────
+var COZZIA_PRODUCTS = [
+  {%- for product in collection.products -%}
+    {%- assign feat_img = product.featured_image | image_url: width: 600 -%}
+    {%- assign sale_price_cents = product.price -%}
+    {%- assign compare_price_cents = product.compare_at_price -%}
+
+    {%- comment -%} Build filter tags {%- endcomment -%}
+    {%- assign filter_tags = "" -%}
+    {%- for tag in product.tags -%}
+      {%- assign tag_low = tag | downcase -%}
+      {%- if tag_low == "quantum" or tag_low == "qi" or tag_low == "zen" or tag_low == "flagship" or tag_low == "ai" -%}
+        {%- if filter_tags != "" -%}{%- assign filter_tags = filter_tags | append: "," -%}{%- endif -%}
+        {%- assign filter_tags = filter_tags | append: '"' | append: tag_low | append: '"' -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Auto-detect badge from tags {%- endcomment -%}
+    {%- assign auto_badge = "" -%}
+    {%- assign auto_badge_class = "" -%}
+    {%- if product.tags contains "flagship" -%}
+      {%- assign auto_badge = "Flagship" -%}
+      {%- assign auto_badge_class = "flagship" -%}
+    {%- elsif product.tags contains "quantum" -%}
+      {%- assign auto_badge = "5D AI" -%}
+      {%- assign auto_badge_class = "flagship" -%}
+    {%- elsif product.tags contains "qi" -%}
+      {%- assign auto_badge = "4D AI" -%}
+      {%- assign auto_badge_class = "gold" -%}
+    {%- elsif product.tags contains "ai" -%}
+      {%- assign auto_badge = "AI" -%}
+      {%- assign auto_badge_class = "gold" -%}
+    {%- endif -%}
+
+    {%- assign badge_val = product.metafields.custom.badge.value | default: auto_badge -%}
+    {%- assign badge_class_val = product.metafields.custom.badge_class.value | default: auto_badge_class -%}
+    {%- assign buyer_for_val = product.metafields.custom.buyer_for.value | default: product.type -%}
+
+    {%- assign feats_json = product.metafields.custom.key_features.value -%}
+    {%- if feats_json == blank -%}
+      {%- assign feats_json = '["Premium massage technology","Chair Doctor AI biometric","Zero gravity recline","Air compression system"]' -%}
+    {%- endif -%}
+
+    {
+      n: {{ product.title | json }},
+      u: {{ product.url | prepend: shop.url | json }},
+      i: {{ feat_img | json }},
+      p: {{ product.price | money | json }},
+      cp: {% if compare_price_cents > sale_price_cents %}{{ product.compare_at_price | money | json }}{% else %}null{% endif %},
+      tags: [{{ filter_tags }}],
+      badge: {{ badge_val | json }},
+      badgeClass: {{ badge_class_val | json }},
+      for: {{ buyer_for_val | json }},
+      feats: {{ feats_json }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+];
+
+// ─── FILTER LOGIC ─────────────────────────────────────────────────────────
+var czzCurrentFilter = {type:'all',value:'all'};
+
+function czzFilter(btn,type,value){
+  document.querySelectorAll('#czzFilterBar .czz-filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  czzCurrentFilter = {type:type,value:value};
+  czzRenderProducts();
+}
+
+function czzFilteredProducts(){
+  return COZZIA_PRODUCTS.filter(function(p){
+    if(czzCurrentFilter.type==='all') return true;
+    if(czzCurrentFilter.type==='price'){
+      var num = parseFloat(p.p.replace(/[^0-9.]/g,''));
+      if(czzCurrentFilter.value==='under5') return num<5000;
+      if(czzCurrentFilter.value==='5to8') return num>=5000&&num<8000;
+      if(czzCurrentFilter.value==='over8') return num>=8000;
+    }
+    if(czzCurrentFilter.type==='type') return p.tags.indexOf(czzCurrentFilter.value)!==-1;
+    return true;
+  });
+}
+
+function czzSaveCalc(p,cp){
+  if(!cp) return '';
+  var ps=parseFloat(p.replace(/[^0-9.]/g,'')),cs=parseFloat(cp.replace(/[^0-9.]/g,''));
+  if(cs<=ps) return '';
+  var pct=Math.round((cs-ps)/cs*100);
+  return '<span class="czz-price-save">Save '+pct+'%</span>';
+}
+
+function czzRenderProducts(){
+  var grid=document.getElementById('czzGrid');
+  var count=document.getElementById('czzCount');
+  var prods=czzFilteredProducts();
+  if(count) count.textContent=prods.length+' model'+(prods.length!==1?'s':'');
+  if(!grid) return;
+
+  if(prods.length===0){
+    grid.innerHTML='<div class="czz-no-results"><p>No models match this filter.</p></div>';
+    return;
+  }
+
+  grid.style.opacity='0';
+  grid.innerHTML='';
+
+  prods.forEach(function(p){
+    var saveHtml=czzSaveCalc(p.p,p.cp);
+    var featsHtml=Array.isArray(p.feats)?p.feats.map(function(f){return '<li>'+f+'</li>';}).join(''):'' ;
+    var badgeHtml=p.badge?'<span class="czz-product-badge '+p.badgeClass+'">'+p.badge+'</span>':'';
+    var priceHtml='<span class="czz-price-sale">'+p.p+'</span>';
+    if(p.cp) priceHtml+=' <span class="czz-price-was">'+p.cp+'</span>';
+    if(saveHtml) priceHtml+=' '+saveHtml;
+
+    var card=document.createElement('article');
+    card.className='czz-product-card';
+    card.innerHTML=
+      badgeHtml+
+      '<a href="'+p.u+'" style="display:block;position:relative;"><div class="czz-product-img-wrap"><img class="czz-product-img" src="'+p.i+'" alt="'+p.n+'" loading="lazy"></div></a>'+
+      '<div class="czz-product-body">'+
+        '<div class="czz-product-for">'+p.for+'</div>'+
+        '<div class="czz-product-name"><a href="'+p.u+'">'+p.n+'</a></div>'+
+        '<ul class="czz-product-feats">'+featsHtml+'</ul>'+
+        '<div class="czz-product-prices">'+priceHtml+'</div>'+
+        '<a href="'+p.u+'" class="czz-product-cta">View Details</a>'+
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  setTimeout(function(){grid.style.opacity='1';grid.style.transition='opacity .3s';},40);
+}
+
+// ─── FAQ ACCORDION ────────────────────────────────────────────────────────
+function czzFaq(el){
+  var a=el.nextElementSibling;
+  var isOpen=a.classList.contains('open');
+  document.querySelectorAll('.czz-faq-a').forEach(function(x){x.classList.remove('open')});
+  document.querySelectorAll('.czz-faq-q').forEach(function(x){x.classList.remove('active')});
+  if(!isOpen){a.classList.add('open');el.classList.add('active');}
+}
+
+// ─── SUBNAV ACTIVE STATE ──────────────────────────────────────────────────
+(function(){
+  var links=document.querySelectorAll('.czz-subnav-inner a');
+  var ids=['czz-collection','czz-overview','czz-why-cozzia','czz-model-guide','czz-buyer-types','czz-vs-brands','czz-pricing','czz-trust','czz-showrooms','czz-faq'];
+  window.addEventListener('scroll',function(){
+    var pos=window.scrollY+140,active='';
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&pos>=el.offsetTop)active=id;});
+    links.forEach(function(l){l.classList.remove('active');if(l.getAttribute('href')==='#'+active)l.classList.add('active');});
+  });
+})();
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+czzRenderProducts();
+</script>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Cozzia Collection Page",
+  "tag": "section",
+  "class": "cozzia-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Recommended: 1920x1080px. Defaults to a dark green background."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Cozzia Massage Chairs<br>The Complete Buyer's Guide"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "Biometric AI, 5D precision massage, and real-time therapeutic adaptation — Cozzia pushes the technical ceiling of what a massage chair can do."
+    },
+    {
+      "type": "header",
+      "content": "Section Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_model_guide",
+      "label": "Show Model Guide Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buyer_types",
+      "label": "Show Buyer Types Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comparison",
+      "label": "Show Brand Comparison Table",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Showroom Settings"
+    },
+    {
+      "type": "text",
+      "id": "sj_address",
+      "label": "San Jose Address",
+      "default": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123"
+    },
+    {
+      "type": "text",
+      "id": "pls_address",
+      "label": "Pleasanton Address",
+      "default": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+1 (669) 214-8889"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cozzia Collection Page"
+    }
+  ]
+}
+{% endschema %}

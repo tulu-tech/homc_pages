@@ -1,0 +1,481 @@
+{% raw %}
+<style>
+.hp-landing{--bg:#fff;--surface:#f8fafc;--dark:#000;--muted:#444;--accent:#b38b4d;--accent-hover:#96723e;--border:#e2e8f0;font-family:'Inter',sans-serif;line-height:1.75;font-size:17px;font-weight:500;-webkit-font-smoothing:antialiased;color:#000}
+.hp-landing *{box-sizing:border-box}
+.hp-landing h1,.hp-landing h2,.hp-landing h3,.hp-landing h4{color:var(--dark);line-height:1.2;font-weight:700;letter-spacing:-0.025em}
+.hp-landing a{color:inherit;text-decoration:none} .hp-landing img{max-width:100%;display:block}
+.hp-landing .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+.hp-landing .container-narrow{max-width:900px;margin:0 auto;padding:0 2rem}
+.hp-landing .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--dark);color:#fff;padding:16px 40px;font-size:16px;font-weight:700;border-radius:50px;text-decoration:none;transition:all 0.25s;border:2px solid var(--dark);cursor:pointer}
+.hp-landing .btn:hover{background:#222;border-color:#222;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.hp-landing .btn-outline{background:transparent;color:var(--dark);border:2px solid var(--border)}
+.hp-landing .btn-outline:hover{border-color:var(--dark);background:var(--surface)}
+.hp-landing .btn-gold{background:var(--accent);border-color:var(--accent);color:#fff}
+.hp-landing .btn-gold:hover{background:var(--accent-hover);border-color:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 20px rgba(179,139,77,0.25)}
+.hp-landing .hero{padding:0;background:#000;text-align:center;position:relative;overflow:hidden;min-height:85vh;display:flex;align-items:center;justify-content:center}
+.hp-landing .hero-bg-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0.6}
+.hp-landing .hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.4) 100%);z-index:2;pointer-events:none}
+.hp-landing .hero .container{position:relative;z-index:3;padding:96px 2rem}
+.hp-landing .hero h1{font-size:72px;margin-bottom:24px;font-weight:900;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.hp-landing .hero p{font-size:22px;color:rgba(255,255,255,0.9);max-width:700px;margin:0 auto 40px}
+.hp-landing .trust-bar{display:flex;justify-content:center;gap:48px;padding:20px 2rem;border-bottom:1px solid var(--border);font-size:15px;font-weight:700;flex-wrap:wrap;background:#fff}
+.hp-landing .trust-item{display:flex;align-items:center;gap:10px}
+.hp-landing .trust-item svg{width:22px;height:22px;fill:var(--accent)}
+.hp-landing .section{padding:80px 0}
+.hp-landing .section-header{text-align:center;margin-bottom:48px}
+.hp-landing .section-header h2{font-size:40px;margin-bottom:16px}
+.hp-landing .section-header h2::before{content:'';display:block;width:40px;height:3px;background:var(--accent);margin:0 auto 20px;border-radius:2px}
+.hp-landing .section-header p{font-size:18px;color:var(--muted);max-width:680px;margin:0 auto;line-height:1.8}
+.hp-landing .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.hp-landing .product-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;position:relative}
+.hp-landing .product-card:hover{transform:translateY(-8px);box-shadow:0 25px 50px rgba(0,0,0,0.08);border-color:var(--accent)}
+.hp-landing .product-card-img{width:100%;height:300px;object-fit:contain;padding:24px;background:#fff}
+.hp-landing .product-card-body{padding:20px 24px 24px}
+.hp-landing .product-card-body h3{font-size:18px;margin-bottom:10px;line-height:1.3}
+.hp-landing .product-prices{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.hp-landing .price-sale{font-size:22px;font-weight:800;color:var(--dark)}
+.hp-landing .price-compare{font-size:16px;color:#94a3b8;text-decoration:line-through;font-weight:500}
+.hp-landing .product-card-link{display:block;text-align:center;background:var(--dark);color:#fff;padding:12px;border-radius:10px;font-weight:700;font-size:15px;transition:background 0.2s}
+.hp-landing .product-card-link:hover{background:var(--accent)}
+.hp-landing .badge{position:absolute;top:16px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:5px 12px;border-radius:50px;text-transform:uppercase;letter-spacing:1px;z-index:2}
+.hp-landing .brands-grid{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;max-width:1200px;margin:0 auto;padding:0 2rem}
+.hp-landing .brand-badge{display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;width:140px}
+.hp-landing .brand-badge:hover{transform:translateY(-6px)}
+.hp-landing .brand-badge img{width:100%;height:auto;transition:all 0.3s}
+.hp-landing .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.hp-landing .blog-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.3s}
+.hp-landing .blog-card:hover{border-color:var(--accent);transform:translateY(-6px);box-shadow:0 15px 30px rgba(0,0,0,0.05)}
+.hp-landing .blog-icon{width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#fff}
+.hp-landing .blog-icon svg{width:56px;height:56px;fill:var(--accent)}
+.hp-landing .blog-card-body{padding:24px}
+.hp-landing .blog-card-body h3{font-size:18px;margin-bottom:10px;line-height:1.3}
+.hp-landing .blog-card-body p{font-size:15px;color:var(--muted);margin-bottom:12px}
+.hp-landing .blog-read{font-weight:700;color:var(--accent);font-size:15px}
+.hp-landing .faq-item{border-bottom:1px solid var(--border)}
+.hp-landing .faq-q{display:flex;justify-content:space-between;align-items:center;padding:24px 0;cursor:pointer;gap:16px}
+.hp-landing .faq-q h3{font-size:17px;margin:0;transition:color 0.2s}
+.hp-landing .faq-q:hover h3{color:var(--accent)}
+.hp-landing .faq-q .faq-icon{width:24px;height:24px;flex-shrink:0;transition:transform 0.3s;fill:var(--muted)}
+.hp-landing .faq-q.active .faq-icon{transform:rotate(45deg)}
+.hp-landing .faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.hp-landing .faq-a.open{max-height:300px}
+.hp-landing .faq-a p{margin:0;padding-bottom:24px;font-size:15px;line-height:1.8}
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:900px){
+/* Hero */
+.hp-landing .hero{min-height:60vh}
+.hp-landing .hero .container{padding:60px 1.5rem}
+.hp-landing .hero h1{font-size:32px}
+.hp-landing .hero p{font-size:18px;margin-bottom:28px}
+/* Trust bar */
+.hp-landing .trust-bar{gap:16px 24px;padding:16px 1rem;font-size:13px}
+/* Section spacing */
+.hp-landing .section{padding:48px 0}
+.hp-landing .container{padding:0 1.25rem}
+.hp-landing .container-narrow{padding:0 1.25rem}
+/* Section headers */
+.hp-landing .section-header h2{font-size:28px}
+.hp-landing .section-header p{font-size:16px}
+/* All grids to single column */
+.hp-landing .product-grid,
+.hp-landing .blog-grid{grid-template-columns:1fr}
+/* Product cards */
+.hp-landing .product-card-img{height:250px;padding:16px}
+/* 2-column content grids to stack */
+.hp-landing .section > .container > div[style*="grid-template-columns: 1fr 1fr"],
+.hp-landing .section > .container > div[style*="grid-template-columns:1fr 1fr"]{
+    display:block !important;
+}
+.hp-landing .section > .container > div[style*="grid-template-columns:1fr 1fr"] > div{
+    margin-bottom:24px;
+}
+/* 3-column grids */
+.hp-landing .section > .container > div[style*="repeat(3,1fr)"],
+.hp-landing .section > .container > div[style*="1fr 1fr 1fr"]{
+    grid-template-columns:1fr !important;
+}
+/* 4-column grids (buying experience steps) */
+.hp-landing .section > .container > div[style*="repeat(4,1fr)"]{
+    grid-template-columns:1fr 1fr !important;
+}
+/* 2x2 icon grids inside sections */
+.hp-landing div[style*="grid-template-columns: 1fr 1fr;"][style*="gap: 16px"],
+.hp-landing div[style*="grid-template-columns:1fr 1fr;"][style*="gap:16px"]{
+    grid-template-columns:1fr !important;
+}
+/* Brand badges - handled by auto-fit in base styles */
+/* Showroom banner */
+.hp-landing section[style*="height:400px"]{height:auto !important;min-height:320px}
+.hp-landing section[style*="height:400px"] .container{padding:40px 1.25rem}
+.hp-landing section[style*="height:400px"] h2{font-size:26px}
+/* Guide CTA section */
+.hp-landing section[style*="linear-gradient(135deg"] > .container > div[style*="grid-template-columns"]{
+    display:block !important;
+}
+.hp-landing section[style*="linear-gradient(135deg"] h2{font-size:28px !important}
+.hp-landing section[style*="linear-gradient(135deg"] > .container > div > div:last-child{margin-top:24px}
+/* Blog cards */
+.hp-landing .blog-icon{height:120px}
+/* Premium support bar */
+.hp-landing section[style*="background:var(--dark);padding:48px"] .container > div{gap:24px 20px}
+/* Final CTA */
+.hp-landing div[style*="border-radius:26px"][style*="padding:64px"]{padding:36px 24px !important;border-radius:20px !important}
+.hp-landing div[style*="border-radius:26px"] h2{font-size:26px !important}
+.hp-landing div[style*="border-radius:26px"] p{font-size:16px !important}
+.hp-landing div[style*="border-radius:26px"] div[style*="display:flex"]{flex-direction:column}
+.hp-landing div[style*="border-radius:26px"] div[style*="display:flex"] .btn{width:100%;text-align:center}
+/* Buttons */
+.hp-landing .btn{padding:14px 28px;font-size:15px}
+/* Lifestyle images */
+.hp-landing div[style*="height:220px"]{height:180px !important}
+/* Local SEO card */
+.hp-landing div[style*="padding:32px"][style*="border-radius:20px"][style*="border:1px solid"]{padding:24px;margin-top:16px}
+}
+@media(max-width:480px){
+.hp-landing .hero h1{font-size:26px}
+.hp-landing .hero p{font-size:16px}
+.hp-landing .section-header h2{font-size:24px}
+.hp-landing .trust-bar{gap:10px 20px;align-items:center}
+.hp-landing .section > .container > div[style*="repeat(4,1fr)"]{
+    grid-template-columns:1fr !important;
+}
+/* Brand badges - handled by auto-fit in base styles */
+}
+</style>
+{% endraw %}
+
+<div class="hp-landing">
+
+<!-- HERO -->
+<section class="hero">
+    <video class="hero-bg-video" autoplay muted loop playsinline>
+        <source src="https://houseofmassagechairs.com/cdn/shop/videos/c/vp/e61476a8045443c9815c892cac4b3131/e61476a8045443c9815c892cac4b3131.HD-720p-4.5Mbps-77390510.mp4?v=0" type="video/mp4">
+    </video>
+    <div class="container">
+        <h1>Biggest Massage Chair Showroom<br>in Bay Area</h1>
+        <p>Try 35+ massage chairs from 9 global brands side by side at our San Jose showroom. Expert-guided, zero pressure.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+            <a href="/pages/our-store" class="btn btn-gold">Book a Showroom Visit</a>
+            <a href="/collections/massage-chairs" class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.4);">Shop All Chairs</a>
+        </div>
+    </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-bar">
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>35+ chairs in person</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>9 global brands</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>White-glove delivery</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Manufacturer warranty</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Financing available</div>
+</div>
+
+<!-- WHY VISIT SHOWROOM -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Why Serious Buyers Visit a Massage Chair Showroom First</h2>
+            <p>A premium massage chair is not a small purchase, and the right fit is rarely obvious from photos alone.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+            <div>
+                <p>The feel of the rollers, the pressure profile, the body fit, the recline position, the track style, and the overall comfort can vary far more than most buyers expect.</p>
+                <p>At <strong>House of Massage Chairs</strong>, you can compare real chairs in person, side by side, in a calm showroom setting. That changes the decision. Instead of guessing which model may suit your body, your space, or your comfort preferences, you can feel the difference for yourself.</p>
+                <p>For Bay Area buyers looking for a trusted <strong>massage chair store</strong>, this is the advantage that matters most: more clarity, less risk, and a more confident decision.</p>
+                <a href="/pages/our-store" class="btn btn-gold" style="margin-top:16px;">Plan Your Showroom Visit</a>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div style="background:var(--surface);padding:20px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M15 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9l-6-6zM5 19V5h9v5h5v9H5z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Compare Before You Commit</h4><p style="font-size:14px;margin:0;">Experience different massage styles and comfort levels in person.</p></div>
+                <div style="background:var(--surface);padding:20px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">See What Premium Feels Like</h4><p style="font-size:14px;margin:0;">Understand how top-tier chairs differ beyond spec sheets.</p></div>
+                <div style="background:var(--surface);padding:20px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Get Expert Guidance</h4><p style="font-size:14px;margin:0;">Narrow options based on real needs, not generic sales language.</p></div>
+                <div style="background:var(--surface);padding:20px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Buy With Confidence</h4><p style="font-size:14px;margin:0;">Fewer doubts about comfort, fit, and long-term satisfaction.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BRANDS -->
+<section style="padding:64px 0;background:#fff;">
+    <div class="section-header" style="margin-bottom:36px;"><h2 style="font-size:40px;">Our Brands</h2><p>Authorized dealer for 9 world-class massage chair manufacturers.</p></div>
+    <div class="brands-grid">
+        <a href="/collections/cozzia" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/cozzia_01.webp?v=1772911767&width=400" alt="Cozzia"></a>
+        <a href="/collections/bodyfriend" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/bodyfriend_1.webp?v=1772911779&width=400" alt="Bodyfriend"></a>
+        <a href="/collections/fujiiryoki" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/houseofosaki.webp?v=1772911804&width=400" alt="Fujiiryoki"></a>
+        <a href="/collections/osaki" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/houseofosaki_1.webp?v=1772911848&width=400" alt="Osaki"></a>
+        <a href="/collections/infinity" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/infinity.webp?v=1772911822&width=400" alt="Infinity"></a>
+        <a href="/collections/jp-medics" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/12.png?v=1772911833&width=400" alt="JP Medics"></a>
+        <a href="/collections/ogawa" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/ogawa.webp?v=1772911869&width=400" alt="Ogawa"></a>
+        <a href="/collections/svago" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/svago.webp?v=1772911880&width=400" alt="Svago"></a>
+        <a href="/collections/kyota" class="brand-badge"><img src="https://houseofmassagechairs.com/cdn/shop/files/infinity_1.webp?v=1772911889&width=400" alt="Kyota"></a>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS — DYNAMIC FROM SHOPIFY -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Massage Chairs</h2>
+            <p>Handpicked models representing the best across every budget and need.</p>
+        </div>
+        <div class="product-grid" id="hpFeaturedGrid"></div>
+        <div style="text-align:center;margin-top:36px;">
+            <a href="/collections/massage-chairs" class="btn">View All Massage Chairs</a>
+        </div>
+    </div>
+</section>
+
+<!-- HOW TO CHOOSE -->
+<section class="section" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <h2>How to Choose the Best Massage Chair for Your Home</h2>
+            <p>The best massage chair is rarely the one with the longest feature list. It is the one that fits your body, feels right daily, and works with your home.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+            <img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/chair_home.jpg?v=1774306765" alt="Premium massage chair in luxury home interior" style="border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div style="background:#fff;padding:24px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Comfort & Fit</h4><p style="font-size:14px;margin:0;">Does it suit your height, shoulder width, and preferred pressure?</p></div>
+                <div style="background:#fff;padding:24px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.611 3.611 0 0112 15.6z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Features That Matter</h4><p style="font-size:14px;margin:0;">Zero gravity, 4D rollers, stretching, heat, or full-body air compression?</p></div>
+                <div style="background:#fff;padding:24px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Home Compatibility</h4><p style="font-size:14px;margin:0;">Will it work in your room visually and physically?</p></div>
+                <div style="background:#fff;padding:24px;border-radius:14px;border:1px solid var(--border);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:10px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg><h4 style="font-size:15px;margin-bottom:6px;">Long-Term Confidence</h4><p style="font-size:14px;margin:0;">Delivery, setup, warranty, and brand reputation matter just as much.</p></div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:36px;"><a href="/collections/massage-chairs" class="btn">Explore Massage Chairs by Need</a></div>
+    </div>
+</section>
+
+<!-- BRAND COMPARISON -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span style="display:inline-block;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7a6f62;margin-bottom:14px;font-weight:700;">Compare Premium Brands</span>
+            <h2>Compare Premium Massage Chair Brands in One Place</h2>
+            <p>The better question is not which brand is best overall, but which brand is best for your body, comfort preference, and ownership expectations.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+            <div style="background:var(--surface);padding:32px;border-radius:20px;border:1px solid var(--border);box-shadow:0 10px 35px rgba(0,0,0,0.05);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:12px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><h3 style="font-size:18px;margin-bottom:8px;">For a More Refined Feel</h3><p style="font-size:15px;margin:0;">Ideal for buyers who prefer balanced pressure, polished engineering, and a more subtle premium experience.</p></div>
+            <div style="background:var(--surface);padding:32px;border-radius:20px;border:1px solid var(--border);box-shadow:0 10px 35px rgba(0,0,0,0.05);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:12px;"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.16-.28L11.5 2h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg><h3 style="font-size:18px;margin-bottom:8px;">For Stronger Intensity</h3><p style="font-size:15px;margin:0;">Better suited to buyers who want deeper pressure, stronger roller feel, and more assertive programs.</p></div>
+            <div style="background:var(--surface);padding:32px;border-radius:20px;border:1px solid var(--border);box-shadow:0 10px 35px rgba(0,0,0,0.05);"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--accent);margin-bottom:12px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><h3 style="font-size:18px;margin-bottom:8px;">For Design-Conscious Homes</h3><p style="font-size:15px;margin:0;">A smart direction for buyers who care about how a luxury massage chair integrates into the room.</p></div>
+        </div>
+        <div style="text-align:center;margin-top:24px;"><a href="/collections/massage-chairs" class="btn" style="background:transparent;color:var(--dark);border:2px solid var(--border);">Browse All Premium Chairs</a></div>
+    </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section class="section" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header">
+            <span style="display:inline-block;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7a6f62;margin-bottom:14px;font-weight:700;">Shop by Need</span>
+            <h2>Find the Right Massage Chair by Lifestyle</h2>
+            <p>Many buyers make a smarter decision when they stop shopping by model number and start shopping by how they want the chair to fit into daily life.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;">
+            <div style="background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;box-shadow:0 10px 35px rgba(0,0,0,0.05);"><img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/lifestyle_relax.jpg?v=1774306775" alt="Person relaxing in premium massage chair" style="width:100%;height:220px;object-fit:cover;"><div style="padding:20px 24px 24px;"><h3 style="font-size:18px;margin-bottom:8px;">For Daily Unwinding</h3><p style="font-size:15px;margin:0;color:var(--muted);">A calm, full-body massage experience for buyers who want regular comfort and an easier at-home wellness routine.</p></div></div>
+            <div style="background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;box-shadow:0 10px 35px rgba(0,0,0,0.05);"><img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/lifestyle_intensity.jpg?v=1774306799" alt="Athletic person using massage chair" style="width:100%;height:220px;object-fit:cover;"><div style="padding:20px 24px 24px;"><h3 style="font-size:18px;margin-bottom:8px;">For Deeper Intensity</h3><p style="font-size:15px;margin:0;color:var(--muted);">A stronger direction for buyers who prefer deeper pressure, more advanced roller control, and greater customization.</p></div></div>
+            <div style="background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s;box-shadow:0 10px 35px rgba(0,0,0,0.05);"><img src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/lifestyle_design.jpg?v=1774306799" alt="Premium massage chair in luxury interior" style="width:100%;height:220px;object-fit:cover;"><div style="padding:20px 24px 24px;"><h3 style="font-size:18px;margin-bottom:8px;">For Design-Conscious Homes</h3><p style="font-size:15px;margin:0;color:var(--muted);">A luxury massage chair choice that feels substantial without visually overwhelming the space.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SHOWROOM BANNER -->
+<section style="position:relative;overflow:hidden;height:400px;">
+    <img src="https://houseofmassagechairs.com/cdn/shop/files/ban.webp?v=1772905245&width=1600" alt="House of Massage Chairs Showroom" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;">
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.2) 100%);"></div>
+    <div class="container" style="position:relative;z-index:2;height:100%;display:flex;align-items:center;">
+        <div style="max-width:500px;">
+            <h2 style="color:#fff;font-size:36px;margin-bottom:12px;">Visit Our San Jose Showroom</h2>
+            <p style="color:rgba(255,255,255,0.85);margin-bottom:20px;">Experience 35+ massage chairs from the world's top brands, all in one place.</p>
+            <a href="/pages/our-store" class="btn btn-gold">Book a Visit</a>
+        </div>
+    </div>
+</section>
+
+<!-- BLOG -->
+<section class="section">
+    <div class="container">
+        <div class="section-header"><h2>Inspiration</h2><p>Expert insights, wellness tips, and helpful guides about massage chairs and relaxation.</p></div>
+        <div class="blog-grid">
+            <a href="/blogs/news/massage-chair-buying-guide-ultimate-guide" class="blog-card"><div class="blog-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div><div class="blog-card-body"><h3>Massage Chair Buying Guide (Ultimate Guide)</h3><p>Everything you need to know before making your first purchase.</p><span class="blog-read">Continue Reading →</span></div></a>
+            <a href="/blogs/news/when-is-the-best-time-to-buy-a-massage-chair" class="blog-card"><div class="blog-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div><div class="blog-card-body"><h3>When Is the Best Time to Buy a Massage Chair?</h3><p>Timing your purchase to get the best value and deals.</p><span class="blog-read">Continue Reading →</span></div></a>
+            <a href="/blogs/news/how-important-is-the-manufacturer-s-warranty-when-buying-a-massage-chair" class="blog-card"><div class="blog-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><div class="blog-card-body"><h3>How Important Is the Manufacturer's Warranty?</h3><p>What warranty means for your investment and peace of mind.</p><span class="blog-read">Continue Reading →</span></div></a>
+        </div>
+        <div style="text-align:center;margin-top:36px;"><a href="/blogs/news" class="btn" style="background:transparent;color:var(--dark);">View All Articles →</a></div>
+    </div>
+</section>
+
+<!-- GUIDE CTA -->
+<section style="padding:64px 0;background:linear-gradient(135deg,#1a1a1a 0%,#2d2520 100%);overflow:hidden;">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+            <div>
+                <p style="color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-bottom:16px;">Buying Guide</p>
+                <h2 style="color:#fff;font-size:38px;line-height:1.2;margin-bottom:16px;">How Much Should You<br>Spend on a Massage Chair?</h2>
+                <p style="color:rgba(255,255,255,0.6);font-size:16px;line-height:1.8;margin-bottom:24px;max-width:440px;">Not all massage chairs are created equal. The difference between $3K and $15K isn't just features — it's build quality, roller precision, and how your body feels after year one.</p>
+                <a href="/pages/budget-vs-premium" style="display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:15px;border-bottom:2px solid var(--accent);padding-bottom:4px;">Read the Full Guide <span style="font-size:20px;">→</span></a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-weight:700;font-size:16px;">Entry Level</span><span style="color:var(--accent);font-weight:700;font-size:14px;background:rgba(179,139,77,0.15);padding:4px 12px;border-radius:20px;">$2K – $5K</span></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin:0;line-height:1.6;">Great starter chairs with basic body scan, zero gravity, and air compression.</p></div>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-weight:700;font-size:16px;">Mid-Range</span><span style="color:var(--accent);font-weight:700;font-size:14px;background:rgba(179,139,77,0.15);padding:4px 12px;border-radius:20px;">$5K – $10K</span></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin:0;line-height:1.6;">Advanced 4D rollers, heated massage, SL-track, and AI body scanning. Best value for daily use.</p></div>
+                <div style="background:rgba(179,139,77,0.1);border:1px solid rgba(179,139,77,0.25);border-radius:16px;padding:20px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-weight:700;font-size:16px;">Flagship</span><span style="color:var(--accent);font-weight:700;font-size:14px;background:rgba(179,139,77,0.15);padding:4px 12px;border-radius:20px;">$10K+</span></div><p style="color:rgba(255,255,255,0.5);font-size:13px;margin:0;line-height:1.6;">Dual-engine, AI-powered, premium build. Engineered for therapeutic-grade daily relief.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BUYING EXPERIENCE -->
+<section class="section" style="background:var(--surface);">
+    <div class="container">
+        <div class="section-header"><h2>The HOMC Buying Experience</h2><p>Buying a premium massage chair should not feel rushed, confusing, or overly technical.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+            <div style="text-align:center;padding:24px;"><div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><span style="color:#fff;font-weight:900;font-size:20px;">1</span></div><h4 style="font-size:16px;margin-bottom:8px;">Visit or Connect</h4><p style="font-size:15px;margin:0;">Start with a showroom visit or a conversation about what you want.</p></div>
+            <div style="text-align:center;padding:24px;"><div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><span style="color:#fff;font-weight:900;font-size:20px;">2</span></div><h4 style="font-size:16px;margin-bottom:8px;">Compare the Right Options</h4><p style="font-size:15px;margin:0;">Narrow the field based on body fit, comfort, features, and home needs.</p></div>
+            <div style="text-align:center;padding:24px;"><div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><span style="color:#fff;font-weight:900;font-size:20px;">3</span></div><h4 style="font-size:16px;margin-bottom:8px;">Choose With Clarity</h4><p style="font-size:15px;margin:0;">Understand differences without unnecessary complexity.</p></div>
+            <div style="text-align:center;padding:24px;"><div style="width:56px;height:56px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><span style="color:#fff;font-weight:900;font-size:20px;">4</span></div><h4 style="font-size:16px;margin-bottom:8px;">Enjoy Premium Ownership</h4><p style="font-size:15px;margin:0;">Delivery, setup, warranty, and service are part of the equation.</p></div>
+        </div>
+        <div style="text-align:center;margin-top:24px;"><a href="/pages/our-store" class="btn">Start Your Search</a></div>
+    </div>
+</section>
+
+<!-- LOCAL SEO -->
+<section class="section">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+            <div>
+                <h2>Massage Chairs Near San Jose: Try Before You Decide</h2>
+                <p>For many buyers, the hardest part is not finding a massage chair online. It is knowing which one will actually feel right once it is in the home.</p>
+                <p><strong>House of Massage Chairs</strong> gives Bay Area shoppers a more confident way to buy. Located at <strong>Westfield Oakridge Mall in San Jose</strong>, the showroom offers the chance to compare premium massage chairs in person.</p>
+                <a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" class="btn" style="margin-top:16px;">Get Directions to the Showroom</a>
+            </div>
+            <div style="background:var(--surface);padding:32px;border-radius:20px;border:1px solid var(--border);">
+                <h3 style="margin-bottom:20px;">Why visit in person?</h3>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span style="font-weight:700;">San Jose showroom location</span></div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">35+ chairs on display</span></div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">9 top brands in one place</span></div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">White-glove delivery &amp; setup</span></div>
+                <div style="display:flex;align-items:center;gap:12px;"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:var(--accent);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span style="font-weight:700;">In-house service support</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREMIUM SUPPORT -->
+<section style="background:var(--dark);padding:48px 0;">
+    <div class="container">
+        <div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;text-align:center;">
+            <div style="color:#fff;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:8px;display:block;margin-inline:auto;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg><span style="font-weight:700;font-size:15px;">White-Glove Delivery</span></div>
+            <div style="color:#fff;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:8px;display:block;margin-inline:auto;"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg><span style="font-weight:700;font-size:15px;">In-House Service</span></div>
+            <div style="color:#fff;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:8px;display:block;margin-inline:auto;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg><span style="font-weight:700;font-size:15px;">Manufacturer Warranty</span></div>
+            <div style="color:#fff;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:8px;display:block;margin-inline:auto;"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><span style="font-weight:700;font-size:15px;">Expert Consultation</span></div>
+            <div style="color:#fff;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:var(--accent);margin-bottom:8px;display:block;margin-inline:auto;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span style="font-weight:700;font-size:15px;">Setup Included</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+    <div class="container-narrow">
+        <div class="section-header"><h2>Frequently Asked Questions</h2></div>
+        <div style="border-top:1px solid var(--border);">
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>Are massage chairs worth it?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>A premium massage chair is worth it for buyers who want regular at-home comfort, relaxation, and a more convenient wellness routine. The real value depends on comfort, fit, feature quality, and the ownership experience.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>What is the best massage chair for home use?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>The best massage chair for home use depends on body fit, preferred massage feel, room compatibility, and feature priorities such as zero gravity, 3D or 4D rollers, stretching, heat, and full-body air compression.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>Where can I try massage chairs near me?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Buyers in San Jose and the Bay Area can compare premium massage chairs in person at House of Massage Chairs at Westfield Oakridge Mall, where multiple brands and models can be tested side by side.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>Is a zero gravity massage chair worth it?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>For many buyers, zero gravity is one of the most noticeable comfort features because it creates a more reclined, floating position that can make the session feel more immersive and relaxing.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>How much does a good massage chair cost?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>A good massage chair can vary widely in price depending on engineering, features, brand, fit, and support. Premium buyers should evaluate total ownership value, not price alone.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>Can I compare massage chairs in person in San Jose?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Yes. HOMC's San Jose showroom gives buyers the chance to compare multiple premium massage chairs and brands in one location before making a decision.</p></div></div>
+            <div class="faq-item"><div class="faq-q" onclick="toggleHpFaq(this)"><h3>Do premium massage chairs come with delivery and warranty?</h3><svg class="faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="faq-a"><p>Premium purchases often include stronger ownership support. HOMC highlights white-glove delivery and setup, manufacturer-backed warranty, and in-house service as part of the buying experience.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" style="padding-bottom:36px;">
+    <div class="container">
+        <div style="background:var(--dark);border-radius:26px;padding:64px;color:#fff;">
+            <span style="display:inline-block;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;font-weight:700;">Luxury Massage Chair Showroom</span>
+            <h2 style="color:#fff;font-size:clamp(28px,3vw,42px);margin-bottom:12px;line-height:1.15;">Compare Premium Massage Chairs in Person and Buy With More Confidence</h2>
+            <p style="color:rgba(255,255,255,0.8);font-size:18px;max-width:760px;margin:0 0 24px;">Experience the difference between models, explore premium brands side by side, and choose a massage chair that fits your body, your home, and your expectations.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;">
+                <a href="/pages/our-store" class="btn btn-gold">Visit the Showroom</a>
+                <a href="/pages/contact" class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.35);">Speak With a Specialist</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div><!-- end .hp-landing -->
+
+<!-- DYNAMIC FEATURED PRODUCTS FROM SHOPIFY -->
+{% raw %}
+<script>
+var hpFeaturedHandles = [
+  'bodyfriend-falcon-sv-massage-chair',
+  'osaki-grand-duo-4d-4d-massage-chair',
+  'ogawa-master-drive-duo-massage-chair',
+  'cozzia-zen-duo-massage-chair',
+  'infinity-gen-max-4d-massage-chair',
+  'kyota-nokori-m980-syner-d-massage-chair'
+];
+
+function hpFormatPrice(cents){return '$'+(cents/100).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function hpLoadFeatured(){
+  var grid=document.getElementById('hpFeaturedGrid');if(!grid)return;
+  var promises=hpFeaturedHandles.map(function(h){
+    return fetch('/products/'+h+'.js').then(function(r){return r.json();}).catch(function(){return null;});
+  });
+  Promise.all(promises).then(function(products){
+    products.forEach(function(p){
+      if(!p)return;
+      var card=document.createElement('div');card.className='product-card';
+      var price=p.price;var cp=p.compare_at_price||0;
+      var img=p.featured_image||'';
+      var priceHtml='<span class="price-sale">'+hpFormatPrice(price)+'</span>';
+      if(cp&&cp>price){priceHtml+='<span class="price-compare">'+hpFormatPrice(cp)+'</span>';}
+      card.innerHTML='<a href="'+p.url+'"><img class="product-card-img" src="'+img+'" alt="'+p.title+'" loading="lazy"></a>'
+        +'<div class="product-card-body"><h3><a href="'+p.url+'" style="color:inherit;">'+p.title+'</a></h3>'
+        +'<div class="product-prices">'+priceHtml+'</div>'
+        +'<a href="'+p.url+'" class="product-card-link">View Details</a></div>';
+      grid.appendChild(card);
+    });
+  });
+}
+hpLoadFeatured();
+
+function toggleHpFaq(el){var a=el.nextElementSibling;var o=a.classList.contains('open');document.querySelectorAll('.hp-landing .faq-a').forEach(function(x){x.classList.remove('open');});document.querySelectorAll('.hp-landing .faq-q').forEach(function(x){x.classList.remove('active');});if(!o){a.classList.add('open');el.classList.add('active');}}
+
+/* Force brand grid bigger on mobile + fix trust bar */
+(function(){
+  function fixMobile(){
+    if(window.innerWidth>768)return;
+    var grid=document.querySelector('.hp-landing .brands-grid');
+    if(grid){
+      grid.style.cssText='display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:100%;margin:0 auto;padding:0 12px;';
+      var badges=grid.querySelectorAll('.brand-badge');
+      badges.forEach(function(b){b.style.cssText='width:100%;max-width:100%;display:flex;align-items:center;justify-content:center;padding:0;';});
+      var imgs=grid.querySelectorAll('.brand-badge img');
+      imgs.forEach(function(i){i.style.cssText='width:100%;height:auto;max-width:100%;';});
+    }
+    var trust=document.querySelector('.hp-landing .trust-bar');
+    if(trust){
+      trust.style.cssText='display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px 20px;padding:16px 1rem;font-size:13px;';
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fixMobile);}else{fixMobile();}
+  window.addEventListener('resize',fixMobile);
+})();
+</script>
+{% endraw %}
+
+{% raw %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Are massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"A premium massage chair is worth it for buyers who want regular at-home comfort, relaxation, and a more convenient wellness routine."}},
+{"@type":"Question","name":"What is the best massage chair for home use?","acceptedAnswer":{"@type":"Answer","text":"The best massage chair for home use depends on body fit, preferred massage feel, room compatibility, and feature priorities."}},
+{"@type":"Question","name":"Where can I try massage chairs near me?","acceptedAnswer":{"@type":"Answer","text":"Buyers in San Jose and the Bay Area can compare premium massage chairs in person at House of Massage Chairs at Westfield Oakridge Mall."}},
+{"@type":"Question","name":"Is a zero gravity massage chair worth it?","acceptedAnswer":{"@type":"Answer","text":"Zero gravity is one of the most noticeable comfort features because it creates a more reclined, floating position."}},
+{"@type":"Question","name":"How much does a good massage chair cost?","acceptedAnswer":{"@type":"Answer","text":"A good massage chair can vary widely in price depending on engineering, features, brand, fit, and support."}},
+{"@type":"Question","name":"Can I compare massage chairs in person in San Jose?","acceptedAnswer":{"@type":"Answer","text":"Yes. HOMC's San Jose showroom gives buyers the chance to compare multiple premium massage chairs in one location."}},
+{"@type":"Question","name":"Do premium massage chairs come with delivery and warranty?","acceptedAnswer":{"@type":"Answer","text":"Premium purchases often include stronger ownership support including white-glove delivery, manufacturer-backed warranty, and in-house service."}}
+]}
+</script>
+{% endraw %}

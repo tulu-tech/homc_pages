@@ -1,0 +1,1253 @@
+{%- comment -%}
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SECTION: collection-osaki.liquid                           ║
+  ║  Template: templates/collection.osaki.json                  ║
+  ║  Collection handle: osaki                                   ║
+  ║                                                              ║
+  ║  HOW TO INSTALL:                                             ║
+  ║  1. Upload this file to /sections/collection-osaki.liquid    ║
+  ║  2. Upload templates/collection.osaki.json                   ║
+  ║  3. Upload assets/osaki-hero-bg.png to theme assets          ║
+  ║  4. (Optional) Add metafields to products:                   ║
+  ║     - custom.badge         → string (e.g. "Duo", "AI")      ║
+  ║     - custom.badge_class   → string ("gold","flagship","")   ║
+  ║     - custom.buyer_for     → string (e.g. "Best Duo Value")  ║
+  ║     - custom.key_features  → list of strings (JSON array)    ║
+  ║  5. Tag products with: duo, ai, 5d, flagship                 ║
+  ╚══════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+{%- paginate collection.products by 50 -%}
+
+{%- comment -%} ── SCHEMA MARKUP ── {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs",
+    "url": "https://houseofmassagechairs.com",
+    "telephone": "+16692148889",
+    "email": "info@houseofmassagechairs.com",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+        "addressLocality": "San Jose",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "1 Stoneridge Mall, STE B108",
+        "addressLocality": "Pleasanton",
+        "addressRegion": "CA",
+        "postalCode": "94588",
+        "addressCountry": "US"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+      {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+      {"@type":"ListItem","position":3,"name":"Osaki Massage Chairs","item":"{{ canonical_url }}"}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Are Osaki massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"Yes — for buyers who match the right model to their needs. Osaki consistently delivers strong feature density and genuine 4D massage technology at competitive price points."}},
+      {"@type":"Question","name":"What is the best Osaki massage chair?","acceptedAnswer":{"@type":"Answer","text":"The best Osaki chair depends on your body type, use case, and budget. Flagship-level configuration: AI Grand Duo or Pinnacle 5D. Best dual-engine value: DuoMax. Best for taller users: Atlas XL."}},
+      {"@type":"Question","name":"Can I try Osaki massage chairs in person?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs has multiple Osaki models at our San Jose showroom at Westfield Oakridge Mall and at our Pleasanton location."}},
+      {"@type":"Question","name":"What is the difference between an Osaki 3D massage chair and a 4D massage chair?","acceptedAnswer":{"@type":"Answer","text":"An Osaki 3D massage chair typically allows roller depth adjustment, while an Osaki 4D massage chair may offer more variation in roller rhythm, speed, and intensity depending on the model."}},
+      {"@type":"Question","name":"Do Osaki massage chairs use SL-track technology?","acceptedAnswer":{"@type":"Answer","text":"Many Osaki massage chairs use SL-track or extended track designs, but the exact track system varies by model. Always compare the track type, roller coverage, and body fit before choosing."}},
+      {"@type":"Question","name":"Do Osaki massage chairs include air massage and calf kneading?","acceptedAnswer":{"@type":"Answer","text":"Many Osaki models include air massage compression and calf kneading features, but coverage and intensity vary by model."}},
+      {"@type":"Question","name":"Are Osaki massage chairs good for muscle relaxation?","acceptedAnswer":{"@type":"Answer","text":"Osaki massage chairs may support a relaxing massage experience through roller movement, air massage compression, recline positioning, heat comfort features, and customizable massage programs. They should not be treated as substitutes for professional care."}},
+      {"@type":"Question","name":"Does Osaki have space-saving technology?","acceptedAnswer":{"@type":"Answer","text":"Some Osaki models may include space-saving recline designs or lower wall-clearance requirements. Check the specific model's dimensions before purchase."}},
+      {"@type":"Question","name":"How much does a good Osaki massage chair cost?","acceptedAnswer":{"@type":"Answer","text":"Osaki's price range spans from $2,999 (Oasis) to $16,999 (Pinnacle 5D). Most buyers find the best feature-for-dollar value in the $7,000-$11,000 range."}}
+    ]
+  }
+]
+</script>
+
+<style>
+  :root {
+    --osa-bg: #fff;
+    --osa-surface: #f8fafc;
+    --osa-surface2: #f1f5f9;
+    --osa-dark: #000;
+    --osa-muted: #555;
+    --osa-muted2: #888;
+    --osa-accent: #b38b4d;
+    --osa-accent-h: #96723e;
+    --osa-accent-pale: rgba(179,139,77,0.10);
+    --osa-accent-pale2: rgba(179,139,77,0.06);
+    --osa-border: #e5e9f0;
+    --osa-border2: #d0d8e4;
+    --osa-radius: 20px;
+    --osa-radius-sm: 12px;
+    --osa-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    --osa-shadow-hover: 0 20px 50px rgba(0,0,0,0.11);
+  }
+
+  .osa-wrap *{box-sizing:border-box;margin:0;padding:0}
+  .osa-wrap{font-family:'Inter',sans-serif;color:var(--osa-dark);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+  /* Force correct rem base regardless of theme root font-size */
+  .osa-wrap,.osa-wrap p,.osa-wrap span,.osa-wrap li,.osa-wrap a,.osa-wrap h1,.osa-wrap h2,.osa-wrap h3,.osa-wrap h4,.osa-wrap button{box-sizing:border-box}
+  /* Override Shopify theme small font-size on html root */
+  .osa-wrap p{font-size:15px;color:var(--osa-muted);line-height:1.8}
+  .osa-wrap li{font-size:14px}
+  .osa-wrap h2{font-size:clamp(26px,3vw,38px)}
+  .osa-wrap h3{font-size:clamp(16px,2vw,20px)}
+  .osa-wrap h4{font-size:16px}
+  .osa-wrap h1,.osa-wrap h2,.osa-wrap h3,.osa-wrap h4{line-height:1.15;font-weight:800;letter-spacing:-0.03em}
+  .osa-wrap img{max-width:100%;display:block}
+
+  .osa-container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .osa-container-narrow{max-width:860px;margin:0 auto;padding:0 2rem}
+
+  /* SUBNAV */
+  .osa-subnav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--osa-border);overflow-x:auto;scrollbar-width:none}
+  .osa-subnav::-webkit-scrollbar{display:none}
+  .osa-subnav-inner{display:flex;padding:0 2rem;min-width:max-content}
+  .osa-subnav-inner a{display:block;padding:.75rem 1rem;font-size:12px;font-weight:700;color:var(--osa-muted2);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.08em}
+  .osa-subnav-inner a:hover,.osa-subnav-inner a.active{color:var(--osa-dark);border-bottom-color:var(--osa-accent)}
+
+  /* BUTTONS */
+  .osa-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--osa-dark);color:#fff;padding:.9rem 2rem;font-size:15px;font-weight:700;border-radius:50px;transition:all .25s;border:2px solid var(--osa-dark);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;white-space:nowrap;text-decoration:none}
+  .osa-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .osa-btn-gold{background:var(--osa-accent);border-color:var(--osa-accent);color:#fff!important}
+  .osa-btn-gold:hover{background:var(--osa-accent-h);border-color:var(--osa-accent-h);box-shadow:0 8px 24px rgba(179,139,77,.3)}
+  .osa-btn-outline{background:transparent;color:var(--osa-dark);border-color:var(--osa-border2)}
+  .osa-btn-outline:hover{border-color:var(--osa-dark);background:var(--osa-surface)}
+  .osa-btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+  .osa-btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+  .osa-btn-sm{padding:.6rem 1.5rem;font-size:14px}
+
+  /* HERO */
+  .osa-hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;background:#080808}
+  .osa-hero-bg{position:absolute;inset:0;background-image:url({% if section.settings.hero_image %}{{ section.settings.hero_image | image_url: width: 2000 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/osaki-hero-bg.jpg?v=1776183407{% endif %});background-size:cover;background-position:center;opacity:.35;z-index:0;transform:scale(1.04)}
+  .osa-hero-grad{position:absolute;inset:0;background:linear-gradient(110deg,rgba(0,0,0,.9) 30%,rgba(0,0,0,.35) 100%);z-index:1}
+  .osa-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");z-index:2;pointer-events:none}
+  .osa-hero-content{position:relative;z-index:3;padding:5rem 0 5.5rem}
+  .osa-hero-bc{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+  .osa-hero-bc a{color:var(--osa-accent);transition:color .2s}
+  .osa-hero-bc a:hover{color:#fff}
+  .osa-hero-bc span{margin:0 .4rem}
+  .osa-hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--osa-accent);margin-bottom:1.25rem}
+  .osa-hero-eye::before{content:'';display:block;width:28px;height:2px;background:var(--osa-accent);border-radius:2px}
+  .osa-hero h1{font-size:clamp(38px,5.5vw,64px);color:#fff;max-width:800px;margin-bottom:1.25rem;text-shadow:0 4px 30px rgba(0,0,0,.4);line-height:1.08}
+  .osa-hero-lead{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.8);max-width:620px;margin-bottom:.75rem;font-weight:600;line-height:1.65}
+  .osa-hero-sub{font-size:16px;color:rgba(255,255,255,.52);max-width:580px;margin-bottom:2.5rem;line-height:1.75}
+  .osa-hero-ctas{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:3rem}
+  .osa-hero-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;flex-wrap:wrap}
+  .osa-hero-stat{padding:0 2.5rem 0 0;border-right:1px solid rgba(255,255,255,.1);margin-right:2.5rem}
+  .osa-hero-stat:last-child{border-right:none;margin-right:0}
+  .osa-hero-stat-n{font-size:32px;font-weight:900;color:#fff;display:block;line-height:1;margin-bottom:4px;letter-spacing:-.04em}
+  .osa-hero-stat-l{font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+
+  /* TRUST BAR */
+  .osa-trust-bar{display:flex;justify-content:center;gap:3rem;padding:1.25rem 2rem;border-bottom:1px solid var(--osa-border);background:#fff;font-size:14px;font-weight:700;flex-wrap:wrap}
+  .osa-trust-item{display:flex;align-items:center;gap:7px;color:var(--osa-muted)}
+  .osa-trust-item svg{width:16px;height:16px;fill:var(--osa-accent);flex-shrink:0}
+
+  /* SECTION */
+  .osa-section{padding:5.5rem 0}
+  .osa-section-alt{background:var(--osa-surface)}
+  .osa-section-sm{padding:3.5rem 0}
+  .osa-section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--osa-accent);margin-bottom:.875rem}
+  .osa-section-header{margin-bottom:3rem}
+  .osa-section-header.center{text-align:center}
+  .osa-section-header.center .osa-section-label{display:block}
+  .osa-section-header h2{font-size:clamp(26px,3vw,38px);margin-bottom:.875rem}
+  .osa-underline{position:relative;display:inline-block}
+  .osa-underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--osa-accent);border-radius:2px}
+  .osa-section-header p{font-size:17px;color:var(--osa-muted);max-width:680px;line-height:1.8}
+  .osa-section-header.center p{margin:0 auto}
+
+  /* PRODUCT SECTION */
+  .osa-product-header{background:linear-gradient(135deg,#050505 0%,#181008 60%,#0a0a0a 100%);padding:3rem 3rem 0;border-radius:var(--osa-radius) var(--osa-radius) 0 0;position:relative;overflow:hidden}
+  .osa-product-header::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.08) 0%,transparent 70%);pointer-events:none}
+  .osa-product-header-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;padding-bottom:2.5rem}
+  .osa-product-header h2{color:#fff;font-size:clamp(24px,2.5vw,32px)}
+  .osa-product-header p{color:rgba(255,255,255,.55);font-size:14px;max-width:560px;margin-top:.5rem;line-height:1.7}
+
+  /* FILTER BAR */
+  .osa-filter-bar{background:#fff;border:1px solid var(--osa-border);border-top:none;padding:1rem 1.5rem;display:flex;align-items:center;gap:.625rem;flex-wrap:wrap}
+  .osa-filter-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--osa-muted2);white-space:nowrap}
+  .osa-filter-sep{width:1px;height:20px;background:var(--osa-border);flex-shrink:0}
+  .osa-filter-btn{padding:6px 14px;border:1.5px solid var(--osa-border);border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--osa-muted);font-family:'Inter',sans-serif;white-space:nowrap}
+  .osa-filter-btn:hover{border-color:var(--osa-accent);color:var(--osa-accent);background:var(--osa-accent-pale2)}
+  .osa-filter-btn.active{background:var(--osa-dark);color:#fff;border-color:var(--osa-dark)}
+  .osa-filter-count{margin-left:auto;font-size:13px;color:var(--osa-muted2);font-weight:600}
+
+  /* PRODUCT GRID */
+  .osa-product-grid-wrap{background:var(--osa-surface);border:1px solid var(--osa-border);border-top:none;border-radius:0 0 var(--osa-radius) var(--osa-radius);padding:2rem}
+  .osa-product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+  /* PRODUCT CARD */
+  .osa-product-card{background:#fff;border:1px solid var(--osa-border);border-radius:var(--osa-radius);overflow:hidden;transition:all .3s cubic-bezier(.25,.8,.25,1);position:relative;display:flex;flex-direction:column;cursor:pointer}
+  .osa-product-card:hover{transform:translateY(-7px);box-shadow:var(--osa-shadow-hover);border-color:transparent;outline:2px solid var(--osa-accent)}
+  .osa-product-badge{position:absolute;top:10px;left:10px;background:var(--osa-dark);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.1em;z-index:2}
+  .osa-product-badge.gold{background:var(--osa-accent)}
+  .osa-product-badge.flagship{background:linear-gradient(135deg,#1a0a00,#3d2000);border:1px solid rgba(179,139,77,.4)}
+  .osa-product-img-wrap{height:230px;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(145deg,#fafafa,#fff);position:relative;overflow:hidden}
+  .osa-product-img-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(248,250,252,.8),transparent);pointer-events:none}
+  .osa-product-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s cubic-bezier(.25,.8,.25,1)}
+  .osa-product-card:hover .osa-product-img{transform:scale(1.06)}
+  .osa-product-img-wrap a{display:block;width:100%;height:100%;position:absolute;inset:0;z-index:1}
+  .osa-product-body{padding:1.1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column}
+  .osa-product-for{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--osa-accent);background:var(--osa-accent-pale);display:inline-block;padding:3px 8px;border-radius:20px;margin-bottom:.6rem}
+  .osa-product-name{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:.75rem;color:var(--osa-dark)}
+  .osa-product-name a{color:inherit;text-decoration:none}
+  .osa-product-feats{list-style:none;padding:0;margin:0 0 .875rem;flex:1}
+  .osa-product-feats li{display:flex;align-items:flex-start;gap:5px;font-size:13px;color:var(--osa-muted);padding:2.5px 0;line-height:1.5}
+  .osa-product-feats li::before{content:'✓';color:var(--osa-accent);font-weight:900;font-size:11px;flex-shrink:0;margin-top:2px}
+  .osa-product-prices{display:flex;align-items:baseline;gap:7px;margin-bottom:.875rem;flex-wrap:wrap}
+  .osa-price-sale{font-size:18px;font-weight:900;color:var(--osa-dark);letter-spacing:-.02em}
+  .osa-price-was{font-size:13px;color:#adb5bd;text-decoration:line-through;font-weight:500}
+  .osa-price-save{font-size:11px;font-weight:800;color:#16a34a;background:rgba(22,163,74,.08);padding:2px 7px;border-radius:20px}
+  .osa-product-cta{display:block;text-align:center;background:var(--osa-dark);color:#fff;padding:.65rem;border-radius:var(--osa-radius-sm);font-weight:700;font-size:13px;transition:background .2s;text-decoration:none}
+  .osa-product-cta:hover{background:var(--osa-accent);color:#fff}
+  .osa-no-results{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--osa-muted)}
+
+  /* QUICK ANSWER */
+  .osa-quick-answer{background:linear-gradient(135deg,#050505 0%,#1a140a 100%);border-radius:24px;padding:3rem;border:1px solid rgba(179,139,77,.15);position:relative;overflow:hidden}
+  .osa-quick-answer::before{content:'';position:absolute;top:-30%;right:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06) 0%,transparent 70%);pointer-events:none}
+  .osa-qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem;position:relative;z-index:1}
+  .osa-qa-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem;transition:all .3s}
+  .osa-qa-item:hover{background:rgba(255,255,255,.07);border-color:rgba(179,139,77,.25)}
+  .osa-qa-item h3{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--osa-accent);margin-bottom:.625rem;font-weight:800}
+  .osa-qa-item p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;margin:0}
+
+  /* PILLARS */
+  .osa-pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .osa-pillar-card{background:#fff;border:1px solid var(--osa-border);border-radius:var(--osa-radius);padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+  .osa-pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--osa-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .osa-pillar-card:hover{transform:translateY(-5px);box-shadow:var(--osa-shadow)}
+  .osa-pillar-card:hover::before{transform:scaleX(1)}
+  .osa-pillar-icon{width:48px;height:48px;background:var(--osa-accent-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+  .osa-pillar-icon svg{width:24px;height:24px;fill:var(--osa-accent)}
+  .osa-pillar-card h3{font-size:16px;margin-bottom:.5rem}
+  .osa-pillar-card p{font-size:14px;color:var(--osa-muted);margin:0;line-height:1.7}
+
+  /* AT A GLANCE */
+  .osa-glance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .osa-glance-table{width:100%;border-collapse:collapse}
+  .osa-glance-table tr{border-bottom:1px solid var(--osa-border)}
+  .osa-glance-table tr:last-child{border-bottom:none}
+  .osa-glance-table td{padding:.875rem .5rem;font-size:14px;vertical-align:top}
+  .osa-glance-table td:first-child{font-weight:800;color:var(--osa-dark);width:38%}
+  .osa-glance-table td:last-child{color:var(--osa-muted)}
+  .osa-glance-verdict{background:linear-gradient(145deg,#080808,#171208);border-radius:var(--osa-radius);padding:2.25rem;border:1px solid rgba(179,139,77,.12)}
+  .osa-glance-verdict h3{color:#fff;font-size:17px;margin-bottom:1.25rem}
+  .osa-verdict-item{display:flex;align-items:flex-start;gap:10px;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .osa-verdict-item:last-child{border-bottom:none;padding-bottom:0}
+  .osa-verdict-dot{width:7px;height:7px;border-radius:50%;background:var(--osa-accent);flex-shrink:0;margin-top:8px}
+  .osa-verdict-item p{font-size:13px;color:rgba(255,255,255,.62);margin:0;line-height:1.65}
+
+  /* WHO IT'S FOR */
+  .osa-for-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .osa-for-card{border-radius:var(--osa-radius);padding:2rem;border:1px solid var(--osa-border);background:#fff}
+  .osa-for-card.alt{background:var(--osa-surface)}
+  .osa-for-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:50px;display:inline-block;margin-bottom:1.125rem}
+  .osa-for-badge.yes{background:rgba(34,197,94,.1);color:#16a34a}
+  .osa-for-badge.no{background:rgba(239,68,68,.1);color:#dc2626}
+  .osa-for-list{list-style:none;padding:0}
+  .osa-for-list li{display:flex;align-items:flex-start;gap:8px;padding:.55rem 0;border-bottom:1px solid var(--osa-border);font-size:14px;color:var(--osa-muted);line-height:1.6}
+  .osa-for-list li:last-child{border-bottom:none}
+  .osa-for-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+  .osa-for-dot.yes{background:#16a34a}
+  .osa-for-dot.no{background:#dc2626}
+
+  /* MODEL ENTRIES */
+  .osa-model-entry{display:grid;grid-template-columns:260px 1fr;border-radius:var(--osa-radius);overflow:hidden;border:1px solid var(--osa-border);background:#fff;margin-bottom:1.75rem;transition:box-shadow .3s}
+  .osa-model-entry:hover{box-shadow:var(--osa-shadow-hover)}
+  .osa-model-side{background:linear-gradient(160deg,#080808,#171208);padding:2.25rem 1.75rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+  .osa-model-side-img{width:100%;height:180px;object-fit:contain;margin:.75rem 0 .5rem;transition:transform .4s ease}
+  .osa-model-entry:hover .osa-model-side-img{transform:scale(1.08)}
+  .osa-model-side a{display:block;cursor:pointer}
+  .osa-model-tier{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--osa-accent);margin-bottom:.4rem}
+  .osa-model-side h3{color:#fff;font-size:17px;line-height:1.3}
+  .osa-model-price-band{display:inline-flex;gap:5px;margin-top:1rem;font-size:12px;font-weight:700;color:rgba(255,255,255,.45);background:rgba(255,255,255,.05);padding:5px 11px;border-radius:20px;flex-wrap:wrap}
+  .osa-model-price-band span{color:var(--osa-accent)}
+  .osa-model-body{padding:2.25rem}
+  .osa-model-best{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--osa-accent);background:var(--osa-accent-pale);display:inline-block;padding:3px 10px;border-radius:20px;margin-bottom:.875rem}
+  .osa-model-body h4{font-size:16px;margin-bottom:.625rem}
+  .osa-model-body p{font-size:14px;color:var(--osa-muted);line-height:1.75;margin-bottom:.875rem}
+  .osa-model-traits{display:flex;gap:.4rem;flex-wrap:wrap;margin:.875rem 0}
+  .osa-trait{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--osa-surface2);border:1px solid var(--osa-border);color:var(--osa-muted2)}
+  .osa-model-tradeoff{margin-top:1rem;padding:.875rem 1.125rem;border-radius:10px;background:var(--osa-surface);border-left:3px solid var(--osa-border2);font-size:13px;color:var(--osa-muted2);line-height:1.65}
+  .osa-model-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--osa-accent);margin-top:1.25rem;border-bottom:1px solid rgba(179,139,77,.3);padding-bottom:2px;transition:all .2s;text-decoration:none}
+  .osa-model-link:hover{gap:9px;border-bottom-color:var(--osa-accent)}
+
+  /* BUYER TYPES */
+  .osa-buyer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .osa-buyer-card{background:#fff;border:1px solid var(--osa-border);border-radius:var(--osa-radius);padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+  .osa-buyer-card:hover{border-color:var(--osa-accent);box-shadow:0 10px 30px rgba(179,139,77,.1)}
+  .osa-buyer-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--osa-accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .osa-buyer-card:hover::after{transform:scaleX(1)}
+  .osa-buyer-icon{width:42px;height:42px;background:var(--osa-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:.875rem}
+  .osa-buyer-icon svg{width:20px;height:20px;fill:var(--osa-accent)}
+  .osa-buyer-type{font-size:11px;font-weight:800;color:var(--osa-muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+  .osa-buyer-card h3{font-size:14px;margin-bottom:.4rem}
+  .osa-buyer-card p{font-size:13px;color:var(--osa-muted);margin:0;line-height:1.7}
+  .osa-buyer-rec{margin-top:.625rem;font-size:12px;font-weight:700;color:var(--osa-accent)}
+
+  /* COMPARE TABLE */
+  .osa-compare-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--osa-border)}
+  .osa-compare-table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+  .osa-compare-table th{background:var(--osa-dark);color:#fff;padding:.875rem 1.125rem;text-align:left;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+  .osa-compare-table td{padding:.8rem 1.125rem;border-bottom:1px solid var(--osa-border);color:var(--osa-muted);vertical-align:middle}
+  .osa-compare-table tr:last-child td{border-bottom:none}
+  .osa-compare-table tr:hover td{background:var(--osa-surface)}
+  .osa-col-feature{font-weight:800;color:var(--osa-dark)!important;white-space:nowrap}
+  .osa-osaki-col{background:rgba(179,139,77,.04)!important}
+  thead .osa-osaki-col{background:rgba(179,139,77,.12)!important;color:var(--osa-accent)!important;border-bottom:3px solid var(--osa-accent)!important}
+  .osa-check{color:var(--osa-accent);font-weight:800}
+
+  /* EXPERT CALLOUT */
+  .osa-expert-callout{background:#fff;border:1px solid var(--osa-border);border-left:4px solid var(--osa-accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;display:flex;align-items:flex-start;gap:.875rem}
+  .osa-expert-callout svg{width:26px;height:26px;fill:var(--osa-accent);flex-shrink:0;margin-top:1px}
+  .osa-expert-callout p{font-size:14px;color:var(--osa-muted);line-height:1.75;margin:0}
+  .osa-expert-callout strong{color:var(--osa-dark)}
+
+  /* PRICE LADDER */
+  .osa-price-ladder{border:1px solid var(--osa-border);border-radius:var(--osa-radius);overflow:hidden}
+  .osa-price-rung{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--osa-border);transition:background .2s}
+  .osa-price-rung:last-child{border-bottom:none}
+  .osa-price-rung:hover{background:var(--osa-surface)}
+  .osa-price-rung-label{background:var(--osa-dark);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,.08)}
+  .osa-price-tier-name{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:3px}
+  .osa-price-amount{font-size:16px;font-weight:900;color:var(--osa-accent);letter-spacing:-.02em}
+  .osa-price-rung-body{padding:1.5rem 2rem}
+  .osa-price-rung-body h4{font-size:14px;margin-bottom:.35rem}
+  .osa-price-rung-body p{font-size:13px;color:var(--osa-muted);margin:0;line-height:1.65}
+  .osa-price-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.625rem}
+  .osa-price-tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--osa-accent-pale);color:var(--osa-accent)}
+
+  /* TRUST & REVIEW CARDS */
+  .osa-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .osa-trust-card{background:#fff;border:1px solid var(--osa-border);border-radius:var(--osa-radius);padding:1.75rem;transition:all .3s}
+  .osa-trust-card:hover{transform:translateY(-4px);box-shadow:var(--osa-shadow)}
+  .osa-trust-card-icon{width:44px;height:44px;background:var(--osa-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .osa-trust-card-icon svg{width:22px;height:22px;fill:var(--osa-accent)}
+  .osa-trust-card h3{font-size:15px;margin-bottom:.5rem}
+  .osa-trust-card p{font-size:14px;color:var(--osa-muted);margin:0;line-height:1.7}
+  .osa-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .osa-review-card{background:#fff;border:1px solid var(--osa-border);border-radius:var(--osa-radius);padding:1.75rem;transition:all .3s;position:relative}
+  .osa-review-card:hover{transform:translateY(-3px);box-shadow:var(--osa-shadow)}
+  .osa-review-card::before{content:'"';position:absolute;top:1rem;right:1.25rem;font-size:64px;color:var(--osa-accent-pale);font-weight:900;line-height:1;pointer-events:none}
+  .osa-review-stars{color:var(--osa-accent);letter-spacing:2px;font-size:13px;margin-bottom:.625rem}
+  .osa-review-text{font-size:14px;color:var(--osa-muted);line-height:1.75;margin-bottom:1.125rem;font-style:italic}
+  .osa-review-author{display:flex;align-items:center;gap:9px}
+  .osa-review-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+  .osa-review-name{font-weight:700;font-size:14px}
+  .osa-review-meta{font-size:12px;color:var(--osa-muted2)}
+
+  /* SHOWROOM */
+  .osa-showroom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .osa-showroom-card{border:1px solid var(--osa-border);border-radius:var(--osa-radius);overflow:hidden;transition:all .3s}
+  .osa-showroom-card:hover{transform:translateY(-4px);box-shadow:var(--osa-shadow-hover)}
+  .osa-showroom-head{background:linear-gradient(135deg,#080808,#171208);padding:2rem 2.25rem 1.75rem}
+  .osa-showroom-pill{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--osa-accent);background:rgba(179,139,77,.15);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:.625rem}
+  .osa-showroom-head h3{color:#fff;font-size:17px;margin-bottom:.3rem}
+  .osa-showroom-head p{color:rgba(255,255,255,.5);font-size:13px;margin:0}
+  .osa-showroom-body{background:#fff;padding:1.75rem 2.25rem}
+  .osa-showroom-row{display:flex;align-items:flex-start;gap:8px;padding:.5rem 0;border-bottom:1px solid var(--osa-border);font-size:13px}
+  .osa-showroom-row:last-child{border-bottom:none}
+  .osa-showroom-row svg{width:16px;height:16px;fill:var(--osa-accent);flex-shrink:0;margin-top:2px}
+  .osa-showroom-btns{margin-top:1.25rem;display:flex;gap:.625rem;flex-wrap:wrap}
+
+  /* FINAL CTA */
+  .osa-final-cta{background:linear-gradient(135deg,#050505 0%,#1a110a 60%,#050505 100%);border-radius:28px;padding:4rem;position:relative;overflow:hidden}
+  .osa-final-cta::before{content:'';position:absolute;top:-40%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.1) 0%,transparent 70%);pointer-events:none}
+  .osa-final-cta::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06) 0%,transparent 70%);pointer-events:none}
+  .osa-final-cta-inner{position:relative;z-index:1}
+  .osa-final-cta h2{color:#fff;font-size:clamp(29px,3vw,42px);margin-bottom:.875rem;line-height:1.12}
+  .osa-final-cta p{color:rgba(255,255,255,.65);font-size:16px;max-width:640px;margin-bottom:2rem;line-height:1.75}
+  .osa-cta-points{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .osa-cta-point{display:flex;align-items:center;gap:7px}
+  .osa-cta-point svg{width:16px;height:16px;fill:var(--osa-accent);flex-shrink:0}
+  .osa-cta-point span{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+  .osa-final-cta-btns{display:flex;gap:.875rem;flex-wrap:wrap}
+
+  /* ANSWER BLOCKS */
+  .osa-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .osa-answer-block{background:#fff;border:1px solid var(--osa-border);border-radius:14px;padding:1.75rem;transition:all .3s}
+  .osa-answer-block:hover{border-color:var(--osa-border2);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+  .osa-answer-block h3{font-size:14px;margin-bottom:.5rem}
+  .osa-answer-block p{font-size:13px;color:var(--osa-muted);margin:0;line-height:1.75}
+
+  /* FAQ */
+  .osa-faq-item{border-bottom:1px solid var(--osa-border)}
+  .osa-faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;cursor:pointer;gap:1rem}
+  .osa-faq-q h3{font-size:16px;margin:0;font-weight:700;transition:color .2s;line-height:1.4}
+  .osa-faq-q:hover h3{color:var(--osa-accent)}
+  .osa-faq-icon{width:22px;height:22px;fill:var(--osa-muted2);flex-shrink:0;transition:transform .3s}
+  .osa-faq-q.active .osa-faq-icon{transform:rotate(45deg)}
+  .osa-faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .osa-faq-a.open{max-height:500px}
+  .osa-faq-a p{margin:0;padding-bottom:1.4rem;font-size:15px;color:var(--osa-muted);line-height:1.8}
+  .osa-faq-a a{color:var(--osa-accent);font-weight:700}
+
+  /* LINK PILLS */
+  .osa-link-pills{display:flex;flex-wrap:wrap;gap:.625rem;justify-content:center}
+  .osa-link-pill{padding:.55rem 1.25rem;border:1.5px solid var(--osa-border);border-radius:50px;font-size:13px;font-weight:700;color:var(--osa-dark);background:#fff;transition:all .3s;text-decoration:none}
+  .osa-link-pill:hover{border-color:var(--osa-accent);color:var(--osa-accent);background:var(--osa-accent-pale);transform:translateY(-2px)}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){
+    .osa-pillar-grid{grid-template-columns:1fr 1fr}
+    .osa-product-grid{grid-template-columns:1fr 1fr}
+    .osa-trust-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:900px){
+    .osa-hero{min-height:65vh}
+    .osa-hero h1{font-size:35px}
+    .osa-glance-grid,.osa-for-grid,.osa-model-entry,.osa-buyer-grid,.osa-showroom-grid,.osa-qa-grid,.osa-answer-grid{grid-template-columns:1fr}
+    .osa-pillar-grid,.osa-trust-grid,.osa-review-grid{grid-template-columns:1fr}
+    .osa-product-grid{grid-template-columns:1fr 1fr;gap:1rem}
+    .osa-section{padding:3.5rem 0}
+    .osa-final-cta{padding:2.5rem 2rem}
+    .osa-product-header-inner{flex-direction:column;align-items:flex-start}
+    .osa-price-rung{grid-template-columns:1fr}
+    .osa-price-rung-label{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  }
+  @media(max-width:600px){
+    .osa-product-grid{grid-template-columns:1fr}
+    .osa-hero h1{font-size:30px}
+    .osa-container{padding:0 1.25rem}
+    .osa-product-header{padding:2rem 1.5rem 0}
+    .osa-product-grid-wrap{padding:1.25rem}
+  }
+</style>
+
+<div class="osa-wrap">
+
+  {%- comment -%} SUBNAV {%- endcomment -%}
+  <nav class="osa-subnav" aria-label="Page sections">
+    <div class="osa-subnav-inner">
+      <a href="#osa-collection">Shop Collection</a>
+      <a href="#osa-intro">Overview</a>
+      <a href="#osa-comparison">Comparison</a>
+      <a href="#osa-3d-vs-4d">3D vs 4D</a>
+      <a href="#osa-technology">Technology</a>
+      <a href="#osa-model-guide">Model Guide</a>
+      <a href="#osa-buyer-types">By Buyer Type</a>
+      <a href="#osa-room-fit">Room Fit</a>
+      <a href="#osa-pricing">Price Guide</a>
+      <a href="#osa-trust">Reviews</a>
+      <a href="#osa-showrooms">Showrooms</a>
+      <a href="#osa-faq">FAQ</a>
+    </div>
+  </nav>
+
+  {%- comment -%} ══════════ HERO ══════════ {%- endcomment -%}
+  <section class="osa-hero" id="osa-overview">
+    <div class="osa-hero-bg"></div>
+    <div class="osa-hero-grad"></div>
+    <div class="osa-hero-grain"></div>
+    <div class="osa-container osa-hero-content">
+      <div class="osa-hero-bc">
+        <a href="{{ shop.url }}">Home</a><span>/</span>
+        <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+        {{ collection.title }}
+      </div>
+      <div class="osa-hero-eye">Authorized Osaki Dealer &middot; San Jose &amp; Pleasanton</div>
+      {%- if section.settings.hero_heading != blank -%}
+        <h1>{{ section.settings.hero_heading }}</h1>
+      {%- else -%}
+        <h1>Osaki Massage Chairs<br><span style="font-size:clamp(16px,2vw,22px);font-weight:600;opacity:.75;letter-spacing:0">Compare Osaki 3D, 4D, Platinum &amp; Duo Massage Chair Models</span></h1>
+      {%- endif -%}
+      {%- if section.settings.hero_subheading != blank -%}
+        <p class="osa-hero-lead">{{ section.settings.hero_subheading }}</p>
+      {%- else -%}
+        <p class="osa-hero-lead">Compare Osaki 3D, 4D, Platinum, Duo, and AI-powered massage chair models before choosing the right fit.</p>
+      {%- endif -%}
+      <p class="osa-hero-sub">Osaki massage chairs are known for advanced massage technology, 3D and 4D massage rollers, SL-track designs, body scan features, air massage compression, zero gravity position options, and a wide range of massage programs. At House of Massage Chairs, we help you compare the Osaki lineup by comfort, body fit, massage experience, price range, delivery, warranty support, and showroom trial availability.</p>
+      <div class="osa-hero-ctas">
+        <a href="#osa-collection" class="osa-btn osa-btn-gold">Shop All Osaki Models</a>
+        <a href="#osa-comparison" class="osa-btn osa-btn-ghost">Compare Osaki Massage Chairs</a>
+        <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-ghost">Book Showroom Visit</a>
+      </div>
+      <div class="osa-hero-stats">
+        <div class="osa-hero-stat">
+          <span class="osa-hero-stat-n">{{ collection.products_count }}+</span>
+          <span class="osa-hero-stat-l">Osaki Models</span>
+        </div>
+        <div class="osa-hero-stat">
+          <span class="osa-hero-stat-n">$3K–$17K</span>
+          <span class="osa-hero-stat-l">Price Range</span>
+        </div>
+        <div class="osa-hero-stat">
+          <span class="osa-hero-stat-n">2</span>
+          <span class="osa-hero-stat-l">Bay Area Showrooms</span>
+        </div>
+        <div class="osa-hero-stat">
+          <span class="osa-hero-stat-n">5.0★</span>
+          <span class="osa-hero-stat-l">Google (95+ Reviews)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST BAR {%- endcomment -%}
+  <div class="osa-trust-bar">
+    <div class="osa-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Authorized Osaki Dealer</div>
+    <div class="osa-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Try Before You Buy</div>
+    <div class="osa-trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-5.5 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>White-Glove Delivery</div>
+    <div class="osa-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manufacturer Warranty</div>
+    <div class="osa-trust-item"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg>Financing Available</div>
+  </div>
+
+  {%- comment -%} ══════════ SHOP COLLECTION ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-collection" style="padding-top:4rem">
+    <div class="osa-container">
+      <div class="osa-product-header">
+        <div class="osa-product-header-inner">
+          <div>
+            <span class="osa-section-label">Full Collection</span>
+            <h2>Shop All Osaki Massage Chairs</h2>
+            <p>Every model available at HOMC — authorized dealer, full warranty, white-glove delivery. Prices update automatically as inventory changes.</p>
+          </div>
+          <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-gold osa-btn-sm" style="flex-shrink:0">Book Showroom</a>
+        </div>
+      </div>
+
+      <div class="osa-filter-bar" id="osaFilterBar">
+        <span class="osa-filter-label">Filter</span>
+        <button class="osa-filter-btn active" onclick="osaFilter(this,'all','all')">All Models</button>
+        <div class="osa-filter-sep"></div>
+        <span class="osa-filter-label">Price</span>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'price','under5')">Under $5K</button>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'price','5to10')">$5K–$10K</button>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'price','10to14')">$10K–$14K</button>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'price','over14')">$14K+</button>
+        <div class="osa-filter-sep"></div>
+        <span class="osa-filter-label">Type</span>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'type','duo')">Duo Models</button>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'type','ai')">AI Models</button>
+        <button class="osa-filter-btn" onclick="osaFilter(this,'type','5d')">5D Models</button>
+        <span class="osa-filter-count" id="osaCount">{{ collection.products_count }} models</span>
+      </div>
+
+      <div class="osa-product-grid-wrap">
+        <div class="osa-product-grid" id="osaGrid"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-gold">Try Any Osaki Chair at Our Showroom &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ QUICK ANSWERS ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt osa-section-sm" style="padding-top:0">
+    <div class="osa-container">
+      <div class="osa-quick-answer">
+        <span class="osa-section-label" style="position:relative;z-index:1">Quick Reference</span>
+        <h2 style="color:#fff;font-size:clamp(21px,2.5vw,29px);margin-bottom:.4rem;position:relative;z-index:1">What You Need to Know About Osaki Massage Chairs</h2>
+        <p style="color:rgba(255,255,255,.45);font-size:14px;position:relative;z-index:1">Direct answers for buyers who want clarity quickly.</p>
+        <div class="osa-qa-grid">
+          <div class="osa-qa-item"><h3>What are Osaki massage chairs?</h3><p>Osaki is a premium massage chair brand serving the U.S. market with one of the broadest model ranges in the industry. Models span from well-equipped mid-range chairs to advanced dual-engine 4D and 5D AI-powered flagship systems.</p></div>
+          <div class="osa-qa-item"><h3>Who are Osaki chairs best for?</h3><p>Osaki suits buyers who want strong feature value, modern technology like 4D rollers and zero gravity, and a wide price ladder to choose from. Particularly well-suited to intensity seekers, daily users, dual-body-coverage buyers.</p></div>
+          <div class="osa-qa-item"><h3>What is the difference between an Osaki 3D massage chair and a 4D massage chair?</h3><p>An Osaki 3D massage chair typically allows roller depth adjustment, while an Osaki 4D massage chair may offer more variation in roller rhythm, speed, and intensity depending on the model.</p></div>
+          <div class="osa-qa-item"><h3>Which Osaki models include body scan technology?</h3><p>Many Osaki models include body scan technology to estimate shoulder position and body shape before starting a massage program. The exact accuracy and depth of scanning varies by model tier.</p></div>
+          <div class="osa-qa-item"><h3>Do Osaki chairs have air massage and calf kneading?</h3><p>Many Osaki models include air massage compression and calf kneading features, but coverage and intensity vary by model. Buyers who care about foot and leg comfort should compare these features during a showroom trial.</p></div>
+          <div class="osa-qa-item"><h3>How do Osaki massage programs differ by model?</h3><p>Osaki massage programs range from basic automatic modes in entry models to advanced AI-adaptive programs in flagship chairs. Higher-tier models typically offer more customizable massage programs.</p></div>
+          <div class="osa-qa-item"><h3>Which Osaki chair is best for a smaller room?</h3><p>Some Osaki models may include space-saving recline designs or lower wall-clearance requirements. Check the specific model's upright dimensions, reclined length, and wall clearance before purchase.</p></div>
+          <div class="osa-qa-item"><h3>Are Osaki chairs worth considering?</h3><p>Yes — for the right buyer. Osaki chairs consistently offer more features per dollar than many comparable brands. The key is matching model to buyer need. Trying the chair in person at a specialist showroom makes a significant difference.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ INTRO ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-intro">
+    <div class="osa-container-narrow">
+      <div class="osa-section-header"><span class="osa-section-label">Buyer's Overview</span><h2>Compare Osaki Massage Chairs <span class="osa-underline">Before You Buy</span></h2></div>
+      <p style="margin-bottom:1.25rem">Osaki massage chairs are popular because the brand offers one of the broadest model ranges in the premium massage chair category. Some buyers are comparing an Osaki 3D massage chair for everyday comfort, while others are looking at an Osaki massage chair 4D model with more advanced massage rollers, body scan technology, SL-track coverage, air massage compression, calf kneading, heat therapy-style comfort features, and customizable massage programs.</p>
+      <p style="margin-bottom:1.25rem">The challenge is that Osaki models can look similar online while feeling very different in person. Features like touchscreen controller layouts, zero gravity position options, space-saving technology, and foot-and-calf massage design can also change how well a chair fits your home and daily routine.</p>
+      <p style="margin-bottom:1.25rem">House of Massage Chairs helps buyers compare Osaki massage chairs by model family, massage technology, body fit, price range, warranty support, delivery expectations, and showroom trial experience.</p>
+      <p>This page is designed to help you answer the practical buying question: which Osaki massage chair is the right fit for your body, your space, your massage preferences, and your budget?</p>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ COMPARISON ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-comparison">
+    <div class="osa-container">
+      <div class="osa-section-header"><span class="osa-section-label">Model Comparison</span><h2>Osaki Massage Chair Comparison: <span class="osa-underline">How to Choose the Right Model</span></h2><p>Not every Osaki massage chair is designed for the same buyer. The right choice depends on massage intensity, roller technology, track design, body scan accuracy, massage programs, foot and calf coverage, room size, controller preference, and whether you want a 3D, 4D, Duo, Platinum, or AI-focused model.</p></div>
+      <div class="osa-compare-wrap">
+        <table class="osa-compare-table"><thead><tr><th>Buyer Priority</th><th>What to Compare</th><th>Best Osaki Direction</th></tr></thead><tbody>
+          <tr><td class="osa-col-feature">Stronger massage feel</td><td>4D massage rollers, intensity controls, track coverage</td><td>DuoMax, Grand Duo, Kairos 4D LT</td></tr>
+          <tr><td class="osa-col-feature">Full-body massage experience</td><td>Air massage, calf kneading, foot rollers, Duo mechanism</td><td>Grand Duo, Escape Duo, DuoMax</td></tr>
+          <tr><td class="osa-col-feature">Advanced technology</td><td>Body scan, AI features, touchscreen controller, massage programs</td><td>OP-AI XRest, Pinnacle, AI Grand Duo</td></tr>
+          <tr><td class="osa-col-feature">Space planning</td><td>Reclined length, wall clearance, Osaki's space-saving technology</td><td>Models with verified space-saving specs</td></tr>
+          <tr><td class="osa-col-feature">Taller users</td><td>Shoulder width, seat width, leg extension, max user height</td><td>Atlas XL, Grand Duo</td></tr>
+          <tr><td class="osa-col-feature">Value comparison</td><td>Price, warranty, delivery, feature density</td><td>DuoMax SE, Manhattan Duo, Zion 4D</td></tr>
+          <tr><td class="osa-col-feature">Showroom confidence</td><td>Real massage feel, fit, noise, controller ease</td><td>Try in San Jose or Pleasanton</td></tr>
+        </tbody></table>
+      </div>
+      <div class="osa-expert-callout" style="margin-top:1.75rem"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><p><strong>Comparison tip:</strong> Use this table as a starting point, then narrow your shortlist to 2–3 models and compare them side by side at our <a href="{{ shop.url }}/pages/our-store" style="color:var(--osa-accent);font-weight:700">San Jose or Pleasanton showroom</a>.</p></div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ 3D VS 4D ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-3d-vs-4d">
+    <div class="osa-container">
+      <div class="osa-section-header"><span class="osa-section-label">Technology Comparison</span><h2>Osaki 3D vs 4D <span class="osa-underline">Massage Chairs</span></h2></div>
+      <div class="osa-container-narrow" style="padding:0;max-width:860px">
+        <p style="margin-bottom:1.25rem">When comparing an Osaki 3D massage chair with an Osaki 4D massage chair, the biggest difference is usually the level of massage roller control. A 3D massage chair typically lets you adjust roller depth and intensity, while a 4D massage chair may add more variation in rhythm, speed, and massage technique.</p>
+        <p style="margin-bottom:2rem">The best way to decide is to compare the chair's massage rollers, SL-track or L-track design, body scan performance, air massage coverage, calf kneading, heat comfort features, and controller usability.</p>
+      </div>
+      <div class="osa-compare-wrap">
+        <table class="osa-compare-table"><thead><tr><th>Feature</th><th>Osaki 3D Massage Chair</th><th>Osaki 4D Massage Chair</th></tr></thead><tbody>
+          <tr><td class="osa-col-feature">Roller depth</td><td>Adjustable</td><td>More advanced control</td></tr>
+          <tr><td class="osa-col-feature">Massage techniques</td><td>Model-dependent</td><td>Usually broader program control</td></tr>
+          <tr><td class="osa-col-feature">Massage experience</td><td>Good for daily comfort</td><td>Better for buyers wanting stronger customization</td></tr>
+          <tr><td class="osa-col-feature">Price range</td><td>Usually lower</td><td>Usually higher</td></tr>
+          <tr><td class="osa-col-feature">Best for</td><td>First premium purchase</td><td>Advanced feature shoppers</td></tr>
+          <tr><td class="osa-col-feature">Showroom advice</td><td>Test intensity first</td><td>Test intensity and controller ease</td></tr>
+        </tbody></table>
+      </div>
+      <div class="osa-expert-callout" style="margin-top:1.75rem"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><p><strong>Important:</strong> A 4D massage chair is not automatically "better" than a 3D model. Test both types at our showroom before deciding.</p></div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TECHNOLOGY ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-technology">
+    <div class="osa-container">
+      <div class="osa-section-header"><span class="osa-section-label">Feature Deep Dive</span><h2>Osaki Massage Technology <span class="osa-underline">Explained</span></h2></div>
+      <div class="osa-pillar-grid" style="grid-template-columns:1fr 1fr">
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h3>SL-Track and Roller Coverage</h3><p>Many Osaki massage chairs use SL-track or extended track designs to guide the massage rollers from the upper back through the lower back and glute area, depending on the model.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><h3>Body Scan and Massage Programs</h3><p>Body scan technology helps the chair estimate shoulder position and body shape before starting a session. Massage programs then combine roller movement, air massage, recline position, and intensity settings.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>Air Massage and Calf Kneading</h3><p>Air massage compression and calf kneading features can add lower-body coverage beyond the back rollers. Buyers who stand, walk, or commute frequently should compare these features during a showroom trial.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>Heat Comfort Features</h3><p>Some Osaki models include heat therapy-style comfort features designed to add warmth during a session. These features should be viewed as comfort enhancements, not medical treatment.</p></div>
+        <div class="osa-pillar-card" style="grid-column:1/-1"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg></div><h3>Touchscreen Controller and Usability</h3><p>A touchscreen controller can make it easier to switch massage programs, adjust intensity, change recline settings, or customize the session. During a showroom visit, test how easy the controls are to use.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHY OSAKI ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-why-osaki">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">The Case for Osaki</span>
+        <h2>Why Serious Buyers Shortlist <span class="osa-underline">Osaki</span></h2>
+        <p>Osaki earns a place on premium buyers' shortlists for specific, substantive reasons.</p>
+      </div>
+      <div class="osa-pillar-grid">
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h3>Widest Model Range in Segment</h3><p>Osaki offers more distinct massage chair configurations than virtually any other premium U.S.-market brand. More options to match varied body types, use cases, and budgets without jumping between brands.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>3D and 4D Massage Rollers</h3><p>At nearly every price point, Osaki delivers competitive feature density with 3D and 4D massage rollers. Buyers comparing mid-range options often find Osaki chairs offer more advanced massage technology at prices where some competing models may include fewer features.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25L9.4 10.5zm12.28 2.24H12.37l-2.68 4.63 4.77 8.26c2.6-.86 4.75-2.75 6.01-5.12L21.68 12.74zm-12.3.01L6.34 10H2.04C2.01 10.33 2 10.66 2 11c0 3.51 1.81 6.59 4.54 8.38L9.38 12.75zM20.45 7.63A9.97 9.97 0 0015.2 4.1l-3.04 5.25h6.81a9.99 9.99 0 001.48-1.72z"/></svg></div><h3>Advanced Technology Across Tiers</h3><p>4D rollers, zero gravity, AI body scanning, dual-engine Duo systems, SL-track, and full-body air compression are not reserved for flagship models only.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><h3>Air Massage, Calf Kneading and Heat Comfort Features</h3><p>Osaki models offer air massage compression, calf kneading, and heat therapy-style comfort features across multiple price tiers. These lower-body and comfort-focused features complement the roller massage and can significantly change how a session feels.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>SL-Track and Body Scan Options</h3><p>Most Osaki models use SL-track or extended track designs paired with body scan technology. This combination helps position massage rollers accurately and deliver a more complete massage experience from neck to lower back.</p></div>
+        <div class="osa-pillar-card"><div class="osa-pillar-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><h3>Showroom-Based Model Matching</h3><p>From first-time premium buyers to experienced users trading up, Osaki has a relevant model at each stage of the buying journey. Our showroom specialists help you match the right model to your body, budget, and daily use preferences.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ AT A GLANCE ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Brand Intelligence</span>
+        <h2>Osaki Massage Chairs <span class="osa-underline">at a Glance</span></h2>
+        <p>A concise, honest profile — the kind of overview buyers need before going deeper.</p>
+      </div>
+      <div class="osa-glance-grid">
+        <div>
+          <table class="osa-glance-table">
+            <tr><td>Price Range</td><td>~$3,000 – $17,000 depending on configuration</td></tr>
+            <tr><td>Feature Reputation</td><td>High feature density; among the most feature-complete at each price point</td></tr>
+            <tr><td>Massage Intensity</td><td>Generally assertive to strong; well-suited for buyers wanting a thorough massage</td></tr>
+            <tr><td>Track System</td><td>SL-track and L-track; Duo models use dual independent mechanisms</td></tr>
+            <tr><td>Massage Rollers</td><td>3D or 4D roller systems depending on model</td></tr>
+            <tr><td>Massage Programs</td><td>Automatic and manual programs vary by chair</td></tr>
+            <tr><td>Air Massage</td><td>Compression coverage varies by model</td></tr>
+            <tr><td>Calf Kneading</td><td>Important for lower-body massage experience</td></tr>
+            <tr><td>Controller</td><td>Touchscreen controller or remote layout varies by model</td></tr>
+            <tr><td>Design Style</td><td>Contemporary; tends toward substantial — functional over minimal</td></tr>
+            <tr><td>Body Scan / AI</td><td>Available in multiple models; flagship Duo systems use real-time AI scanning</td></tr>
+            <tr><td>Space Planning</td><td>Check wall clearance and space-saving technology</td></tr>
+            <tr><td>Best Fit</td><td>Feature-focused, intensity seekers, value comparers, advanced tech seekers</td></tr>
+            <tr><td>May Not Suit</td><td>Buyers who prioritize minimal design or an extremely gentle massage above all else</td></tr>
+            <tr><td>Related Brand</td><td>Titan (sister brand, shares parent company and engineering lineage)</td></tr>
+          </table>
+        </div>
+        <div class="osa-glance-verdict">
+          <h3>Specialist Assessment</h3>
+          <div class="osa-verdict-item"><div class="osa-verdict-dot"></div><p><strong>For buyers who want more chair</strong> — Osaki consistently delivers more features at comparable price points than many competing brands.</p></div>
+          <div class="osa-verdict-item"><div class="osa-verdict-dot"></div><p><strong>For stronger massage pressure</strong> — Osaki's intensity profile tends to be more assertive than brands known for a softer, wellness-oriented feel.</p></div>
+          <div class="osa-verdict-item"><div class="osa-verdict-dot"></div><p><strong>For dual-engine designs</strong> — Osaki's Duo lineup offers independent front and back mechanisms covering the whole body simultaneously.</p></div>
+          <div class="osa-verdict-item"><div class="osa-verdict-dot"></div><p><strong>For a lighter touch</strong> — brands like Fujiiryoki or Bodyfriend may offer a more refined, gentler feel that suits those preferences better.</p></div>
+          <div class="osa-verdict-item"><div class="osa-verdict-dot"></div><p><strong>For Bay Area buyers</strong> — we carry a full selection at our San Jose and Pleasanton showrooms, available to try before you commit.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ WHO IT'S FOR ══════════ {%- endcomment -%}
+  <section class="osa-section">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Fit Guide</span>
+        <h2>Who Osaki Is For — <span class="osa-underline">and Who It May Not Be</span></h2>
+        <p>Honest, specific guidance. Knowing where a brand excels and where it does not is what separates a specialist from a catalogue.</p>
+      </div>
+      <div class="osa-for-grid">
+        <div class="osa-for-card">
+          <div class="osa-for-badge yes">✓ Osaki is a strong fit for</div>
+          <ul class="osa-for-list">
+            <li><div class="osa-for-dot yes"></div><span><strong>Feature-density buyers</strong> who want the most capability for their budget</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>Intensity seekers</strong> who want a chair that delivers thorough, assertive massage coverage</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>Buyers comparing across brands</strong> who want to see how far features go at each price tier</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>Daily users</strong> who need a chair engineered for consistent, frequent use over years</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>Dual-engine preference buyers</strong> — Osaki's Duo lineup covers back and legs simultaneously</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>Taller or broader buyers</strong> — the Atlas XL is specifically sized for users up to 6'5"</span></li>
+            <li><div class="osa-for-dot yes"></div><span><strong>AI technology seekers</strong> — multiple models offer genuine AI body scanning and adaptive programs</span></li>
+          </ul>
+        </div>
+        <div class="osa-for-card alt">
+          <div class="osa-for-badge no">Consider alternatives if</div>
+          <ul class="osa-for-list">
+            <li><div class="osa-for-dot no"></div><span><strong>Design-first priority</strong> — Osaki chairs tend toward a more prominent equipment-oriented form factor</span></li>
+            <li><div class="osa-for-dot no"></div><span><strong>Very gentle massage preferred</strong> — buyers who want a softer feel may prefer Fujiiryoki or Bodyfriend</span></li>
+            <li><div class="osa-for-dot no"></div><span><strong>Single unique flagship desired</strong> — Ogawa or Bodyfriend may offer a more distinctive luxury experience</span></li>
+            <li><div class="osa-for-dot no"></div><span><strong>Very small space</strong> — while some models have space-saving designs, Duo models are large by nature</span></li>
+            <li><div class="osa-for-dot no"></div><span><strong>Furniture integration is the primary driver</strong> — brands designed around interior aesthetics may suit better</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="osa-expert-callout" style="margin-top:1.75rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Specialist note:</strong> The right Osaki model for a 6'2" buyer who uses a chair daily for back tension is completely different from the right model for a 5'4" buyer wanting occasional relaxation. Osaki's breadth is a strength — but only when the right model is matched to the right buyer. That is what our showroom visits are for.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ MODEL GUIDE ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-model-guide">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Model Intelligence</span>
+        <h2>Understanding Osaki <span class="osa-underline">Model Families</span></h2>
+        <p>Not all Osaki chairs are the same. Each model family has a distinct positioning, feel, and buyer profile.</p>
+      </div>
+
+      {%- for product in collection.products -%}
+        {%- assign prod_tags = product.tags | join: ',' | downcase -%}
+        {%- assign is_duo = false -%}
+        {%- assign is_flagship = false -%}
+        {%- if prod_tags contains 'featured-model' or prod_tags contains 'featured_model' or forloop.index <= 5 -%}
+          {%- comment -%} Show only featured/top 5 products in model guide {%- endcomment -%}
+          {%- if prod_tags contains 'duo' %}{%- assign is_duo = true -%}{%- endif -%}
+          {%- if prod_tags contains 'flagship' %}{%- assign is_flagship = true -%}{%- endif -%}
+          {%- assign feat_img_url = product.featured_image | image_url: width: 400 -%}
+          {%- assign sale_price = product.price | money -%}
+          <div class="osa-model-entry">
+            <div class="osa-model-side">
+              <div>
+                <div class="osa-model-tier">{{ product.type | default: 'Premium Model' }}</div>
+                <h3>{{ product.title }}</h3>
+                <p style="font-size:13px;color:rgba(255,255,255,.45);margin-top:.5rem;line-height:1.6">{{ product.metafields.custom.short_description.value | default: product.description | strip_html | truncate: 120 }}</p>
+                <a href="{{ product.url }}"><img class="osa-model-side-img" src="{{ feat_img_url }}" alt="{{ product.title }}" loading="lazy"></a>
+              </div>
+              <div class="osa-model-price-band">From <span>{{ sale_price }}</span></div>
+            </div>
+            <div class="osa-model-body">
+              <div class="osa-model-best">Best for: {{ product.metafields.custom.buyer_for.value | default: 'Premium massage buyers' }}</div>
+              <h4>{{ product.metafields.custom.model_headline.value | default: 'Why buyers choose this model' }}</h4>
+              <p>{{ product.metafields.custom.model_description.value | default: product.description | strip_html | truncate: 400 }}</p>
+              <div class="osa-model-traits">
+                {%- for tag in product.tags -%}
+                  {%- unless tag == 'duo' or tag == 'ai' or tag == '5d' or tag == 'flagship' or tag == 'featured-model' -%}
+                    <span class="osa-trait">{{ tag }}</span>
+                  {%- endunless -%}
+                {%- endfor -%}
+              </div>
+              {%- if product.metafields.custom.tradeoff.value != blank -%}
+                <div class="osa-model-tradeoff"><strong>Honest tradeoff:</strong> {{ product.metafields.custom.tradeoff.value }}</div>
+              {%- endif -%}
+              <a href="{{ product.url }}" class="osa-model-link">View {{ product.title | truncate: 30 }} Details &rarr;</a>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="osa-expert-callout" style="margin-top:1.25rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>Browse the full collection to see all {{ collection.products_count }} Osaki models available at HOMC. <a href="#osa-collection" style="color:var(--osa-accent);font-weight:700">See full collection above &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ BUYER TYPES ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-buyer-types">
+    <div class="osa-container">
+      <div class="osa-section-header center">
+        <span class="osa-section-label">Decision Support</span>
+        <h2>Best Osaki Chair <span class="osa-underline">by Buyer Type</span></h2>
+        <p>The best Osaki chair depends entirely on who is using it and how.</p>
+      </div>
+      <div class="osa-buyer-grid">
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><div class="osa-buyer-type">Strong Intensity Seekers</div><h3>Best for Buyers Who Prefer a Firmer Massage Feel</h3><p>Buyers who want assertive pressure and thorough muscle coverage from a chair designed for consistent home use.</p><div class="osa-buyer-rec">&rarr; Grand Duo 4D+4D, DuoMax, Kairos 4D LT</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="osa-buyer-type">Technology-First Buyers</div><h3>Best for AI and Advanced Features</h3><p>Buyers who want the latest AI body scanning, adaptive programming, and most advanced roller technology.</p><div class="osa-buyer-rec">&rarr; Pinnacle 5D, AI Grand Duo, AI Apex Duo, OP-Ai Xrest</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg></div><div class="osa-buyer-type">Full-Body Coverage Buyers</div><h3>Best for Simultaneous Back + Legs</h3><p>Buyers who want back and legs massaged at the same time — not in sequence.</p><div class="osa-buyer-rec">&rarr; Any Duo model: Grand Duo, DuoMax, Bravo Duo, AI Apex Duo</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="osa-buyer-type">Flagship Buyers</div><h3>Best Osaki Flagship Experience</h3><p>Buyers who want Osaki's most sophisticated, premium, complete system with flagship-level configuration.</p><div class="osa-buyer-rec">&rarr; AI Grand Duo, Pinnacle 5D DuoFlex AI, AI Apex Duo 5D+4D</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="osa-buyer-type">Value-Focused Buyers</div><h3>Best Value in the Premium Range</h3><p>Buyers who want the most advanced features for the most reasonable price.</p><div class="osa-buyer-rec">&rarr; Zion 4D, Bravo Duo Flex, DuoMax SE, Manhattan Duo</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="osa-buyer-type">Taller &amp; Broader Users</div><h3>Best for Tall / Larger Body Types</h3><p>Buyers who are 6'0" or taller and need a chair with extended dimensions that actually fits properly.</p><div class="osa-buyer-rec">&rarr; Atlas XL (designed for up to 6'5"), Grand Duo (larger frame)</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-4-4 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 8z"/></svg></div><div class="osa-buyer-type">First-Time Premium Buyers</div><h3>Best for First Serious Purchase</h3><p>Buyers making their first premium purchase who want genuine performance without over-investing.</p><div class="osa-buyer-rec">&rarr; Zion 4D, Kairos 4D LT, Xrest 4D+, Ziva</div></div>
+        <div class="osa-buyer-card"><div class="osa-buyer-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><div class="osa-buyer-type">Daily Relaxation and Decompression Users</div><h3>Best for Daily Relaxation and Decompression</h3><p>Buyers who plan to use their chair every day for relaxation, decompression, and general comfort.</p><div class="osa-buyer-rec">&rarr; DuoMax series, Grand Duo, Kairos 4D LT, Pinnacle 5D</div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ VS BRANDS ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-vs-brands">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Brand Comparison</span>
+        <h2>Osaki vs. <span class="osa-underline">Other Premium Brands</span></h2>
+        <p>We carry nine premium brands. This puts us in a unique position to offer honest, comparative guidance — not brand loyalty.</p>
+      </div>
+      <div class="osa-compare-wrap" style="margin-bottom:2rem">
+        <table class="osa-compare-table">
+          <thead><tr><th>Comparison Point</th><th class="osa-osaki-col">Osaki ★</th><th>Kyota</th><th>Infinity</th><th>Ogawa</th><th>Bodyfriend</th></tr></thead>
+          <tbody>
+            <tr><td class="osa-col-feature">Massage Intensity</td><td class="osa-osaki-col">Assertive to strong</td><td>Medium to strong</td><td>Medium</td><td>Medium to strong</td><td>Medium, refined</td></tr>
+            <tr><td class="osa-col-feature">Feature Density per $</td><td class="osa-osaki-col osa-check">Very high</td><td>High</td><td>High</td><td>High</td><td>Premium, curated</td></tr>
+            <tr><td class="osa-col-feature">Dual-Engine Design</td><td class="osa-osaki-col osa-check">✓ Multiple Duo models</td><td class="osa-check">✓ Syner-D</td><td>Limited</td><td class="osa-check">✓ Master Drive Duo</td><td>Single mechanism</td></tr>
+            <tr><td class="osa-col-feature">AI Body Scanning</td><td class="osa-osaki-col osa-check">✓ Multiple models</td><td class="osa-check">✓ Selected</td><td class="osa-check">✓ Selected</td><td class="osa-check">✓ Selected</td><td class="osa-check">✓ BIA (Pharaoh Q)</td></tr>
+            <tr><td class="osa-col-feature">Model Range Width</td><td class="osa-osaki-col">Very wide ({{ collection.products_count }}+ models)</td><td>Focused (5–7)</td><td>Wide (10+)</td><td>Moderate</td><td>Focused (4)</td></tr>
+            <tr><td class="osa-col-feature">Price Entry Point</td><td class="osa-osaki-col">~$3K (Oasis)</td><td>~$5K–$7K</td><td>~$3K–$5K</td><td>~$5K–$7K</td><td>~$9K–$10K</td></tr>
+            <tr><td class="osa-col-feature">Try at HOMC</td><td class="osa-osaki-col osa-check">✓ San Jose &amp; Pleasanton</td><td class="osa-check">✓ San Jose</td><td class="osa-check">✓ San Jose</td><td class="osa-check">✓ San Jose</td><td class="osa-check">✓ San Jose</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="osa-answer-grid">
+        <div class="osa-answer-block"><h3>Osaki vs. Kyota</h3><p>Kyota offers a focused lineup with their distinctive Syner-D dual-roller technology. Kyota tends to feel more refined and slightly more moderate in intensity. Choose Osaki for feature breadth and stronger intensity; consider Kyota if you prefer a more polished, less aggressive feel with innovative roller design.</p></div>
+        <div class="osa-answer-block"><h3>Osaki vs. Infinity</h3><p>Infinity offers competitive pricing and solid 4D technology. The feel tends toward moderate — comfortable rather than deeply assertive. Osaki generally edges Infinity on feature density at comparable prices in the mid-to-upper range, particularly in the Duo/dual-mechanism category.</p></div>
+        <div class="osa-answer-block"><h3>Osaki vs. Ogawa</h3><p>Ogawa differentiates more strongly on design and the overall luxury experience. The Ogawa Master Drive Duo is a direct competitor to the Osaki DuoMax tier. If design integration matters as much as performance, Ogawa deserves a side-by-side comparison.</p></div>
+        <div class="osa-answer-block"><h3>Osaki vs. Bodyfriend</h3><p>Where Osaki delivers feature density and intensity, Bodyfriend delivers a more refined, precision-engineering experience through its proprietary XD Pro roller module. Bodyfriend starts at a higher price floor (~$9K). Osaki for assertive performance and wide choice; Bodyfriend for crafted, design-led luxury feel.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ PRICE GUIDE ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-pricing">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Investment Guide</span>
+        <h2>Osaki Prices, Value &amp; <span class="osa-underline">Ownership</span></h2>
+        <p>How much do Osaki chairs cost, what changes as you spend more, and what does ownership actually look like?</p>
+      </div>
+      <div class="osa-price-ladder" style="margin-bottom:2rem">
+        <div class="osa-price-rung"><div class="osa-price-rung-label"><div class="osa-price-tier-name">Entry</div><div class="osa-price-amount">$3K–$5K</div></div><div class="osa-price-rung-body"><h4>Capable Zero-Gravity Performance</h4><p>Zero gravity recline, body scanning, SL-track coverage and air compression. The Oasis and Ziva models sit here — genuine performance for buyers who want the core Osaki experience without premium pricing.</p><div class="osa-price-tags"><span class="osa-price-tag">Oasis</span><span class="osa-price-tag">Ziva</span></div></div></div>
+        <div class="osa-price-rung"><div class="osa-price-rung-label"><div class="osa-price-tier-name">Mid</div><div class="osa-price-amount">$5K–$10K</div></div><div class="osa-price-rung-body"><h4>True 4D Performance + Broader Features</h4><p>The most popular tier. True 4D roller technology, extended track designs, AI scanning. Chair quality and program sophistication increase meaningfully from the entry tier.</p><div class="osa-price-tags"><span class="osa-price-tag">TP Epic 4D</span><span class="osa-price-tag">Atlas XL</span><span class="osa-price-tag">Kairos 4D LT</span><span class="osa-price-tag">Xrest 4D+</span></div></div></div>
+        <div class="osa-price-rung"><div class="osa-price-rung-label"><div class="osa-price-tier-name">Upper</div><div class="osa-price-amount">$10K–$14K</div></div><div class="osa-price-rung-body"><h4>Dual-Engine + Premium AI Integration</h4><p>The fully-realized Osaki Duo experience: concurrent back and leg massage, advanced AI scanning, premium materials, and sophisticated programming. Daily users see the clearest return at this tier.</p><div class="osa-price-tags"><span class="osa-price-tag">Zion 4D</span><span class="osa-price-tag">Bravo Duo Flex</span><span class="osa-price-tag">AI Apex Duo</span><span class="osa-price-tag">DuoMax</span><span class="osa-price-tag">Platinum Sapphire</span></div></div></div>
+        <div class="osa-price-rung"><div class="osa-price-rung-label"><div class="osa-price-tier-name">Flagship</div><div class="osa-price-amount">$14K–$17K</div></div><div class="osa-price-rung-body"><h4>Full Dual 4D/5D AI Systems — Flagship-Level Configuration</h4><p>Grand Duo, DuoMax SE, Platinum Escape Duo, and Pinnacle 5D represent Osaki's engineering ceiling. Designed for buyers who want a premium chair for consistent home use, with model-specific comfort, control, and support features.</p><div class="osa-price-tags"><span class="osa-price-tag">Grand Duo 4D+4D</span><span class="osa-price-tag">DuoMax SE</span><span class="osa-price-tag">Platinum Escape Duo</span><span class="osa-price-tag">Pinnacle 5D</span></div></div></div>
+      </div>
+      <div class="osa-expert-callout">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Beyond the price tag:</strong> When evaluating Osaki massage chair value, consider total ownership — delivery method, setup support, warranty coverage, and retailer support after purchase. Buying from an authorized specialist dealer like HOMC ensures you get the full ownership experience that premium pricing should include.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ TRUST / REVIEWS ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-trust">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Reviews &amp; Reliability</span>
+        <h2>Are Osaki Massage Chairs Good? <span class="osa-underline">What Buyers Should Know</span></h2>
+        <p>Honest context on Osaki's reputation, how to read reviews intelligently, and what to verify before purchasing.</p>
+      </div>
+      <div class="osa-trust-grid" style="margin-bottom:2.5rem">
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>How to Read Osaki Reviews</h3><p>Osaki reviews vary widely because the lineup is so broad. A negative review of one model tells you nothing about another. Read model-specific reviews, look for patterns around fit and intensity, and verify in person before trusting any single review.</p></div>
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><h3>Authorized Dealer Matters</h3><p>Buying from an authorized specialty retailer ensures genuine products with valid manufacturer warranties, full setup support, and legitimate customer service. Unauthorized marketplace sellers may not honor warranty claims.</p></div>
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><h3>Warranty &amp; Support</h3><p>Osaki massage chairs include manufacturer-backed warranties covering parts, labor, and frame. Coverage terms vary by model tier. HOMC handles warranty coordination on your behalf.</p></div>
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Long-Term Reliability</h3><p>Osaki has operated in the U.S. market for over a decade with a wide install base. Their mature models like the DuoMax and Atlas series have multi-year usage data available.</p></div>
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>What to Verify Before Buying</h3><p>Confirm the model fits your height and body type. Confirm the track type covers your priority areas. Confirm mechanism type (single vs. dual) matches your preference. Confirm delivery includes setup.</p></div>
+        <div class="osa-trust-card"><div class="osa-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><h3>Why Buy from a Specialist</h3><p>A specialist retailer like HOMC brings product knowledge, in-person demonstration, impartial comparison across brands, and post-sale support that online-only retailers cannot match.</p></div>
+      </div>
+      <div class="osa-section-header center" style="margin-bottom:1.75rem">
+        <h2 style="font-size:24px">What Our Customers Say About Osaki</h2>
+      </div>
+      <div class="osa-review-grid">
+        <div class="osa-review-card"><div class="osa-review-stars">★★★★★</div><p class="osa-review-text">"We had a very wonderful experience purchasing an Osaki massage chair. This was probably one of the best shopping experiences I've ever had."</p><div class="osa-review-author"><div class="osa-review-avatar" style="background:var(--osa-accent)">S</div><div><div class="osa-review-name">Selena Protacio</div><div class="osa-review-meta">Verified Google Review · Osaki purchase</div></div></div></div>
+        <div class="osa-review-card"><div class="osa-review-stars">★★★★★</div><p class="osa-review-text">"We started out not planning to purchase a new massage chair — but after our specialist walked us through the different Osaki models, we left with the right chair."</p><div class="osa-review-author"><div class="osa-review-avatar" style="background:#4285F4">R</div><div><div class="osa-review-name">Richard Nakano</div><div class="osa-review-meta">Verified Google Review · 2 weeks ago</div></div></div></div>
+        <div class="osa-review-card"><div class="osa-review-stars">★★★★★</div><p class="osa-review-text">"Our specialist was fantastic — patient, knowledgeable, and clear about what distinguished each Osaki model. We never felt rushed. Highly recommend."</p><div class="osa-review-author"><div class="osa-review-avatar" style="background:#0F9D58">C</div><div><div class="osa-review-name">Charles Perng</div><div class="osa-review-meta">Verified Google Review · San Jose showroom</div></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" target="_blank" rel="noopener" class="osa-btn osa-btn-outline">Read All 95+ Google Reviews &rarr;</a>
+      </div>
+      <p style="text-align:center;margin-top:1.25rem;font-size:14px;color:var(--osa-muted)">Want a deeper look? <a href="{{ shop.url }}/blogs/news/osaki-massage-chair-reviews" style="color:var(--osa-accent);font-weight:700">Read our full Osaki massage chair review guide &rarr;</a></p>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ SHOWROOMS ══════════ {%- endcomment -%}
+  <section class="osa-section" id="osa-showrooms">
+    <div class="osa-container">
+      <div class="osa-section-header">
+        <span class="osa-section-label">Try Osaki Near You</span>
+        <h2>Bay Area Osaki <span class="osa-underline">Showrooms</span></h2>
+        <p>If you are searching for where to try Osaki massage chairs near San Jose or Pleasanton, HOMC is the Bay Area's most comprehensive authorized Osaki dealer showroom.</p>
+      </div>
+      <div class="osa-showroom-grid">
+        <div class="osa-showroom-card">
+          <div class="osa-showroom-head">
+            <div class="osa-showroom-pill">San Jose Showroom</div>
+            <h3>Westfield Oakridge Mall &middot; San Jose, CA</h3>
+            <p>Our flagship Bay Area showroom — the largest massage chair showroom in the region.</p>
+          </div>
+          <div class="osa-showroom-body">
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>925 Blossom Hill Road</strong>, Westfield Oakridge, San Jose, CA 95123</span></div>
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>35+ massage chairs including multiple Osaki models</span></div>
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--osa-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="osa-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-gold osa-btn-sm">Book Visit</a>
+              <a href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" target="_blank" rel="noopener" class="osa-btn osa-btn-outline osa-btn-sm">Get Directions</a>
+            </div>
+          </div>
+        </div>
+        <div class="osa-showroom-card">
+          <div class="osa-showroom-head">
+            <div class="osa-showroom-pill">Pleasanton Showroom</div>
+            <h3>Stoneridge Shopping Center &middot; Pleasanton, CA</h3>
+            <p>Serving the Tri-Valley, East Bay, and Livermore Valley areas.</p>
+          </div>
+          <div class="osa-showroom-body">
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>1 Stoneridge Mall, STE B108</strong>, Pleasanton, CA 94588</span></div>
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Osaki models available to try in person with specialist guidance</span></div>
+            <div class="osa-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--osa-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="osa-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-gold osa-btn-sm">Book Visit</a>
+              <a href="{{ shop.url }}/pages/contact" class="osa-btn osa-btn-outline osa-btn-sm">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FAQ ══════════ {%- endcomment -%}
+  <section class="osa-section osa-section-alt" id="osa-faq">
+    <div class="osa-container-narrow">
+      <div class="osa-section-header center">
+        <span class="osa-section-label">Frequently Asked</span>
+        <h2>Osaki Massage Chair <span class="osa-underline">FAQ</span></h2>
+      </div>
+      <div style="border-top:1px solid var(--osa-border)">
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Are Osaki massage chairs worth it?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Yes — for buyers who match the right model to their needs. Osaki consistently delivers strong feature density and genuine 4D massage technology at competitive price points. The key is choosing the right model, which is why in-person guidance matters.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>What is the best Osaki massage chair?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>The "best" Osaki chair depends entirely on your body type, use case, intensity preference, and budget. No-compromise flagship: the AI Grand Duo or Pinnacle 5D DuoFlex AI. Best dual-engine value: the DuoMax or DuoMax SE. Best for taller users: Atlas XL. Best 4D entry: Zion 4D.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Which Osaki chair has the strongest massage?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Generally, the dual-engine Duo models (Grand Duo, DuoMax, AI Apex Duo) deliver the most assertive total-body massage due to simultaneous dual-mechanism operation. Intensity is always best assessed in person, as body-to-seat fit significantly affects how pressure is experienced.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Are Osaki chairs good for tall people?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>The Osaki Atlas XL is specifically designed for users up to 6'5" with extended dimensions across shoulder, seat, and leg rest sections. For buyers over 6'0", fit verification in person is critical.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Can I try Osaki massage chairs in person?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Yes. House of Massage Chairs carries multiple Osaki models at our San Jose showroom at Westfield Oakridge Mall and at our Pleasanton location. We strongly recommend an in-person visit before any Osaki purchase. <a href="{{ shop.url }}/pages/our-store">Book your visit here.</a></p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>How much does a good Osaki massage chair cost?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Osaki's price range spans from $2,999 (Oasis) to $16,999 (Pinnacle 5D). Most buyers find the best feature-for-dollar proposition in the $7,000–$11,000 range.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Do Osaki chairs come with a warranty?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Yes. Osaki massage chairs include manufacturer-backed warranties covering parts, labor, and structural frame. Coverage terms vary by model tier. HOMC assists with all warranty coordination.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Is Osaki a good brand compared with competitors?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Osaki is a credible, well-established premium brand that consistently delivers strong feature density at competitive prices. The best way to assess this for your specific needs is a side-by-side comparison at our showroom.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>What is the difference between an Osaki 3D massage chair and a 4D massage chair?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>An Osaki 3D massage chair typically allows roller depth adjustment, while an Osaki 4D massage chair may offer more variation in roller rhythm, speed, and intensity depending on the model.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Do Osaki massage chairs use SL-track technology?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Many Osaki massage chairs use SL-track or extended track designs, but the exact track system varies by model. Always compare the track type, roller coverage, and body fit before choosing.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>What does body scan technology do in an Osaki massage chair?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Body scan technology helps the chair estimate shoulder position and body shape before starting a massage program. It can improve alignment, but the actual fit should still be tested in person.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Do Osaki massage chairs include air massage and calf kneading?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Many Osaki models include air massage compression and calf kneading features, but coverage and intensity vary by model. Buyers who care about foot and leg comfort should compare these features during a showroom trial.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Do Osaki chairs have heat therapy?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Some Osaki chairs include heat therapy-style comfort features. These features are designed to add warmth and comfort during a massage session, not to replace medical care or professional treatment.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Do Osaki massage chairs have a touchscreen controller?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Some Osaki models include a touchscreen controller or advanced control interface. During a showroom visit, test how easy it is to adjust massage programs, recline position, roller intensity, and air massage settings.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Are Osaki massage chairs good for muscle relaxation?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Osaki massage chairs may support a relaxing massage experience through roller movement, air massage compression, recline positioning, heat comfort features, and customizable massage programs. They should not be treated as medical devices or substitutes for professional care or massage therapy.</p></div></div>
+        <div class="osa-faq-item"><div class="osa-faq-q" onclick="osaFaq(this)"><h3>Does Osaki have space-saving technology?</h3><svg class="osa-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="osa-faq-a"><p>Some Osaki models may include space-saving recline designs or lower wall-clearance requirements. Check the specific model's dimensions, reclined length, and wall clearance before purchase.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════ FINAL CTA ══════════ {%- endcomment -%}
+  <section class="osa-section">
+    <div class="osa-container">
+      <div class="osa-final-cta">
+        <div class="osa-final-cta-inner">
+          <span style="display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:1rem">Authorized Osaki Dealer &middot; San Jose &amp; Pleasanton</span>
+          <h2>Try Every Osaki Chair.<br>Choose With Complete Confidence.</h2>
+          <p>The best way to discover which Osaki model suits your body, your preference, and your home is to feel the difference in person. Our specialists guide you through the entire lineup — without pressure, without rushing, and with genuine expertise.</p>
+          <div class="osa-cta-points">
+            <div class="osa-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Try Osaki models side by side</span></div>
+            <div class="osa-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Compare with 8 other premium brands</span></div>
+            <div class="osa-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Expert guidance, zero pressure</span></div>
+            <div class="osa-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>White-glove delivery &amp; setup</span></div>
+          </div>
+          <div class="osa-final-cta-btns">
+            <a href="{{ shop.url }}/pages/our-store" class="osa-btn osa-btn-gold">Book a Showroom Visit</a>
+            <a href="{{ shop.url }}/pages/contact" class="osa-btn osa-btn-ghost">Speak With a Specialist</a>
+            <a href="tel:+16692148889" class="osa-btn osa-btn-ghost">Call +1 (669) 214-8889</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} INTERNAL LINKS {%- endcomment -%}
+  <section style="padding:3rem 0;background:var(--osa-surface);border-top:1px solid var(--osa-border)">
+    <div class="osa-container">
+      <div style="text-align:center;margin-bottom:1.25rem"><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--osa-muted2)">Explore More</span></div>
+      <div class="osa-link-pills">
+        <a href="{{ shop.url }}/collections/massage-chairs" class="osa-link-pill">All Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/bodyfriend" class="osa-link-pill">Bodyfriend</a>
+        <a href="{{ shop.url }}/collections/ogawa" class="osa-link-pill">Ogawa</a>
+        <a href="{{ shop.url }}/collections/infinity" class="osa-link-pill">Infinity</a>
+        <a href="{{ shop.url }}/collections/kyota" class="osa-link-pill">Kyota</a>
+        <a href="{{ shop.url }}/pages/our-store" class="osa-link-pill">Try Osaki Massage Chairs in San Jose or Pleasanton</a>
+        <a href="{{ shop.url }}/pages/about-us" class="osa-link-pill">About HOMC</a>
+        <a href="{{ shop.url }}/blogs/news" class="osa-link-pill">Buying Guide</a>
+        <a href="{{ shop.url }}/pages/shipping-policy" class="osa-link-pill">Delivery and Warranty Support</a>
+        <a href="{{ shop.url }}/pages/contact" class="osa-link-pill">Contact a Specialist</a>
+      </div>
+    </div>
+  </section>
+
+</div>{%- comment -%} .osa-wrap {%- endcomment -%}
+
+{%- comment -%} ══════════ JAVASCRIPT ══════════ {%- endcomment -%}
+<script>
+// ─── DYNAMIC PRODUCT DATA FROM LIQUID ───────────────────────────────────────
+var OSAKI_PRODUCTS = [
+  {%- for product in collection.products -%}
+    {%- assign feat_img = product.featured_image | image_url: width: 600 -%}
+    {%- assign sale_price_cents = product.price -%}
+    {%- assign compare_price_cents = product.compare_at_price -%}
+
+    {%- comment -%} Build filter tags array from product tags {%- endcomment -%}
+    {%- assign filter_tags = "" -%}
+    {%- for tag in product.tags -%}
+      {%- assign tag_low = tag | downcase -%}
+      {%- if tag_low == "duo" or tag_low == "ai" or tag_low == "5d" or tag_low == "flagship" -%}
+        {%- if filter_tags != "" -%}{%- assign filter_tags = filter_tags | append: "," -%}{%- endif -%}
+        {%- assign filter_tags = filter_tags | append: '"' | append: tag_low | append: '"' -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Auto-detect badge from tags {%- endcomment -%}
+    {%- assign auto_badge = "" -%}
+    {%- assign auto_badge_class = "" -%}
+    {%- if product.tags contains "flagship" -%}
+      {%- assign auto_badge = "Flagship" -%}
+      {%- assign auto_badge_class = "flagship" -%}
+    {%- elsif product.tags contains "5d" -%}
+      {%- assign auto_badge = "5D" -%}
+      {%- assign auto_badge_class = "flagship" -%}
+    {%- elsif product.tags contains "duo" -%}
+      {%- assign auto_badge = "Duo" -%}
+      {%- assign auto_badge_class = "gold" -%}
+    {%- elsif product.tags contains "ai" -%}
+      {%- assign auto_badge = "AI" -%}
+      {%- assign auto_badge_class = "gold" -%}
+    {%- endif -%}
+
+    {%- comment -%} Use metafield badge if set, otherwise auto {%- endcomment -%}
+    {%- assign badge_val = product.metafields.custom.badge.value | default: auto_badge -%}
+    {%- assign badge_class_val = product.metafields.custom.badge_class.value | default: auto_badge_class -%}
+    {%- assign buyer_for_val = product.metafields.custom.buyer_for.value | default: product.type -%}
+
+    {%- comment -%} Key features: from metafield list or fallback {%- endcomment -%}
+    {%- assign feats_json = product.metafields.custom.key_features.value -%}
+    {%- if feats_json == blank -%}
+      {%- assign feats_json = '["Premium massage technology","Zero gravity recline","Body scanning system","Air compression"]' -%}
+    {%- endif -%}
+
+    {
+      n: {{ product.title | json }},
+      u: {{ product.url | prepend: shop.url | json }},
+      i: {{ feat_img | json }},
+      p: {{ product.price | money | json }},
+      cp: {% if compare_price_cents > sale_price_cents %}{{ product.compare_at_price | money | json }}{% else %}null{% endif %},
+      tags: [{{ filter_tags }}],
+      badge: {{ badge_val | json }},
+      badgeClass: {{ badge_class_val | json }},
+      for: {{ buyer_for_val | json }},
+      feats: {{ feats_json }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+];
+
+// ─── FILTER LOGIC ─────────────────────────────────────────────────────────
+var osaCurrentFilter = {type:'all',value:'all'};
+
+function osaFilter(btn,type,value){
+  document.querySelectorAll('#osaFilterBar .osa-filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  osaCurrentFilter = {type:type,value:value};
+  osaRenderProducts();
+}
+
+function osaFilteredProducts(){
+  return OSAKI_PRODUCTS.filter(function(p){
+    if(osaCurrentFilter.type==='all') return true;
+    if(osaCurrentFilter.type==='price'){
+      var num = parseFloat(p.p.replace(/[^0-9.]/g,''));
+      if(osaCurrentFilter.value==='under5') return num<5000;
+      if(osaCurrentFilter.value==='5to10') return num>=5000&&num<10000;
+      if(osaCurrentFilter.value==='10to14') return num>=10000&&num<14000;
+      if(osaCurrentFilter.value==='over14') return num>=14000;
+    }
+    if(osaCurrentFilter.type==='type') return p.tags.indexOf(osaCurrentFilter.value)!==-1;
+    return true;
+  });
+}
+
+function osaSaveCalc(p,cp){
+  if(!cp) return '';
+  var ps=parseFloat(p.replace(/[^0-9.]/g,'')),cs=parseFloat(cp.replace(/[^0-9.]/g,''));
+  if(cs<=ps) return '';
+  var pct=Math.round((cs-ps)/cs*100);
+  return '<span class="osa-price-save">Save '+pct+'%</span>';
+}
+
+function osaRenderProducts(){
+  var grid=document.getElementById('osaGrid');
+  var count=document.getElementById('osaCount');
+  var prods=osaFilteredProducts();
+  if(count) count.textContent=prods.length+' model'+(prods.length!==1?'s':'');
+  if(!grid) return;
+
+  if(prods.length===0){
+    grid.innerHTML='<div class="osa-no-results"><p>No models match this filter.</p></div>';
+    return;
+  }
+
+  grid.style.opacity='0';
+  grid.innerHTML='';
+
+  prods.forEach(function(p){
+    var saveHtml=osaSaveCalc(p.p,p.cp);
+    var featsHtml=Array.isArray(p.feats)?p.feats.map(function(f){return '<li>'+f+'</li>';}).join(''):'';
+    var badgeHtml=p.badge?'<span class="osa-product-badge '+p.badgeClass+'">'+p.badge+'</span>':'';
+    var priceHtml='<span class="osa-price-sale">'+p.p+'</span>';
+    if(p.cp) priceHtml+=' <span class="osa-price-was">'+p.cp+'</span>';
+    if(saveHtml) priceHtml+=' '+saveHtml;
+
+    var card=document.createElement('article');
+    card.className='osa-product-card';
+    card.innerHTML=
+      badgeHtml+
+            '<a href="'+p.u+'" class="osa-product-img-link" style="display:block;position:relative;"><div class="osa-product-img-wrap"><img class="osa-product-img" src="'+p.i+'" alt="'+p.n+'" loading="lazy"></div></a>'+
+      '<div class="osa-product-body">'+
+        '<div class="osa-product-for">'+p.for+'</div>'+
+        '<div class="osa-product-name"><a href="'+p.u+'">'+p.n+'</a></div>'+
+        '<ul class="osa-product-feats">'+featsHtml+'</ul>'+
+        '<div class="osa-product-prices">'+priceHtml+'</div>'+
+        '<a href="'+p.u+'" class="osa-product-cta">View Details</a>'+
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  setTimeout(function(){grid.style.opacity='1';grid.style.transition='opacity .3s';},40);
+}
+
+// ─── FAQ ACCORDION ────────────────────────────────────────────────────────
+function osaFaq(el){
+  var a=el.nextElementSibling;
+  var isOpen=a.classList.contains('open');
+  document.querySelectorAll('.osa-faq-a').forEach(function(x){x.classList.remove('open')});
+  document.querySelectorAll('.osa-faq-q').forEach(function(x){x.classList.remove('active')});
+  if(!isOpen){a.classList.add('open');el.classList.add('active');}
+}
+
+// ─── SUBNAV ACTIVE STATE ──────────────────────────────────────────────────
+(function(){
+  var links=document.querySelectorAll('.osa-subnav-inner a');
+  var ids=['osa-collection','osa-intro','osa-comparison','osa-3d-vs-4d','osa-technology','osa-model-guide','osa-buyer-types','osa-room-fit','osa-pricing','osa-trust','osa-showrooms','osa-faq'];
+  window.addEventListener('scroll',function(){
+    var pos=window.scrollY+140,active='';
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&pos>=el.offsetTop)active=id;});
+    links.forEach(function(l){l.classList.remove('active');if(l.getAttribute('href')==='#'+active)l.classList.add('active');});
+  });
+})();
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+osaRenderProducts();
+</script>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Osaki Collection Page",
+  "tag": "section",
+  "class": "osaki-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Recommended: 1920x1080px. Defaults to osaki-hero-bg.png asset."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Osaki Massage Chairs<br>The Complete Buyer's Guide"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "One of the most researched premium massage chair brands in the U.S. — and one of the most misunderstood."
+    },
+    {
+      "type": "header",
+      "content": "Section Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_model_guide",
+      "label": "Show Model Guide Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buyer_types",
+      "label": "Show Buyer Types Section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comparison",
+      "label": "Show Brand Comparison Table",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Showroom Settings"
+    },
+    {
+      "type": "text",
+      "id": "sj_address",
+      "label": "San Jose Address",
+      "default": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123"
+    },
+    {
+      "type": "text",
+      "id": "pls_address",
+      "label": "Pleasanton Address",
+      "default": "1 Stoneridge Mall, STE B108, Pleasanton, CA 94588"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+1 (669) 214-8889"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Osaki Collection Page"
+    }
+  ]
+}
+{% endschema %}

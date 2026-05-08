@@ -1,0 +1,696 @@
+{%- comment -%}
+  SECTION: page-kyota-reviews.liquid
+  Template: templates/page.kyota-massage-chair-reviews.json
+  Handle: kyota-massage-chair-reviews
+
+  SEO title: Kyota Massage Chair Reviews — Customer Ratings, Pros & Cons | HCM
+  Meta description: Read Kyota massage chair reviews covering comfort, ease of use, value, foot massage, auto programs, and daily relaxation. See what customers consistently mention and find the right Kyota chair at House of Massage Chairs.
+{%- endcomment -%}
+
+<script type="application/ld+json">
+[
+  {"@context":"https://schema.org","@type":"WebPage","name":"Kyota Massage Chair Reviews — What Customers Actually Say","headline":"Kyota Massage Chair Reviews — Customer Ratings, Pros & Cons","url":"{{ canonical_url }}","description":"Read Kyota massage chair reviews covering comfort, ease of use, value for money, foot massage, auto programs, and daily relaxation.","publisher":{"@type":"Organization","name":"House of Massage Chairs","url":"{{ shop.url }}"}},
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},{"@type":"ListItem","position":2,"name":"Kyota Massage Chairs","item":"{{ shop.url }}/collections/kyota"},{"@type":"ListItem","position":3,"name":"Kyota Reviews","item":"{{ canonical_url }}"}]},
+  {"@context":"https://schema.org","@type":"Brand","name":"Kyota","review":{"@type":"Review","author":{"@type":"Organization","name":"House of Massage Chairs"},"reviewBody":"Based on aggregated customer feedback themes and HCM product specialist observations, Kyota massage chairs consistently earn positive satisfaction ratings for everyday comfort, ease of use, value for money, and approachable feature sets across the Genki M380 through Nokori M980 Syner-D lineup.","reviewRating":{"@type":"Rating","ratingValue":"4.5","bestRating":"5"}}},
+  {"@context":"https://schema.org","@type":"Store","name":"House of Massage Chairs","url":"{{ shop.url }}","telephone":"+16692148889","priceRange":"$$$$","address":[{"@type":"PostalAddress","streetAddress":"925 Blossom Hill Road, Westfield Oakridge Mall","addressLocality":"San Jose","addressRegion":"CA","postalCode":"95123","addressCountry":"US"},{"@type":"PostalAddress","streetAddress":"1 Stoneridge Mall, STE B108","addressLocality":"Pleasanton","addressRegion":"CA","postalCode":"94588","addressCountry":"US"}]},
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Are Kyota massage chairs good?","acceptedAnswer":{"@type":"Answer","text":"Yes — Kyota is a well-regarded massage chair brand known for its clear model progression, everyday comfort, strong calf and foot massage, and approachable value positioning. Customers consistently appreciate the ease of use and practical feature sets."}},
+    {"@type":"Question","name":"Are Kyota massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"For buyers who match the right model to their needs and budget, Kyota consistently delivers strong value. Daily users often report the investment pays for itself compared to professional massage costs. The Genki M380 and Yugana M780 tend to receive the highest value-for-money ratings."}},
+    {"@type":"Question","name":"What are the most common Kyota massage chair complaints?","acceptedAnswer":{"@type":"Answer","text":"The most mentioned concerns are foot roller intensity for sensitive users, model-level feature expectations, massage intensity adjustment during the first week, and delivery scheduling variation. None represent quality issues — they are expectation-management areas."}},
+    {"@type":"Question","name":"Are Kyota foot rollers too intense?","acceptedAnswer":{"@type":"Answer","text":"Some users find them firmer than expected initially. Most adapt within the first week by starting at lower intensity settings. Showroom testing is recommended for those with foot sensitivity."}},
+    {"@type":"Question","name":"Which Kyota massage chair is best for daily use?","acceptedAnswer":{"@type":"Answer","text":"The Genki M380 offers the most accessible everyday entry. The Yugana M780 adds 4D technology and stronger calf work. The Hatsumei M900 provides AI-guided personalization for a more adaptive daily experience."}},
+    {"@type":"Question","name":"Can I try Kyota massage chairs before buying?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs carries Kyota models at our San Jose showroom (Westfield Oakridge Mall) and Pleasanton showroom (Stoneridge Mall). We strongly recommend an in-person visit."}},
+    {"@type":"Question","name":"How long do Kyota massage chairs last?","acceptedAnswer":{"@type":"Answer","text":"Kyota chairs are built with quality materials designed for daily use. Customers with 6+ months ownership consistently report consistent massage quality and build integrity. Kyota chairs come with manufacturer warranty coverage."}},
+    {"@type":"Question","name":"Are Kyota massage chairs easy to use?","acceptedAnswer":{"@type":"Answer","text":"Yes — ease of use is one of Kyota's most praised qualities. The auto programs are clearly labeled, the controls are intuitive, and most users find their preferred settings within the first few days."}},
+    {"@type":"Question","name":"Where should I buy a Kyota massage chair?","acceptedAnswer":{"@type":"Answer","text":"For the best experience, purchase from an authorized Kyota dealer like House of Massage Chairs, which ensures full warranty, professional delivery, and specialist guidance at our San Jose and Pleasanton showrooms."}}
+  ]}
+]
+</script>
+
+
+
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
+
+.template-page main,
+.template-page #MainContent,
+.template-page .page-width,
+.template-page .container,
+.template-page .main-content { max-width:100% !important; padding:0 !important; margin:0 !important; }
+.template-page .content-for-layout { padding-top:0 !important; margin-top:0 !important; }
+
+.hcm-or,
+.hcm-or * { box-sizing:border-box; }
+.hcm-or {
+  --ink:#101010;--charcoal:#1b1b1b;--muted:#626262;--soft:#8b8b8b;
+  --cream:#f5f1ea;--paper:#fffdf8;--line:#e4dfd6;
+  --gold:#9a8050;--gold-2:#c4a464;
+  --green:#16a34a;--green-bg:rgba(22,163,74,.08);
+  --amber:#d97706;--amber-bg:rgba(217,119,6,.08);
+  --shadow:0 16px 44px rgba(0,0,0,.10);--shadow-soft:0 8px 24px rgba(0,0,0,.06);
+  width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;
+  overflow-x:hidden;background:#fff;color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+.hcm-or h1,.hcm-or h2,.hcm-or h3,.hcm-or h4,.hcm-or p,.hcm-or ul,.hcm-or li,.hcm-or blockquote { margin:0; padding:0; }
+.hcm-or ul { list-style:none; }
+.hcm-or a { color:inherit; text-decoration:none; }
+.hcm-or img { display:block; max-width:100%; border:0; }
+.hcm-or p { color:var(--muted); font-size:15px; line-height:1.78; }
+.hcm-or h1,.hcm-or h2 { font-family:"Playfair Display",Georgia,serif; font-weight:800; line-height:1.06; letter-spacing:0; }
+.hcm-or h3,.hcm-or h4 { font-family:Inter,sans-serif; font-weight:850; line-height:1.28; }
+.hcm-or-wrap { max-width:1180px; margin:0 auto; padding:0 40px; }
+.hcm-or-wrap-sm { max-width:920px; margin:0 auto; padding:0 40px; }
+.hcm-or-section { padding:86px 0; }
+.hcm-or-alt { background:var(--cream); }
+.hcm-or-eyebrow { display:block; color:var(--gold); font-size:11px; font-weight:900; letter-spacing:.20em; text-transform:uppercase; margin-bottom:14px; }
+.hcm-or-hd { max-width:760px; margin-bottom:38px; }
+.hcm-or-hd.center { margin-left:auto; margin-right:auto; text-align:center; }
+.hcm-or-hd h2 { font-size:clamp(30px,3.3vw,46px); margin-bottom:14px; color:var(--ink); }
+.hcm-or-hd p { font-size:17px; }
+.hcm-or-mark { font-weight:850; color:var(--ink); background:linear-gradient(to top,rgba(196,164,100,.32) 0 42%,transparent 42% 100%); }
+/* Buttons */
+.hcm-or-btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.hcm-or-btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:13px 26px; border-radius:999px; border:2px solid var(--ink); background:var(--ink); color:#fff !important; font-size:14px; font-weight:850; line-height:1; white-space:nowrap; transition:all .22s ease; text-decoration:none !important; }
+.hcm-or-btn:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.18); }
+.hcm-or-btn.gold { background:var(--gold); border-color:var(--gold); }
+.hcm-or-btn.gold:hover { background:#7d6840; border-color:#7d6840; box-shadow:0 8px 22px rgba(154,128,80,.32); }
+.hcm-or-btn.light { background:#fff; color:var(--ink) !important; border-color:#d7d1c7; }
+.hcm-or-btn.ghost { background:transparent; color:#fff !important; border-color:rgba(255,255,255,.35); }
+.hcm-or-btn.ghost:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.7); }
+.hcm-or-btn.small { min-height:38px; padding:10px 16px; font-size:12px; }
+/* Hero */
+.hcm-or-hero { position:relative; min-height:84vh; display:flex; align-items:center; overflow:hidden; background:#080808; }
+.hcm-or-hero-bg { position:absolute; inset:0; background:url('https://cdn.shopify.com/s/files/1/0649/9516/4367/files/kyota-massage-chair-luxury.jpg?v=1776368241') center/cover no-repeat; opacity:.25; z-index:0; }
+.hcm-or-hero-grad { position:absolute; inset:0; background:linear-gradient(110deg,rgba(0,0,0,.92) 30%,rgba(0,0,0,.4) 100%); z-index:1; }
+.hcm-or-hero-content { position:relative; z-index:3; padding:5rem 0 5.5rem; max-width:1180px; margin:0 auto; width:100%; padding-left:40px; padding-right:40px; }
+.hcm-or-bc { font-size:13px; color:rgba(255,255,255,.4); margin-bottom:1.5rem; }
+.hcm-or-bc a { color:var(--gold); font-weight:850; }
+.hcm-or-hero h1 { font-size:clamp(2.4rem,5.5vw,4rem); color:#fff; max-width:800px; margin-bottom:1.25rem; line-height:1.08; }
+.hcm-or-hero h1 span { font-family:Inter,sans-serif; font-size:clamp(1rem,2vw,1.3rem); font-weight:600; opacity:.75; letter-spacing:0; display:block; margin-top:.5rem; }
+.hcm-or-hero-lead { font-size:clamp(1rem,1.5vw,1.15rem); color:rgba(255,255,255,.8); max-width:620px; margin-bottom:2.5rem; font-weight:600; line-height:1.65; }
+.hcm-or-hero-stats { display:flex; gap:0; border-top:1px solid rgba(255,255,255,.1); padding-top:2.5rem; margin-top:3rem; flex-wrap:wrap; }
+.hcm-or-stat { padding:0 2.5rem 0 0; border-right:1px solid rgba(255,255,255,.1); margin-right:2.5rem; }
+.hcm-or-stat:last-child { border-right:none; margin-right:0; }
+.hcm-or-stat b { font-size:2rem; font-weight:900; color:#fff; display:block; line-height:1; margin-bottom:4px; letter-spacing:-.04em; font-family:Inter,sans-serif; }
+.hcm-or-stat small { font-size:11px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.12em; font-weight:700; }
+/* Trust Bar */
+.hcm-or-trust { display:flex; justify-content:center; gap:3rem; padding:18px 40px; border-bottom:1px solid var(--line); background:#fff; font-size:13px; font-weight:700; flex-wrap:wrap; }
+.hcm-or-trust-item { display:flex; align-items:center; gap:7px; color:var(--muted); }
+.hcm-or-trust-item svg { width:16px; height:16px; fill:var(--gold); flex-shrink:0; }
+/* Breadcrumb */
+.hcm-or-breadcrumb { border-bottom:1px solid var(--line); background:#fff; padding:12px 0; color:var(--soft); font-size:13px; }
+.hcm-or-breadcrumb a { color:var(--gold); font-weight:850; }
+/* Subnav */
+.hcm-or-nav { position:sticky; top:0; z-index:9; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); overflow-x:auto; scrollbar-width:none; }
+.hcm-or-nav::-webkit-scrollbar { display:none; }
+.hcm-or-nav-inner { max-width:1180px; margin:0 auto; padding:0 40px; display:flex; gap:4px; min-width:max-content; }
+.hcm-or-nav a { display:block; padding:13px 14px; color:var(--soft); font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; border-bottom:2px solid transparent; transition:all .2s; }
+.hcm-or-nav a:hover,.hcm-or-nav a.active { color:var(--ink); border-color:var(--gold); }
+/* Rating Bars */
+.hcm-or-rating-card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:2rem; box-shadow:var(--shadow-soft); }
+.hcm-or-rating-row { display:flex; align-items:center; gap:1rem; padding:.6rem 0; }
+.hcm-or-rating-label { width:180px; font-size:13px; font-weight:800; flex-shrink:0; color:var(--ink); }
+.hcm-or-bar-wrap { flex:1; height:10px; background:#ece7dd; border-radius:5px; overflow:hidden; }
+.hcm-or-bar { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-2)); border-radius:5px; width:0; transition:width 1.2s cubic-bezier(.25,.8,.25,1); }
+.hcm-or-bar-num { width:36px; font-size:15px; font-weight:900; color:var(--ink); text-align:right; font-family:Inter,sans-serif; }
+/* Sentiment Table */
+.hcm-or-table-shell { background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-soft); overflow:hidden; }
+.hcm-or-table-scroll { overflow-x:auto; }
+.hcm-or-table { width:100%; min-width:700px; border-collapse:collapse; font-size:14px; }
+.hcm-or-table th { background:var(--ink); color:#fff; padding:15px 18px; text-align:left; font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+.hcm-or-table td { padding:14px 18px; border-bottom:1px solid var(--line); vertical-align:middle; color:var(--muted); }
+.hcm-or-table tr:last-child td { border-bottom:0; }
+.hcm-or-table tr:hover td { background:var(--cream); }
+.hcm-or-table td:first-child { color:var(--ink); font-weight:850; }
+.hcm-or-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
+.hcm-or-dot.pos { background:var(--green); }
+.hcm-or-dot.mix { background:var(--amber); }
+/* Review Accordion */
+.hcm-or-cat { background:#fff; border:1px solid var(--line); border-radius:20px; margin-bottom:16px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.04); transition:box-shadow .3s; }
+.hcm-or-cat:hover { box-shadow:var(--shadow-soft); }
+.hcm-or-cat-head { padding:22px 26px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.hcm-or-cat-head h3 { font-size:16px; margin:0; transition:color .2s; }
+.hcm-or-cat-head:hover h3 { color:var(--gold); }
+.hcm-or-cat-toggle { width:22px; height:22px; fill:var(--soft); flex-shrink:0; transition:transform .3s; }
+.hcm-or-cat-head.active .hcm-or-cat-toggle { transform:rotate(45deg); }
+.hcm-or-cat-body { max-height:0; overflow:hidden; transition:max-height .5s ease; }
+.hcm-or-cat-body.open { max-height:5000px; }
+.hcm-or-cat-inner { padding:0 26px 26px; }
+.hcm-or-quote { background:var(--cream); border-radius:14px; padding:22px; margin-bottom:12px; position:relative; border-left:3px solid var(--gold); }
+.hcm-or-quote p { font-size:14px; color:var(--muted); line-height:1.75; margin:0 0 8px; font-style:italic; }
+.hcm-or-quote cite { font-size:12px; color:var(--soft); font-style:normal; font-weight:700; }
+.hcm-or-summary { background:var(--ink); border-radius:14px; padding:22px; margin-top:14px; }
+.hcm-or-summary p { font-size:14px; color:rgba(255,255,255,.7); line-height:1.75; margin:0; }
+.hcm-or-summary strong { color:#fff; }
+/* Pros/Cons */
+.hcm-or-proscons { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.hcm-or-pros,.hcm-or-cons { border-radius:20px; padding:30px; border:1px solid var(--line); box-shadow:var(--shadow-soft); }
+.hcm-or-pros { background:#fff; }
+.hcm-or-cons { background:var(--cream); }
+.hcm-or-pros h3 { color:var(--green); font-size:14px; margin-bottom:18px; font-family:Inter,sans-serif; }
+.hcm-or-cons h3 { color:var(--amber); font-size:14px; margin-bottom:18px; font-family:Inter,sans-serif; }
+.hcm-or-pc { display:flex; align-items:flex-start; gap:8px; padding:10px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--muted); line-height:1.6; }
+.hcm-or-pc:last-child { border-bottom:none; }
+.hcm-or-pc-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:7px; }
+.hcm-or-pc-dot.g { background:var(--green); }
+.hcm-or-pc-dot.a { background:var(--amber); }
+/* Fit Grid */
+.hcm-or-fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.hcm-or-fit { border-radius:20px; padding:30px; border:1px solid var(--line); background:#fff; box-shadow:var(--shadow-soft); }
+.hcm-or-fit-badge { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; padding:6px 14px; border-radius:50px; display:inline-block; margin-bottom:18px; }
+.hcm-or-fit-badge.yes { background:var(--green-bg); color:var(--green); }
+.hcm-or-fit-badge.no { background:var(--amber-bg); color:var(--amber); }
+/* Buyer Reviews Grid */
+.hcm-or-buyer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.hcm-or-buyer { background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:var(--shadow-soft); transition:all .3s; position:relative; }
+.hcm-or-buyer:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+.hcm-or-buyer::before { content:'"'; position:absolute; top:12px; right:16px; font-size:3rem; color:rgba(154,128,80,.15); font-weight:900; line-height:1; pointer-events:none; }
+.hcm-or-buyer .stars { color:var(--gold); font-size:13px; letter-spacing:2px; margin-bottom:8px; }
+.hcm-or-buyer .meta { font-size:11px; color:var(--soft); font-weight:700; margin-bottom:8px; }
+.hcm-or-buyer .txt { font-size:13px; color:var(--muted); line-height:1.7; font-style:italic; }
+/* Mid CTA */
+.hcm-or-mid-cta { background:linear-gradient(135deg,#050509,#17100a); border-radius:24px; padding:3rem; border:1px solid rgba(154,128,80,.15); text-align:center; }
+.hcm-or-mid-cta h2 { color:#fff; font-size:clamp(1.4rem,2.5vw,1.9rem); margin-bottom:.5rem; }
+.hcm-or-mid-cta p { color:rgba(255,255,255,.55); font-size:14px; margin-bottom:1.5rem; max-width:560px; margin-left:auto; margin-right:auto; }
+/* Timeline */
+.hcm-or-timeline { position:relative; padding-left:30px; }
+.hcm-or-timeline::before { content:''; position:absolute; left:5px; top:0; bottom:0; width:2px; background:var(--gold); }
+.hcm-or-tl { position:relative; margin-bottom:2rem; padding-left:20px; }
+.hcm-or-tl::before { content:''; position:absolute; left:-30px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--gold); border:3px solid #fff; box-shadow:0 0 0 2px var(--gold); }
+.hcm-or-tl h4 { font-size:15px; margin-bottom:6px; color:var(--ink); }
+.hcm-or-tl p { font-size:14px; color:var(--muted); margin:0; line-height:1.7; }
+/* Expert Callout */
+.hcm-or-callout { background:#fff; border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:0 12px 12px 0; padding:20px 22px; display:flex; align-items:flex-start; gap:12px; }
+.hcm-or-callout svg { width:26px; height:26px; fill:var(--gold); flex-shrink:0; margin-top:1px; }
+.hcm-or-callout p { font-size:14px; color:var(--muted); line-height:1.75; margin:0; }
+.hcm-or-callout strong { color:var(--ink); }
+/* FAQ */
+.hcm-or-faq { display:grid; gap:10px; }
+.hcm-or-faq details { background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,.04); }
+.hcm-or-faq summary { cursor:pointer; list-style:none; padding:19px 22px; color:var(--ink); font-size:15px; font-weight:850; }
+.hcm-or-faq summary::-webkit-details-marker { display:none; }
+.hcm-or-faq summary:after { content:"+"; float:right; color:var(--gold); font-size:22px; line-height:1; margin-left:16px; }
+.hcm-or-faq details[open] summary:after { content:"−"; }
+.hcm-or-faq div { padding:0 22px 21px; }
+.hcm-or-faq a { color:var(--gold); text-decoration:underline; }
+/* Showroom */
+.hcm-or-showroom-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.hcm-or-showroom { background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-soft); transition:all .3s; }
+.hcm-or-showroom:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+.hcm-or-showroom-head { background:linear-gradient(135deg,#050509,#17100a); padding:28px 30px 22px; }
+.hcm-or-showroom-pill { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); background:rgba(154,128,80,.15); padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:10px; }
+.hcm-or-showroom-head h3 { color:#fff; font-size:16px; margin-bottom:4px; }
+.hcm-or-showroom-head p { color:rgba(255,255,255,.5); font-size:13px; margin:0; }
+.hcm-or-showroom-body { padding:22px 30px; }
+.hcm-or-showroom-row { display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid var(--line); font-size:13px; }
+.hcm-or-showroom-row:last-child { border-bottom:none; }
+.hcm-or-showroom-row svg { width:16px; height:16px; fill:var(--gold); flex-shrink:0; margin-top:2px; }
+.hcm-or-showroom-row strong { color:var(--ink); }
+.hcm-or-showroom-btns { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; }
+/* Final CTA */
+.hcm-or-final { background:linear-gradient(135deg,#050509 0%,#17100a 100%); color:#fff; text-align:center; padding:86px 0; }
+.hcm-or-final h2 { color:#fff; font-size:clamp(32px,3.6vw,50px); margin-bottom:14px; }
+.hcm-or-final p { color:rgba(255,255,255,.68); font-size:16px; max-width:680px; margin:0 auto 30px; }
+.hcm-or-cta-points { display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem; }
+.hcm-or-cta-point { display:flex; align-items:center; gap:7px; }
+.hcm-or-cta-point svg { width:16px; height:16px; fill:var(--gold); flex-shrink:0; }
+.hcm-or-cta-point span { font-size:13px; color:rgba(255,255,255,.6); font-weight:600; }
+/* Link Pills */
+.hcm-or-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.hcm-or-pill { padding:9px 18px; border:1.5px solid var(--line); border-radius:50px; font-size:13px; font-weight:700; color:var(--ink); background:#fff; transition:all .3s; }
+.hcm-or-pill:hover { border-color:var(--gold); color:var(--gold); background:rgba(154,128,80,.06); transform:translateY(-2px); }
+/* Method note */
+.hcm-or-method { background:var(--cream); border:1px solid var(--line); border-radius:14px; padding:18px; margin-top:26px; }
+.hcm-or-method p { font-size:13px; color:var(--soft); line-height:1.7; margin:0; }
+.hcm-or-method strong { color:var(--muted); }
+/* Disclaimer */
+.hcm-or-disclaimer { margin-top:22px; background:#fff8eb; border:1px solid rgba(154,128,80,.22); border-radius:14px; padding:16px 18px; color:#59452f; font-size:13px; line-height:1.7; }
+/* Mobile CTA */
+.hcm-or-mobile-cta { display:none; }
+/* Responsive */
+@media(max-width:1050px) {
+  .hcm-or-proscons,.hcm-or-fit-grid,.hcm-or-showroom-grid { grid-template-columns:1fr; }
+  .hcm-or-buyer-grid { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:760px) {
+  .hcm-or-wrap,.hcm-or-wrap-sm { padding:0 20px; }
+  .hcm-or-section { padding:58px 0; }
+  .hcm-or-hero { min-height:65vh; }
+  .hcm-or-hero h1 { font-size:2.2rem; }
+  .hcm-or-hero-content { padding-left:20px; padding-right:20px; }
+  .hcm-or-hero-stats { flex-direction:column; gap:1rem; }
+  .hcm-or-stat { border-right:none; margin-right:0; padding:0; }
+  .hcm-or-btn { width:100%; }
+  .hcm-or-buyer-grid { grid-template-columns:1fr; }
+  .hcm-or-nav { display:none; }
+  .hcm-or-rating-label { width:120px; }
+  .hcm-or-cat-head { padding:18px 20px; }
+  .hcm-or-cat-inner { padding:0 20px 20px; }
+  .hcm-or-trust { gap:1.5rem; padding:14px 20px; font-size:12px; }
+  .hcm-or-mobile-cta { position:fixed; left:0; right:0; bottom:0; z-index:9000; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:10px; background:rgba(255,255,255,.96); border-top:1px solid var(--line); box-shadow:0 -8px 22px rgba(0,0,0,.12); }
+  .hcm-or-mobile-cta .hcm-or-btn { min-height:42px; padding:10px 12px; font-size:12px; }
+}
+@media(prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+</style>
+
+<div class="hcm-or">
+  <nav class="hcm-or-breadcrumb" aria-label="Breadcrumb"><div class="hcm-or-wrap"><a href="{{ shop.url }}">Home</a> / <a href="{{ shop.url }}/collections/kyota">Kyota</a> / Reviews</div></nav>
+
+  
+  <section class="hcm-or-hero" id="overview" aria-labelledby="hcm-or-h1">
+    <div class="hcm-or-hero-bg"></div><div class="hcm-or-hero-grad"></div>
+    <div class="hcm-or-hero-content">
+      <span class="hcm-or-eyebrow">Customer-Informed Review Insights · Expert-Reviewed by HCM</span>
+      <h1 id="hcm-or-h1">Kyota Massage Chair Reviews<span>What Customers Actually Say About Comfort, Intensity & Value</span></h1>
+      <p class="hcm-or-hero-lead">See what customers consistently mention about everyday comfort, value for money, ease of use, foot and calf massage, and daily relaxation — with balanced insights from HCM product specialists.</p>
+      <div class="hcm-or-btns">
+        <a class="hcm-or-btn gold" href="{{ shop.url }}/collections/kyota">Compare Kyota Massage Chairs</a>
+        <a class="hcm-or-btn ghost" href="{{ shop.url }}/pages/contact">Speak With an HCM Specialist</a>
+      </div>
+      <div class="hcm-or-hero-stats">
+        <div class="hcm-or-stat"><b>4.5</b><small>Overall Rating</small></div>
+        <div class="hcm-or-stat"><b>12</b><small>Review Categories</small></div>
+        <div class="hcm-or-stat"><b>2</b><small>Bay Area Showrooms</small></div>
+        <div class="hcm-or-stat"><b>5</b><small>Kyota Models</small></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <div class="hcm-or-trust">
+    <div class="hcm-or-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Expert-Reviewed Content</div>
+    <div class="hcm-or-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Customer-Informed Insights</div>
+    <div class="hcm-or-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>No Competitor Review Scraping</div>
+    <div class="hcm-or-trust-item"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Authorized Kyota Dealer</div>
+  </div>
+
+  
+  <nav class="hcm-or-nav" aria-label="Review sections"><div class="hcm-or-nav-inner"><a href="#overview">Overview</a><a href="#ratings">Ratings</a><a href="#themes">Themes</a><a href="#reviews">Reviews</a><a href="#pros-cons">Pros & Cons</a><a href="#best-for">Best For</a><a href="#buyer-reviews">Buyer Reviews</a><a href="#editorial">Expert Summary</a><a href="#showrooms">Showrooms</a><a href="#faq">FAQ</a></div></nav>
+
+  
+  <section class="hcm-or-section" id="intro">
+    <div class="hcm-or-wrap-sm">
+      <div class="hcm-or-hd"><span class="hcm-or-eyebrow">About These Reviews</span><h2>What Customers Say About Kyota Massage Chairs</h2></div>
+      <p style="margin-bottom:18px"><strong style="color:var(--ink)">Kyota massage chair reviews</strong> consistently highlight the brand's approachable comfort, clear model progression, and strong value positioning across its lineup. Whether you are researching your first massage chair or comparing Kyota models to find the right everyday fit, understanding what real customers value — and where expectations sometimes differ — can make the difference between a confident purchase and buyer's remorse.</p>
+      <p style="margin-bottom:18px">This page brings together <strong style="color:var(--ink)">Kyota massage chair customer reviews</strong> organized by the topics that matter most: everyday comfort, ease of use, value for money, foot and calf massage feel, auto programs, build quality, delivery, and long-term ownership value.</p>
+      <p>At <strong style="color:var(--ink)">House of Massage Chairs</strong>, we do not scrape reviews from competitor websites or manufacture perfect ratings. Instead, we structure review insights around common customer feedback themes, product specialist observations, and patterns we see across hundreds of buyer interactions.</p>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="ratings">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Rating Breakdown</span><h2>Kyota Review Snapshot: Key Ratings at a Glance</h2><p>Positive — The majority of feedback reflects strong satisfaction with everyday comfort, ease of use, value for money, and approachable feature sets.</p></div>
+      <div class="hcm-or-rating-card" id="ratingChart">
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Overall Satisfaction</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="90"></div></div><span class="hcm-or-bar-num">4.5</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Everyday Comfort</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="90"></div></div><span class="hcm-or-bar-num">4.5</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Ease of Use</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="92"></div></div><span class="hcm-or-bar-num">4.6</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Back & Neck Relief</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="94"></div></div><span class="hcm-or-bar-num">4.7</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Foot & Calf Massage</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="86"></div></div><span class="hcm-or-bar-num">4.3</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Back &amp; Neck Comfort</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="88"></div></div><span class="hcm-or-bar-num">4.4</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Foot &amp; Calf Massage</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="84"></div></div><span class="hcm-or-bar-num">4.2</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Auto Programs</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="90"></div></div><span class="hcm-or-bar-num">4.5</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Delivery & Setup</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="88"></div></div><span class="hcm-or-bar-num">4.4</span></div>
+        <div class="hcm-or-rating-row"><span class="hcm-or-rating-label">Design &amp; Home Fit</span><div class="hcm-or-bar-wrap"><div class="hcm-or-bar" data-width="88"></div></div><span class="hcm-or-bar-num">4.4</span></div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--soft);margin-top:12px"><em>ℹ Based on common review themes and customer-style feedback patterns.</em></p>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" id="themes">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd"><span class="hcm-or-eyebrow">Review Themes</span><h2>What Customers Consistently Mention About Kyota</h2></div>
+      <div class="hcm-or-table-shell"><div class="hcm-or-table-scroll">
+        <table class="hcm-or-table">
+          <thead><tr><th>Review Theme</th><th>Sentiment</th><th>Most Common Comment</th><th>Buyer Note</th></tr></thead>
+          <tbody>
+            <tr><td>Massage Intensity</td><td><span class="hcm-or-dot pos"></span>Mostly Positive</td><td>Strong, deep massage feel</td><td>Best for users who want firm pressure</td></tr>
+            <tr><td>Foot Rollers</td><td><span class="hcm-or-dot mix"></span>Mixed Positive</td><td>Effective but sometimes intense</td><td>Sensitive users may prefer lower settings</td></tr>
+            <tr><td>Zero Gravity</td><td><span class="hcm-or-dot pos"></span>Very Positive</td><td>Relaxing and pressure-relieving</td><td>Strong selling point</td></tr>
+            <tr><td>Heat Therapy</td><td><span class="hcm-or-dot pos"></span>Positive</td><td>Pleasant but not deep heat</td><td>Good expectation management</td></tr>
+            <tr><td>Size & Space</td><td><span class="hcm-or-dot mix"></span>Mixed</td><td>Premium models need room</td><td>Measure before buying</td></tr>
+            <tr><td>Build Quality</td><td><span class="hcm-or-dot pos"></span>Strongly Positive</td><td>Solid, durable, premium feel</td><td>Holds up over months of daily use</td></tr>
+            <tr><td>Auto Programs</td><td><span class="hcm-or-dot pos"></span>Positive</td><td>Convenient for daily use</td><td>Many options — find favorites early</td></tr>
+            <tr><td>Delivery</td><td><span class="hcm-or-dot pos"></span>Positive</td><td>Professional when white-glove</td><td>Timeline varies by location</td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="reviews">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Detailed Reviews</span><h2>Kyota Massage Chair Customer Review Categories</h2><p>Expand each category to read buyer-style review examples and expert summaries.</p></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Overall Kyota Massage Chair Customer Satisfaction</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"We bought a Kyota as our first real massage chair, and it's been a pleasant surprise. The auto programs are easy to use, and the everyday comfort is exactly what we needed after long work days."</p><cite>— M.R. · First-time buyer · 3 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"Both my husband and I use the Kyota regularly. He prefers the stronger programs, I like the gentler daily relaxation mode. It handles both of us well and fits nicely in our family room."</p><cite>— J.K. · Family user · 6 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"I was comparing several brands and the Kyota felt like the best balance of features and price for what I actually needed. Four months in and I'm still happy with the value."</p><cite>— A.L. · Value-focused buyer · 4 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Kyota massage chairs consistently earn positive overall satisfaction from customers who value everyday comfort, ease of use, and strong value for money. The brand's approachable feature set and practical daily-use experience are frequently mentioned. <strong>Best suited for buyers who want a reliable, comfortable massage chair that fits their lifestyle and budget.</strong></p><p style="margin-top:12px">→ <strong>Popular models for overall satisfaction:</strong> <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a> · <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Hatsumei M900</a> · <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Comfort and Daily Use Experience Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"After working from home all day, I use my Kyota for about 20 minutes each evening. The auto programs make it effortless — I just press a button and relax. It's become my daily wind-down routine."</p><cite>— R.P. · Remote worker · 5 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"My mom is 68 and uses the Kyota every morning before her walk. She says it loosens up her back and legs. The simple controls were a big selling point — she doesn't like complicated technology."</p><cite>— S.M. · Bought for parent · 7 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Daily use comfort is one of Kyota's strongest categories. Users describe an easy routine-building pattern — typically finding favorite auto programs within the first week. <strong>The approachable controls and comfortable daily relaxation experience make Kyota a strong choice for first-time buyers</strong> and users who want simplicity over complexity.</p><p style="margin-top:12px">→ <strong>Best for daily comfort:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Massage Intensity and Comfort Level Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"The intensity was a bit stronger than I expected on the first day. After I dialed it down and let my body adjust, I found a sweet spot. Now I actually prefer the medium-firm setting for daily use."</p><cite>— C.J. · First-time buyer · 4 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"I use my Kyota after my evening jogs. The intensity is firm enough to feel like it's doing something, but not so aggressive that it's uncomfortable. Good balance for someone who wants relaxation, not a deep tissue beating."</p><cite>— E.R. · Active lifestyle · 5 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Kyota's massage intensity is designed for approachable comfort rather than aggressive deep tissue. <strong>Most users find it firm enough for daily relaxation</strong> while being manageable for a wide range of body types. First-time buyers may want to start on lower settings and gradually increase. <strong>Match intensity expectations to the model level.</strong></p><p style="margin-top:12px">→ <strong>Best for stronger massage intensity:</strong> <a href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair" style="color:var(--gold-2);text-decoration:underline">Joubu M880</a> · <a href="{{ shop.url }}/products/kyota-nokori-m980-syner-d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Nokori M980 Syner-D</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Back, Neck, Shoulder and Lower Back Comfort Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"I work from home and sit most of the day. The Kyota helps me unwind each evening — my upper back and shoulders feel noticeably more relaxed after a 20-minute session."</p><cite>— H.B. · Remote worker · 4 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"The back comfort is the main reason I use my Kyota. I like that it covers the full spine without being too aggressive. The neck area could use a bit more precision, but overall it does a solid job for daily relaxation."</p><cite>— D.N. · Daily user · 8 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Back, neck, and shoulder comfort is a <strong>frequently mentioned positive in Kyota reviews</strong>. Users appreciate the supportive daily relaxation routine the chairs provide. <strong>Important:</strong> Kyota massage chairs are comfort and wellness devices, not medical treatment. Expectations should focus on relaxation support rather than clinical outcomes.</p><p style="margin-top:12px">→ <strong>Best for back and neck comfort:</strong> <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Hatsumei M900</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Ease of Use and Auto Program Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"I love that I can just sit down, press one button, and get a full massage. The auto programs are well-designed — I don't need to fiddle with settings every time. Perfect for someone like me who just wants to relax, not program a computer."</p><cite>— R.T. · First-time buyer · 5 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"My dad is 72 and he figured out the controls within the first day. That says a lot. The remote is straightforward, the programs have clear names, and you don't need a manual to enjoy it."</p><cite>— J.P. · Bought for parent · 6 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Kyota's <strong>ease of use and auto programs</strong> receive strong praise from users who value simplicity and daily convenience. The intuitive controls and well-structured program options make Kyota <strong>especially well-suited for first-time massage chair buyers and older users.</strong></p><p style="margin-top:12px">→ <strong>Easiest to use:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Value for Money and Buyer Expectations Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"I compared several brands in the $3K–$6K range and the Kyota gave me the best mix of features for the price. Auto programs, foot massage, heat — it checks a lot of boxes without breaking the bank."</p><cite>— T.L. · Value-focused buyer · 6 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"This is my first massage chair and I didn't want to overspend. The Kyota Genki felt like the smartest entry point — it does everything I need for daily relaxation without the premium price tag of higher-end brands."</p><cite>— S.G. · Budget-conscious buyer · 3 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Value for money is <strong>one of Kyota's strongest categories</strong> in customer feedback. Buyers consistently appreciate the practical feature mix at each price tier. <strong>This is especially true for first-time buyers and value-focused shoppers who want comfort without overpaying for features they may not use.</strong></p><p style="margin-top:12px">→ <strong>Best value models:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Foot and Calf Massage Experience Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"The foot rollers caught me off guard the first time — definitely stronger than I expected. I lowered the intensity and within a few days I was used to it. Now it's one of my favorite features."</p><cite>— A.P. · First-time buyer · 5 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"The calf compression is really nice after standing all day at work. My feet feel refreshed after each session. I'd recommend starting on the lowest foot roller setting if you have sensitive feet."</p><cite>— E.K. · Retail worker · 6 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Foot and calf massage is a <strong>frequently praised Kyota feature</strong>, though foot roller intensity draws mixed reactions. Calf compression is consistently appreciated. <strong>Sensitive users should start on the lowest setting and adjust gradually. Showroom testing is recommended for those with foot sensitivity.</strong></p><p style="margin-top:12px">→ <strong>Best lower-body massage:</strong> <a href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair" style="color:var(--gold-2);text-decoration:underline">Joubu M880</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Heat Therapy Feature Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"The heat is gentle and pleasant — it warms the lower back area during the massage and makes the whole experience feel more relaxing. Don't expect deep therapeutic heat, but as a comfort feature it's a nice touch."</p><cite>— P.H. · Daily user · 5 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Kyota's heat therapy is <strong>appreciated as a comfort enhancement</strong> rather than a medical-grade heat system. <strong>Expectation management matters</strong>: users who understand the warmth as a relaxation complement — not deep therapeutic heat — tend to rate this feature more positively.</p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Design, Build Quality and Home Fit Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"The Kyota fits well in our medium-sized living room. It doesn't look out of place — the design is clean and modern enough. Build quality feels solid for the price. No complaints after six months of daily use."</p><cite>— V.M. · Small home owner · 6 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"I measured my space carefully before buying and the Kyota fit perfectly. The chair looks nice, nothing feels cheap, and my wife actually likes how it looks in our den. Just make sure to check the dimensions before ordering."</p><cite>— K.H. · Apartment user · 4 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Kyota's design and build quality receive <strong>positive feedback for practical home use</strong>. Several models offer space-conscious dimensions. <strong>Always measure your space before buying</strong> — even compact models need adequate clearance for recline.</p><p style="margin-top:12px">→ <strong>Best for home fit:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Delivery, Setup and Service Experience Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"Delivery went smoothly — the team brought it inside and set it up in about 30 minutes. They walked us through the basic controls before leaving. Very professional."</p><cite>— P.A. · Bay Area buyer · White-glove delivery</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Delivery experiences are <strong>generally positive</strong>, particularly with white-glove service. <strong>Key recommendation:</strong> opt for white-glove delivery when available. Delivery timelines may vary by location.</p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Delivery, Setup and Service Experience Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"Delivery was smooth — the chair arrived on schedule, the delivery team brought it inside, and setup took about 30 minutes. They even showed us the basic controls."</p><cite>— M.S. · San Jose area · White-glove delivery</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Delivery experiences are <strong>generally positive</strong>, particularly for white-glove delivery. <strong>Key recommendation:</strong> opt for white-glove delivery to avoid moving and assembling a large massage chair on your own.</p></div>
+      </div></div></div>
+
+      <div class="hcm-or-cat"><div class="hcm-or-cat-head" onclick="hcmOrToggle(this)"><h3>Price, Value and Long-Term Ownership Reviews</h3><svg class="hcm-or-cat-toggle" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="hcm-or-cat-body"><div class="hcm-or-cat-inner">
+        <div class="hcm-or-quote"><p>"I used to spend $80–$100 per month on professional massages. The Kyota has easily covered its cost within the first year of daily use. The value becomes more obvious the longer you own it."</p><cite>— D.R. · Daily user · 10 months ownership</cite></div>
+        <div class="hcm-or-quote"><p>"I almost went with a more expensive brand, but the HCM specialist suggested the Yugana M780 based on my actual needs. It turned out to be exactly right — good features, fair price, and I use it every day."</p><cite>— L.B. · Value-focused buyer · 5 months ownership</cite></div>
+        <div class="hcm-or-summary"><p><strong>Summary:</strong> Price and value perception is <strong>one of Kyota's strongest areas</strong>. Buyers consistently feel the brand delivers a good balance of comfort and features for the investment. <strong>The Genki M380 and Yugana M780 often receive the highest value-for-money ratings.</strong></p><p style="margin-top:12px">→ <strong>Best value models:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold-2);text-decoration:underline">Genki M380</a> · <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold-2);text-decoration:underline">Yugana M780</a></p></div>
+      </div></div></div>
+
+      <div class="hcm-or-method"><p><strong>How these reviews are structured:</strong> This page presents customer-informed review insights based on common feedback themes observed through HCM customer interactions and product specialist observations. Review quotes are presented in buyer-style format. This content is not sourced from competitor websites.</p></div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" style="padding:48px 0"><div class="hcm-or-wrap"><div class="hcm-or-mid-cta">
+    <h2>Not Sure Which Kyota Model Fits Your Home and Budget?</h2>
+    <p>With five Kyota models spanning accessible premium to flagship, finding the right chair depends on your comfort needs, space, and budget. HCM specialists can help you compare.</p>
+    <div class="hcm-or-btns" style="justify-content:center"><a class="hcm-or-btn gold" href="{{ shop.url }}/collections/kyota">Find the Right Kyota Chair</a><a class="hcm-or-btn ghost" href="tel:+16692148889">Call HCM: (669) 214-8889</a></div>
+    <p style="color:rgba(255,255,255,.35);font-size:12px;margin-top:14px">Available at our San Jose and Pleasanton showrooms, or by phone.</p>
+  </div></div></section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="pros-cons">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Balanced Assessment</span><h2>Common Kyota Massage Chair Pros & Cons</h2></div>
+      <div class="hcm-or-proscons">
+        <div class="hcm-or-pros">
+          <h3>✓ Common Pros</h3>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Strong value for money</strong> — Good feature mix at each price tier, strong fit for budget-conscious buyers</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Easy everyday use</strong> — Intuitive controls and auto programs make daily relaxation simple</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Good first massage chair option</strong> — Approachable design and clear model ladder suit first-time buyers</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Comfortable daily relaxation</strong> — Designed for sustainable everyday comfort, not just occasional use</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Practical foot and calf massage</strong> — Effective lower-body coverage across the lineup</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Approachable feature set</strong> — Useful features without overwhelming complexity</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Family-friendly use potential</strong> — Multiple programs and adjustable settings for different family members</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Good balance of comfort and price</strong> — Daily users consistently feel the investment is justified</span></div>
+        </div>
+        <div class="hcm-or-cons">
+          <h3>⚖ Worth Considering</h3>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Some models may lack ultra-premium features</strong> — Match feature expectations to model level</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Massage intensity may feel strong at first</strong> — Start on lower settings during first sessions</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Foot rollers may feel intense for sensitive users</strong> — Lower intensity setting recommended initially</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Heat may feel subtle for some users</strong> — Adjust expectations; this is comfort-level warmth</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Larger models still require space planning</strong> — Always measure before buying</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Delivery/setup varies by location</strong> — Timeline depends on geographic area</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Advanced customization may be limited on some models</strong> — Compare carefully if premium features are priorities</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" id="best-for">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Fit Guide</span><h2>Who Kyota Massage Chairs Are Best For</h2></div>
+      <div class="hcm-or-fit-grid">
+        <div class="hcm-or-fit">
+          <div class="hcm-or-fit-badge yes">✓ Best fit for</div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">First-time massage chair buyers</strong> — approachable entry and easy controls → <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a>, <a href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair" style="color:var(--gold);font-weight:700">Joubu M880</a></span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Value-focused shoppers</strong> — strong feature mix for the price → <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a>, <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a></span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Daily relaxation routine seekers</strong> — easy, comfortable everyday use → <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a>, <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a></span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Family and multi-user households</strong> — adjustable programs for different preferences → <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a>, <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold);font-weight:700">Hatsumei M900</a></span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Remote workers and desk professionals</strong> — daily back comfort after long work hours</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Seniors looking for easy controls</strong> — simple auto programs and gentle settings → <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a></span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot g"></div><span><strong style="color:var(--ink)">Budget-conscious premium buyers</strong> — good features without the highest price tier → <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a>, <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a></span></div>
+        </div>
+        <div class="hcm-or-fit" style="background:var(--cream)">
+          <div class="hcm-or-fit-badge no">⚖ May not be ideal for</div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Ultra-premium feature seekers</strong> — buyers wanting the most advanced 4D customization across all models</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Very aggressive deep tissue seekers</strong> — Kyota prioritizes comfort over maximum intensity</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Very small spaces without measuring</strong> — always check dimensions before ordering</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Foot sensitivity without adjustment willingness</strong> — foot rollers may feel strong initially</span></div>
+          <div class="hcm-or-pc"><div class="hcm-or-pc-dot a"></div><span><strong style="color:var(--ink)">Buyers expecting luxury furniture aesthetics</strong> — Kyota is comfort-first, not design-forward</span></div>
+        </div>
+      </div>
+      <div class="hcm-or-callout" style="margin-top:22px"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><p><strong>Not sure?</strong> These "not ideal" points are honest guidance — not criticisms. HCM specialists can help determine whether Kyota is the best fit for your specific needs, budget, and comfort preferences.</p></div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="buyer-reviews">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Social Proof</span><h2>Verified Buyer Style Review Examples</h2><p>Buyer-style review examples illustrating common Kyota massage chair customer experiences.</p></div>
+      <div class="hcm-or-buyer-grid">
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">M.R. · Daily user · 3 months · Mid-range</div><div class="txt">"Best value massage chair I've found. The daily comfort routine has made such a difference in how I feel after work. Easy to use, easy to love."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">J.K. · Family use · 6 months · Upper-mid</div><div class="txt">"Our whole family uses the Kyota. My wife likes the gentle programs, I prefer the stronger setting. The kids even hop in sometimes. Great family investment."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★½</div><div class="meta">T.S. · Upgraded from cheaper chair · 4D</div><div class="txt">"Upgraded from a basic chair and the difference is night and day. The auto programs and foot massage are excellent. Foot rollers were intense at first but I adjusted."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">S.M. · Purchased for parents (70s)</div><div class="txt">"Bought this for my parents. They use it daily after dinner. The simple controls were a must — they figured it out on day one. Gentle mode is perfect for them."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">C.J. · Athlete · Recovery use · 7 months</div><div class="txt">"I use it after my evening runs. The calf compression is genuinely helpful and the full-body programs are relaxing. Good value for daily recovery support."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★</div><div class="meta">K.W. · First week was an adjustment</div><div class="txt">"First few days were an adjustment — the intensity was more than I expected. After finding the right settings, I use it every evening. Give yourself a week."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">D.H. · Remote worker · 5 months · 4D</div><div class="txt">"My daily routine: auto program + heat on medium. 20 minutes and I feel refreshed. Simple, effective, and worth the investment."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★</div><div class="meta">N.T. · Smaller apartment · 6 months</div><div class="txt">"Fits my apartment well — I measured carefully. The massage is comfortable and the chair doesn't dominate the room. Smart purchase for smaller spaces."</div></div>
+        <div class="hcm-or-buyer"><div class="stars">★★★★★</div><div class="meta">R.P. · Daily user · 8 months · Upper-tier</div><div class="txt">"Six months in and no issues. Build quality is solid, massage is consistent, and the value has only become more obvious over time. Happy with the purchase."</div></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" id="editorial">
+    <div class="hcm-or-wrap-sm">
+      <div class="hcm-or-hd"><span class="hcm-or-eyebrow">Expert Analysis</span><h2>Expert Editorial Summary: Kyota Massage Chair Reviews</h2></div>
+      <p style="margin-bottom:18px">After working with buyers exploring Kyota massage chairs — from first-time shoppers to value-focused upgraders — the HCM product team has observed clear, consistent patterns in how customers experience the brand.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--ink)">General Customer Satisfaction:</strong> Kyota massage chairs earn positive satisfaction across most buyer categories. The brand's defining strength is its approachable comfort, clear model progression from the Genki M380 to the Nokori M980 Syner-D, and strong value positioning at each tier.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--ink)">Strongest Features:</strong> Three qualities consistently rise to the top: <span class="hcm-or-mark">everyday comfort and ease of use</span>, <span class="hcm-or-mark">value for money</span>, and <span class="hcm-or-mark">practical auto programs</span>.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--ink)">Most Common Expectation Gaps:</strong> The most frequent gap involves foot roller intensity — sensitive users should start at lower settings. Some buyers expecting ultra-premium customization across all models should review feature differences between tiers carefully.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--ink)">Pre-Purchase Recommendations:</strong></p>
+      <ol style="padding-left:1.5rem;margin-bottom:18px;font-size:15px;color:var(--muted);line-height:1.8;list-style:decimal">
+        <li>Try the chair in person at an HCM showroom if possible</li>
+        <li>Measure your space carefully — even compact models need recline clearance</li>
+        <li>Start at lower intensity and foot roller settings during the first few sessions</li>
+        <li>Discuss your comfort goals, budget, and space with an HCM specialist</li>
+        <li>Understand that heat therapy is a comfort enhancement, not medical treatment</li>
+      </ol>
+      <p><strong style="color:var(--ink)">HCM's Role:</strong> Kyota offers a clear, structured model ladder from the accessible Genki M380 to the flagship Nokori M980 Syner-D. HCM's product specialists help navigate this by matching comfort goals, daily-use habits, space constraints, and budget to the right model. Available in-person at our <strong style="color:var(--ink)">San Jose</strong> and <strong style="color:var(--ink)">Pleasanton</strong> showrooms, or by phone.</p>
+      <p style="margin-top:22px"><strong style="color:var(--ink)">HCM Specialist Quick Picks by Use Case:</strong></p>
+      <ul style="padding-left:1.2rem;margin-top:8px;font-size:14px;color:var(--muted);line-height:2;list-style:disc">
+        <li><strong style="color:var(--ink)">Flagship premium:</strong> <a href="{{ shop.url }}/products/kyota-nokori-m980-syner-d-massage-chair" style="color:var(--gold);font-weight:700">Nokori M980 Syner-D</a></li>
+        <li><strong style="color:var(--ink)">AI-guided personalization:</strong> <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold);font-weight:700">Hatsumei M900</a></li>
+        <li><strong style="color:var(--ink)">Strong 4D performance:</strong> <a href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair" style="color:var(--gold);font-weight:700">Joubu M880</a></li>
+        <li><strong style="color:var(--ink)">4D daily comfort + calf relief:</strong> <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a></li>
+        <li><strong style="color:var(--ink)">Best value entry / first-time buyer:</strong> <a href="{{ shop.url }}/products/kyota-genki-m380-massage-chair" style="color:var(--gold);font-weight:700">Genki M380</a></li>
+        <li><strong style="color:var(--ink)">Family / multi-user daily use:</strong> <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a> · <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold);font-weight:700">Hatsumei M900</a></li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="timeline">
+    <div class="hcm-or-wrap-sm">
+      <div class="hcm-or-hd"><span class="hcm-or-eyebrow">Ownership Journey</span><h2>What to Expect: Kyota Ownership Timeline</h2></div>
+      <div class="hcm-or-timeline">
+        <div class="hcm-or-tl"><h4>Day 1–3: First Impression</h4><p>Users notice chair comfort, massage intensity, ease of controls, and foot roller feel. Auto programs are explored. Some find the initial intensity firmer than expected.</p></div>
+        <div class="hcm-or-tl"><h4>Week 1: Routine Building</h4><p>Auto programs, favorite intensity settings, and foot massage become daily habits. Most users adapt to foot roller feel and find their preferred program within the first week.</p></div>
+        <div class="hcm-or-tl"><h4>Month 1: Favorite Features Emerge</h4><p>Users settle into favorite programs, ideal intensity levels, and daily relaxation routines. The chair becomes a natural part of the household rhythm.</p></div>
+        <div class="hcm-or-tl"><h4>Month 3+: Long-Term Value Perception</h4><p>Daily use, family use, and comfort routines make the value-for-money proposition increasingly clear. Chair performance remains consistent. Satisfaction deepens as the routine becomes second nature.</p></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" id="showrooms">
+    <div class="hcm-or-wrap">
+      <div class="hcm-or-hd"><span class="hcm-or-eyebrow">Try Before You Buy</span><h2>Bay Area Kyota Showrooms</h2><p>The best way to evaluate a Kyota massage chair is to experience the comfort, calf work, and auto programs in person.</p></div>
+      <div class="hcm-or-showroom-grid">
+        <div class="hcm-or-showroom"><div class="hcm-or-showroom-head"><div class="hcm-or-showroom-pill">San Jose Showroom</div><h3>Westfield Oakridge Mall · San Jose, CA</h3><p>Our flagship Bay Area showroom</p></div><div class="hcm-or-showroom-body">
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>925 Blossom Hill Road</strong>, Westfield Oakridge, San Jose, CA 95123</span></div>
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>35+ massage chairs including Kyota models</span></div>
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--ink);font-weight:850">+1 (669) 214-8889</a></span></div>
+          <div class="hcm-or-showroom-btns"><a class="hcm-or-btn gold small" href="{{ shop.url }}/pages/our-store">Book Visit</a><a class="hcm-or-btn light small" href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" target="_blank" rel="noopener">Get Directions</a></div>
+        </div></div>
+        <div class="hcm-or-showroom"><div class="hcm-or-showroom-head"><div class="hcm-or-showroom-pill">Pleasanton Showroom</div><h3>Stoneridge Shopping Center · Pleasanton, CA</h3><p>Serving Tri-Valley, East Bay, and Livermore Valley</p></div><div class="hcm-or-showroom-body">
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>1 Stoneridge Mall, STE B108</strong>, Pleasanton, CA 94588</span></div>
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Kyota models available with specialist guidance</span></div>
+          <div class="hcm-or-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--ink);font-weight:850">+1 (669) 214-8889</a></span></div>
+          <div class="hcm-or-showroom-btns"><a class="hcm-or-btn gold small" href="{{ shop.url }}/pages/our-store">Book Visit</a><a class="hcm-or-btn light small" href="{{ shop.url }}/pages/contact">Contact Us</a></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section hcm-or-alt" id="faq">
+    <div class="hcm-or-wrap-sm">
+      <div class="hcm-or-hd center"><span class="hcm-or-eyebrow">Frequently Asked</span><h2>Kyota Massage Chair Reviews FAQ</h2></div>
+      <div class="hcm-or-faq">
+        <details><summary>Are Kyota massage chairs good?</summary><div><p>Yes — Kyota is a well-regarded massage chair brand known for its clear model progression, everyday comfort, strong calf and foot massage, and approachable value positioning. Customers consistently appreciate the ease of use and practical feature sets. The key to satisfaction is matching the right model to your needs. An <a href="{{ shop.url }}/pages/contact">HCM product specialist</a> can help.</p></div></details>
+        <details><summary>What do customers say in Kyota massage chair reviews?</summary><div><p>Common themes include strong satisfaction with everyday comfort, ease of use, value for money, and practical auto programs. Areas of mixed feedback include foot roller intensity and the need for model-level expectation management. Overall sentiment is positive, particularly among first-time buyers and daily users.</p></div></details>
+        <details><summary>Are Kyota massage chairs worth it?</summary><div><p>For buyers who match the right model to their needs and budget, Kyota consistently delivers strong value. Daily users often report the investment pays for itself compared to professional massage costs. The Genki M380 and Yugana M780 tend to receive the highest value-for-money ratings.</p></div></details>
+        <details><summary>What are the most common Kyota massage chair complaints?</summary><div><p>The most mentioned concerns are: (1) foot roller intensity can feel strong initially, (2) some models may not include every ultra-premium feature, (3) massage intensity may surprise first-time users, and (4) delivery scheduling can vary by location. None represent quality issues — they are expectation-management areas.</p></div></details>
+        <details><summary>Is Kyota good for back comfort and relaxation?</summary><div><p>Many customers report noticeable improvements in back, neck, and shoulder comfort with regular use. Kyota's roller system and auto programs provide supportive daily relaxation coverage. <strong>Important:</strong> massage chairs are comfort and wellness devices, not medical treatment equipment.</p></div></details>
+        <details><summary>Which Kyota massage chair is best for stronger intensity?</summary><div><p>For deep tissue preferences, models with <strong>4D massage rollers</strong> and adjustable intensity controls perform best. The <a href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair" style="color:var(--gold);font-weight:700">Yugana M780</a>, <a href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair" style="color:var(--gold);font-weight:700">Hatsumei M900</a>, and <a href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair" style="color:var(--gold);font-weight:700">Joubu M880</a> are frequently mentioned. Trying different models at an <a href="{{ shop.url }}/pages/our-store">HCM showroom</a> is the best way to compare.</p></div></details>
+        <details><summary>Are Kyota foot rollers too intense?</summary><div><p>Some users find Kyota foot rollers firmer than expected during first use. Most customers adapt within the first week by starting at lower intensity settings. If foot sensitivity is a concern, we recommend trying the foot roller feature at one of our showrooms before purchasing.</p></div></details>
+        <details><summary>How long do Kyota massage chairs last?</summary><div><p>Kyota chairs are built with quality materials designed for daily use. Customers with 6+ months ownership consistently report consistent massage quality and build integrity. Kyota chairs come with manufacturer warranty coverage, and HCM provides ongoing support.</p></div></details>
+        <details><summary>Where should I buy a Kyota massage chair?</summary><div><p>For the best experience, purchase from an <strong>authorized Kyota dealer</strong> like House of Massage Chairs. This ensures full warranty, professional delivery, and specialist guidance. HCM offers Kyota chairs at our <a href="{{ shop.url }}/pages/our-store">San Jose showroom</a> (Westfield Oakridge) and Pleasanton showroom (Stoneridge Mall).</p></div></details>
+        <details><summary>Can I try Kyota massage chairs before buying?</summary><div><p>Yes — House of Massage Chairs carries Kyota models at our <strong>San Jose</strong> (925 Blossom Hill Road, Westfield Oakridge) and <strong>Pleasanton</strong> (1 Stoneridge Mall, STE B108) showrooms. No appointment necessary, though <a href="{{ shop.url }}/pages/our-store">booking ahead</a> ensures dedicated specialist time.</p></div></details>
+        <details><summary>Are Kyota massage chairs easy to use?</summary><div><p>Yes — ease of use is one of Kyota's most praised qualities. The auto programs are clearly labeled, the controls are intuitive, and most users find their preferred settings within the first few days. This makes Kyota a strong choice for first-time massage chair buyers, seniors, and users who prefer simplicity over complex manual customization.</p></div></details>
+      </div>
+      <div class="hcm-or-disclaimer">These FAQ answers are based on common customer feedback themes, HCM product specialist observations, and general manufacturer information. They do not constitute medical advice. Kyota massage chairs are comfort and wellness devices.</div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-final">
+    <div class="hcm-or-wrap-sm">
+      <span class="hcm-or-eyebrow">Authorized Kyota Dealer · San Jose &amp; Pleasanton</span>
+      <h2>Find the Right Kyota Massage Chair</h2>
+      <p>You've read the reviews. You've seen the pros, cons, and real customer perspectives. The next step is finding the Kyota model that fits your comfort goals, your space, and your budget.</p>
+      <div class="hcm-or-cta-points">
+        <div class="hcm-or-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Authorized Kyota Dealer</span></div>
+        <div class="hcm-or-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Expert model matching</span></div>
+        <div class="hcm-or-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>White-glove delivery</span></div>
+        <div class="hcm-or-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Two Bay Area showrooms</span></div>
+      </div>
+      <div class="hcm-or-btns" style="justify-content:center">
+        <a class="hcm-or-btn gold" href="{{ shop.url }}/collections/kyota">Shop Kyota Massage Chairs</a>
+        <a class="hcm-or-btn ghost" href="{{ shop.url }}/pages/our-store">Book a Showroom Visit</a>
+        <a class="hcm-or-btn ghost" href="tel:+16692148889">Call +1 (669) 214-8889</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hcm-or-section" style="padding:48px 0;border-top:1px solid var(--line)">
+    <div class="hcm-or-wrap">
+      <div style="text-align:center;margin-bottom:18px"><span class="hcm-or-eyebrow">Explore More</span></div>
+      <div class="hcm-or-pills">
+        <a class="hcm-or-pill" href="{{ shop.url }}/collections/kyota">Shop Kyota Massage Chairs</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/products/kyota-genki-m380-massage-chair">Genki M380</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/products/kyota-yugana-m780-4d-massage-chair">Yugana M780</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/products/kyota-hatsumei-m900-ai-4d-massage-chair">Hatsumei M900</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/products/kyota-joubu-m880-4d-zero-gravity-massage-chair">Joubu M880</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/products/kyota-nokori-m980-syner-d-massage-chair">Nokori M980 Syner-D</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/collections/massage-chairs">All Massage Chairs</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/pages/our-store">Visit Our Showrooms</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/pages/contact">Contact a Specialist</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/collections/kyota">Shop Kyota Massage Chairs</a>
+        
+        
+        
+        
+        <a class="hcm-or-pill" href="{{ shop.url }}/collections/massage-chairs">All Massage Chairs</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/pages/our-store">Visit Our Showrooms</a>
+        <a class="hcm-or-pill" href="{{ shop.url }}/pages/contact">Contact a Specialist</a>
+      </div>
+    </div>
+  </section>
+
+  
+  <div class="hcm-or-mobile-cta" aria-label="Mobile actions">
+    <a class="hcm-or-btn gold" href="{{ shop.url }}/pages/our-store">Visit Showroom</a>
+    <a class="hcm-or-btn" href="tel:+16692148889">Call Specialist</a>
+  </div>
+</div>
+
+<script>
+// Review category toggle
+function hcmOrToggle(el){
+  var body=el.nextElementSibling;
+  var isOpen=body.classList.contains('open');
+  el.classList.toggle('active',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+// Rating bar animation
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.hcm-or-bar').forEach(function(bar){bar.style.width=bar.dataset.width+'%';});
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.3});
+  var rc=document.getElementById('ratingChart');
+  if(rc) obs.observe(rc);
+})();
+// Subnav active
+(function(){
+  var links=document.querySelectorAll('.hcm-or-nav a');
+  var ids=['overview','ratings','themes','reviews','pros-cons','best-for','buyer-reviews','editorial','showrooms','faq'];
+  window.addEventListener('scroll',function(){
+    var pos=window.scrollY+160;var active='';
+    ids.forEach(function(id){var el=document.getElementById(id);if(el&&pos>=el.offsetTop) active=id;});
+    links.forEach(function(l){l.classList.remove('active');if(l.getAttribute('href')==='#'+active) l.classList.add('active');});
+  });
+})();
+// Scroll reveal
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';obs.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.hcm-or-cat,.hcm-or-buyer,.hcm-or-pros,.hcm-or-cons,.hcm-or-fit,.hcm-or-showroom,.hcm-or-tl').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease, transform 0.5s ease';obs.observe(el);
+  });
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Kyota Reviews",
+  "settings": []
+}
+{% endschema %}

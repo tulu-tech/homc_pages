@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-infinity",
+      "settings": {
+        "hero_heading": "Infinity Massage Chairs<br>The Complete Buyer's Decision Hub",
+        "hero_subheading": "From the entry-level Riage 4D to the flagship Circadian DualFlex — every Infinity model explained, compared, and matched to your body and budget.",
+        "show_model_guide": true,
+        "show_buyer_types": true,
+        "show_comparison": true,
+        "sj_address": "925 Blossom Hill Road, Westfield Oakridge, San Jose, CA 95123",
+        "pls_address": "1116 Stoneridge Mall Rd, Pleasanton, CA 94566",
+        "phone": "+1 (669) 214-8889"
+      }
+    }
+  },
+  "order": ["main"]
+}

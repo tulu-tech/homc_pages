@@ -71,11 +71,61 @@
     .rc-landing .brand-pill{padding:12px 26px;border:1.5px solid var(--border);border-radius:50px;font-size:15px;font-weight:700;transition:all 0.3s;background:#fff;color:var(--dark);letter-spacing:0.01em}
     .rc-landing .brand-pill:hover{border-color:var(--accent);color:var(--accent);background:rgba(179,139,77,0.06);transform:translateY(-2px);box-shadow:0 6px 16px rgba(179,139,77,0.12)}
 
+    /* ===== MOBILE RESPONSIVE ===== */
     @media(max-width:900px){
+        /* Hero */
+        .rc-landing .col-hero{padding:3rem 0 2.5rem}
+        .rc-landing .col-hero h1{font-size:28px}
+        .rc-landing .col-hero p{font-size:16px}
+        .rc-landing .container{padding:0 1.25rem}
+        .rc-landing .container-narrow{padding:0 1.25rem}
+        /* Trust bar */
+        .rc-landing .trust-bar{gap:12px 20px;padding:16px 1rem;font-size:13px}
+        /* Section spacing */
+        .rc-landing .section{padding:3rem 0}
+        .rc-landing .section-header h2{font-size:26px}
+        .rc-landing .section-header p{font-size:16px}
+        /* All grids to single column */
         .rc-landing .product-grid,.rc-landing .edu-grid,.rc-landing .decision-grid{grid-template-columns:1fr}
-        .rc-landing .col-hero h1{font-size:32px}
+        /* Product cards */
+        .rc-landing .product-card-img{height:220px;padding:1rem}
+        .rc-landing .product-card-body{padding:1rem 1.25rem 1.25rem}
+        .rc-landing .product-card-body h3{font-size:15px}
+        .rc-landing .price-sale{font-size:18px}
+        .rc-landing .price-compare{font-size:13px}
+        .rc-landing .product-card-link{padding:10px;font-size:14px}
+        .rc-landing .product-badge{font-size:10px;padding:4px 10px;top:8px;left:8px}
+        /* Decision cards */
+        .rc-landing .decision-card{padding:1.5rem}
+        /* Edu grid */
+        .rc-landing .edu-card{padding:1.5rem}
+        /* Comparison table */
         .rc-landing .compare-table{font-size:13px}
-        .rc-landing .compare-table th,.rc-landing .compare-table td{padding:8px}
+        .rc-landing .compare-table th,.rc-landing .compare-table td{padding:8px 10px}
+        /* 2-col content grids */
+        .rc-landing div[style*="grid-template-columns:1fr 1fr"],
+        .rc-landing div[style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important}
+        /* Pro tip boxes */
+        .rc-landing div[style*="border-left:4px solid #b38b4d"][style*="display:flex"]{flex-direction:column;gap:12px;padding:1rem 1.25rem !important}
+        /* Final CTA */
+        .rc-landing div[style*="border-radius:26px"][style*="padding:4rem"],
+        .rc-landing div[style*="border-radius:26px"][style*="padding:64px"]{padding:2rem 1.5rem !important;border-radius:20px !important}
+        .rc-landing div[style*="border-radius:26px"] h2{font-size:24px !important}
+        .rc-landing div[style*="border-radius:26px"] p{font-size:15px !important}
+        .rc-landing div[style*="border-radius:26px"] div[style*="display:flex"][style*="gap:14px"],
+        .rc-landing div[style*="border-radius:26px"] div[style*="display:flex"][style*="gap: 14px"]{flex-direction:column;gap:10px}
+        .rc-landing div[style*="border-radius:26px"] .btn{width:100%;text-align:center;justify-content:center}
+        /* Explore pills */
+        .rc-landing .brand-pill{padding:10px 20px;font-size:14px}
+        /* Buttons */
+        .rc-landing .btn{padding:14px 28px;font-size:15px}
+    }
+    @media(max-width:480px){
+        .rc-landing .col-hero h1{font-size:24px}
+        .rc-landing .col-hero p{font-size:15px}
+        .rc-landing .section-header h2{font-size:22px}
+        .rc-landing .trust-bar{flex-direction:column;align-items:center;gap:8px}
+        .rc-landing .product-card-img{height:200px}
     }
 </style>
 

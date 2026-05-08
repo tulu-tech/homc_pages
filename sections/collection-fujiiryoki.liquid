@@ -1,0 +1,1096 @@
+{%- comment -%}
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  SECTION: collection-fujiiryoki.liquid                           ║
+  ║  Template: templates/collection.fujiiryoki.json                  ║
+  ║  Collection handle: fujiiryoki                                   ║
+  ║                                                                  ║
+  ║  HOW TO INSTALL:                                                 ║
+  ║  1. Upload this file to /sections/collection-fujiiryoki.liquid   ║
+  ║  2. Upload templates/collection.fujiiryoki.json                  ║
+  ║  3. Upload these assets to theme assets:                         ║
+  ║     • fujiiryoki-hero-bg.jpg   (hero background)                 ║
+  ║     • fujiiryoki-feature-hero.png  (annotated feature image)     ║
+  ║  4. (Optional) Add metafields to products:                       ║
+  ║     - custom.badge            → string (e.g. "AI", "4D")         ║
+  ║     - custom.badge_class      → string ("gold","flagship","")     ║
+  ║     - custom.buyer_for        → string (e.g. "AI Precision")     ║
+  ║     - custom.key_features     → list of strings (JSON array)     ║
+  ║     - custom.short_description → string                          ║
+  ║     - custom.model_headline   → string                           ║
+  ║     - custom.model_description → string                          ║
+  ║     - custom.tradeoff         → string                           ║
+  ║  5. Tag products with: cyber-relax, ai, 4d, flagship, calm-plus  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+
+
+{%- comment -%} ── SCHEMA MARKUP ── {%- endcomment -%}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "House of Massage Chairs",
+    "url": "https://houseofmassagechairs.com",
+    "telephone": "+16692148889",
+    "email": "info@houseofmassagechairs.com",
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "925 Blossom Hill Road, Westfield Oakridge Mall",
+        "addressLocality": "San Jose",
+        "addressRegion": "CA",
+        "postalCode": "95123",
+        "addressCountry": "US"
+      },
+      {
+        "@type": "PostalAddress",
+        "streetAddress": "1116 Stoneridge Mall Rd",
+        "addressLocality": "Pleasanton",
+        "addressRegion": "CA",
+        "postalCode": "94566",
+        "addressCountry": "US"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+      {"@type":"ListItem","position":2,"name":"Massage Chairs","item":"{{ shop.url }}/collections/massage-chairs"},
+      {"@type":"ListItem","position":3,"name":"Fujiiryoki Massage Chairs","item":"{{ canonical_url }}"}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Are Fujiiryoki massage chairs worth it?","acceptedAnswer":{"@type":"Answer","text":"Yes — for buyers who value precision and quality of massage feel over feature quantity. Fujiiryoki reflects 70+ years of Japanese engineering and delivers a refined, consistent massage experience."}},
+      {"@type":"Question","name":"What is the best Fujiiryoki massage chair?","acceptedAnswer":{"@type":"Answer","text":"It depends on your needs. For AI-guided precision: Cyber Relax Ai. For 4D dual performance: Cyber Relax Pro 4D Dual. For refined premium comfort: Cyber Relax Elite. For accessible Japanese quality: MR-6000 Calm Plus."}},
+      {"@type":"Question","name":"Can I try Fujiiryoki massage chairs in person?","acceptedAnswer":{"@type":"Answer","text":"Yes. House of Massage Chairs carries Fujiiryoki models at our San Jose showroom at Westfield Oakridge Mall and our Pleasanton location at Stoneridge Shopping Center."}},
+      {"@type":"Question","name":"Where can I buy authentic Fujiiryoki massage chairs?","acceptedAnswer":{"@type":"Answer","text":"House of Massage Chairs is an authorized Fujiiryoki dealer with showrooms in San Jose and Pleasanton, CA. Buying from an authorized specialist ensures genuine products, valid warranties, and professional setup."}}
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Fujiiryoki Massage Chairs",
+    "url": "{{ canonical_url }}",
+    "numberOfItems": {{ collection.products_count }},
+    "itemListElement": [
+      {%- for product in collection.products -%}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "name": {{ product.title | json }},
+        "url": "{{ shop.url }}{{ product.url }}",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "{{ product.price | money_without_currency }}",
+          "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+]
+</script>
+
+<style>
+  /* ── DESIGN TOKENS ── */
+  :root {
+    --fji-bg: #fff;
+    --fji-surface: #f8fafc;
+    --fji-surface2: #f1f5f9;
+    --fji-dark: #000;
+    --fji-muted: #555;
+    --fji-muted2: #888;
+    --fji-accent: #b38b4d;
+    --fji-accent-h: #96723e;
+    --fji-accent-pale: rgba(179,139,77,0.10);
+    --fji-accent-pale2: rgba(179,139,77,0.06);
+    --fji-border: #e5e9f0;
+    --fji-border2: #d0d8e4;
+    --fji-radius: 20px;
+    --fji-radius-sm: 12px;
+    --fji-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    --fji-shadow-hover: 0 20px 50px rgba(0,0,0,0.11);
+  }
+
+  /* ── RESET & WRAPPER ──
+     fji-wrap isolates all styles from the Shopify theme's root font-size.
+     Every font size uses absolute px — NO rem anywhere.
+  */
+  .fji-wrap *{box-sizing:border-box;margin:0;padding:0}
+  .fji-wrap{font-family:'Inter',sans-serif;color:var(--fji-dark);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+  .fji-wrap p{font-size:15px;color:var(--fji-muted);line-height:1.8}
+  .fji-wrap li{font-size:14px}
+  .fji-wrap h1{font-size:clamp(38px,5.5vw,64px)}
+  .fji-wrap h2{font-size:clamp(26px,3vw,38px)}
+  .fji-wrap h3{font-size:clamp(16px,2vw,20px)}
+  .fji-wrap h4{font-size:16px}
+  .fji-wrap h1,.fji-wrap h2,.fji-wrap h3,.fji-wrap h4{line-height:1.15;font-weight:800;letter-spacing:-0.03em;color:var(--fji-dark)}
+  .fji-wrap img{max-width:100%;display:block}
+  .fji-wrap a{text-decoration:none}
+
+  /* ── LAYOUT ── */
+  .fji-container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .fji-container-narrow{max-width:860px;margin:0 auto;padding:0 2rem}
+
+  /* ── SUBNAV ── */
+  .fji-subnav{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--fji-border);overflow-x:auto;scrollbar-width:none}
+  .fji-subnav::-webkit-scrollbar{display:none}
+  .fji-subnav-inner{display:flex;padding:0 2rem;min-width:max-content}
+  .fji-subnav-inner a{display:block;padding:.75rem 1rem;font-size:12px;font-weight:700;color:var(--fji-muted2);border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;text-transform:uppercase;letter-spacing:.08em}
+  .fji-subnav-inner a:hover,.fji-subnav-inner a.fji-active{color:var(--fji-dark);border-bottom-color:var(--fji-accent)}
+
+  /* ── BUTTONS ── */
+  .fji-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--fji-dark);color:#fff;padding:.9rem 2rem;font-size:15px;font-weight:700;border-radius:50px;transition:all .25s;border:2px solid var(--fji-dark);cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;white-space:nowrap;text-decoration:none}
+  .fji-btn:hover{background:#222;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .fji-btn-gold{background:var(--fji-accent);border-color:var(--fji-accent);color:#fff!important}
+  .fji-btn-gold:hover{background:var(--fji-accent-h);border-color:var(--fji-accent-h);box-shadow:0 8px 24px rgba(179,139,77,.3)}
+  .fji-btn-outline{background:transparent;color:var(--fji-dark);border-color:var(--fji-border2)}
+  .fji-btn-outline:hover{border-color:var(--fji-dark);background:var(--fji-surface)}
+  .fji-btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+  .fji-btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+  .fji-btn-sm{padding:.6rem 1.5rem;font-size:14px}
+
+  /* ── HERO ── */
+  .fji-hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;background:#080808}
+  .fji-hero-bg{position:absolute;inset:0;background-image:url({% if section.settings.hero_image %}{{ section.settings.hero_image | image_url: width: 2000 }}{% else %}https://cdn.shopify.com/s/files/1/0649/9516/4367/files/fujiiryoki-hero-bg.jpg?v=1776369234{% endif %});background-size:cover;background-position:center;opacity:.32;z-index:0}
+  .fji-hero-grad{position:absolute;inset:0;background:linear-gradient(110deg,rgba(0,0,0,.92) 30%,rgba(0,0,0,.38) 100%);z-index:1}
+  .fji-hero-glow{position:absolute;top:-10%;right:-8%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.07),transparent 70%);z-index:2;pointer-events:none}
+  .fji-hero-content{position:relative;z-index:3;padding:5rem 0 5.5rem}
+  .fji-hero-bc{font-size:12px;color:rgba(255,255,255,.38);margin-bottom:1.5rem}
+  .fji-hero-bc a{color:var(--fji-accent);transition:color .2s}
+  .fji-hero-bc a:hover{color:#fff}
+  .fji-hero-bc span{margin:0 .4rem}
+  .fji-hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--fji-accent);margin-bottom:1.25rem;background:rgba(179,139,77,.1);padding:5px 14px;border-radius:50px;border:1px solid rgba(179,139,77,.18)}
+  .fji-hero h1{color:#fff;max-width:800px;margin-bottom:1.25rem;text-shadow:0 4px 30px rgba(0,0,0,.4);line-height:1.08}
+  .fji-hero-lead{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.8);max-width:620px;margin-bottom:.75rem;font-weight:600;line-height:1.65}
+  .fji-hero-sub{font-size:16px;color:rgba(255,255,255,.5);max-width:580px;margin-bottom:2.5rem;line-height:1.75}
+  .fji-hero-ctas{display:flex;gap:.875rem;flex-wrap:wrap;margin-bottom:3rem}
+  .fji-hero-stats{display:flex;border-top:1px solid rgba(255,255,255,.1);padding-top:2.5rem;flex-wrap:wrap}
+  .fji-hero-stat{padding:0 2.5rem 0 0;border-right:1px solid rgba(255,255,255,.1);margin-right:2.5rem}
+  .fji-hero-stat:last-child{border-right:none;margin-right:0}
+  .fji-hero-stat-n{font-size:32px;font-weight:900;color:#fff;display:block;line-height:1;margin-bottom:4px;letter-spacing:-.04em}
+  .fji-hero-stat-l{font-size:12px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+
+  /* ── TRUST BAR ── */
+  .fji-trust-bar{display:flex;justify-content:center;gap:3rem;padding:1.25rem 2rem;border-bottom:1px solid var(--fji-border);background:#fff;font-size:14px;font-weight:700;flex-wrap:wrap}
+  .fji-trust-item{display:flex;align-items:center;gap:7px;color:var(--fji-muted)}
+  .fji-trust-item svg{width:16px;height:16px;fill:var(--fji-accent);flex-shrink:0}
+
+  /* ── SECTION ── */
+  .fji-section{padding:5.5rem 0}
+  .fji-section-alt{background:var(--fji-surface)}
+  .fji-section-sm{padding:3.5rem 0}
+  .fji-section-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--fji-accent);margin-bottom:.875rem}
+  .fji-section-header{margin-bottom:3rem}
+  .fji-section-header.center{text-align:center}
+  .fji-section-header.center .fji-section-label{display:block}
+  .fji-section-header h2{font-size:clamp(26px,3vw,38px);margin-bottom:.875rem}
+  .fji-section-header p{font-size:17px;color:var(--fji-muted);max-width:680px;line-height:1.8}
+  .fji-section-header.center p{margin:0 auto}
+  .fji-accent-u{display:inline-block;background:linear-gradient(90deg,var(--fji-accent),#d4a96a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+  /* ── PRODUCT SECTION ── */
+  .fji-product-header{background:linear-gradient(135deg,#050505,#181008 60%,#0a0a0a);padding:3rem 3rem 0;border-radius:var(--fji-radius) var(--fji-radius) 0 0;position:relative;overflow:hidden}
+  .fji-product-header::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.08),transparent 70%);pointer-events:none}
+  .fji-product-header-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;padding-bottom:2.5rem}
+  .fji-product-header h2{color:#fff;font-size:clamp(24px,2.5vw,32px)}
+  .fji-product-header p{color:rgba(255,255,255,.55);font-size:14px;max-width:560px;margin-top:.5rem;line-height:1.7}
+
+  /* ── FILTER BAR ── */
+  .fji-filter-bar{background:#fff;border:1px solid var(--fji-border);border-top:none;padding:1rem 1.5rem;display:flex;align-items:center;gap:.625rem;flex-wrap:wrap}
+  .fji-filter-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--fji-muted2);white-space:nowrap}
+  .fji-filter-sep{width:1px;height:20px;background:var(--fji-border);flex-shrink:0}
+  .fji-filter-btn{padding:6px 14px;border:1.5px solid var(--fji-border);border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;background:transparent;color:var(--fji-muted);font-family:'Inter',sans-serif;white-space:nowrap}
+  .fji-filter-btn:hover{border-color:var(--fji-accent);color:var(--fji-accent);background:var(--fji-accent-pale2)}
+  .fji-filter-btn.active{background:var(--fji-dark);color:#fff;border-color:var(--fji-dark)}
+  .fji-filter-count{margin-left:auto;font-size:13px;color:var(--fji-muted2);font-weight:600}
+
+  /* ── PRODUCT GRID ── */
+  .fji-product-grid-wrap{background:var(--fji-surface);border:1px solid var(--fji-border);border-top:none;border-radius:0 0 var(--fji-radius) var(--fji-radius);padding:2rem}
+  .fji-product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+  /* ── PRODUCT CARD ── */
+  .fji-product-card{background:#fff;border:1px solid var(--fji-border);border-radius:var(--fji-radius);overflow:hidden;transition:all .3s cubic-bezier(.25,.8,.25,1);position:relative;display:flex;flex-direction:column}
+  .fji-product-card:hover{transform:translateY(-7px);box-shadow:var(--fji-shadow-hover);border-color:transparent;outline:2px solid var(--fji-accent)}
+  .fji-product-badge{position:absolute;top:10px;left:10px;background:var(--fji-dark);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.1em;z-index:2}
+  .fji-product-badge.gold{background:var(--fji-accent)}
+  .fji-product-badge.flagship{background:linear-gradient(135deg,#1a0a00,#3d2000);color:#d4a96a;border:1px solid rgba(179,139,77,.4)}
+  .fji-product-img-wrap{height:230px;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(145deg,#fafafa,#fff);position:relative;overflow:hidden}
+  .fji-product-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s}
+  .fji-product-card:hover .fji-product-img{transform:scale(1.06)}
+  .fji-product-img-link{display:block;width:100%;height:100%;position:absolute;inset:0;z-index:1}
+  .fji-product-body{padding:1.1rem 1.25rem 1.25rem;flex:1;display:flex;flex-direction:column}
+  .fji-product-for{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--fji-accent);background:var(--fji-accent-pale);display:inline-block;padding:3px 8px;border-radius:20px;margin-bottom:.6rem}
+  .fji-product-name{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:.75rem;color:var(--fji-dark)}
+  .fji-product-name a{color:inherit}
+  .fji-product-feats{list-style:none;padding:0;margin:0 0 .875rem;flex:1}
+  .fji-product-feats li{display:flex;align-items:flex-start;gap:5px;font-size:13px;color:var(--fji-muted);padding:2.5px 0;line-height:1.5}
+  .fji-product-feats li::before{content:'✓';color:var(--fji-accent);font-weight:900;font-size:11px;flex-shrink:0;margin-top:2px}
+  .fji-product-prices{display:flex;align-items:baseline;gap:7px;margin-bottom:.875rem;flex-wrap:wrap}
+  .fji-price-sale{font-size:18px;font-weight:900;color:var(--fji-dark);letter-spacing:-.02em}
+  .fji-price-was{font-size:13px;color:#adb5bd;text-decoration:line-through;font-weight:500}
+  .fji-price-save{font-size:11px;font-weight:800;color:#16a34a;background:rgba(22,163,74,.08);padding:2px 7px;border-radius:20px}
+  .fji-product-cta{display:block;text-align:center;background:var(--fji-dark);color:#fff;padding:.65rem;border-radius:var(--fji-radius-sm);font-weight:700;font-size:13px;transition:background .2s}
+  .fji-product-cta:hover{background:var(--fji-accent);color:#fff}
+  .fji-no-results{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--fji-muted)}
+
+  /* ── QUICK ANSWER ── */
+  .fji-quick-answer{background:linear-gradient(135deg,#050505,#1a140a);border-radius:24px;padding:3rem;border:1px solid rgba(179,139,77,.15);position:relative;overflow:hidden}
+  .fji-quick-answer::before{content:'';position:absolute;top:-30%;right:-5%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.06),transparent 70%);pointer-events:none}
+  .fji-qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;position:relative;z-index:1}
+  .fji-qa-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem;transition:all .3s}
+  .fji-qa-item:hover{background:rgba(255,255,255,.07);border-color:rgba(179,139,77,.25)}
+  .fji-qa-item h3{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--fji-accent);margin-bottom:.625rem;font-weight:800}
+  .fji-qa-item p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;margin:0}
+
+  /* ── PILLARS ── */
+  .fji-pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .fji-pillar-card{background:#fff;border:1px solid var(--fji-border);border-radius:var(--fji-radius);padding:2rem;transition:all .3s;position:relative;overflow:hidden}
+  .fji-pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fji-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .fji-pillar-card:hover{transform:translateY(-5px);box-shadow:var(--fji-shadow)}
+  .fji-pillar-card:hover::before{transform:scaleX(1)}
+  .fji-pillar-icon{width:48px;height:48px;background:var(--fji-accent-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+  .fji-pillar-icon svg{width:24px;height:24px;fill:var(--fji-accent)}
+  .fji-pillar-card h3{font-size:16px;margin-bottom:.5rem}
+  .fji-pillar-card p{font-size:14px;color:var(--fji-muted);margin:0;line-height:1.7}
+
+  /* ── FEATURE IMAGE ── */
+  .fji-feature-img-wrap{border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative}
+  .fji-feature-img-wrap img{width:100%;display:block}
+  .fji-feature-img-caption{position:absolute;bottom:0;left:0;right:0;padding:1.25rem 2rem;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);font-size:12px;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+
+  /* ── AT A GLANCE ── */
+  .fji-glance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .fji-glance-table{width:100%;border-collapse:collapse}
+  .fji-glance-table tr{border-bottom:1px solid var(--fji-border)}
+  .fji-glance-table tr:last-child{border-bottom:none}
+  .fji-glance-table td{padding:.875rem .5rem;font-size:14px;vertical-align:top}
+  .fji-glance-table td:first-child{font-weight:800;color:var(--fji-dark);width:38%}
+  .fji-glance-table td:last-child{color:var(--fji-muted)}
+  .fji-glance-verdict{background:linear-gradient(145deg,#080808,#171208);border-radius:var(--fji-radius);padding:2.25rem;border:1px solid rgba(179,139,77,.12)}
+  .fji-glance-verdict h3{color:#fff;font-size:17px;margin-bottom:1.25rem}
+  .fji-verdict-item{display:flex;align-items:flex-start;gap:10px;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .fji-verdict-item:last-child{border-bottom:none;padding-bottom:0}
+  .fji-verdict-dot{width:7px;height:7px;border-radius:50%;background:var(--fji-accent);flex-shrink:0;margin-top:8px}
+  .fji-verdict-item p{font-size:13px;color:rgba(255,255,255,.62);margin:0;line-height:1.65}
+
+  /* ── WHO IT'S FOR ── */
+  .fji-for-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .fji-for-card{border-radius:var(--fji-radius);padding:2rem;border:1px solid var(--fji-border);background:#fff}
+  .fji-for-card.alt{background:var(--fji-surface)}
+  .fji-for-badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:4px 12px;border-radius:50px;display:inline-block;margin-bottom:1.125rem}
+  .fji-for-badge.yes{background:rgba(34,197,94,.1);color:#16a34a}
+  .fji-for-badge.no{background:rgba(239,68,68,.08);color:#dc2626}
+  .fji-for-list{list-style:none;padding:0}
+  .fji-for-list li{display:flex;align-items:flex-start;gap:8px;padding:.55rem 0;border-bottom:1px solid var(--fji-border);font-size:14px;color:var(--fji-muted);line-height:1.6}
+  .fji-for-list li:last-child{border-bottom:none}
+  .fji-for-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+  .fji-for-dot.yes{background:#16a34a}
+  .fji-for-dot.no{background:#dc2626}
+
+  /* ── MODEL ENTRIES ── */
+  .fji-model-entry{display:grid;grid-template-columns:260px 1fr;border-radius:var(--fji-radius);overflow:hidden;border:1px solid var(--fji-border);background:#fff;margin-bottom:1.75rem;transition:box-shadow .3s}
+  .fji-model-entry:hover{box-shadow:var(--fji-shadow-hover)}
+  .fji-model-side{background:linear-gradient(160deg,#080808,#171208);padding:2.25rem 1.75rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+  .fji-model-side-imgbox{background:#fff;border-radius:12px;padding:1rem;margin:.75rem 0 .5rem;display:flex;align-items:center;justify-content:center;min-height:180px;max-height:220px;overflow:hidden}
+  .fji-model-side-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s}
+  .fji-model-entry:hover .fji-model-side-img{transform:scale(1.08)}
+  .fji-model-tier{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--fji-accent);margin-bottom:.4rem}
+  .fji-model-side h3{color:#fff;font-size:17px;line-height:1.3}
+  .fji-model-side-desc{font-size:12px;color:rgba(255,255,255,.42);line-height:1.6;margin-top:.375rem}
+  .fji-model-price-band{display:inline-flex;gap:5px;margin-top:.875rem;font-size:12px;font-weight:700;color:rgba(255,255,255,.45);background:rgba(255,255,255,.05);padding:5px 11px;border-radius:20px}
+  .fji-model-price-band span{color:var(--fji-accent)}
+  .fji-model-body{padding:2.25rem}
+  .fji-model-best{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--fji-accent);background:var(--fji-accent-pale);display:inline-block;padding:3px 10px;border-radius:20px;margin-bottom:.875rem}
+  .fji-model-body h4{font-size:16px;margin-bottom:.625rem}
+  .fji-model-body p{font-size:14px;color:var(--fji-muted);line-height:1.75;margin-bottom:.875rem}
+  .fji-model-traits{display:flex;gap:.4rem;flex-wrap:wrap;margin:.875rem 0}
+  .fji-trait{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--fji-surface2);border:1px solid var(--fji-border);color:var(--fji-muted2)}
+  .fji-model-tradeoff{margin-top:1rem;padding:.875rem 1.125rem;border-radius:10px;background:var(--fji-surface);border-left:3px solid var(--fji-border2);font-size:13px;color:var(--fji-muted2);line-height:1.65}
+  .fji-model-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--fji-accent);margin-top:1.25rem;border-bottom:1px solid rgba(179,139,77,.3);padding-bottom:2px;transition:all .2s;text-decoration:none}
+  .fji-model-link:hover{gap:9px;border-bottom-color:var(--fji-accent)}
+
+  /* ── BUYER TYPES ── */
+  .fji-buyer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+  .fji-buyer-card{background:#fff;border:1px solid var(--fji-border);border-radius:var(--fji-radius);padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+  .fji-buyer-card:hover{border-color:var(--fji-accent);box-shadow:0 10px 30px rgba(179,139,77,.1)}
+  .fji-buyer-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--fji-accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .fji-buyer-card:hover::after{transform:scaleX(1)}
+  .fji-buyer-icon{width:42px;height:42px;background:var(--fji-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:.875rem}
+  .fji-buyer-icon svg{width:20px;height:20px;fill:var(--fji-accent)}
+  .fji-buyer-type{font-size:11px;font-weight:800;color:var(--fji-muted2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+  .fji-buyer-card h3{font-size:14px;margin-bottom:.4rem}
+  .fji-buyer-card p{font-size:13px;color:var(--fji-muted);margin:0;line-height:1.7}
+  .fji-buyer-rec{margin-top:.625rem;font-size:12px;font-weight:700;color:var(--fji-accent)}
+
+  /* ── COMPARE TABLE ── */
+  .fji-compare-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--fji-border)}
+  .fji-compare-table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
+  .fji-compare-table th{background:var(--fji-dark);color:#fff;padding:.875rem 1.125rem;text-align:left;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+  .fji-compare-table td{padding:.8rem 1.125rem;border-bottom:1px solid var(--fji-border);color:var(--fji-muted);vertical-align:middle}
+  .fji-compare-table tr:last-child td{border-bottom:none}
+  .fji-compare-table tr:hover td{background:var(--fji-surface)}
+  .fji-col-feat{font-weight:800;color:var(--fji-dark)!important;white-space:nowrap}
+  .fji-fji-col{background:rgba(179,139,77,.04)!important}
+  thead .fji-fji-col{background:rgba(179,139,77,.14)!important;color:var(--fji-accent)!important;border-bottom:3px solid var(--fji-accent)!important}
+  .fji-check{color:var(--fji-accent);font-weight:800}
+
+  /* ── EXPERT CALLOUT ── */
+  .fji-expert-callout{background:#fff;border:1px solid var(--fji-border);border-left:4px solid var(--fji-accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;display:flex;align-items:flex-start;gap:.875rem}
+  .fji-expert-callout svg{width:26px;height:26px;fill:var(--fji-accent);flex-shrink:0;margin-top:1px}
+  .fji-expert-callout p{font-size:14px;color:var(--fji-muted);line-height:1.75;margin:0}
+  .fji-expert-callout strong{color:var(--fji-dark)}
+
+  /* ── PRICE LADDER ── */
+  .fji-price-ladder{border:1px solid var(--fji-border);border-radius:var(--fji-radius);overflow:hidden}
+  .fji-price-rung{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--fji-border);transition:background .2s}
+  .fji-price-rung:last-child{border-bottom:none}
+  .fji-price-rung:hover{background:var(--fji-surface)}
+  .fji-price-rung-label{background:var(--fji-dark);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,.08)}
+  .fji-price-tier-name{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:3px}
+  .fji-price-amount{font-size:16px;font-weight:900;color:var(--fji-accent);letter-spacing:-.02em}
+  .fji-price-rung-body{padding:1.5rem 2rem}
+  .fji-price-rung-body h4{font-size:14px;margin-bottom:.35rem}
+  .fji-price-rung-body p{font-size:13px;color:var(--fji-muted);margin:0;line-height:1.65}
+  .fji-price-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.625rem}
+  .fji-price-tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--fji-accent-pale);color:var(--fji-accent)}
+
+  /* ── TRUST & REVIEW CARDS ── */
+  .fji-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .fji-trust-card{background:#fff;border:1px solid var(--fji-border);border-radius:var(--fji-radius);padding:1.75rem;transition:all .3s}
+  .fji-trust-card:hover{transform:translateY(-4px);box-shadow:var(--fji-shadow)}
+  .fji-trust-card-icon{width:44px;height:44px;background:var(--fji-accent-pale);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .fji-trust-card-icon svg{width:22px;height:22px;fill:var(--fji-accent)}
+  .fji-trust-card h3{font-size:15px;margin-bottom:.5rem}
+  .fji-trust-card p{font-size:14px;color:var(--fji-muted);margin:0;line-height:1.7}
+  .fji-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .fji-review-card{background:#fff;border:1px solid var(--fji-border);border-radius:var(--fji-radius);padding:1.75rem;transition:all .3s;position:relative}
+  .fji-review-card:hover{transform:translateY(-3px);box-shadow:var(--fji-shadow)}
+  .fji-review-card::before{content:'"';position:absolute;top:1rem;right:1.25rem;font-size:64px;color:var(--fji-accent-pale);font-weight:900;line-height:1;pointer-events:none}
+  .fji-review-stars{color:var(--fji-accent);letter-spacing:2px;font-size:13px;margin-bottom:.625rem}
+  .fji-review-text{font-size:14px;color:var(--fji-muted);line-height:1.75;margin-bottom:1.125rem;font-style:italic}
+  .fji-review-author{display:flex;align-items:center;gap:9px}
+  .fji-review-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+  .fji-review-name{font-weight:700;font-size:14px}
+  .fji-review-meta{font-size:12px;color:var(--fji-muted2)}
+
+  /* ── SHOWROOM ── */
+  .fji-showroom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem}
+  .fji-showroom-card{border:1px solid var(--fji-border);border-radius:var(--fji-radius);overflow:hidden;transition:all .3s}
+  .fji-showroom-card:hover{transform:translateY(-4px);box-shadow:var(--fji-shadow-hover)}
+  .fji-showroom-head{background:linear-gradient(135deg,#080808,#171208);padding:2rem 2.25rem 1.75rem}
+  .fji-showroom-pill{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--fji-accent);background:rgba(179,139,77,.15);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:.625rem}
+  .fji-showroom-head h3{color:#fff;font-size:17px;margin-bottom:.3rem}
+  .fji-showroom-head p{color:rgba(255,255,255,.5);font-size:13px;margin:0}
+  .fji-showroom-body{background:#fff;padding:1.75rem 2.25rem}
+  .fji-showroom-row{display:flex;align-items:flex-start;gap:8px;padding:.5rem 0;border-bottom:1px solid var(--fji-border);font-size:13px}
+  .fji-showroom-row:last-of-type{border-bottom:none}
+  .fji-showroom-row svg{width:16px;height:16px;fill:var(--fji-accent);flex-shrink:0;margin-top:2px}
+  .fji-showroom-btns{margin-top:1.25rem;display:flex;gap:.625rem;flex-wrap:wrap}
+
+  /* ── ANSWER BLOCKS ── */
+  .fji-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .fji-answer-block{background:#fff;border:1px solid var(--fji-border);border-radius:14px;padding:1.75rem;transition:all .3s}
+  .fji-answer-block:hover{border-color:var(--fji-border2);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+  .fji-answer-block h3{font-size:14px;margin-bottom:.5rem}
+  .fji-answer-block p{font-size:13px;color:var(--fji-muted);margin:0;line-height:1.75}
+
+  /* ── FAQ ── */
+  .fji-faq-item{border-bottom:1px solid var(--fji-border)}
+  .fji-faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;cursor:pointer;gap:1rem}
+  .fji-faq-q h3{font-size:16px;margin:0;font-weight:700;transition:color .2s;line-height:1.4}
+  .fji-faq-q:hover h3{color:var(--fji-accent)}
+  .fji-faq-icon{width:22px;height:22px;fill:var(--fji-muted2);flex-shrink:0;transition:transform .3s}
+  .fji-faq-q.active .fji-faq-icon{transform:rotate(45deg)}
+  .fji-faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .fji-faq-a.open{max-height:500px}
+  .fji-faq-a p{margin:0;padding-bottom:1.4rem;font-size:15px;color:var(--fji-muted);line-height:1.8}
+  .fji-faq-a a{color:var(--fji-accent);font-weight:700}
+
+  /* ── FINAL CTA ── */
+  .fji-final-cta{background:linear-gradient(135deg,#050505,#1a110a 60%,#050505);border-radius:28px;padding:4rem;position:relative;overflow:hidden}
+  .fji-final-cta::before{content:'';position:absolute;top:-40%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(179,139,77,.1),transparent 70%);pointer-events:none}
+  .fji-final-cta-inner{position:relative;z-index:1}
+  .fji-final-cta h2{color:#fff;font-size:clamp(29px,3vw,42px);margin-bottom:.875rem;line-height:1.12}
+  .fji-final-cta p{color:rgba(255,255,255,.65);font-size:16px;max-width:640px;margin-bottom:2rem;line-height:1.75}
+  .fji-cta-points{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .fji-cta-point{display:flex;align-items:center;gap:7px}
+  .fji-cta-point svg{width:16px;height:16px;fill:var(--fji-accent);flex-shrink:0}
+  .fji-cta-point span{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+  .fji-final-cta-btns{display:flex;gap:.875rem;flex-wrap:wrap}
+
+  /* ── LINK PILLS ── */
+  .fji-link-pills{display:flex;flex-wrap:wrap;gap:.625rem;justify-content:center}
+  .fji-link-pill{padding:.55rem 1.25rem;border:1.5px solid var(--fji-border);border-radius:50px;font-size:13px;font-weight:700;color:var(--fji-dark);background:#fff;transition:all .3s;text-decoration:none}
+  .fji-link-pill:hover{border-color:var(--fji-accent);color:var(--fji-accent);background:var(--fji-accent-pale);transform:translateY(-2px)}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .fji-pillar-grid,.fji-trust-grid{grid-template-columns:1fr 1fr}
+    .fji-product-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:900px){
+    .fji-hero{min-height:65vh}
+    .fji-hero h1{font-size:35px}
+    .fji-glance-grid,.fji-for-grid,.fji-model-entry,.fji-buyer-grid,.fji-showroom-grid,.fji-qa-grid,.fji-answer-grid{grid-template-columns:1fr}
+    .fji-pillar-grid,.fji-trust-grid,.fji-review-grid{grid-template-columns:1fr}
+    .fji-product-grid{grid-template-columns:1fr 1fr;gap:1rem}
+    .fji-section{padding:3.5rem 0}
+    .fji-final-cta{padding:2.5rem 2rem}
+    .fji-product-header-inner{flex-direction:column;align-items:flex-start}
+    .fji-price-rung{grid-template-columns:1fr}
+    .fji-price-rung-label{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  }
+  @media(max-width:600px){
+    .fji-product-grid{grid-template-columns:1fr}
+    .fji-hero h1{font-size:30px}
+    .fji-container{padding:0 1.25rem}
+    .fji-product-header{padding:2rem 1.5rem 0}
+    .fji-product-grid-wrap{padding:1.25rem}
+  }
+</style>
+
+<div class="fji-wrap">
+
+  {%- comment -%} SUBNAV {%- endcomment -%}
+  <nav class="fji-subnav" aria-label="Page sections">
+    <div class="fji-subnav-inner">
+      <a href="#fji-collection">Shop Collection</a>
+      <a href="#fji-overview">Overview</a>
+      <a href="#fji-why">Why Fujiiryoki</a>
+      <a href="#fji-model-guide">Model Guide</a>
+      <a href="#fji-buyer-types">Buyer Guide</a>
+      <a href="#fji-vs-brands">vs. Brands</a>
+      <a href="#fji-pricing">Price Guide</a>
+      <a href="#fji-trust">Reviews</a>
+      <a href="#fji-showrooms">Showrooms</a>
+      <a href="#fji-faq">FAQ</a>
+    </div>
+  </nav>
+
+  {%- comment -%} ══════════════════ HERO ══════════════════ {%- endcomment -%}
+  <section class="fji-hero" id="fji-overview">
+    <div class="fji-hero-bg"></div>
+    <div class="fji-hero-grad"></div>
+    <div class="fji-hero-glow"></div>
+    <div class="fji-container fji-hero-content">
+      <div class="fji-hero-bc">
+        <a href="{{ shop.url }}">Home</a><span>/</span>
+        <a href="{{ shop.url }}/collections/massage-chairs">Massage Chairs</a><span>/</span>
+        <span style="color:rgba(255,255,255,.45)">Fujiiryoki</span>
+      </div>
+      <div class="fji-hero-eye">Authorized Fujiiryoki Dealer &middot; San Jose &amp; Pleasanton</div>
+      <h1>Fujiiryoki Massage Chairs &mdash;<br>Japanese Precision Engineering Guide</h1>
+      <p class="fji-hero-lead">The original Japanese massage chair brand &mdash; over seven decades of precision craftsmanship that defines how a premium massage should feel.</p>
+      <p class="fji-hero-sub">Fujiiryoki is not the loudest brand. It is the most precise. This guide helps you understand the Fujiiryoki philosophy, compare the Cyber Relax lineup, and choose with confidence.</p>
+      <div class="fji-hero-ctas">
+        <a href="#fji-collection" class="fji-btn fji-btn-gold">Shop All Fujiiryoki Models</a>
+        <a href="#fji-model-guide" class="fji-btn fji-btn-ghost">Explore Model Guide</a>
+        <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-ghost">Book Showroom Visit</a>
+      </div>
+      <div class="fji-hero-stats">
+        <div class="fji-hero-stat"><span class="fji-hero-stat-n">{{ collection.products_count }}</span><span class="fji-hero-stat-l">Fujiiryoki Models</span></div>
+        <div class="fji-hero-stat"><span class="fji-hero-stat-n">Est.&nbsp;1954</span><span class="fji-hero-stat-l">Japanese Heritage</span></div>
+        <div class="fji-hero-stat"><span class="fji-hero-stat-n">2</span><span class="fji-hero-stat-l">Bay Area Showrooms</span></div>
+        <div class="fji-hero-stat"><span class="fji-hero-stat-n">5.0&#9733;</span><span class="fji-hero-stat-l">Google (95+ Reviews)</span></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST BAR {%- endcomment -%}
+  <div class="fji-trust-bar">
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Authorized Fujiiryoki Dealer</div>
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>Try Before You Buy</div>
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-5.5 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>White-Glove Delivery</div>
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Manufacturer Warranty</div>
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg>Financing via Affirm</div>
+    <div class="fji-trust-item"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>HSA/FSA Eligible (with LMN)</div>
+  </div>
+
+  {%- comment -%} ══════════════════ SHOP COLLECTION ══════════════════ {%- endcomment -%}
+  <section class="fji-section" id="fji-collection" style="padding-top:4rem">
+    <div class="fji-container">
+      <div class="fji-product-header">
+        <div class="fji-product-header-inner">
+          <div>
+            <span class="fji-section-label">Full Collection</span>
+            <h2>Shop All Fujiiryoki Massage Chairs</h2>
+            <p>Every model available at HOMC &mdash; authorized dealer, full warranty, white-glove delivery included.</p>
+          </div>
+          <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-gold fji-btn-sm" style="flex-shrink:0">Book Showroom</a>
+        </div>
+      </div>
+      <div class="fji-filter-bar" id="fji-filter-bar">
+        <span class="fji-filter-label">Filter</span>
+        <button class="fji-filter-btn active" onclick="fujiFilter(this,'all','all')">All Models</button>
+        <div class="fji-filter-sep"></div>
+        <span class="fji-filter-label">Price</span>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'price','under5')">Under $5K</button>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'price','5to10')">$5K&ndash;$10K</button>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'price','over10')">$10K+</button>
+        <div class="fji-filter-sep"></div>
+        <span class="fji-filter-label">Type</span>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'type','cyber-relax')">Cyber Relax</button>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'type','ai')">AI Models</button>
+        <button class="fji-filter-btn" onclick="fujiFilter(this,'type','4d')">4D Models</button>
+        <span class="fji-filter-count" id="fji-count">{{ collection.products_count }} models</span>
+      </div>
+      <div class="fji-product-grid-wrap">
+        <div class="fji-product-grid" id="fji-grid"></div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem">
+        <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-gold">Try Any Fujiiryoki Chair at Our Showroom &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ QUICK ANSWER ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt fji-section-sm" style="padding-top:0">
+    <div class="fji-container">
+      <div class="fji-quick-answer">
+        <span class="fji-section-label" style="position:relative;z-index:1">Quick Reference</span>
+        <h2 style="color:#fff;font-size:clamp(22px,2.5vw,30px);margin-bottom:.4rem;position:relative;z-index:1">What You Need to Know About Fujiiryoki</h2>
+        <p style="color:rgba(255,255,255,.4);font-size:13px;position:relative;z-index:1">Direct answers for buyers who want clarity quickly.</p>
+        <div class="fji-qa-grid">
+          <div class="fji-qa-item"><h3>What are Fujiiryoki massage chairs?</h3><p>Fujiiryoki is the original Japanese massage chair brand, established in 1954. Their lineup is curated rather than broad &mdash; fewer models, each more precisely positioned, reflecting quality over quantity.</p></div>
+          <div class="fji-qa-item"><h3>Who are Fujiiryoki chairs best for?</h3><p>Buyers who prioritize how a massage feels over how many features a chair lists. Precision seekers who value body-fit accuracy, consistency of feel, and long-term build quality.</p></div>
+          <div class="fji-qa-item"><h3>What makes Fujiiryoki stand out?</h3><p>Japanese heritage and craftsmanship. AI-guided body scanning in the Cyber Relax Ai. A curated lineup with no filler models. A refined &ldquo;real hands&rdquo; massage feel that distinguishes the brand from feature-heavy competitors.</p></div>
+          <div class="fji-qa-item"><h3>Are Fujiiryoki chairs worth considering?</h3><p>Yes &mdash; for the right buyer. Fujiiryoki chairs reflect over 70 years of Japanese massage chair research. The value is in precision, consistency, and refined feel. Trying one in person reveals the difference immediately.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ WHY FUJIIRYOKI ══════════════════ {%- endcomment -%}
+  <section class="fji-section" id="fji-why">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">The Case for Fujiiryoki</span>
+        <h2>Why Serious Buyers Consider Fujiiryoki</h2>
+        <p>Fujiiryoki earns its place on premium buyers&rsquo; shortlists for specific, substantive reasons &mdash; not marketing claims.</p>
+      </div>
+      <div class="fji-pillar-grid">
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Japanese Heritage Since 1954</h3><p>Fujiiryoki is credited with producing one of the world&rsquo;s earliest massage chairs. Seven decades of dedicated engineering is reflected in how the chair feels against your body.</p></div>
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h3>Curated, Not Crowded Lineup</h3><p>Fujiiryoki produces fewer models intentionally. Each model is clearly positioned. No filler. No overlapping confusion. Buyers find the right chair faster.</p></div>
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>&ldquo;Real Hands&rdquo; Massage Feel</h3><p>Fujiiryoki&rsquo;s engineering prioritizes how the massage feels against the body &mdash; not roller count on paper. The result is a more natural, human-like quality experienced users consistently recognize.</p></div>
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25L9.4 10.5zm12.28 2.24H12.37l-2.68 4.63 4.77 8.26c2.6-.86 4.75-2.75 6.01-5.12L21.68 12.74zm-12.3.01L6.34 10H2.04C2.01 10.33 2 10.66 2 11c0 3.51 1.81 6.59 4.54 8.38L9.38 12.75zM20.45 7.63A9.97 9.97 0 0015.2 4.1l-3.04 5.25h6.81a9.99 9.99 0 001.48-1.72z"/></svg></div><h3>AI-Guided Body Scanning</h3><p>The Cyber Relax Ai uses AI-guided body scanning to adapt massage paths in real time to your unique spinal curve and shoulder width &mdash; not a fixed program applied uniformly to everyone.</p></div>
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><h3>Premium Build Quality</h3><p>Materials, mechanisms, and upholstery selected for long-term durability and premium tactile feel. Fujiiryoki chairs are designed to be used daily for years.</p></div>
+        <div class="fji-pillar-card"><div class="fji-pillar-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><h3>Refined Daily Comfort</h3><p>Fujiiryoki chairs deliver a controlled, consistent massage feel. Precisely calibrated &mdash; quality that improves with repeated daily use rather than fatiguing the senses.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ FEATURE IMAGE ══════════════════ {%- endcomment -%}
+  <section style="padding:0;background:#0a0a0a">
+    <div class="fji-container" style="padding-bottom:3rem">
+      <div class="fji-feature-img-wrap">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0649/9516/4367/files/fujiiryoki-feature-hero_37dcaba2-1b56-412f-b2f0-f6158bfaa61c.jpg?v=1776368785"
+          alt="Fujiiryoki Cyber Relax Massage Chair — Engineering Overview: AI Body Scan, 4D Roller Mechanism, Airbag System, Heated Lumbar, Zero Gravity Positioning"
+          loading="lazy"
+        >
+        <div class="fji-feature-img-caption">Fujiiryoki Cyber Relax &mdash; Six-System Engineering Overview &middot; Authorized Dealer: House of Massage Chairs</div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ AT A GLANCE ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Brand Intelligence</span>
+        <h2>Fujiiryoki Massage Chairs at a Glance</h2>
+      </div>
+      <div class="fji-glance-grid">
+        <table class="fji-glance-table">
+          <tr><td>Brand Origin</td><td>Japan (established 1954)</td></tr>
+          <tr><td>Price Range</td><td>Accessible premium through flagship — contact us for current pricing</td></tr>
+          <tr><td>Signature Strength</td><td>Precision engineering, refined massage feel, AI body scanning, Japanese craftsmanship</td></tr>
+          <tr><td>Massage Feel</td><td>Controlled, precise, consistent — &ldquo;real hands&rdquo; quality perception</td></tr>
+          <tr><td>Roller Technology</td><td>4D and dual mechanisms in premium Cyber Relax models</td></tr>
+          <tr><td>Body Scan / AI</td><td>AI-guided scanning in Cyber Relax Ai; advanced scanning across lineup</td></tr>
+          <tr><td>Best Fit</td><td>Japanese craftsmanship seekers, precision buyers, quality-over-quantity buyers</td></tr>
+          <tr><td>May Not Suit</td><td>Buyers prioritizing maximum feature density or very aggressive intensity above all else</td></tr>
+        </table>
+        <div class="fji-glance-verdict">
+          <h3>Specialist Assessment</h3>
+          <div class="fji-verdict-item"><div class="fji-verdict-dot"></div><p><strong style="color:rgba(255,255,255,.85)">For Japanese engineering seekers</strong> &mdash; Fujiiryoki is the original. No other brand brings the same heritage and research depth to the massage chair category.</p></div>
+          <div class="fji-verdict-item"><div class="fji-verdict-dot"></div><p><strong style="color:rgba(255,255,255,.85)">For precision over power</strong> &mdash; the massage feel is refined and controlled, not aggressive. Buyers who want subtlety and consistency consistently prefer Fujiiryoki.</p></div>
+          <div class="fji-verdict-item"><div class="fji-verdict-dot"></div><p><strong style="color:rgba(255,255,255,.85)">For curated simplicity</strong> &mdash; the model range is intentional, not sprawling. Choosing the right Fujiiryoki chair is genuinely easier than navigating a 20-model lineup.</p></div>
+          <div class="fji-verdict-item"><div class="fji-verdict-dot"></div><p><strong style="color:rgba(255,255,255,.85)">For maximum intensity</strong> &mdash; Osaki Duo models or Bodyfriend XD Pro deliver more assertive pressure than Fujiiryoki&rsquo;s refined profile.</p></div>
+          <div class="fji-verdict-item"><div class="fji-verdict-dot"></div><p><strong style="color:rgba(255,255,255,.85)">For Bay Area buyers</strong> &mdash; Fujiiryoki is available to try in person at our San Jose and Pleasanton showrooms with specialist guidance.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ WHO IT'S FOR ══════════════════ {%- endcomment -%}
+  <section class="fji-section">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Fit Guide</span>
+        <h2>Who Fujiiryoki Is For &mdash; and Who It May Not Be</h2>
+        <p>Honest, specific guidance. Knowing where a brand excels and where it does not is what separates a specialist from a catalogue.</p>
+      </div>
+      <div class="fji-for-grid">
+        <div class="fji-for-card">
+          <div class="fji-for-badge yes">&#10003; Fujiiryoki is a strong fit for</div>
+          <ul class="fji-for-list">
+            <li><div class="fji-for-dot yes"></div><span><strong>Japanese engineering seekers</strong> who want the original, heritage-backed massage chair brand</span></li>
+            <li><div class="fji-for-dot yes"></div><span><strong>Precision buyers</strong> who value body-fit accuracy, consistency of feel, and ergonomic specificity</span></li>
+            <li><div class="fji-for-dot yes"></div><span><strong>AI-guided massage seekers</strong> who want a chair that adapts to their body, not a fixed program</span></li>
+            <li><div class="fji-for-dot yes"></div><span><strong>Daily users</strong> who prioritize long-term build quality and consistent performance</span></li>
+            <li><div class="fji-for-dot yes"></div><span><strong>Buyers upgrading</strong> from commodity massage chairs to genuine premium craftsmanship</span></li>
+            <li><div class="fji-for-dot yes"></div><span><strong>4D dual performance buyers</strong> seeking Japanese precision mechanisms</span></li>
+          </ul>
+        </div>
+        <div class="fji-for-card alt">
+          <div class="fji-for-badge no">Consider alternatives if</div>
+          <ul class="fji-for-list">
+            <li><div class="fji-for-dot no"></div><span><strong>Maximum feature density is the primary driver</strong> &mdash; Osaki offers significantly more features per dollar</span></li>
+            <li><div class="fji-for-dot no"></div><span><strong>Very high intensity is the only goal</strong> &mdash; Osaki Duo or Bodyfriend XD Pro delivers more assertive pressure</span></li>
+            <li><div class="fji-for-dot no"></div><span><strong>An ultra-wide model selection is desired</strong> &mdash; Osaki or Infinity have broader lineups at more price points</span></li>
+            <li><div class="fji-for-dot no"></div><span><strong>Budget below the premium range</strong> &mdash; Fujiiryoki occupies the accessible-premium to flagship tier</span></li>
+            <li><div class="fji-for-dot no"></div><span><strong>Furniture-forward design integration is the priority</strong> &mdash; Ogawa and Bodyfriend lean more aesthetic-first</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="fji-expert-callout" style="margin-top:1.75rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Specialist note:</strong> The most consistent feedback from Fujiiryoki buyers is that trying the chair in person changes everything. Specs and reviews don&rsquo;t convey the feel of Japanese precision engineering. We strongly recommend a showroom visit before any Fujiiryoki purchase.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ MODEL GUIDE ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt" id="fji-model-guide">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Model Intelligence</span>
+        <h2>Understanding the Fujiiryoki Lineup</h2>
+        <p>Each Fujiiryoki model is intentionally positioned. Understanding the distinctions helps you choose with clarity.</p>
+      </div>
+
+      {%- for product in collection.products limit:50 -%}
+        {%- assign tags_low = product.tags | join: ',' | downcase -%}
+        {%- assign tier_label = 'Premium Japanese Massage Chair' -%}
+        {%- if product.metafields.custom.badge.value != blank -%}
+          {%- assign tier_label = product.metafields.custom.badge.value -%}
+        {%- elsif tags_low contains 'ai' or product.title contains 'Ai' -%}{%- assign tier_label = 'AI-Guided Precision' -%}
+        {%- elsif tags_low contains '4d' or product.title contains '4D' -%}{%- assign tier_label = '4D Dual Performance' -%}
+        {%- elsif tags_low contains 'flagship' -%}{%- assign tier_label = 'Flagship Model' -%}
+        {%- elsif tags_low contains 'calm' -%}{%- assign tier_label = 'Accessible Premium' -%}
+        {%- endif -%}
+        <div class="fji-model-entry">
+          <div class="fji-model-side">
+            <div>
+              <div class="fji-model-tier">{{ tier_label }}</div>
+              <h3>{{ product.title }}</h3>
+              <p class="fji-model-side-desc">{{ product.metafields.custom.short_description.value | default: product.description | strip_html | truncate: 100 }}</p>
+            </div>
+            <div class="fji-model-side-imgbox">
+              <a href="{{ product.url }}" style="display:block;width:100%;height:100%">
+                <img class="fji-model-side-img" src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}" loading="lazy">
+              </a>
+            </div>
+            <div class="fji-model-price-band">From <span>{{ product.price | money }}</span></div>
+          </div>
+          <div class="fji-model-body">
+            <div class="fji-model-best">Best for: {{ product.metafields.custom.buyer_for.value | default: 'Premium Japanese massage buyers' }}</div>
+            <h4>{{ product.metafields.custom.model_headline.value | default: 'Why buyers choose this model' }}</h4>
+            <p>{{ product.metafields.custom.model_description.value | default: product.description | strip_html | truncate: 400 }}</p>
+            <div class="fji-model-traits">
+              {%- for tag in product.tags -%}
+                {%- unless tag == 'featured-model' or tag == 'featured_model' -%}
+                  <span class="fji-trait">{{ tag }}</span>
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+            {%- if product.metafields.custom.tradeoff.value != blank -%}
+              <div class="fji-model-tradeoff"><strong>Honest tradeoff:</strong> {{ product.metafields.custom.tradeoff.value }}</div>
+            {%- endif -%}
+            <a href="{{ product.url }}" class="fji-model-link">View {{ product.title | truncate: 32 }} Details &rarr;</a>
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <div class="fji-expert-callout" style="margin-top:1.25rem">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p>All {{ collection.products_count }} Fujiiryoki models are in the <a href="#fji-collection">collection above</a> with live pricing. <a href="{{ shop.url }}/pages/our-store">Book a showroom visit</a> to compare them in person with specialist guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ BUYER TYPES ══════════════════ {%- endcomment -%}
+  <section class="fji-section" id="fji-buyer-types">
+    <div class="fji-container">
+      <div class="fji-section-header center">
+        <span class="fji-section-label">Decision Support</span>
+        <h2>Best Fujiiryoki Chair by Buyer Type</h2>
+        <p>The best Fujiiryoki chair depends on who is using it, how, and what they value most.</p>
+      </div>
+      <div class="fji-buyer-grid">
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25L9.4 10.5zm12.28 2.24H12.37l-2.68 4.63 4.77 8.26c2.6-.86 4.75-2.75 6.01-5.12L21.68 12.74zm-12.3.01L6.34 10H2.04C2.01 10.33 2 10.66 2 11c0 3.51 1.81 6.59 4.54 8.38L9.38 12.75zM20.45 7.63A9.97 9.97 0 0015.2 4.1l-3.04 5.25h6.81a9.99 9.99 0 001.48-1.72z"/></svg></div><div class="fji-buyer-type">Japanese Craftsmanship Seekers</div><h3>Best for Heritage &amp; Precision</h3><p>Buyers who want the original Japanese engineering pedigree and an authentic massage experience above all else.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Elite or Cyber Relax Ai</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div><div class="fji-buyer-type">AI-Guided Precision Buyers</div><h3>Best for Adaptive Intelligence</h3><p>Buyers who want a chair that reads their body and adjusts the massage path &mdash; not a fixed program applied to everyone the same way.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Ai</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="fji-buyer-type">Flagship Performance Buyers</div><h3>Best for 4D Dual Performance</h3><p>Buyers who want Fujiiryoki&rsquo;s most advanced mechanism &mdash; the 4D dual roller system with Japanese precision.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Pro 4D Dual</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div><div class="fji-buyer-type">Accessible Premium Buyers</div><h3>Best for Accessible Japanese Quality</h3><p>First-time Fujiiryoki buyers who want genuine Japanese engineering at a more moderate investment.</p><div class="fji-buyer-rec">&rarr; MR-6000 Calm Plus</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C7.81 18 6 15.21 6 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg></div><div class="fji-buyer-type">Daily Home Recovery</div><h3>Best for Consistent Daily Use</h3><p>Buyers who will use their chair every day and want a massage chair built for long-term consistency, not just impressive at first sit.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Elite or Cyber Relax Ai</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-4-4 1.41-1.41L11 13.17l6.59-6.59L19 8l-8 8z"/></svg></div><div class="fji-buyer-type">First-Time Premium Buyers</div><h3>Best for a First Premium Purchase</h3><p>Buyers making their first serious upgrade who want genuine premium craftsmanship without committing to a flagship price point.</p><div class="fji-buyer-rec">&rarr; MR-6000 Calm Plus</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="fji-buyer-type">Refined Feel Seekers</div><h3>Best for the Most Refined Massage</h3><p>Buyers who want the most nuanced, controlled &ldquo;real hands&rdquo; feeling Fujiiryoki offers &mdash; precision over power.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Ai or Cyber Relax Elite</div></div>
+        <div class="fji-buyer-card"><div class="fji-buyer-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><div class="fji-buyer-type">4D Technology Seekers</div><h3>Best for 4D Dual Mechanism</h3><p>Buyers specifically seeking 4D dual roller massage technology with the backing of Japanese Fujiiryoki engineering and quality control.</p><div class="fji-buyer-rec">&rarr; Cyber Relax Pro 4D Dual</div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ VS BRANDS ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt" id="fji-vs-brands">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Brand Comparison</span>
+        <h2>Fujiiryoki vs. Other Premium Brands</h2>
+        <p>We carry multiple premium massage chair brands, which puts us in a genuine position to offer honest comparative guidance &mdash; not brand loyalty.</p>
+      </div>
+      <div class="fji-compare-wrap" style="margin-bottom:2rem">
+        <table class="fji-compare-table">
+          <thead><tr><th>Comparison Point</th><th class="fji-fji-col">Fujiiryoki &#9733;</th><th>Osaki</th><th>Infinity</th><th>Ogawa</th><th>Cozzia</th></tr></thead>
+          <tbody>
+            <tr><td class="fji-col-feat">Brand Origin</td><td class="fji-fji-col">Japan (est. 1954)</td><td>US-market</td><td>US-market</td><td>Malaysia</td><td>US-market</td></tr>
+            <tr><td class="fji-col-feat">Massage Feel</td><td class="fji-fji-col fji-check">Precise, refined, &ldquo;real hands&rdquo;</td><td>Assertive, strong</td><td>Medium to deep</td><td>Medium to strong</td><td>Medium, VarioMotion</td></tr>
+            <tr><td class="fji-col-feat">Feature Density per $</td><td class="fji-fji-col">Curated premium</td><td>Very high</td><td>Very high</td><td>High</td><td>High</td></tr>
+            <tr><td class="fji-col-feat">Model Range</td><td class="fji-fji-col fji-check">Focused ({{ collection.products_count }} models)</td><td>Very wide (20+)</td><td>Wide (10+)</td><td>Moderate</td><td>Moderate (5)</td></tr>
+            <tr><td class="fji-col-feat">AI / Body Scanning</td><td class="fji-fji-col fji-check">&#10003; Cyber Relax Ai</td><td>&#10003; Multiple</td><td>&#10003; TrueFit</td><td>&#10003; Selected</td><td>&#10003; Selected</td></tr>
+            <tr><td class="fji-col-feat">4D Technology</td><td class="fji-fji-col fji-check">&#10003; Cyber Relax Pro</td><td>&#10003; Multiple</td><td>&#10003; Multiple</td><td>&#10003; Selected</td><td>&#10003; Selected</td></tr>
+            <tr><td class="fji-col-feat">Try at HOMC</td><td class="fji-fji-col fji-check">&#10003; San Jose &amp; Pleasanton</td><td>&#10003; Both</td><td>&#10003; Both</td><td>&#10003; San Jose</td><td>&#10003; Both</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fji-answer-grid">
+        <div class="fji-answer-block"><h3>Fujiiryoki vs. Osaki</h3><p>Osaki delivers more features per dollar and stronger intensity &mdash; particularly through their Duo dual-engine lineup. Fujiiryoki delivers more precision, refined Japanese craftsmanship, and a quieter premium identity. Choose Fujiiryoki for quality of feel; Osaki for feature breadth and assertive power.</p></div>
+        <div class="fji-answer-block"><h3>Fujiiryoki vs. Infinity</h3><p>Infinity offers their proprietary Syner-D tandem-roller technology and stretch-dominant profiles. Fujiiryoki offers Japanese precision engineering and a more controlled, human-feeling massage. Both serve daily users well; the feel is distinctly different. Try both at our showroom.</p></div>
+        <div class="fji-answer-block"><h3>Fujiiryoki vs. Ogawa</h3><p>Both position as premium, quality-conscious brands. Ogawa leans more toward luxury aesthetics and design integration; Fujiiryoki leans more toward Japanese engineering precision. Buyers who value form often lean Ogawa; buyers who value function-first legacy lean Fujiiryoki.</p></div>
+        <div class="fji-answer-block"><h3>Fujiiryoki vs. Cozzia</h3><p>Cozzia offers VarioMotion technology and a broader five-model tier ladder. Fujiiryoki offers more focused Japanese craftsmanship positioning. Both appeal to quality-feel buyers; the distinction lies in brand philosophy &mdash; American-market engineering vs. Japanese heritage precision.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ PRICE GUIDE ══════════════════ {%- endcomment -%}
+  <section class="fji-section" id="fji-pricing">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Investment Guide</span>
+        <h2>Fujiiryoki Prices, Value &amp; Ownership</h2>
+        <p>What changes as you invest more in Fujiiryoki &mdash; and what type of buyer sees the most value at each tier.</p>
+      </div>
+      <div class="fji-price-ladder" style="margin-bottom:2rem">
+        <div class="fji-price-rung"><div class="fji-price-rung-label"><div class="fji-price-tier-name">Accessible</div><div class="fji-price-amount">Entry Tier</div></div><div class="fji-price-rung-body"><h4>Core Fujiiryoki Quality at an Accessible Price</h4><p>The MR-6000 Calm Plus delivers the fundamental Fujiiryoki engineering philosophy &mdash; refined massage feel, premium build quality, and Japanese craftsmanship hallmarks at the most accessible entry into the brand.</p><div class="fji-price-tags"><span class="fji-price-tag">MR-6000 Calm Plus</span></div></div></div>
+        <div class="fji-price-rung"><div class="fji-price-rung-label"><div class="fji-price-tier-name">Upper Premium</div><div class="fji-price-amount">Cyber Relax</div></div><div class="fji-price-rung-body"><h4>The Full Cyber Relax Experience</h4><p>The Cyber Relax Elite represents the Fujiiryoki brand at its most expressive: premium materials, refined programming, and the consistent build quality daily users consistently praise.</p><div class="fji-price-tags"><span class="fji-price-tag">Cyber Relax Elite</span></div></div></div>
+        <div class="fji-price-rung"><div class="fji-price-rung-label"><div class="fji-price-tier-name">Flagship</div><div class="fji-price-amount">Cyber Relax Pro</div></div><div class="fji-price-rung-body"><h4>4D Dual Mechanisms &mdash; Fujiiryoki&rsquo;s Performance Peak</h4><p>The Cyber Relax Pro 4D Dual brings dual roller mechanisms with 4D technology &mdash; broader coverage, greater depth, and the engineering precision Japanese flagship buyers expect.</p><div class="fji-price-tags"><span class="fji-price-tag">Cyber Relax Pro 4D Dual</span></div></div></div>
+        <div class="fji-price-rung"><div class="fji-price-rung-label"><div class="fji-price-tier-name">AI Precision</div><div class="fji-price-amount">Cyber Relax Ai</div></div><div class="fji-price-rung-body"><h4>AI-Guided Intelligence &mdash; The Adaptive Fujiiryoki</h4><p>The Cyber Relax Ai uses AI body scanning to adapt its massage path in real time. Not a one-size program &mdash; a genuinely personalized Japanese massage experience for daily-use buyers.</p><div class="fji-price-tags"><span class="fji-price-tag">Cyber Relax Ai</span></div></div></div>
+      </div>
+      <div class="fji-expert-callout">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <p><strong>Beyond the price tag:</strong> Fujiiryoki ownership value compounds over time. A chair used daily for years at consistent quality is worth more than a chair that impresses for six months. Every HOMC Fujiiryoki purchase includes white-glove delivery, authorized warranty coordination, and specialist post-purchase support.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ TRUST / REVIEWS ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt" id="fji-trust">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Reviews &amp; Reliability</span>
+        <h2>Are Fujiiryoki Massage Chairs Good?</h2>
+        <p>Honest context on Fujiiryoki&rsquo;s reputation, how to read reviews intelligently, and what to verify before purchasing.</p>
+      </div>
+      <div class="fji-trust-grid" style="margin-bottom:2.5rem">
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>How to Read Fujiiryoki Reviews</h3><p>Fujiiryoki has a smaller U.S. install base than volume-focused brands &mdash; review quantity does not reflect quality. Look for model-specific feedback, patterns around body fit and massage feel, and verified purchase reviews.</p></div>
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><h3>Authorized Dealer Matters</h3><p>Buying from an authorized specialist like HOMC ensures genuine Fujiiryoki products with valid manufacturer warranties, professional setup, and legitimate customer service. Unauthorized marketplace sellers may not honor warranty claims.</p></div>
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></div><h3>Warranty &amp; Support</h3><p>Fujiiryoki massage chairs include manufacturer-backed warranties covering parts, labor, and frame. HOMC handles all warranty coordination on your behalf.</p></div>
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg></div><h3>Japanese Engineering Reliability</h3><p>Fujiiryoki&rsquo;s 70+ year engineering heritage is reflected in how their chairs are built to last. Japanese manufacturing standards prioritize long-term durability and consistent performance.</p></div>
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l5-10.67h1l-1 7h3.5c.49 0 .56.33.47.51L11 21z"/></svg></div><h3>What to Verify Before Buying</h3><p>Confirm the model fits your height and body type. Understand whether you need AI-guided scanning, 4D dual mechanisms, or the core Cyber Relax experience. Confirm delivery includes professional setup.</p></div>
+        <div class="fji-trust-card"><div class="fji-trust-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div><h3>Why Buy from a Specialist</h3><p>A specialist retailer like HOMC brings genuine product knowledge, in-person Fujiiryoki demonstrations, impartial comparison across brands, and post-sale support that online-only retailers cannot match.</p></div>
+      </div>
+      <div class="fji-section-header center" style="margin-bottom:1.75rem"><h2 style="font-size:24px">What Our Customers Say</h2></div>
+      <div class="fji-review-grid">
+        <div class="fji-review-card"><div class="fji-review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="fji-review-text">&ldquo;We had a very wonderful experience purchasing our massage chair. This was probably one of the best shopping experiences I&rsquo;ve ever had. The specialist was incredibly knowledgeable and patient.&rdquo;</p><div class="fji-review-author"><div class="fji-review-avatar" style="background:var(--fji-accent)">S</div><div><div class="fji-review-name">Selena Protacio</div><div class="fji-review-meta">Verified Google Review &middot; HOMC San Jose</div></div></div></div>
+        <div class="fji-review-card"><div class="fji-review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="fji-review-text">&ldquo;We weren&rsquo;t planning to purchase that day, but after our specialist walked us through the differences between the Fujiiryoki models and let us try each one, we left with exactly the right chair.&rdquo;</p><div class="fji-review-author"><div class="fji-review-avatar" style="background:#4285F4">R</div><div><div class="fji-review-name">Richard Nakano</div><div class="fji-review-meta">Verified Google Review &middot; 2 weeks ago</div></div></div></div>
+        <div class="fji-review-card"><div class="fji-review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="fji-review-text">&ldquo;Our specialist was fantastic &mdash; patient, knowledgeable, and clear about what distinguished each model. We never felt rushed. The quality difference between Japanese brands and others is real.&rdquo;</p><div class="fji-review-author"><div class="fji-review-avatar" style="background:#0F9D58">C</div><div><div class="fji-review-name">Charles Perng</div><div class="fji-review-meta">Verified Google Review &middot; Pleasanton showroom</div></div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://maps.app.goo.gl/sDfsbhFGdimqmUPg9" target="_blank" rel="noopener" class="fji-btn fji-btn-outline">Read All 95+ Google Reviews &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ SHOWROOMS ══════════════════ {%- endcomment -%}
+  <section class="fji-section" id="fji-showrooms">
+    <div class="fji-container">
+      <div class="fji-section-header">
+        <span class="fji-section-label">Try Fujiiryoki Near You</span>
+        <h2>Bay Area Fujiiryoki Showrooms</h2>
+        <p>Trying Fujiiryoki in person matters more than any spec sheet or review. HOMC is the Bay Area&rsquo;s most comprehensive authorized Fujiiryoki showroom.</p>
+      </div>
+      <div class="fji-showroom-grid">
+        <div class="fji-showroom-card">
+          <div class="fji-showroom-head">
+            <div class="fji-showroom-pill">San Jose Showroom</div>
+            <h3>Westfield Oakridge Mall &middot; San Jose, CA</h3>
+            <p>Our flagship Bay Area showroom &mdash; the region&rsquo;s most comprehensive premium massage chair destination.</p>
+          </div>
+          <div class="fji-showroom-body">
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>925 Blossom Hill Road</strong>, Westfield Oakridge, San Jose, CA 95123</span></div>
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>All Fujiiryoki Cyber Relax models available to try with specialist guidance</span></div>
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--fji-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="fji-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-gold fji-btn-sm">Book Visit</a>
+              <a href="https://maps.app.goo.gl/ehT7pia8SFpTUYi96" target="_blank" rel="noopener" class="fji-btn fji-btn-outline fji-btn-sm">Get Directions</a>
+            </div>
+          </div>
+        </div>
+        <div class="fji-showroom-card">
+          <div class="fji-showroom-head">
+            <div class="fji-showroom-pill">Pleasanton Showroom</div>
+            <h3>Stoneridge Shopping Center &middot; Pleasanton, CA</h3>
+            <p>Serving the Tri-Valley, East Bay, and Livermore Valley with expert Fujiiryoki guidance.</p>
+          </div>
+          <div class="fji-showroom-body">
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span><strong>1116 Stoneridge Mall Rd</strong>, Pleasanton, CA 94566</span></div>
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Fujiiryoki models available to try in person &mdash; no appointment needed</span></div>
+            <div class="fji-showroom-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span><a href="tel:+16692148889" style="color:var(--fji-dark);font-weight:700">+1 (669) 214-8889</a></span></div>
+            <div class="fji-showroom-btns">
+              <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-gold fji-btn-sm">Book Visit</a>
+              <a href="{{ shop.url }}/pages/contact" class="fji-btn fji-btn-outline fji-btn-sm">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ FAQ ══════════════════ {%- endcomment -%}
+  <section class="fji-section fji-section-alt" id="fji-faq">
+    <div class="fji-container-narrow">
+      <div class="fji-section-header center">
+        <span class="fji-section-label">Frequently Asked</span>
+        <h2>Fujiiryoki Massage Chair FAQ</h2>
+      </div>
+      <div style="border-top:1px solid var(--fji-border)">
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Are Fujiiryoki massage chairs worth it?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>Yes &mdash; for buyers who value precision and quality of massage feel over feature quantity. Fujiiryoki chairs reflect over 70 years of Japanese engineering heritage. The value becomes most apparent after 30+ days of daily use when the consistency of the massage experience stands out compared to other brands.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>What is the best Fujiiryoki massage chair?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>The best Fujiiryoki chair depends on your body type, use case, and budget. For AI-guided adaptive precision: the Cyber Relax Ai. For 4D dual performance: the Cyber Relax Pro. For refined core experience: the Cyber Relax Elite. For accessible Japanese quality: the MR-6000 Calm Plus. We match buyers at our San Jose and Pleasanton showrooms.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Are Fujiiryoki massage chairs good?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>Yes. Fujiiryoki is one of the most respected Japanese massage chair brands globally, with a heritage dating to 1954. Their chairs are consistently praised by multi-brand buyers for precision engineering, refined massage feel, and long-term reliability.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Can I try Fujiiryoki massage chairs in person?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>Yes. House of Massage Chairs carries Fujiiryoki models at our San Jose showroom at Westfield Oakridge Mall and our Pleasanton location at Stoneridge Shopping Center. We strongly recommend trying Fujiiryoki in person before purchasing. <a href="{{ shop.url }}/pages/our-store">Book your visit here.</a></p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Where can I buy authentic Fujiiryoki massage chairs?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>House of Massage Chairs is an authorized Fujiiryoki dealer with showrooms in San Jose and Pleasanton, CA. Buying from an authorized specialist ensures genuine Fujiiryoki products, valid manufacturer warranties, professional white-glove delivery and setup, and specialist post-purchase support.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>What is the difference between Fujiiryoki models?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>The MR-6000 Calm Plus is the accessible entry. The Cyber Relax Elite is the core Cyber Relax experience. The Cyber Relax Pro 4D Dual adds a 4D dual mechanism for broader, more assertive coverage. The Cyber Relax Ai adds AI-guided body scanning for adaptive precision. Each model has a clear purpose &mdash; no filler.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Do Fujiiryoki chairs come with warranty?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>Yes. Fujiiryoki massage chairs include manufacturer-backed warranties covering parts, labor, and structural frame. HOMC assists with all warranty coordination on your behalf &mdash; you do not navigate that process alone.</p></div></div>
+        <div class="fji-faq-item"><div class="fji-faq-q" onclick="fjiFaq(this)"><h3>Is Fujiiryoki a good brand compared with competitors?</h3><svg class="fji-faq-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="fji-faq-a"><p>Yes &mdash; Fujiiryoki is a highly credible premium Japanese massage chair brand with genuine engineering heritage. Compared with feature-dense brands, Fujiiryoki prioritizes precision and quality of feel over volume of features. For buyers who align with that philosophy, Fujiiryoki is one of the best choices in the premium segment.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ FINAL CTA ══════════════════ {%- endcomment -%}
+  <section class="fji-section">
+    <div class="fji-container">
+      <div class="fji-final-cta">
+        <div class="fji-final-cta-inner">
+          <span style="display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.3);margin-bottom:1rem">Authorized Fujiiryoki Dealer &middot; San Jose &amp; Pleasanton</span>
+          <h2>Experience Fujiiryoki Precision.<br>Choose with Complete Confidence.</h2>
+          <p>The best way to understand what separates Fujiiryoki from other massage chair brands is to feel it. Our specialists guide you through the full lineup &mdash; body-fit, precision, massage quality, and model distinctions &mdash; without pressure, without rushing, with genuine expertise.</p>
+          <div class="fji-cta-points">
+            <div class="fji-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Try all Fujiiryoki models side by side</span></div>
+            <div class="fji-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Compare with 8 other premium brands</span></div>
+            <div class="fji-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>Expert guidance, zero pressure</span></div>
+            <div class="fji-cta-point"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg><span>White-glove delivery &amp; setup included</span></div>
+          </div>
+          <div class="fji-final-cta-btns">
+            <a href="{{ shop.url }}/pages/our-store" class="fji-btn fji-btn-gold">Book a Showroom Visit</a>
+            <a href="{{ shop.url }}/pages/contact" class="fji-btn fji-btn-ghost">Speak With a Specialist</a>
+            <a href="tel:+16692148889" class="fji-btn fji-btn-ghost">Call +1 (669) 214-8889</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} INTERNAL LINKS {%- endcomment -%}
+  <div style="padding:3rem 0;background:var(--fji-surface);border-top:1px solid var(--fji-border)">
+    <div class="fji-container">
+      <div style="text-align:center;margin-bottom:1.25rem"><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--fji-muted2)">Explore More</span></div>
+      <div class="fji-link-pills">
+        <a href="{{ shop.url }}/collections/massage-chairs" class="fji-link-pill">All Massage Chairs</a>
+        <a href="{{ shop.url }}/collections/osaki" class="fji-link-pill">Osaki</a>
+        <a href="{{ shop.url }}/collections/infinity" class="fji-link-pill">Infinity</a>
+        <a href="{{ shop.url }}/collections/ogawa" class="fji-link-pill">Ogawa</a>
+        <a href="{{ shop.url }}/collections/kyota" class="fji-link-pill">Kyota</a>
+        <a href="{{ shop.url }}/collections/cozzia" class="fji-link-pill">Cozzia</a>
+        <a href="{{ shop.url }}/pages/our-store" class="fji-link-pill">Our Showrooms</a>
+        <a href="{{ shop.url }}/pages/about-us" class="fji-link-pill">About HOMC</a>
+        <a href="{{ shop.url }}/blogs/news" class="fji-link-pill">Blog &amp; Guides</a>
+        <a href="{{ shop.url }}/pages/contact" class="fji-link-pill">Contact a Specialist</a>
+      </div>
+    </div>
+  </div>
+
+</div>{%- comment -%} /fji-wrap {%- endcomment -%}
+
+{%- comment -%} ══════════════════ JAVASCRIPT ══════════════════ {%- endcomment -%}
+<script>
+// ── PRODUCT DATA ────────────────────────────────────────────────────────────
+var FJI_PRODUCTS = [
+  {%- for product in collection.products limit:50 -%}
+    {%- assign feat_img = product.featured_image | image_url: width: 600 -%}
+    {%- assign tags_low = product.tags | join: ',' | downcase -%}
+
+    {%- comment -%} Build type tag array {%- endcomment -%}
+    {%- assign ftags = '' -%}
+    {%- if tags_low contains 'cyber-relax' or product.title contains 'Cyber' -%}{%- assign ftags = ftags | append: '"cyber-relax",' -%}{%- endif -%}
+    {%- if tags_low contains 'ai' or product.title contains ' Ai' -%}{%- assign ftags = ftags | append: '"ai",' -%}{%- endif -%}
+    {%- if tags_low contains '4d' or product.title contains '4D' -%}{%- assign ftags = ftags | append: '"4d",' -%}{%- endif -%}
+    {%- assign ftags = ftags | remove_last: ',' -%}
+
+    {%- comment -%} Badge auto-detect {%- endcomment -%}
+    {%- assign auto_badge = product.metafields.custom.badge.value | default: '' -%}
+    {%- assign auto_bc = product.metafields.custom.badge_class.value | default: 'standard' -%}
+    {%- if auto_badge == '' -%}
+      {%- assign title_l = product.title | downcase -%}
+      {%- if title_l contains ' ai' or tags_low contains 'ai' -%}{%- assign auto_badge = 'AI' -%}{%- assign auto_bc = 'gold' -%}
+      {%- elsif title_l contains 'pro' or tags_low contains 'flagship' -%}{%- assign auto_badge = 'Flagship' -%}{%- assign auto_bc = 'flagship' -%}
+      {%- elsif title_l contains '4d' or tags_low contains '4d' -%}{%- assign auto_badge = '4D' -%}{%- assign auto_bc = 'gold' -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- comment -%} Features: use metafield or fallback {%- endcomment -%}
+    {%- assign feats_raw = product.metafields.custom.key_features.value | default: '["Premium Japanese engineering","Refined massage feel","Advanced body scanning","Premium build quality"]' -%}
+
+    {
+      n: {{ product.title | json }},
+      u: {{ product.url | prepend: shop.url | json }},
+      img: {{ feat_img | json }},
+      p: {{ product.price | money | json }},
+      pc: {{ product.price }},
+      cp: {% if product.compare_at_price > product.price %}{{ product.compare_at_price | money | json }}{% else %}null{% endif %},
+      tags: [{{ ftags }}],
+      badge: {{ auto_badge | json }},
+      bc: {{ auto_bc | json }},
+      bFor: {{ product.metafields.custom.buyer_for.value | default: product.type | default: 'Premium Japanese' | json }},
+      feats: {{ feats_raw }}
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+];
+
+// ── FILTER ──────────────────────────────────────────────────────────────────
+var _fjiFilter = {type:'all',value:'all'};
+
+function fujiFilter(btn, type, value) {
+  document.querySelectorAll('#fji-filter-bar .fji-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  _fjiFilter = {type:type, value:value};
+  fjiBuildGrid();
+}
+
+function fjiFiltered() {
+  return FJI_PRODUCTS.filter(function(p) {
+    if (_fjiFilter.type === 'all') return true;
+    if (_fjiFilter.type === 'price') {
+      var pc = p.pc / 100;
+      if (_fjiFilter.value === 'under5')  return pc < 5000;
+      if (_fjiFilter.value === '5to10')   return pc >= 5000 && pc < 10000;
+      if (_fjiFilter.value === 'over10')  return pc >= 10000;
+    }
+    if (_fjiFilter.type === 'type') return p.tags.indexOf(_fjiFilter.value) !== -1;
+    return true;
+  });
+}
+
+function fjiBuildGrid() {
+  var grid = document.getElementById('fji-grid');
+  var countEl = document.getElementById('fji-count');
+  var prods = fjiFiltered();
+  if (countEl) countEl.textContent = prods.length + ' model' + (prods.length !== 1 ? 's' : '');
+  if (!grid) return;
+  if (prods.length === 0) {
+    grid.innerHTML = '<div class="fji-no-results"><p style="font-size:15px">No models match this filter. <a href="#" onclick="fujiFilter(document.querySelector(\'.fji-filter-btn\'),\'all\',\'all\');return false;" style="color:var(--fji-accent);font-weight:700">View all models</a></p></div>';
+    return;
+  }
+  grid.style.opacity = '0';
+  grid.innerHTML = '';
+  prods.forEach(function(p) {
+    var badgeHtml = p.badge ? '<span class="fji-product-badge ' + p.bc + '">' + p.badge + '</span>' : '';
+    var cpHtml = p.cp ? '<span class="fji-price-was">' + p.cp + '</span>' : '';
+    var saveHtml = '';
+    if (p.cp) {
+      var orig = parseFloat(p.cp.replace(/[^0-9.]/g, '')), sale = parseFloat(p.p.replace(/[^0-9.]/g, ''));
+      if (orig > sale) saveHtml = '<span class="fji-price-save">Save ' + Math.round((orig - sale) / orig * 100) + '%</span>';
+    }
+    var featsHtml = Array.isArray(p.feats) ? p.feats.map(function(f){ return '<li>' + f + '</li>'; }).join('') : '';
+    var card = document.createElement('article');
+    card.className = 'fji-product-card';
+    card.innerHTML =
+      badgeHtml +
+      '<div class="fji-product-img-wrap">' +
+        '<a class="fji-product-img-link" href="' + p.u + '"></a>' +
+        '<img class="fji-product-img" src="' + p.img + '" alt="' + p.n + '" loading="lazy">' +
+      '</div>' +
+      '<div class="fji-product-body">' +
+        '<div class="fji-product-for">' + p.bFor + '</div>' +
+        '<div class="fji-product-name"><a href="' + p.u + '">' + p.n + '</a></div>' +
+        '<ul class="fji-product-feats">' + featsHtml + '</ul>' +
+        '<div class="fji-product-prices"><span class="fji-price-sale">' + p.p + '</span>' + cpHtml + saveHtml + '</div>' +
+        '<a href="' + p.u + '" class="fji-product-cta">View Details &rarr;</a>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+  setTimeout(function(){ grid.style.transition = 'opacity .3s'; grid.style.opacity = '1'; }, 40);
+}
+
+// ── FAQ ─────────────────────────────────────────────────────────────────────
+function fjiFaq(el) {
+  var a = el.nextElementSibling;
+  var open = a.classList.contains('open');
+  document.querySelectorAll('.fji-faq-a').forEach(function(x){ x.classList.remove('open'); });
+  document.querySelectorAll('.fji-faq-q').forEach(function(x){ x.classList.remove('active'); });
+  if (!open) { a.classList.add('open'); el.classList.add('active'); }
+}
+
+// ── SCROLL SPY ──────────────────────────────────────────────────────────────
+(function() {
+  var links = document.querySelectorAll('.fji-subnav-inner a');
+  var ids = ['fji-collection','fji-overview','fji-why','fji-model-guide','fji-buyer-types','fji-vs-brands','fji-pricing','fji-trust','fji-showrooms','fji-faq'];
+  window.addEventListener('scroll', function() {
+    var pos = window.scrollY + 140, active = '';
+    ids.forEach(function(id){ var el = document.getElementById(id); if (el && pos >= el.offsetTop) active = id; });
+    links.forEach(function(l){ l.classList.remove('fji-active'); if (l.getAttribute('href') === '#' + active) l.classList.add('fji-active'); });
+  });
+})();
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+fjiBuildGrid();
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Fujiiryoki Collection",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Recommended: dark, Fujiiryoki-themed, 2000px wide."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fujiiryoki Collection"
+    }
+  ]
+}
+{% endschema %}

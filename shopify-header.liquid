@@ -1,0 +1,417 @@
+<style>
+/* === HOMC TOP BAR === */
+.homc-topbar{background:#111;padding:8px 0;font-family:'Inter',sans-serif}
+.homc-topbar-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.homc-topbar a{color:#fff;text-decoration:none;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s}
+.homc-topbar a:hover{color:#b38b4d}
+.homc-topbar svg{width:14px;height:14px;flex-shrink:0}
+
+/* === HOMC HEADER — White Premium === */
+/* Fixed header wrapper — topbar + header together */
+.homc-sticky-wrap{position:fixed;top:0;left:0;width:100%;z-index:1000}
+.homc-header{background:#fff;border-bottom:1px solid #eee;font-family:'Inter',sans-serif}
+.homc-header *{box-sizing:border-box;margin:0;padding:0}
+.homc-header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;padding:0 2rem;height:68px;gap:20px}
+
+/* Logo */
+.homc-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+.homc-logo img{height:46px;width:auto}
+
+/* Nav */
+.homc-nav{display:flex;align-items:center;gap:2px;list-style:none;margin:0 auto}
+.homc-nav a{color:#333;font-size:14px;font-weight:600;text-decoration:none;padding:8px 14px;border-radius:8px;transition:all 0.2s;white-space:nowrap;letter-spacing:0.01em;position:relative}
+.homc-nav a:hover{color:#000;background:rgba(0,0,0,0.04)}
+.homc-nav a::after{content:'';position:absolute;bottom:2px;left:50%;width:0;height:2px;background:#b38b4d;border-radius:2px;transition:all 0.25s;transform:translateX(-50%)}
+.homc-nav a:hover::after{width:60%}
+
+/* === DROPDOWN === */
+.homc-nav-item{position:relative;display:inline-flex;align-items:center}
+.homc-nav-item > a{display:inline-flex;align-items:center;gap:5px}
+.homc-nav-item > a .homc-chevron{width:10px;height:10px;stroke:#666;stroke-width:2.5;fill:none;transition:transform 0.25s}
+.homc-nav-item:hover > a .homc-chevron{transform:rotate(180deg);stroke:#000}
+
+.homc-dropdown{
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-4px);
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:14px 0 8px;
+  min-width:230px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.10);
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden;
+  transition:opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index:2000;
+}
+.homc-nav-item:hover .homc-dropdown{
+  opacity:1;
+  pointer-events:auto;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
+/* Invisible bridge fills gap between trigger and panel */
+.homc-nav-item > a::before{
+  content:'';
+  position:absolute;
+  bottom:-12px;
+  left:0;
+  width:100%;
+  height:12px;
+}
+.homc-dropdown::before{
+  content:'';position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #eee;
+}
+.homc-dropdown::after{
+  content:'';position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #fff;
+}
+.homc-dropdown a{
+  display:block;padding:9px 20px;color:#333;font-size:13px;font-weight:600;
+  text-decoration:none;border-radius:0;letter-spacing:0.01em;
+  transition:background 0.15s, color 0.15s;white-space:nowrap;background:transparent;
+}
+.homc-dropdown a:hover{background:#faf6ef;color:#b38b4d}
+.homc-dropdown a::after{display:none}
+.homc-dropdown-header{
+  padding:6px 20px 4px;font-size:10px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;color:#b38b4d;
+}
+.homc-dropdown-divider{height:1px;background:#f0f0f0;margin:4px 12px}
+
+/* Right icons + CTA */
+.homc-header-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.homc-hi{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;transition:all 0.2s;position:relative;cursor:pointer;text-decoration:none}
+.homc-hi:hover{background:rgba(0,0,0,0.05)}
+.homc-hi svg{width:20px;height:20px;fill:none;stroke:#333;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.homc-hi:hover svg{stroke:#000}
+.homc-badge{position:absolute;top:2px;right:0;min-width:16px;height:16px;background:#b38b4d;color:#fff;font-size:9px;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;padding:0 3px}
+.homc-cta{display:inline-flex;align-items:center;padding:10px 24px;background:#111;color:#fff;font-size:13px;font-weight:700;border-radius:50px;text-decoration:none;transition:all 0.3s;white-space:nowrap;margin-left:6px;letter-spacing:0.02em}
+.homc-cta:hover{background:#b38b4d;transform:translateY(-1px);box-shadow:0 6px 16px rgba(179,139,77,0.25)}
+
+/* Hamburger */
+.homc-ham{display:none;width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;border:none;background:transparent;border-radius:8px;transition:background 0.2s;flex-shrink:0}
+.homc-ham:hover{background:rgba(0,0,0,0.05)}
+.homc-ham span{display:block;width:18px;height:2px;background:#222;border-radius:2px;position:relative;transition:all 0.3s}
+.homc-ham span::before,.homc-ham span::after{content:'';position:absolute;left:0;width:18px;height:2px;background:#222;border-radius:2px;transition:all 0.3s}
+.homc-ham span::before{top:-6px}
+.homc-ham span::after{top:6px}
+.homc-ham.open span{background:transparent}
+.homc-ham.open span::before{top:0;transform:rotate(45deg)}
+.homc-ham.open span::after{top:0;transform:rotate(-45deg)}
+
+/* Mobile drawer */
+.homc-drawer{display:none;position:fixed;top:68px;left:0;width:100%;height:calc(100vh - 68px);background:#fff;padding:1.5rem 1.25rem;overflow-y:auto;z-index:999;transform:translateX(100%);transition:transform 0.3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.08)}
+.homc-drawer.open{transform:translateX(0)}
+.homc-drawer a{display:block;color:#222;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;padding:15px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;transition:color 0.2s}
+.homc-drawer a:last-of-type{border-bottom:none}
+.homc-drawer a:hover{color:#b38b4d}
+.homc-drawer .homc-drawer-contact{display:flex;flex-direction:column;gap:12px;margin-top:20px;padding-top:16px;border-top:2px solid #f0f0f0}
+.homc-drawer .homc-drawer-contact a{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:8px 0;border-bottom:none;color:#333}
+.homc-drawer .homc-drawer-contact svg{width:16px;height:16px;flex-shrink:0}
+.homc-drawer .homc-cta{display:block;text-align:center;margin-top:1.25rem;padding:16px;font-size:16px;border-radius:14px;background:#111;color:#fff}
+.homc-drawer .homc-cta:hover{background:#b38b4d;color:#fff}
+
+/* Mobile accordion */
+.homc-drawer-accordion{border-bottom:1px solid #f0f0f0}
+.homc-drawer-accordion-trigger{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;background:transparent;border:none;padding:15px 0;
+  color:#222;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;
+  cursor:pointer;text-align:left;
+}
+.homc-drawer-accordion-trigger:hover{color:#b38b4d}
+.homc-drawer-accordion-trigger svg{
+  width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;
+  transition:transform 0.25s;flex-shrink:0
+}
+.homc-drawer-accordion-trigger.open svg{transform:rotate(180deg)}
+.homc-drawer-subnav{display:none;padding:0 0 8px 12px;border-left:2px solid #f0f0f0;margin-bottom:4px}
+.homc-drawer-subnav.open{display:block}
+.homc-drawer-subnav a{font-size:14px;font-weight:500;color:#555;padding:9px 0;border-bottom:1px solid #f8f8f8}
+.homc-drawer-subnav a:last-of-type{border-bottom:none}
+.homc-drawer-subnav a:hover{color:#b38b4d}
+.homc-drawer-subnav-header{
+  font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  color:#b38b4d;padding:6px 0 2px;border-bottom:none !important;display:block;
+}
+
+/* Desktop icons container */
+.homc-desktop-icons{display:flex;align-items:center;gap:4px}
+
+/* === RESPONSIVE === */
+@media(max-width:1100px){
+    .homc-nav{display:none}
+    .homc-ham{display:flex;margin-left:auto}
+    .homc-drawer{display:block}
+    .homc-header-inner{padding:0 1rem;height:60px;justify-content:space-between}
+    .homc-drawer{top:60px;height:calc(100vh - 60px)}
+    .homc-logo img{height:42px}
+    .homc-cta{display:none}
+    .homc-header-actions{margin-left:auto}
+    .homc-topbar-inner{padding:0 1rem}
+}
+@media(max-width:480px){
+    .homc-header-inner{gap:8px;padding:0 0.75rem}
+    .homc-logo img{height:36px}
+    .homc-desktop-icons .homc-hi:nth-child(1),
+    .homc-desktop-icons .homc-hi:nth-child(2){display:none}
+    .homc-topbar{display:none}
+}
+@media(min-width:1101px){
+    .homc-drawer{display:none !important}
+}
+</style>
+
+<!-- STICKY WRAP: topbar + header -->
+<div class="homc-sticky-wrap">
+
+<!-- TOP BAR -->
+<div class="homc-topbar">
+    <div class="homc-topbar-inner">
+        <a href="tel:+16692148889">
+            <svg viewBox="0 0 24 24" fill="#b38b4d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            +1 669 214 8889
+        </a>
+        <a href="mailto:info@houseofmassagechairs.com">
+            <svg viewBox="0 0 24 24" fill="#b38b4d"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            info@houseofmassagechairs.com
+        </a>
+    </div>
+</div>
+
+<!-- MAIN HEADER -->
+<header class="homc-header">
+    <div class="homc-header-inner">
+        <!-- Logo -->
+        <a href="/" class="homc-logo">
+            <img src="https://houseofmassagechairs.com/cdn/shop/files/hmc-logo.png?v=1772891968&width=440" alt="House of Massage Chairs">
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="homc-nav">
+
+            <!-- Massage Chairs + Brand Dropdown -->
+            <div class="homc-nav-item">
+                <a href="/collections/massage-chairs">
+                    Massage Chairs
+                    <svg class="homc-chevron" viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+                </a>
+                <div class="homc-dropdown">
+                    <div class="homc-dropdown-header">By Brand</div>
+                    <a href="/collections/bodyfriend">Bodyfriend</a>
+                    <a href="/collections/cozzia">Cozzia</a>
+                    <a href="/collections/fujiiryoki">Fujiiryoki</a>
+                    <a href="/collections/infinity">Infinity</a>
+                    <a href="/collections/jp-medics">JP Medics</a>
+                    <a href="/collections/kyota">Kyota</a>
+                    <a href="/collections/ogawa">Ogawa</a>
+                    <a href="/collections/osaki">Osaki</a>
+                </div>
+            </div>
+
+            <!-- Recliners + Product Dropdown -->
+            <div class="homc-nav-item">
+                <a href="/collections/recliners">
+                    Recliners
+                    <svg class="homc-chevron" viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+                </a>
+                <div class="homc-dropdown">
+                    <div class="homc-dropdown-header">By Svago</div>
+                    <a href="/products/svago-the-motion-mastery-massage-chair">The Motion Mastery</a>
+                    <a href="/products/svago-zgr-zero-gravity-recliner">ZGR Zero Gravity Recliner</a>
+                    <a href="/products/svago-newton-zero-gravity-recliner">Newton Zero Gravity Recliner</a>
+                </div>
+            </div>
+
+            <!-- Portable Massager + Product Dropdown -->
+            <div class="homc-nav-item">
+                <a href="/collections/portable-massager">
+                    Portable Massager
+                    <svg class="homc-chevron" viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+                </a>
+                <div class="homc-dropdown">
+                    <div class="homc-dropdown-header">By Neklon</div>
+                    <a href="/products/neklon-k16-foot-massager-machine">Neklon K16 Foot Massager</a>
+                    <a href="/products/neklon-yt850-foot-massager-machine">Neklon YT850 Foot Massager</a>
+                </div>
+            </div>
+
+            <!-- Showrooms Dropdown -->
+            <div class="homc-nav-item">
+                <a href="javascript:void(0)" style="cursor:default">
+                    Showrooms
+                    <svg class="homc-chevron" viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+                </a>
+                <div class="homc-dropdown">
+                    <div class="homc-dropdown-header">Our Locations</div>
+                    <a href="/pages/pleasanton-showroom">Pleasanton</a>
+                    <a href="/pages/san-jose-showroom">San Jose</a>
+                </div>
+            </div>
+
+            <!-- Reviews Dropdown -->
+            <div class="homc-nav-item">
+                <a href="javascript:void(0)" style="cursor:default">
+                    Reviews
+                    <svg class="homc-chevron" viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+                </a>
+                <div class="homc-dropdown">
+                    <div class="homc-dropdown-header">By Brand</div>
+                    <a href="/pages/bodyfriend-massage-chair-reviews">Bodyfriend</a>
+                    <a href="/pages/cozzia-massage-chair-reviews">Cozzia</a>
+                    <a href="/pages/fujiiryoki-massage-chair-reviews">Fujiiryoki</a>
+                    <a href="/pages/infinity-massage-chair-reviews">Infinity</a>
+                    <a href="/pages/jp-medics-massage-chair-reviews">JP Medics</a>
+                    <a href="/pages/kyota-massage-chair-reviews">Kyota</a>
+                    <a href="/pages/ogawa-massage-chair-reviews">Ogawa</a>
+                    <a href="/pages/osaki-massage-chair-reviews">Osaki</a>
+                </div>
+            </div>
+            <a href="/pages/contact">Contact</a>
+            <a href="/blogs/news">Blog</a>
+        </nav>
+
+        <!-- Right: Icons + CTA + Hamburger -->
+        <div class="homc-header-actions">
+            <div class="homc-desktop-icons">
+                <!-- Search -->
+                <a href="/search" class="homc-hi" aria-label="Search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+                </a>
+                <!-- Account -->
+                <a href="/account" class="homc-hi" aria-label="Account">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/></svg>
+                </a>
+
+                <!-- Cart -->
+                <a href="/cart" class="homc-hi" aria-label="Cart">
+                    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    <span class="homc-badge">{{ cart.item_count }}</span>
+                </a>
+            </div>
+            <!-- Book Showroom CTA -->
+            <a href="/pages/our-store" class="homc-cta">Book Showroom</a>
+            <!-- Hamburger -->
+            <button class="homc-ham" onclick="this.classList.toggle('open');document.getElementById('homcDrawer').classList.toggle('open')" aria-label="Menu">
+                <span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+</div><!-- /homc-sticky-wrap -->
+
+<script>
+(function(){
+  function setHeaderOffset(){
+    var wrap = document.querySelector('.homc-sticky-wrap');
+    if(!wrap) return;
+    document.body.style.paddingTop = wrap.offsetHeight + 'px';
+  }
+  setHeaderOffset();
+  window.addEventListener('resize', setHeaderOffset);
+})();
+</script>
+
+<!-- Mobile Drawer -->
+<div class="homc-drawer" id="homcDrawer">
+
+    <!-- Massage Chairs accordion -->
+    <div class="homc-drawer-accordion">
+        <button class="homc-drawer-accordion-trigger" onclick="this.classList.toggle('open');document.getElementById('homcBrandNav').classList.toggle('open')">
+            Massage Chairs
+            <svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div class="homc-drawer-subnav" id="homcBrandNav">
+            <span class="homc-drawer-subnav-header">By Brand</span>
+            <a href="/collections/bodyfriend">Bodyfriend</a>
+            <a href="/collections/cozzia">Cozzia</a>
+            <a href="/collections/fujiiryoki">Fujiiryoki</a>
+            <a href="/collections/infinity">Infinity</a>
+            <a href="/collections/jp-medics">JP Medics</a>
+            <a href="/collections/kyota">Kyota</a>
+            <a href="/collections/ogawa">Ogawa</a>
+            <a href="/collections/osaki">Osaki</a>
+        </div>
+    </div>
+
+    <!-- Recliners accordion -->
+    <div class="homc-drawer-accordion">
+        <button class="homc-drawer-accordion-trigger" onclick="this.classList.toggle('open');document.getElementById('homcReclinerNav').classList.toggle('open')">
+            Recliners
+            <svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div class="homc-drawer-subnav" id="homcReclinerNav">
+            <span class="homc-drawer-subnav-header">By Svago</span>
+            <a href="/products/svago-the-motion-mastery-massage-chair">The Motion Mastery</a>
+            <a href="/products/svago-zgr-zero-gravity-recliner">ZGR Zero Gravity Recliner</a>
+            <a href="/products/svago-newton-zero-gravity-recliner">Newton Zero Gravity Recliner</a>
+        </div>
+    </div>
+
+    <!-- Portable Massager accordion -->
+    <div class="homc-drawer-accordion">
+        <button class="homc-drawer-accordion-trigger" onclick="this.classList.toggle('open');document.getElementById('homcPortableNav').classList.toggle('open')">
+            Portable Massager
+            <svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div class="homc-drawer-subnav" id="homcPortableNav">
+            <span class="homc-drawer-subnav-header">By Neklon</span>
+            <a href="/products/neklon-k16-foot-massager-machine">Neklon K16 Foot Massager</a>
+            <a href="/products/neklon-yt850-foot-massager-machine">Neklon YT850 Foot Massager</a>
+        </div>
+    </div>
+
+    <!-- Showrooms accordion -->
+    <div class="homc-drawer-accordion">
+        <button class="homc-drawer-accordion-trigger" onclick="this.classList.toggle('open');document.getElementById('homcShowroomsNav').classList.toggle('open')">
+            Showrooms
+            <svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div class="homc-drawer-subnav" id="homcShowroomsNav">
+            <span class="homc-drawer-subnav-header">Our Locations</span>
+            <a href="/pages/pleasanton-showroom">Pleasanton</a>
+            <a href="/pages/san-jose-showroom">San Jose</a>
+        </div>
+    </div>
+    <!-- Reviews accordion -->
+    <div class="homc-drawer-accordion">
+        <button class="homc-drawer-accordion-trigger" onclick="this.classList.toggle('open');document.getElementById('homcReviewsNav').classList.toggle('open')">
+            Reviews
+            <svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg>
+        </button>
+        <div class="homc-drawer-subnav" id="homcReviewsNav">
+            <span class="homc-drawer-subnav-header">By Brand</span>
+            <a href="/pages/bodyfriend-massage-chair-reviews">Bodyfriend</a>
+            <a href="/pages/cozzia-massage-chair-reviews">Cozzia</a>
+            <a href="/pages/fujiiryoki-massage-chair-reviews">Fujiiryoki</a>
+            <a href="/pages/infinity-massage-chair-reviews">Infinity</a>
+            <a href="/pages/jp-medics-massage-chair-reviews">JP Medics</a>
+            <a href="/pages/kyota-massage-chair-reviews">Kyota</a>
+            <a href="/pages/ogawa-massage-chair-reviews">Ogawa</a>
+            <a href="/pages/osaki-massage-chair-reviews">Osaki</a>
+        </div>
+    </div>
+    <a href="/pages/contact">Contact</a>
+    <a href="/blogs/news">Blog</a>
+    <a href="/search">Search</a>
+    <a href="/account">My Account</a>
+
+    <a href="/cart">Cart ({{ cart.item_count }})</a>
+    <div class="homc-drawer-contact">
+        <a href="tel:+16692148889">
+            <svg viewBox="0 0 24 24" fill="#b38b4d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            +1 669 214 8889
+        </a>
+        <a href="mailto:info@houseofmassagechairs.com">
+            <svg viewBox="0 0 24 24" fill="#b38b4d"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            info@houseofmassagechairs.com
+        </a>
+    </div>
+    <a href="/pages/pleasanton-showroom" class="homc-cta">Book Showroom Visit</a>
+</div>
