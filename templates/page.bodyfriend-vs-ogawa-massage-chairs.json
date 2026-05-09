@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-bodyfriend-vs-ogawa",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

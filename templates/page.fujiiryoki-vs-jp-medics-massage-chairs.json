@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-fujiiryoki-vs-jp-medics",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
