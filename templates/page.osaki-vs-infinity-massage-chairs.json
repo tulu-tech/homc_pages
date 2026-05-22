@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-osaki-vs-infinity",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
